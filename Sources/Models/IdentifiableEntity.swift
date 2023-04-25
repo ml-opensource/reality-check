@@ -143,6 +143,7 @@ extension IdentifiableEntity.EntityType {
         switch self {
         case .anchor:
             return """
+                An anchor that tethers entities to a scene.
                 """
         case .bodyTrackedEntity:
             return """
@@ -150,21 +151,27 @@ extension IdentifiableEntity.EntityType {
                 """
         case .directionalLight:
             return """
+                An entity that casts a virtual light in a particular direction.
                 """
         case .entity:
             return """
+                An element of a RealityKit scene to which you attach components that provide appearance and behavior characteristics for the entity.
                 """
         case .model:
             return """
+                A representation of a physical object that RealityKit renders and optionally simulates.
                 """
         case .perspectiveCamera:
             return """
+                A virtual camera that establishes the rendering perspective.
                 """
         case .pointLight:
             return """
+                An entity that produces an omnidirectional light for virtual objects.
                 """
         case .spotLight:
             return """
+                An entity that illuminates virtual content in a cone-shaped volume.
                 """
         case .triggerVolume:
             return

@@ -24,6 +24,7 @@ struct ContentView: View {
                             entity.type.description,
                             systemImage: entity.type.symbol
                         )
+                        .help(entity.type.help)
                     }
                 )
             }
