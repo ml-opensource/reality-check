@@ -1,4 +1,5 @@
 import Dependencies
+import RealityDumpClient
 import RealityKit
 import SwiftUI
 
@@ -7,14 +8,26 @@ struct ContentView: View {
     @State private var text: String = """
         Biscuit dessert tart gummi bears pie biscuit. Pastry oat cake fruitcake chocolate cake marzipan shortbread pie toffee muffin. Marshmallow biscuit muffin sesame snaps chocolate cake candy tart. Tart biscuit croissant tiramisu powder chocolate cake chocolate bar candy canes.
         """
-    var body: some View {
-        NavigationView {
 
-            List(selection: .constant(true)) {
-                Text("...")
+    @State private var identifiedEntities: [IdentifiableEntity] = []
+    @State private var selection: IdentifiableEntity? = nil  // Nothing selected by default.
+
+    @Dependency(\.realityDump) var realityDump
+
+    var body: some View {
+        NavigationSplitView {
+            List(identifiedEntities, children: \.children, selection: $selection) { entity in
+                NavigationLink.init(
+                    value: entity,
+                    label: {
+                        Label(
+                            entity.type.description,
+                            systemImage: entity.type.symbol
+                        )
+                    }
+                )
             }
-            .listStyle(.sidebar)
-            .frame(width: 270)
+        } content: {
             VSplitView {
                 ARContainerView(points: points)
                     .ignoresSafeArea()
@@ -38,18 +51,33 @@ struct ContentView: View {
                     .foregroundColor(.cyan)
                     .multilineTextAlignment(.leading)
             }
-        } 
+        } detail: {
+            Group {
+                if let entity = selection {
+                    EntityDetailView(entity: entity)
+                } else {
+                    Text("Pick an entity")
+                }
+            }
+            // .navigationSplitViewColumnWidth(270)
+        }
         .toolbar {
             Button(
                 action: {
-                    text = dumpRealityEntity(worldOriginAnchor, printing: false).joined(
-                        separator: "\n")
+                    Task {
+                        text = await realityDump.raw(
+                            worldOriginAnchor,
+                            printing: false,
+                            org: false
+                        )
+                        .joined(separator: "\n")
+
+                        identifiedEntities = await realityDump.identify(worldOriginAnchor)
+                    }
                 },
                 label: { Label("Dump", systemImage: "ladybug") }
             )
-
         }
-
     }
 
     private func random() {
@@ -91,10 +119,10 @@ struct ARContainerView: ViewRepresentable {
         let arView = ARView(frame: .zero)
 
         arView.environment.background = .color(.windowBackgroundColor)
-        // let skyboxName = "aerodynamics_workshop_4k.exr"
-        // let skyboxResource = try! EnvironmentResource.load(named: skyboxName)
-        // arView.environment.lighting.resource = skyboxResource
-        // arView.environment.background = .skybox(skyboxResource)
+        let skyboxName = "aerodynamics_workshop_4k.exr"
+        let skyboxResource = try! EnvironmentResource.load(named: skyboxName)
+        arView.environment.lighting.resource = skyboxResource
+        arView.environment.background = .skybox(skyboxResource)
 
         arView.scene.anchors.append(worldOriginAnchor)
         worldOriginAnchor.setOrientation(
@@ -115,6 +143,8 @@ struct ARContainerView: ViewRepresentable {
         )
         floor.position.y -= 0.1
         worldOriginAnchor.addChild(floor)
+
+        worldOriginAnchor.addChild(Entity())
         return arView
     }
 
