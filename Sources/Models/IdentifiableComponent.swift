@@ -1,14 +1,15 @@
 import Foundation
 import RealityKit
 
-protocol ComponentRepresentable { }
+protocol ComponentRepresentable {}
 
 struct AnchoringComponentRepresentable: ComponentRepresentable {}
 struct CharacterControllerComponentRepresentable: ComponentRepresentable {}
 
-public struct IdentifiableComponent {
+public struct IdentifiableComponent: Equatable, Hashable {
+
     //TODO: include TransientComponent.self
-    enum ComponentType: CaseIterable {
+    public enum ComponentType: CaseIterable, RawRepresentable {
         case anchoringComponent
         case characterControllerComponent
         case characterControllerStateComponent
@@ -26,7 +27,7 @@ public struct IdentifiableComponent {
         case synchronizationComponent
         case transform
 
-        var componentType: Component.Type {
+        public var rawValue: Component.Type {
             switch self {
             case .anchoringComponent:
                 return AnchoringComponent.self
@@ -75,11 +76,25 @@ public struct IdentifiableComponent {
 
             case .transform:
                 return Transform.self
-
-            //TODO: handle unknown components
-            // @unknown default:
-            //     fatalError("Unknown Component.Type")
             }
         }
+
+        public init?(rawValue: Component.Type) {
+            for componentType in Self.allCases {
+                if componentType.rawValue == rawValue {
+                    self = componentType
+                    return
+                }
+            }
+            //TODO: handle unknown components
+            fatalError("Unknown Component.Type")
+        }
+    }
+
+    public let componentType: ComponentType
+
+    public init(_ component: RealityKit.Component) {
+        //FIXME: handle errors
+        self.componentType = .init(rawValue: type(of: component))!
     }
 }

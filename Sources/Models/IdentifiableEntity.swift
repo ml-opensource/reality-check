@@ -1,4 +1,5 @@
 import Foundation
+import RealityKit
 
 public struct IdentifiableEntity: Identifiable, Hashable {
     public let id: UInt64
@@ -52,13 +53,13 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     }
 
     public struct Components: Equatable, Hashable {
-        public let componentsCount: Int
-        // public let components: Entity.ComponentSet
+        public let components: [IdentifiableComponent]
+        public var count: Int { components.count }
 
         public init(
-            componentsCount: Int
+            components: [IdentifiableComponent]
         ) {
-            self.componentsCount = componentsCount
+            self.components = components
         }
     }
 
@@ -104,5 +105,15 @@ extension IdentifiableEntity.EntityType {
         case .entity:
             return "move.3d"
         }
+    }
+}
+
+//MARK: -
+
+extension Entity.ComponentSet: Equatable {
+    //FIXME: Find a better way to use equatable or use another type instear `Entity.ComponentSet`
+
+    public static func == (lhs: Entity.ComponentSet, rhs: Entity.ComponentSet) -> Bool {
+        lhs.count == rhs.count
     }
 }

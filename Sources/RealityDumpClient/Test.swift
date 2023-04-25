@@ -32,8 +32,6 @@ extension IdentifiableEntity {
             children: [],
             hasParent: false
         ),
-        components: .init(
-            componentsCount: 5
-        )
+        components: .init(components: [])
     )
 }

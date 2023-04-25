@@ -35,7 +35,7 @@ struct EntityDetailView: View {
             }
 
             Section("Components") {
-                LabeledContent("count", value: "\(entity.components.componentsCount)")
+                LabeledContent("count", value: "\(entity.components.count)")
             }
         }
     }

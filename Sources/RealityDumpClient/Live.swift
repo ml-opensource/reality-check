@@ -23,6 +23,20 @@ enum Dumper {
         identifyEntities(loadedEntity, detail: detail, nesting: 1)
     }
 
+    private static func identifyComponents(
+        _ components: Entity.ComponentSet
+    ) -> [IdentifiableComponent] {
+        var identifiableComponents: [IdentifiableComponent] = []
+        for componentType in IdentifiableComponent.ComponentType.allCases {
+            if let component = components[componentType.rawValue] {
+                identifiableComponents.append(IdentifiableComponent(component))
+            }
+        }
+        
+        print(identifiableComponents.map(\.componentType.rawValue))
+        return identifiableComponents
+    }
+
     private static func identifyEntities(
         _ loadedEntity: Entity, detail: Int, nesting: Int
     ) -> [IdentifiableEntity] {
@@ -40,7 +54,7 @@ enum Dumper {
             hasParent: !(loadedEntity.parent == nil)
         )
         let components = IdentifiableEntity.Components(
-            componentsCount: loadedEntity.components.count
+            components: identifyComponents(loadedEntity.components)
         )
 
         if let anchorEntity = loadedEntity as? AnchorEntity {

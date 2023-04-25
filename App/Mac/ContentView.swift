@@ -104,6 +104,11 @@ let worldOriginAnchor: AnchorEntity = {
     anchor.name = "Le Anchor"
     return anchor
 }()
+
+let dummyEntity: Entity = Entity()
+let dummyAnchor: AnchorEntity =  AnchorEntity(world: .zero)
+let anotherDummyAnchor: AnchorEntity =  AnchorEntity(world: .zero)
+
 let boxEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
 var balls: [ModelEntity] = []
 
@@ -126,6 +131,7 @@ struct ARContainerView: ViewRepresentable {
         arView.environment.background = .skybox(skyboxResource)
 
         arView.scene.anchors.append(worldOriginAnchor)
+        arView.scene.anchors.append(dummyAnchor)
         worldOriginAnchor.setOrientation(
             .init(angle: deg2rad(35), axis: [1, 0, 0]), relativeTo: nil)
         let camera = PerspectiveCamera()
@@ -145,7 +151,8 @@ struct ARContainerView: ViewRepresentable {
         floor.position.y -= 0.1
         worldOriginAnchor.addChild(floor)
 
-        boxEntity.addChild(Entity())
+        boxEntity.addChild(dummyEntity)
+        boxEntity.addChild(anotherDummyAnchor)
         return arView
     }
 
