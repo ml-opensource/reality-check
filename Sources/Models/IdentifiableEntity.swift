@@ -16,6 +16,9 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     public enum EntityType: Codable {
         case anchor
         case model
+        case spotLight
+        case pointLight
+        case directionalLight
         case entity
     }
 
@@ -91,6 +94,12 @@ extension IdentifiableEntity.EntityType: CustomStringConvertible {
             return "ModelEntity"
         case .entity:
             return "Entity"
+        case .spotLight:
+            return "SpotLight"
+        case .pointLight:
+            return "PointLight"
+        case .directionalLight:
+            return "DirectionalLight"
         }
     }
 }
@@ -104,6 +113,12 @@ extension IdentifiableEntity.EntityType {
             return "cube"
         case .entity:
             return "move.3d"
+        case .spotLight:
+            return "lamp.desk"
+        case .pointLight:
+            return "lightbulb.led"
+        case .directionalLight:
+            return "sun.max"
         }
     }
 }

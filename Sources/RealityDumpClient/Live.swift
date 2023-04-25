@@ -32,7 +32,7 @@ enum Dumper {
                 identifiableComponents.append(IdentifiableComponent(component))
             }
         }
-        
+
         print(identifiableComponents.map(\.componentType.rawValue))
         return identifiableComponents
     }
@@ -75,6 +75,39 @@ enum Dumper {
                     id: modelEntity.id,
                     name: modelEntity.name,
                     type: .model,
+                    state: state,
+                    hierarhy: hierarhy,
+                    components: components
+                )
+            )
+        } else if let modelEntity = loadedEntity as? DirectionalLight {
+            identifiableEntities.append(
+                .init(
+                    id: modelEntity.id,
+                    name: modelEntity.name,
+                    type: .directionalLight,
+                    state: state,
+                    hierarhy: hierarhy,
+                    components: components
+                )
+            )
+        } else if let modelEntity = loadedEntity as? PointLight {
+            identifiableEntities.append(
+                .init(
+                    id: modelEntity.id,
+                    name: modelEntity.name,
+                    type: .pointLight,
+                    state: state,
+                    hierarhy: hierarhy,
+                    components: components
+                )
+            )
+        } else if let modelEntity = loadedEntity as? SpotLight {
+            identifiableEntities.append(
+                .init(
+                    id: modelEntity.id,
+                    name: modelEntity.name,
+                    type: .spotLight,
                     state: state,
                     hierarhy: hierarhy,
                     components: components
