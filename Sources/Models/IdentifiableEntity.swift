@@ -13,9 +13,9 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     public var hierarhy: Hierarhy
     public var components: Components
 
-    public enum EntityType: Codable {
+    public enum EntityType: CaseIterable, RawRepresentable {
         case anchor
-        case bodyTrackedEntity
+        // case bodyTrackedEntity
         case directionalLight
         case entity
         case model
@@ -23,6 +23,40 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         case pointLight
         case spotLight
         case triggerVolume
+
+        public var rawValue: Entity.Type {
+            switch self {
+            case .anchor:
+                return AnchorEntity.self
+            // case .bodyTrackedEntity:
+            //     return AnchorEntity.self
+            case .directionalLight:
+                return DirectionalLight.self
+            case .entity:
+                return Entity.self
+            case .model:
+                return ModelEntity.self
+            case .perspectiveCamera:
+                return PerspectiveCamera.self
+            case .pointLight:
+                return PointLight.self
+            case .spotLight:
+                return SpotLight.self
+            case .triggerVolume:
+                return TriggerVolume.self
+            }
+        }
+
+        public init?(rawValue: Entity.Type) {
+            for entityType in Self.allCases {
+                if entityType.rawValue == rawValue {
+                    self = entityType
+                    return
+                }
+            }
+            //TODO: handle unknown entities
+            fatalError("Unknown Entity.Type")
+        }
     }
 
     public struct State: Equatable, Hashable {
@@ -69,19 +103,35 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         }
     }
 
+    // public init(
+    //     id: UInt64,
+    //     anchorIdentifier: UUID? = nil,
+    //     name: String? = nil,
+    //     type: EntityType,
+    //     state: IdentifiableEntity.State,
+    //     hierarhy: IdentifiableEntity.Hierarhy,
+    //     components: IdentifiableEntity.Components
+    // ) {
+    //     self.id = id
+    //     self.anchorIdentifier = anchorIdentifier
+    //     self.name = name
+    //     self.type = type
+    //     self.state = state
+    //     self.hierarhy = hierarhy
+    //     self.components = components
+    // }
+
     public init(
-        id: UInt64,
-        anchorIdentifier: UUID? = nil,
-        name: String? = nil,
-        type: EntityType,
+        _ entity: RealityKit.Entity,
         state: IdentifiableEntity.State,
         hierarhy: IdentifiableEntity.Hierarhy,
         components: IdentifiableEntity.Components
     ) {
-        self.id = id
-        self.anchorIdentifier = anchorIdentifier
-        self.name = name
-        self.type = type
+        self.id = entity.id
+        //FIXME
+        // self.anchorIdentifier = entity.anchorIdentifier
+        self.name = entity.name
+        self.type = .init(rawValue: Swift.type(of: entity))!
         self.state = state
         self.hierarhy = hierarhy
         self.components = components
@@ -93,8 +143,8 @@ extension IdentifiableEntity.EntityType: CustomStringConvertible {
         switch self {
         case .anchor:
             return "AnchorEntity"
-        case .bodyTrackedEntity:
-            return "BodyTrackedEntity"
+        // case .bodyTrackedEntity:
+        //     return "BodyTrackedEntity"
         case .directionalLight:
             return "DirectionalLight"
         case .entity:
@@ -118,8 +168,8 @@ extension IdentifiableEntity.EntityType {
         switch self {
         case .anchor:
             return "arrow.down.to.line"
-        case .bodyTrackedEntity:
-            return "figure.walk"
+        // case .bodyTrackedEntity:
+        //     return "figure.walk"
         case .directionalLight:
             return "sun.max"
         case .entity:
@@ -145,10 +195,10 @@ extension IdentifiableEntity.EntityType {
             return """
                 An anchor that tethers entities to a scene.
                 """
-        case .bodyTrackedEntity:
-            return """
-                An entity used to animate a virtual character in an AR scene by tracking a real person.
-                """
+        // case .bodyTrackedEntity:
+        //     return """
+        //         An entity used to animate a virtual character in an AR scene by tracking a real person.
+        //         """
         case .directionalLight:
             return """
                 An entity that casts a virtual light in a particular direction.

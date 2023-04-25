@@ -44,8 +44,9 @@ struct EntityDetailView: View {
     }
 }
 
-struct EntityDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        EntityDetailView(entity: IdentifiableEntity.mock)
-    }
-}
+//FIXME:
+//struct EntityDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//       EntityDetailView(entity: IdentifiableEntity.mock)
+//    }
+//}

@@ -10,28 +10,30 @@ extension RealityDump {
                 ["..."]
             },
             identify: { (_, _) in
-                [.mock]
+               // [.mock]
+                []
             }
         )
     }
 }
 
 extension IdentifiableEntity {
-    public static var mock: Self = .init(
-        id: 7_928_071_431_998_189_885,
-        anchorIdentifier: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF"),
-        name: "Le Mock Anchor",
-        type: .anchor,
-        state: .init(
-            isEnabled: true,
-            isEnabledInHierarchy: true,
-            isActive: true,
-            isAnchored: true
-        ),
-        hierarhy: .init(
-            children: [],
-            hasParent: false
-        ),
-        components: .init(components: [])
-    )
+    //FIXME: restore mock
+    //    public static var mock: Self = .init(
+    //        id: 7_928_071_431_998_189_885,
+    //        anchorIdentifier: UUID(uuidString: "DEADBEEF-DEAD-BEEF-DEAD-BEEFDEADBEEF"),
+    //        name: "Le Mock Anchor",
+    //        type: .anchor,
+    //        state: .init(
+    //            isEnabled: true,
+    //            isEnabledInHierarchy: true,
+    //            isActive: true,
+    //            isAnchored: true
+    //        ),
+    //        hierarhy: .init(
+    //            children: [],
+    //            hasParent: false
+    //        ),
+    //        components: .init(components: [])
+    //    )
 }

@@ -57,108 +57,14 @@ enum Dumper {
             components: identifyComponents(loadedEntity.components)
         )
 
-        if let loadedEntity = loadedEntity as? AnchorEntity {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    anchorIdentifier: loadedEntity.anchorIdentifier,
-                    name: loadedEntity.name,
-                    type: .anchor,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
+        identifiableEntities.append(
+            .init(
+                loadedEntity,
+                state: state,
+                hierarhy: hierarhy,
+                components: components
             )
-        } else if let loadedEntity = loadedEntity as? ModelEntity {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .model,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        } else if let loadedEntity = loadedEntity as? DirectionalLight {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .directionalLight,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        } else if let loadedEntity = loadedEntity as? PointLight {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .pointLight,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        } else if let loadedEntity = loadedEntity as? SpotLight {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .spotLight,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        } else if let loadedEntity = loadedEntity as? PerspectiveCamera {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .perspectiveCamera,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        } else if let loadedEntity = loadedEntity as? TriggerVolume {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .triggerVolume,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-
-            // } else if let loadedEntity = loadedEntity as? BodyTrackedEntity {
-            //     identifiableEntities.append(
-            //         .init(
-            //             id: loadedEntity.id,
-            //             name: loadedEntity.name,
-            //             type: .triggerVolume,
-            //             state: state,
-            //             hierarhy: hierarhy,
-            //             components: components
-            //         )
-            //     )
-        } else {
-            identifiableEntities.append(
-                .init(
-                    id: loadedEntity.id,
-                    name: loadedEntity.name,
-                    type: .entity,
-                    state: state,
-                    hierarhy: hierarhy,
-                    components: components
-                )
-            )
-        }
+        )
 
         return identifiableEntities
     }

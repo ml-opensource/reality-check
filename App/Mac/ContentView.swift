@@ -79,6 +79,15 @@ struct ContentView: View {
                 label: { Label("Dump", systemImage: "ladybug") }
             )
         }
+        // .onChange(of: \.selection) { entity in
+        //     //TODO: dump selected entity
+        //     text = await realityDump.raw(
+        //         entity,
+        //         printing: false,
+        //         org: false
+        //     )
+        //     .joined(separator: "\n")
+        // }
     }
 
     private func random() {
