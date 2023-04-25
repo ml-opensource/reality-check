@@ -98,3 +98,57 @@ public struct IdentifiableComponent: Equatable, Hashable {
         self.componentType = .init(rawValue: type(of: component))!
     }
 }
+
+extension IdentifiableComponent.ComponentType: CustomStringConvertible {
+    public var description: String {
+        switch self {
+        case .anchoringComponent:
+            return "AnchoringComponent"
+
+        case .characterControllerComponent:
+            return "CharacterControllerComponent"
+
+        case .characterControllerStateComponent:
+            return "CharacterControllerStateComponent"
+
+        case .collisionComponent:
+            return "CollisionComponent"
+
+        case .directionalLightComponent:
+            return "DirectionalLightComponent"
+
+        case .directionalLightComponentShadow:
+            return "DirectionalLightComponent.Shadow"
+
+        case .modelComponent:
+            return "ModelComponent"
+
+        case .modelDebugOptionsComponent:
+            return "ModelDebugOptionsComponent"
+
+        case .perspectiveCameraComponent:
+            return "PerspectiveCameraComponent"
+
+        case .physicsBodyComponent:
+            return "PhysicsBodyComponent"
+
+        case .physicsMotionComponent:
+            return "PhysicsMotionComponent"
+
+        case .pointLightComponent:
+            return "PointLightComponent"
+
+        case .spotLightComponent:
+            return "SpotLightComponent"
+
+        case .spotLightComponentShadow:
+            return "SpotLightComponent.Shadow"
+
+        case .synchronizationComponent:
+            return "SynchronizationComponent"
+
+        case .transform:
+            return "Transform"
+        }
+    }
+}
