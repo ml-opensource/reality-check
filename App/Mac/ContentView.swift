@@ -16,17 +16,24 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(identifiedEntities, children: \.children, selection: $selection) { entity in
-                NavigationLink.init(
-                    value: entity,
-                    label: {
-                        Label(
-                            entity.type.description,
-                            systemImage: entity.type.symbol
+            List(selection: $selection) {
+                Section("ARView") {}
+                Section("Scenes") {}
+                Section("Entities") {
+                    OutlineGroup(identifiedEntities, children: \.children) {
+                        entity in
+                        NavigationLink.init(
+                            value: entity,
+                            label: {
+                                Label(
+                                    entity.type.description,
+                                    systemImage: entity.type.symbol
+                                )
+                                .help(entity.type.help)
+                            }
                         )
-                        .help(entity.type.help)
                     }
-                )
+                }
             }
         } content: {
             VSplitView {
@@ -73,7 +80,7 @@ struct ContentView: View {
                         )
                         .joined(separator: "\n")
 
-                        identifiedEntities = await realityDump.identify(worldOriginAnchor)
+                        identifiedEntities.append(await realityDump.identify(worldOriginAnchor))
                     }
                 },
                 label: { Label("Dump", systemImage: "ladybug") }

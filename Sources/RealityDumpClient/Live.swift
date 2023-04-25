@@ -19,8 +19,8 @@ extension RealityDump: DependencyKey {
 // MARK: -
 
 enum Dumper {
-    static func dump(_ loadedEntity: Entity, detail: Int = 1) -> [IdentifiableEntity] {
-        identifyEntities(loadedEntity, detail: detail, nesting: 1)
+    static func dump(_ loadedEntity: Entity, detail: Int = 1) -> IdentifiableEntity {
+        identifyEntity(loadedEntity, detail: detail, nesting: 1)
     }
 
     private static func identifyComponents(
@@ -32,17 +32,12 @@ enum Dumper {
                 identifiableComponents.append(IdentifiableComponent(component))
             }
         }
-
-        print(identifiableComponents.map(\.componentType.rawValue))
         return identifiableComponents
     }
 
-    private static func identifyEntities(
+    private static func identifyEntity(
         _ loadedEntity: Entity, detail: Int, nesting: Int
-    ) -> [IdentifiableEntity] {
-
-        var identifiableEntities: [IdentifiableEntity] = []
-
+    ) -> IdentifiableEntity {
         let state = IdentifiableEntity.State(
             isEnabled: loadedEntity.isEnabled,
             isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
@@ -50,22 +45,18 @@ enum Dumper {
             isAnchored: loadedEntity.isAnchored
         )
         let hierarhy = IdentifiableEntity.Hierarhy(
-            children: loadedEntity.children.flatMap({ dump($0) }),
+            children: loadedEntity.children.compactMap({ dump($0) }),
             hasParent: !(loadedEntity.parent == nil)
         )
         let components = IdentifiableEntity.Components(
             components: identifyComponents(loadedEntity.components)
         )
 
-        identifiableEntities.append(
-            .init(
-                loadedEntity,
-                state: state,
-                hierarhy: hierarhy,
-                components: components
-            )
+        return IdentifiableEntity(
+            loadedEntity,
+            state: state,
+            hierarhy: hierarhy,
+            components: components
         )
-
-        return identifiableEntities
     }
 }

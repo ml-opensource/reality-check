@@ -13,7 +13,7 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     public var hierarhy: Hierarhy
     public var components: Components
 
-    public enum EntityType: CaseIterable, RawRepresentable {
+    public enum EntityType: CaseIterable {
         case anchor
         // case bodyTrackedEntity
         case directionalLight
@@ -23,40 +23,6 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         case pointLight
         case spotLight
         case triggerVolume
-
-        public var rawValue: Entity.Type {
-            switch self {
-            case .anchor:
-                return AnchorEntity.self
-            // case .bodyTrackedEntity:
-            //     return AnchorEntity.self
-            case .directionalLight:
-                return DirectionalLight.self
-            case .entity:
-                return Entity.self
-            case .model:
-                return ModelEntity.self
-            case .perspectiveCamera:
-                return PerspectiveCamera.self
-            case .pointLight:
-                return PointLight.self
-            case .spotLight:
-                return SpotLight.self
-            case .triggerVolume:
-                return TriggerVolume.self
-            }
-        }
-
-        public init?(rawValue: Entity.Type) {
-            for entityType in Self.allCases {
-                if entityType.rawValue == rawValue {
-                    self = entityType
-                    return
-                }
-            }
-            //TODO: handle unknown entities
-            fatalError("Unknown Entity.Type")
-        }
     }
 
     public struct State: Equatable, Hashable {
@@ -103,24 +69,6 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         }
     }
 
-    // public init(
-    //     id: UInt64,
-    //     anchorIdentifier: UUID? = nil,
-    //     name: String? = nil,
-    //     type: EntityType,
-    //     state: IdentifiableEntity.State,
-    //     hierarhy: IdentifiableEntity.Hierarhy,
-    //     components: IdentifiableEntity.Components
-    // ) {
-    //     self.id = id
-    //     self.anchorIdentifier = anchorIdentifier
-    //     self.name = name
-    //     self.type = type
-    //     self.state = state
-    //     self.hierarhy = hierarhy
-    //     self.components = components
-    // }
-
     public init(
         _ entity: RealityKit.Entity,
         state: IdentifiableEntity.State,
@@ -135,6 +83,42 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         self.state = state
         self.hierarhy = hierarhy
         self.components = components
+    }
+}
+
+extension IdentifiableEntity.EntityType: RawRepresentable {
+    public var rawValue: Entity.Type {
+        switch self {
+        case .anchor:
+            return AnchorEntity.self
+        // case .bodyTrackedEntity:
+        //     return AnchorEntity.self
+        case .directionalLight:
+            return DirectionalLight.self
+        case .entity:
+            return Entity.self
+        case .model:
+            return ModelEntity.self
+        case .perspectiveCamera:
+            return PerspectiveCamera.self
+        case .pointLight:
+            return PointLight.self
+        case .spotLight:
+            return SpotLight.self
+        case .triggerVolume:
+            return TriggerVolume.self
+        }
+    }
+
+    public init?(rawValue: Entity.Type) {
+        for entityType in Self.allCases {
+            if entityType.rawValue == rawValue {
+                self = entityType
+                return
+            }
+        }
+        //TODO: handle unknown entities
+        fatalError("Unknown Entity.Type")
     }
 }
 

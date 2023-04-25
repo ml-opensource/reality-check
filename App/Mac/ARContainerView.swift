@@ -74,9 +74,9 @@ struct ARContainerView: ViewRepresentable {
         boxEntity.addChild(anotherDummyAnchor)
         anotherDummyAnchor.addChild(dummyDirectionalLight)
         anotherDummyAnchor.addChild(dummyPointLight)
-        anotherDummyAnchor.addChild(dummySpotLight)
         worldOriginAnchor.addChild(dummyCamera)
         dummyCamera.addChild(dummyTriggerVolume)
+        dummyCamera.addChild(dummySpotLight)
 
         return arView
     }

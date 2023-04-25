@@ -3,13 +3,21 @@ import RealityKit
 
 protocol ComponentRepresentable {}
 
-struct AnchoringComponentRepresentable: ComponentRepresentable {}
-struct CharacterControllerComponentRepresentable: ComponentRepresentable {}
+struct TransformComponentRepresentable: ComponentRepresentable {
+    /// The scaling factor applied to the entity.
+    let scale: SIMD3<Float>
+    /// The rotation of the entity specified as a unit quaternion.
+    let rotation: simd_quatf
+    /// The position of the entity along the x, y, and z axes.
+    let translation: SIMD3<Float>
+    /// The transform represented as a 4x4 matrix.
+    let matrix: float4x4
+}
 
 public struct IdentifiableComponent: Equatable, Hashable {
 
     //TODO: include TransientComponent.self
-    public enum ComponentType: CaseIterable, RawRepresentable {
+    public enum ComponentType: CaseIterable {
         case anchoringComponent
         case characterControllerComponent
         case characterControllerStateComponent
@@ -26,76 +34,78 @@ public struct IdentifiableComponent: Equatable, Hashable {
         case spotLightComponentShadow
         case synchronizationComponent
         case transform
-
-        public var rawValue: Component.Type {
-            switch self {
-            case .anchoringComponent:
-                return AnchoringComponent.self
-
-            case .characterControllerComponent:
-                return CharacterControllerComponent.self
-
-            case .characterControllerStateComponent:
-                return CharacterControllerStateComponent.self
-
-            case .collisionComponent:
-                return CollisionComponent.self
-
-            case .directionalLightComponent:
-                return DirectionalLightComponent.self
-
-            case .directionalLightComponentShadow:
-                return DirectionalLightComponent.Shadow.self
-
-            case .modelComponent:
-                return ModelComponent.self
-
-            case .modelDebugOptionsComponent:
-                return ModelDebugOptionsComponent.self
-
-            case .perspectiveCameraComponent:
-                return PerspectiveCameraComponent.self
-
-            case .physicsBodyComponent:
-                return PhysicsBodyComponent.self
-
-            case .physicsMotionComponent:
-                return PhysicsMotionComponent.self
-
-            case .pointLightComponent:
-                return PointLightComponent.self
-
-            case .spotLightComponent:
-                return SpotLightComponent.self
-
-            case .spotLightComponentShadow:
-                return SpotLightComponent.Shadow.self
-
-            case .synchronizationComponent:
-                return SynchronizationComponent.self
-
-            case .transform:
-                return Transform.self
-            }
-        }
-
-        public init?(rawValue: Component.Type) {
-            for componentType in Self.allCases {
-                if componentType.rawValue == rawValue {
-                    self = componentType
-                    return
-                }
-            }
-            //TODO: handle unknown components
-            fatalError("Unknown Component.Type")
-        }
     }
 
     public let componentType: ComponentType
 
     public init(_ component: RealityKit.Component) {
         //FIXME: handle errors
-        self.componentType = .init(rawValue: type(of: component))!
+        self.componentType = .init(rawValue: Swift.type(of: component))!
+    }
+}
+
+extension IdentifiableComponent.ComponentType: RawRepresentable {
+    public var rawValue: Component.Type {
+        switch self {
+        case .anchoringComponent:
+            return AnchoringComponent.self
+
+        case .characterControllerComponent:
+            return CharacterControllerComponent.self
+
+        case .characterControllerStateComponent:
+            return CharacterControllerStateComponent.self
+
+        case .collisionComponent:
+            return CollisionComponent.self
+
+        case .directionalLightComponent:
+            return DirectionalLightComponent.self
+
+        case .directionalLightComponentShadow:
+            return DirectionalLightComponent.Shadow.self
+
+        case .modelComponent:
+            return ModelComponent.self
+
+        case .modelDebugOptionsComponent:
+            return ModelDebugOptionsComponent.self
+
+        case .perspectiveCameraComponent:
+            return PerspectiveCameraComponent.self
+
+        case .physicsBodyComponent:
+            return PhysicsBodyComponent.self
+
+        case .physicsMotionComponent:
+            return PhysicsMotionComponent.self
+
+        case .pointLightComponent:
+            return PointLightComponent.self
+
+        case .spotLightComponent:
+            return SpotLightComponent.self
+
+        case .spotLightComponentShadow:
+            return SpotLightComponent.Shadow.self
+
+        case .synchronizationComponent:
+            return SynchronizationComponent.self
+
+        case .transform:
+            return Transform.self
+        }
+    }
+
+    public init?(rawValue: Component.Type) {
+        for componentType in Self.allCases {
+            if componentType.rawValue == rawValue {
+                self = componentType
+                return
+            }
+        }
+        //TODO: handle unknown components
+        fatalError("Unknown Component.Type")
     }
 }
 

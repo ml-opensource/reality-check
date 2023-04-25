@@ -2,6 +2,7 @@ import Dependencies
 import Foundation
 import Models
 
+/*
 extension RealityDump {
     public static var testValue: Self {
         return Self(
@@ -11,7 +12,6 @@ extension RealityDump {
             },
             identify: { (_, _) in
                // [.mock]
-                []
             }
         )
     }
@@ -37,3 +37,4 @@ extension IdentifiableEntity {
     //        components: .init(components: [])
     //    )
 }
+*/

@@ -17,11 +17,11 @@ public struct RealityDump {
     public func identify(
         _ loadedEntity: Entity,
         detail: Int = 1
-    ) async -> [IdentifiableEntity] {
+    ) async -> IdentifiableEntity {
         await self.identify(loadedEntity, detail)
     }
 
-    var identify: (Entity, Int) async -> [IdentifiableEntity]
+    var identify: (Entity, Int) async -> IdentifiableEntity
 }
 
 extension DependencyValues {
