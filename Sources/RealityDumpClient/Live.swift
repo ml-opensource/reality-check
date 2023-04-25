@@ -57,57 +57,68 @@ enum Dumper {
             components: identifyComponents(loadedEntity.components)
         )
 
-        if let anchorEntity = loadedEntity as? AnchorEntity {
+        if let loadedEntity = loadedEntity as? AnchorEntity {
             identifiableEntities.append(
                 .init(
-                    id: anchorEntity.id,
-                    anchorIdentifier: anchorEntity.anchorIdentifier,
-                    name: anchorEntity.name,
+                    id: loadedEntity.id,
+                    anchorIdentifier: loadedEntity.anchorIdentifier,
+                    name: loadedEntity.name,
                     type: .anchor,
                     state: state,
                     hierarhy: hierarhy,
                     components: components
                 )
             )
-        } else if let modelEntity = loadedEntity as? ModelEntity {
+        } else if let loadedEntity = loadedEntity as? ModelEntity {
             identifiableEntities.append(
                 .init(
-                    id: modelEntity.id,
-                    name: modelEntity.name,
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
                     type: .model,
                     state: state,
                     hierarhy: hierarhy,
                     components: components
                 )
             )
-        } else if let modelEntity = loadedEntity as? DirectionalLight {
+        } else if let loadedEntity = loadedEntity as? DirectionalLight {
             identifiableEntities.append(
                 .init(
-                    id: modelEntity.id,
-                    name: modelEntity.name,
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
                     type: .directionalLight,
                     state: state,
                     hierarhy: hierarhy,
                     components: components
                 )
             )
-        } else if let modelEntity = loadedEntity as? PointLight {
+        } else if let loadedEntity = loadedEntity as? PointLight {
             identifiableEntities.append(
                 .init(
-                    id: modelEntity.id,
-                    name: modelEntity.name,
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
                     type: .pointLight,
                     state: state,
                     hierarhy: hierarhy,
                     components: components
                 )
             )
-        } else if let modelEntity = loadedEntity as? SpotLight {
+        } else if let loadedEntity = loadedEntity as? SpotLight {
             identifiableEntities.append(
                 .init(
-                    id: modelEntity.id,
-                    name: modelEntity.name,
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
                     type: .spotLight,
+                    state: state,
+                    hierarhy: hierarhy,
+                    components: components
+                )
+            )
+        } else if let loadedEntity = loadedEntity as? PerspectiveCamera {
+            identifiableEntities.append(
+                .init(
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
+                    type: .perspectiveCamera,
                     state: state,
                     hierarhy: hierarhy,
                     components: components

@@ -15,6 +15,8 @@ let anotherDummyAnchor: AnchorEntity = .init(world: .zero)
 let dummyDirectionalLight: DirectionalLight = .init()
 let dummyPointLight: PointLight = .init()
 let dummySpotLight: SpotLight = .init()
+let dummyCamera: PerspectiveCamera = .init()
+
 
 let boxEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
 var balls: [ModelEntity] = []
@@ -30,7 +32,6 @@ struct ARContainerView: ViewRepresentable {
 
     func makeNSView(context: Context) -> some NSView {
         let arView = ARView(frame: .zero)
-
         arView.environment.background = .color(.windowBackgroundColor)
         let skyboxName = "aerodynamics_workshop_4k.exr"
         let skyboxResource = try! EnvironmentResource.load(named: skyboxName)
@@ -41,14 +42,15 @@ struct ARContainerView: ViewRepresentable {
         arView.scene.anchors.append(dummyAnchor)
         worldOriginAnchor.setOrientation(
             .init(angle: deg2rad(35), axis: [1, 0, 0]), relativeTo: nil)
+       
         let camera = PerspectiveCamera()
         camera.camera.fieldOfViewInDegrees = 60
-
         camera.look(
             at: .zero,
             from: .zero,
             relativeTo: worldOriginAnchor
         )
+        
         worldOriginAnchor.addChild(boxEntity)
 
         let floor = ModelEntity(
@@ -63,6 +65,7 @@ struct ARContainerView: ViewRepresentable {
         anotherDummyAnchor.addChild(dummyDirectionalLight)
         anotherDummyAnchor.addChild(dummyPointLight)
         anotherDummyAnchor.addChild(dummySpotLight)
+        worldOriginAnchor.addChild(dummyCamera)
 
         return arView
     }

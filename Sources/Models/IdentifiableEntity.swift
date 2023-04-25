@@ -20,6 +20,7 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         case pointLight
         case directionalLight
         case entity
+        case perspectiveCamera
     }
 
     public struct State: Equatable, Hashable {
@@ -100,6 +101,8 @@ extension IdentifiableEntity.EntityType: CustomStringConvertible {
             return "PointLight"
         case .directionalLight:
             return "DirectionalLight"
+        case .perspectiveCamera:
+            return "PerspectiveCamera"
         }
     }
 }
@@ -108,7 +111,7 @@ extension IdentifiableEntity.EntityType {
     public var symbol: String {
         switch self {
         case .anchor:
-            return "arrow.down.to.line.compact"
+            return "arrow.down.to.line"
         case .model:
             return "cube"
         case .entity:
@@ -119,6 +122,8 @@ extension IdentifiableEntity.EntityType {
             return "lightbulb.led"
         case .directionalLight:
             return "sun.max"
+        case .perspectiveCamera:
+            return "camera"
         }
     }
 }
