@@ -1,4 +1,5 @@
 import Dependencies
+import Models
 import RealityKit
 
 public struct RealityDump {

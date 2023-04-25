@@ -1,3 +1,4 @@
+import Models
 import RealityDumpClient
 import SwiftUI
 
@@ -8,7 +9,7 @@ struct EntityDetailView: View {
         List {
             Label(entity.type.description, systemImage: entity.type.symbol)
                 .font(.headline)
-            
+
             Section {
                 if let name = entity.name, !name.isEmpty {
                     LabeledContent("name:", value: name)
@@ -18,7 +19,6 @@ struct EntityDetailView: View {
                 }
                 LabeledContent("id:", value: entity.id.description)
             }
-                
 
             Section("State") {
                 LabeledContent("isEnabled", value: "\(entity.state.isEnabled ? "YES" : "NO")")

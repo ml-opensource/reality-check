@@ -15,6 +15,10 @@ let package = Package(
             targets: ["AppFeature"]
         ),
         .library(
+            name: "Models",
+            targets: ["Models"]
+        ),
+        .library(
             name: "RealityDumpClient",
             targets: ["RealityDumpClient"]
         ),
@@ -35,13 +39,19 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                "Models",
                 "RealityDumpClient",
             ]
         ),
         .target(
+            name: "Models",
+            dependencies: []
+        ),
+        .target(
             name: "RealityDumpClient",
             dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies")
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                "Models",
             ]
         ),
         .testTarget(

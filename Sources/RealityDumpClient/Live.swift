@@ -1,5 +1,6 @@
 import Dependencies
 import Foundation
+import Models
 import RealityKit
 
 extension RealityDump: DependencyKey {
