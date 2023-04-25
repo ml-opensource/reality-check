@@ -15,12 +15,13 @@ public struct IdentifiableEntity: Identifiable, Hashable {
 
     public enum EntityType: Codable {
         case anchor
-        case model
-        case spotLight
-        case pointLight
         case directionalLight
         case entity
+        case model
         case perspectiveCamera
+        case pointLight
+        case spotLight
+        case triggerVolume
     }
 
     public struct State: Equatable, Hashable {
@@ -91,18 +92,20 @@ extension IdentifiableEntity.EntityType: CustomStringConvertible {
         switch self {
         case .anchor:
             return "AnchorEntity"
-        case .model:
-            return "ModelEntity"
-        case .entity:
-            return "Entity"
-        case .spotLight:
-            return "SpotLight"
-        case .pointLight:
-            return "PointLight"
         case .directionalLight:
             return "DirectionalLight"
+        case .entity:
+            return "Entity"
+        case .model:
+            return "ModelEntity"
         case .perspectiveCamera:
             return "PerspectiveCamera"
+        case .pointLight:
+            return "PointLight"
+        case .spotLight:
+            return "SpotLight"
+        case .triggerVolume:
+            return "TriggerVolume"
         }
     }
 }
@@ -112,18 +115,20 @@ extension IdentifiableEntity.EntityType {
         switch self {
         case .anchor:
             return "arrow.down.to.line"
-        case .model:
-            return "cube"
-        case .entity:
-            return "move.3d"
-        case .spotLight:
-            return "lamp.desk"
-        case .pointLight:
-            return "lightbulb.led"
         case .directionalLight:
             return "sun.max"
+        case .entity:
+            return "move.3d"
+        case .model:
+            return "cube"
         case .perspectiveCamera:
             return "camera"
+        case .pointLight:
+            return "lightbulb.led"
+        case .spotLight:
+            return "lamp.desk"
+        case .triggerVolume:
+            return "cube.transparent"
         }
     }
 }

@@ -124,6 +124,17 @@ enum Dumper {
                     components: components
                 )
             )
+        } else if let loadedEntity = loadedEntity as? TriggerVolume {
+            identifiableEntities.append(
+                .init(
+                    id: loadedEntity.id,
+                    name: loadedEntity.name,
+                    type: .triggerVolume,
+                    state: state,
+                    hierarhy: hierarhy,
+                    components: components
+                )
+            )
         } else {
             identifiableEntities.append(
                 .init(

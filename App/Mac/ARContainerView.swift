@@ -16,6 +16,7 @@ let dummyDirectionalLight: DirectionalLight = .init()
 let dummyPointLight: PointLight = .init()
 let dummySpotLight: SpotLight = .init()
 let dummyCamera: PerspectiveCamera = .init()
+let dummyTriggerVolume: TriggerVolume = .init()
 
 
 let boxEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
@@ -66,6 +67,7 @@ struct ARContainerView: ViewRepresentable {
         anotherDummyAnchor.addChild(dummyPointLight)
         anotherDummyAnchor.addChild(dummySpotLight)
         worldOriginAnchor.addChild(dummyCamera)
+        dummyCamera.addChild(dummyTriggerVolume)
 
         return arView
     }
