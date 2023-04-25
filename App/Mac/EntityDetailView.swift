@@ -38,6 +38,7 @@ struct EntityDetailView: View {
                 LabeledContent("count", value: "\(entity.components.count)")
                 ForEach(entity.components.components, id: \.self) { component in
                     Text(component.componentType.description)
+                        .help(component.componentType.help)
                 }
             }
         }

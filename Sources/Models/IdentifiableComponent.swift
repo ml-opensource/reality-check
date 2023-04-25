@@ -152,3 +152,74 @@ extension IdentifiableComponent.ComponentType: CustomStringConvertible {
         }
     }
 }
+
+extension IdentifiableComponent.ComponentType {
+    public var help: String {
+        switch self {
+        case .anchoringComponent:
+            return """
+                A description of how virtual content can be anchored to the real world.
+                """
+        case .characterControllerComponent:
+            return """
+                A component that manages character movement.
+                """
+        case .characterControllerStateComponent:
+            return """
+                An object that maintains state for a character controller.
+                """
+        case .collisionComponent:
+            return """
+                A component that gives an entity the ability to collide with other entities that also have collision components.
+                """
+        case .directionalLightComponent:
+            return """
+                A component that defines a directional light source.
+                """
+        case .directionalLightComponentShadow:
+            return """
+                Defines shadow characteristics for a directional light.
+                """
+        case .modelComponent:
+            return """
+                A collection of resources that create the visual appearance of an entity.
+                """
+        case .modelDebugOptionsComponent:
+            return """
+                A component that changes how RealityKit renders its entity to help with debugging.
+                """
+        case .perspectiveCameraComponent:
+            return """
+                In AR applications, the camera is automatically provided by the system. In non-AR scenarios, the camera needs to be set by the app. (If no camera is provided by the app, the system will use default camera.)
+                """
+        case .physicsBodyComponent:
+            return """
+                A component that defines an entity’s behavior in physics body simulations.
+                """
+        case .physicsMotionComponent:
+            return """
+                A component that controls the motion of the body in physics simulations.
+                """
+        case .pointLightComponent:
+            return """
+                A component that defines a point light source.
+                """
+        case .spotLightComponent:
+            return """
+                A component that defines a spotlight source.
+                """
+        case .spotLightComponentShadow:
+            return """
+                Characteristics of a shadow for the spotlight.
+                """
+        case .synchronizationComponent:
+            return """
+                A component that synchronizes an entity between processes and networked applications.
+                """
+        case .transform:
+            return """
+                A component that defines the scale, rotation, and translation of an entity.
+                """
+        }
+    }
+}

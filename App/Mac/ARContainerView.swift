@@ -14,7 +14,17 @@ let dummyAnchor: AnchorEntity = .init(world: .zero)
 let anotherDummyAnchor: AnchorEntity = .init(world: .zero)
 let dummyDirectionalLight: DirectionalLight = .init()
 let dummyPointLight: PointLight = .init()
-let dummySpotLight: SpotLight = .init()
+let dummySpotLight: SpotLight = {
+    let spotLight = SpotLight()
+    spotLight.light.color = .white
+    spotLight.light.intensity = 1_000_000
+    spotLight.light.innerAngleInDegrees = 40
+    spotLight.light.outerAngleInDegrees = 60
+    spotLight.light.attenuationRadius = 10
+    spotLight.shadow = SpotLightComponent.Shadow()
+    spotLight.look(at: [1, 0, -4], from: [0, 5, -5], relativeTo: nil)
+    return spotLight
+}()
 let dummyCamera: PerspectiveCamera = .init()
 let dummyTriggerVolume: TriggerVolume = .init()
 
@@ -42,7 +52,7 @@ struct ARContainerView: ViewRepresentable {
         arView.scene.anchors.append(dummyAnchor)
         worldOriginAnchor.setOrientation(
             .init(angle: deg2rad(35), axis: [1, 0, 0]), relativeTo: nil)
-       
+
         let camera = PerspectiveCamera()
         camera.camera.fieldOfViewInDegrees = 60
         camera.look(
@@ -50,7 +60,7 @@ struct ARContainerView: ViewRepresentable {
             from: .zero,
             relativeTo: worldOriginAnchor
         )
-        
+
         worldOriginAnchor.addChild(boxEntity)
 
         let floor = ModelEntity(
