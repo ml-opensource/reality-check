@@ -145,7 +145,7 @@ struct ARContainerView: ViewRepresentable {
         floor.position.y -= 0.1
         worldOriginAnchor.addChild(floor)
 
-        worldOriginAnchor.addChild(Entity())
+        boxEntity.addChild(Entity())
         return arView
     }
 
