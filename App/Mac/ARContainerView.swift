@@ -18,7 +18,6 @@ let dummySpotLight: SpotLight = .init()
 let dummyCamera: PerspectiveCamera = .init()
 let dummyTriggerVolume: TriggerVolume = .init()
 
-
 let boxEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
 var balls: [ModelEntity] = []
 

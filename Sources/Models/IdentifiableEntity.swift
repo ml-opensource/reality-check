@@ -15,6 +15,7 @@ public struct IdentifiableEntity: Identifiable, Hashable {
 
     public enum EntityType: Codable {
         case anchor
+        case bodyTrackedEntity
         case directionalLight
         case entity
         case model
@@ -92,6 +93,8 @@ extension IdentifiableEntity.EntityType: CustomStringConvertible {
         switch self {
         case .anchor:
             return "AnchorEntity"
+        case .bodyTrackedEntity:
+            return "BodyTrackedEntity"
         case .directionalLight:
             return "DirectionalLight"
         case .entity:
@@ -115,6 +118,8 @@ extension IdentifiableEntity.EntityType {
         switch self {
         case .anchor:
             return "arrow.down.to.line"
+        case .bodyTrackedEntity:
+            return "figure.walk"
         case .directionalLight:
             return "sun.max"
         case .entity:
@@ -129,6 +134,43 @@ extension IdentifiableEntity.EntityType {
             return "lamp.desk"
         case .triggerVolume:
             return "cube.transparent"
+        }
+    }
+}
+
+extension IdentifiableEntity.EntityType {
+    public var help: String {
+        switch self {
+        case .anchor:
+            return """
+                """
+        case .bodyTrackedEntity:
+            return """
+                An entity used to animate a virtual character in an AR scene by tracking a real person.
+                """
+        case .directionalLight:
+            return """
+                """
+        case .entity:
+            return """
+                """
+        case .model:
+            return """
+                """
+        case .perspectiveCamera:
+            return """
+                """
+        case .pointLight:
+            return """
+                """
+        case .spotLight:
+            return """
+                """
+        case .triggerVolume:
+            return
+                """
+                An invisible 3D shape that detects when objects enter or exit a given region of space.
+                """
         }
     }
 }
