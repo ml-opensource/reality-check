@@ -26,10 +26,10 @@ struct ContentView: View {
                             value: entity,
                             label: {
                                 Label(
-                                    entity.type.description,
-                                    systemImage: entity.type.symbol
+                                    entity.entityType.description,
+                                    systemImage: entity.entityType.symbol
                                 )
-                                .help(entity.type.help)
+                                .help(entity.entityType.help)
                             }
                         )
                     }

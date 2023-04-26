@@ -5,7 +5,7 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     public let id: UInt64
     public var anchorIdentifier: UUID?
     public var name: String?
-    public let type: EntityType
+    public let entityType: EntityType
     public var children: [IdentifiableEntity]? {
         hierarhy.children.isEmpty ? nil : hierarhy.children
     }
@@ -79,7 +79,7 @@ public struct IdentifiableEntity: Identifiable, Hashable {
         //FIXME
         // self.anchorIdentifier = entity.anchorIdentifier
         self.name = entity.name
-        self.type = .init(rawValue: Swift.type(of: entity))!
+        self.entityType = .init(rawValue: Swift.type(of: entity))!
         self.state = state
         self.hierarhy = hierarhy
         self.components = components
