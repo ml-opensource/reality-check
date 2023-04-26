@@ -27,8 +27,14 @@ let dummySpotLight: SpotLight = {
 }()
 let dummyCamera: PerspectiveCamera = .init()
 let dummyTriggerVolume: TriggerVolume = .init()
+let dummDebugOptionsComponent: ModelDebugOptionsComponent = .init(visualizationMode: .normal)
 
-let boxEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
+let boxEntity: ModelEntity = {
+    let modelEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
+    modelEntity.modelDebugOptions = dummDebugOptionsComponent
+    return modelEntity
+}()
+
 var balls: [ModelEntity] = []
 
 #if os(iOS)
@@ -67,6 +73,8 @@ struct ARContainerView: ViewRepresentable {
             mesh: .generatePlane(width: 4, depth: 5),
             materials: [UnlitMaterial(color: .highlightColor)]
         )
+        floor.name = "Le Floor"
+        floor.modelDebugOptions = dummDebugOptionsComponent
         floor.position.y -= 0.1
         worldOriginAnchor.addChild(floor)
 

@@ -29,71 +29,123 @@ public struct IdentifiableComponent {
     public init(_ component: RealityKit.Component) {
         //FIXME: handle errors
         self.componentType = ComponentType(rawValue: Swift.type(of: component))!
-       
+
         switch self.componentType {
         case .anchoringComponent:
             let component = component as! AnchoringComponent
             self.properties = AnchoringComponentProperties(
                 target: component.target
             )
-            
+
         case .characterControllerComponent:
-            let _c = component as! CharacterControllerComponent
-            self.properties = CharacterControllerComponentProperties()
+            let component = component as! CharacterControllerComponent
+            self.properties = CharacterControllerComponentProperties(
+                radius: component.radius,
+                height: component.height,
+                skinWidth: component.skinWidth,
+                slopeLimit: component.slopeLimit,
+                stepLimit: component.stepLimit,
+                upVector: component.upVector,
+                collisionFilter: component.collisionFilter
+            )
 
         case .characterControllerStateComponent:
-            let _c = component as! CharacterControllerStateComponent
-            self.properties = CharacterControllerStateComponentProperties()
+            let component = component as! CharacterControllerStateComponent
+            self.properties = CharacterControllerStateComponentProperties(
+                velocity: component.velocity,
+                isOnGround: component.isOnGround
+            )
 
         case .collisionComponent:
-            let _c = component as! CollisionComponent
-            self.properties = CollisionComponentProperties()
+            let component = component as! CollisionComponent
+            self.properties = CollisionComponentProperties(
+                shapes: component.shapes,
+                mode: component.mode,
+                filter: component.filter
+            )
 
         case .directionalLightComponent:
-            let _c = component as! DirectionalLightComponent
-            self.properties = DirectionalLightComponentProperties()
+            let component = component as! DirectionalLightComponent
+            self.properties = DirectionalLightComponentProperties(
+                intensity: component.intensity,
+                isRealWorldProxy: component.isRealWorldProxy
+            )
 
         case .directionalLightComponentShadow:
-            let _c = component as! DirectionalLightComponent.Shadow
-            self.properties = DirectionalLightShadowComponentProperties()
+            let component = component as! DirectionalLightComponent.Shadow
+            self.properties = DirectionalLightShadowComponentProperties(
+                depthBias: component.depthBias,
+                maximumDistance: component.maximumDistance
+            )
 
         case .modelComponent:
             let component = component as! ModelComponent
             self.properties = ModelComponentProperties(
-                mesh: component.mesh
+                mesh: component.mesh,
+                materials: component.materials,
+                boundsMargin: component.boundsMargin
             )
-            
+
         case .modelDebugOptionsComponent:
-            let _c = component as! ModelDebugOptionsComponent
-            self.properties = ModelDebugOptionsComponentProperties()
+            let component = component as! ModelDebugOptionsComponent
+            self.properties = ModelDebugOptionsComponentProperties(
+                visualizationMode: component.visualizationMode
+            )
 
         case .perspectiveCameraComponent:
-            let _c = component as! PerspectiveCameraComponent
-            self.properties = PerspectiveCameraComponentProperties()
+            let component = component as! PerspectiveCameraComponent
+            self.properties = PerspectiveCameraComponentProperties(
+                near: component.near,
+                far: component.far,
+                fieldOfViewInDegrees: component.fieldOfViewInDegrees
+            )
 
         case .physicsBodyComponent:
-            let _c = component as! PhysicsBodyComponent
-            self.properties = PhysicsBodyComponentProperties()
+            let component = component as! PhysicsBodyComponent
+            self.properties = PhysicsBodyComponentProperties(
+                mode: component.mode,
+                massProperties: component.massProperties,
+                material: component.material,
+                isTranslationLocked: component.isTranslationLocked,
+                isRotationLocked: component.isRotationLocked,
+                isContinuousCollisionDetectionEnabled: component.isContinuousCollisionDetectionEnabled
+            )
 
         case .physicsMotionComponent:
-            let _c = component as! PhysicsMotionComponent
-            self.properties = PhysicsMotionComponentProperties()
+            let component = component as! PhysicsMotionComponent
+            self.properties = PhysicsMotionComponentProperties(
+                linearVelocity: component.linearVelocity,
+                angularVelocity: component.angularVelocity
+            )
 
         case .pointLightComponent:
-            let _c = component as! PointLightComponent
-            self.properties = PointLightComponentProperties()
+            let component = component as! PointLightComponent
+            self.properties = PointLightComponentProperties(
+                intensity: component.intensity,
+                attenuationRadius: component.attenuationRadius
+            )
 
         case .spotLightComponent:
-            let _c = component as! SpotLightComponent
-            self.properties = SpotLightComponentProperties()
+            let component = component as! SpotLightComponent
+            self.properties = SpotLightComponentProperties(
+                intensity: component.intensity,
+                innerAngleInDegrees: component.innerAngleInDegrees,
+                outerAngleInDegrees: component.outerAngleInDegrees,
+                attenuationRadius: component.attenuationRadius
+            )
 
         case .spotLightComponentShadow:
-            let _c = component as! SpotLightComponent.Shadow
+            // As of RealityKit 2.0, it was empty.
+            // let component = component as! SpotLightComponent.Shadow
             self.properties = SpotLightShadowComponentProperties()
 
         case .synchronizationComponent:
-            let _c = component as! SynchronizationComponent
-            self.properties = SynchronizationComponentProperties()
+            let component = component as! SynchronizationComponent
+            self.properties = SynchronizationComponentProperties(
+                identifier: component.identifier,
+                isOwner: component.isOwner,
+                ownershipTransferMode: component.ownershipTransferMode
+            )
 
         case .transform:
             let component = component as! Transform
