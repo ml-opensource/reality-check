@@ -31,6 +31,7 @@ let dummDebugOptionsComponent: ModelDebugOptionsComponent = .init(visualizationM
 
 let boxEntity: ModelEntity = {
     let modelEntity = ModelEntity(mesh: .generateBox(size: 1), materials: [customMaterial])
+    modelEntity.name = "Le Box"
     modelEntity.modelDebugOptions = dummDebugOptionsComponent
     return modelEntity
 }()

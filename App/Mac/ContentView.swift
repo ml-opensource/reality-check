@@ -25,8 +25,15 @@ struct ContentView: View {
                         NavigationLink.init(
                             value: entity,
                             label: {
+                                let name: String = {
+                                    if let name = entity.name, !name.isEmpty {
+                                        return name
+                                    } else {
+                                        return entity.entityType.description
+                                    }
+                                }()
                                 Label(
-                                    entity.entityType.description,
+                                    name,
                                     systemImage: entity.entityType.symbol
                                 )
                                 .help(entity.entityType.help)
@@ -79,7 +86,7 @@ struct ContentView: View {
                             org: false
                         )
                         .joined(separator: "\n")
-
+                        identifiedEntities.removeAll()
                         identifiedEntities.append(await realityDump.identify(worldOriginAnchor))
                     }
                 },
