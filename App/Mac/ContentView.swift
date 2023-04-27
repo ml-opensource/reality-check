@@ -25,18 +25,26 @@ struct ContentView: View {
                         NavigationLink.init(
                             value: entity,
                             label: {
-                                let name: String = {
-                                    if let name = entity.name, !name.isEmpty {
-                                        return name
-                                    } else {
-                                        return entity.entityType.description
-                                    }
-                                }()
-                                Label(
-                                    name,
-                                    systemImage: entity.entityType.symbol
-                                )
-                                .help(entity.entityType.help)
+                                if let name = entity.name, !name.isEmpty {
+                                    Label(
+                                        title: {
+                                            VStack(alignment: .leading) {
+                                                Text(name)
+                                                Text(entity.entityType.description)
+                                                    .font(.caption)
+                                                    .foregroundColor(.secondary)
+                                            }
+                                        },
+                                        icon: { Image(systemName: entity.entityType.symbol) }
+                                    )
+                                    .help(entity.entityType.help)
+                                } else {
+                                    Label(
+                                        entity.entityType.description,
+                                        systemImage: entity.entityType.symbol
+                                    )
+                                    .help(entity.entityType.help)
+                                }
                             }
                         )
                     }

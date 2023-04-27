@@ -6,46 +6,53 @@ struct EntityDetailView: View {
     let entity: IdentifiableEntity
 
     var body: some View {
-        List {
-            Label(entity.entityType.description, systemImage: entity.entityType.symbol)
-                .font(.headline)
-
-            Section {
-                if let name = entity.name, !name.isEmpty {
-                    LabeledContent("name:", value: name)
-                }
-                if let anchorIdentifier = entity.anchorIdentifier {
-                    LabeledContent("anchorIdentifier", value: anchorIdentifier.uuidString)
-                }
-                LabeledContent("id:", value: entity.id.description)
-            }
-
-            Section("State") {
-                LabeledContent("isEnabled", value: "\(entity.state.isEnabled ? "YES" : "NO")")
-                LabeledContent(
-                    "isEnabledInHierarchy", value: "\(entity.state.isActive ? "YES" : "NO")")
-                LabeledContent(
-                    "isAnchored", value: "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")")
-                LabeledContent("isActive", value: "\(entity.state.isAnchored ? "YES" : "NO")")
-            }
-
-            Section("Hierarhy") {
-                LabeledContent("parent", value: "\(entity.hierarhy.hasParent ? "YES" : "NO")")
-                LabeledContent("children count", value: "\(entity.hierarhy.childrenCount)")
-            }
-
-            Section("Components") {
-                LabeledContent("count", value: "\(entity.components.count)")
-                ForEach(entity.components.components, id: \.self) { component in
-                    GroupBox(component.componentType.description) {
-                        PropertiesView(
-                            componentType: component.componentType,
-                            properties: component.properties
-                        )
-                        .monospaced()
+        VStack(alignment: .leading, spacing: 0) {
+            VStack(alignment: .leading) {
+                Label(entity.entityType.description, systemImage: entity.entityType.symbol)
+                    .font(.headline)
+                
+                Section {
+                    LabeledContent("id:", value: entity.id.description)
+                    if let name = entity.name, !name.isEmpty {
+                        LabeledContent("name:", value: name)
                     }
-                    .padding(.bottom)
-                    .help(component.componentType.help)
+                    if let anchorIdentifier = entity.anchorIdentifier {
+                        LabeledContent("anchorIdentifier", value: anchorIdentifier.uuidString)
+                    }
+                }
+            }
+            .padding()
+
+            Divider()
+            
+            List {
+                Section("State") {
+                    LabeledContent("isEnabled", value: "\(entity.state.isEnabled ? "YES" : "NO")")
+                    LabeledContent(
+                        "isEnabledInHierarchy", value: "\(entity.state.isActive ? "YES" : "NO")")
+                    LabeledContent(
+                        "isAnchored", value: "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")")
+                    LabeledContent("isActive", value: "\(entity.state.isAnchored ? "YES" : "NO")")
+                }
+
+                Section("Hierarhy") {
+                    LabeledContent("parent", value: "\(entity.hierarhy.hasParent ? "YES" : "NO")")
+                    LabeledContent("children count", value: "\(entity.hierarhy.childrenCount)")
+                }
+
+                Section("Components") {
+                    LabeledContent("count", value: "\(entity.components.count)")
+                    ForEach(entity.components.components, id: \.self) { component in
+                        GroupBox(component.componentType.description) {
+                            PropertiesView(
+                                componentType: component.componentType,
+                                properties: component.properties
+                            )
+                            .monospaced()
+                        }
+                        .padding(.bottom)
+                        .help(component.componentType.help)
+                    }
                 }
             }
         }
@@ -96,7 +103,7 @@ struct PropertiesView: View {
 
         case .physicsMotionComponent:
             PhysicsMotionComponentPropertiesView(properties as! PhysicsMotionComponentProperties)
-            
+
         case .pointLightComponent:
             PointLightComponentPropertiesView(properties as! PointLightComponentProperties)
 
