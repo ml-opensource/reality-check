@@ -16,6 +16,10 @@ RealityCheck is an open-source Mac app designed to help AR development teams str
 
 To use RealityCheck in your AR project, you'll need to import the RealityCheck library and connect to a live session running on an iOS device. Please refer to the [Documentation](https://github.com/monstar-lab/reality-check/docs) for detailed instructions on how to integrate RealityCheck into your project.
 
+## Thanks
+
+[Yasuhito Nagatomo](https://www.atarayosd.com/developer.html) is an inspiration with the highly useful [RealityDump.swift](https://github.com/ynagatomo/ARPlasticOcean/blob/366c025c7c3bbdd7cdfd03a4fa43595503c00713/arplasticocean/Utilities/RealityDump.swift) helper and his general contributions to the field.
+
 ## Contributing
 
 
