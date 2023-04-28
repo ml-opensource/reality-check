@@ -1,6 +1,6 @@
 # RealityCheck
 
-RealityCheck is an open-source Mac app designed to help AR development teams streamline their workflows and improve the quality of their projects. It provides a debugger for RealityKit, a powerful framework for building AR experiences, that allows developers to inspect the Entity Component System (ECS) structure and properties, and make changes in real-time for preview/debug purposes.
+RealityCheck is an open-source Mac app designed to help AR development teams streamline their workflows and improve the quality of their projects. It provides a debugger for RealityKit, a powerful framework for building AR experiences, that allows developers to inspect the [Entity Component System (ECS)](https://developer.apple.com/documentation/realitykit/implementing-systems-for-entities-in-a-scene) structure and properties, and make changes in real-time for preview/debug purposes.
 
 ![Screenshot](./Assets/Screenshot.png)
 
@@ -9,7 +9,7 @@ RealityCheck is an open-source Mac app designed to help AR development teams str
 - Inspect and modify entity and component properties in real-time for debugging and preview purposes
 - Stream the current state of your AR app to the RealityCheck debugger in real-time
 - Support for custom representations for different types of properties, such as transform matrices and light intensity
-- Built with SwiftUI and The Composable Architecture for clean, modular code and a great user experience
+- Built with SwiftUI and [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) for clean, modular code and a great user experience
 
 ## Getting Started
 
@@ -29,6 +29,6 @@ RealityCheck is released under the [MIT License](https://github.com/monstar-lab/
 ## Contact
 
 
-If you have any questions or feedback about RealityCheck, please contact us at [email address]. We'd love to hear from you!
+If you have any questions or feedback about RealityCheck, please contact us at [cristian.diaz@monstar-lab.com]. We'd love to hear from you!
 
 That's just a rough example, but I hope it gives you an idea of what to include in your README. Let me know if you have any questions or need any further assistance!
