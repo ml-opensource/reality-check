@@ -47,8 +47,7 @@ public struct AppCore: Reducer {
       case .binding(\.$selected):
         return .task { [state] in
           if let entity = state.selected?.rawValue {
-            let output = await realityDump.raw(entity)
-            return .dumpOutput(output.joined(separator: "\n"))
+            return .dump(entity)
           } else {
             return .dumpOutput("...")
           }
@@ -69,7 +68,7 @@ public struct AppCore: Reducer {
 
       case .dump(let entity):
         return .task {
-          let output = await realityDump.raw(entity)
+          let output = await realityDump.raw(entity, org: false)
           return .dumpOutput(output.joined(separator: "\n"))
         }
 

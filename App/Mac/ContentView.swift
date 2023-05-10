@@ -11,43 +11,10 @@ struct ContentView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
-        List(selection: viewStore.binding(\.$selected)) {
-          Section("ARView") {}
-          Section("Scenes") {}
-          Section("Entities") {
-            OutlineGroup(viewStore.identifiedEntities, children: \.children) {
-              entity in
-              NavigationLink.init(
-                value: entity,
-                label: {
-                  if let name = entity.name,
-                    !name.isEmpty
-                  {
-                    Label(
-                      title: {
-                        VStack(alignment: .leading) {
-                          Text(name)
-                          Text(entity.entityType.description)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        }
-                      },
-                      icon: { Image(systemName: entity.entityType.symbol) }
-                    )
-                    .help(entity.entityType.help)
-                  } else {
-                    Label(entity.entityType.description, systemImage: entity.entityType.symbol)
-                      .help(entity.entityType.help)
-                  }
-                }
-              )
-            }
-          }
-        }
+        Sidebar(viewStore: viewStore)
       } content: {
         VSplitView {
           ARContainerView(points: points)
-            .ignoresSafeArea()
             .overlay(alignment: .bottom) {
               HStack {
                 Button("Random") {
@@ -64,11 +31,8 @@ struct ContentView: View {
 
           TextEditor(text: viewStore.binding(\.$dumpOutput))
             .monospaced()
-            // .font(.custom("Menlo", size: 14.0))
-            // .lineSpacing(10.0)
             .foregroundColor(.cyan)
             .multilineTextAlignment(.leading)
-
         }
       } detail: {
         Group {
@@ -78,7 +42,7 @@ struct ContentView: View {
             Text("Pick an entity")
           }
         }
-        .navigationSplitViewColumnWidth(min: 270, ideal: 405)
+        .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         .navigationSplitViewStyle(.prominentDetail)
       }
       .toolbar {
@@ -90,15 +54,10 @@ struct ContentView: View {
           label: { Label("Dump", systemImage: "ladybug") }
         )
       }
-      // .onChange(of: \.selection) { entity in
-      //     //TODO: dump selected entity
-      //     text = await realityDump.raw(
-      //         entity,
-      //         printing: false,
-      //         org: false
-      //     )
-      //     .joined(separator: "\n")
-      // }
+      .task {
+        viewStore.send(.dump(worldOriginAnchor))
+        viewStore.send(.parse(worldOriginAnchor))
+      }
     }
   }
 

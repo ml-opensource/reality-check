@@ -4,6 +4,9 @@ import RealityKit
 public struct IdentifiableEntity: Identifiable, Hashable {
   public var id: UInt64 { rawValue.id }
   public let rawValue: Entity
+  public let isAccessibilityElement: Bool
+  public let accessibilityLabel: String?
+  public let accessibilityDescription: String?
   public var anchorIdentifier: UUID?
   public var name: String?
   public let entityType: EntityType
@@ -79,6 +82,9 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     //FIXME
     // self.anchorIdentifier = entity.anchorIdentifier
     self.rawValue = entity
+    self.isAccessibilityElement = entity.isAccessibilityElement
+    self.accessibilityLabel = entity.accessibilityLabel
+    self.accessibilityDescription = entity.accessibilityDescription
     self.name = entity.name
     self.entityType = .init(rawValue: Swift.type(of: entity))!
     self.state = state
