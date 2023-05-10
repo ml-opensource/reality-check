@@ -60,13 +60,17 @@ struct ARContainerView: ViewRepresentable {
         worldOriginAnchor.setOrientation(
             .init(angle: deg2rad(35), axis: [1, 0, 0]), relativeTo: nil)
 
-        let camera = PerspectiveCamera()
-        camera.camera.fieldOfViewInDegrees = 60
-        camera.look(
+        let cameraEntity = PerspectiveCamera()
+        cameraEntity.camera.fieldOfViewInDegrees = 60
+        cameraEntity.look(
             at: .zero,
             from: .zero,
             relativeTo: worldOriginAnchor
         )
+        
+        let cameraAnchor = AnchorEntity(world: [0.5, 0.5, 5])
+        cameraAnchor.addChild(cameraEntity)
+        arView.scene.addAnchor(cameraAnchor)
 
         worldOriginAnchor.addChild(boxEntity)
 
@@ -86,7 +90,7 @@ struct ARContainerView: ViewRepresentable {
         worldOriginAnchor.addChild(dummyCamera)
         dummyCamera.addChild(dummyTriggerVolume)
         dummyCamera.addChild(dummySpotLight)
-
+        
         return arView
     }
 

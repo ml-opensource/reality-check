@@ -1,17 +1,17 @@
-//
-//  RealityCheckApp.swift
-//  RealityCheck
-//
-//  Created by Cristian Díaz on 24.04.23.
-//
-
+import AppFeature
+import ComposableArchitecture
 import SwiftUI
 
 @main
 struct RealityCheckApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var body: some Scene {
+    WindowGroup {
+      ContentView(
+        store: .init(
+          initialState: AppCore.State(),
+          reducer: AppCore()
+        )
+      )
     }
+  }
 }

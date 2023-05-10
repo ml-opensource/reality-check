@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		402EA02A29F6A85100BB522F /* aerodynamics_workshop_4k.exr in Resources */ = {isa = PBXBuildFile; fileRef = 402EA02929F6A85100BB522F /* aerodynamics_workshop_4k.exr */; };
-		402EA02C29F6AE9100BB522F /* RealityDumpClient in Frameworks */ = {isa = PBXBuildFile; productRef = 402EA02B29F6AE9100BB522F /* RealityDumpClient */; };
 		402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* EntityDetailView.swift */; };
 		402EA03029F8038F00BB522F /* ARContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02F29F8038F00BB522F /* ARContainerView.swift */; };
+		40B370AB2A0BE34E00D0F51D /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 40B370AA2A0BE34E00D0F51D /* AppFeature */; };
 		40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517D29F68F0B0083502A /* Assets.xcassets */; };
 		40E7518C29F68F0B0083502A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517F29F68F0B0083502A /* Preview Assets.xcassets */; };
 		40E7518D29F68F0B0083502A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7518129F68F0B0083502A /* ContentView.swift */; };
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				402EA02C29F6AE9100BB522F /* RealityDumpClient in Frameworks */,
+				40B370AB2A0BE34E00D0F51D /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,13 +58,13 @@
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				402EA02929F6A85100BB522F /* aerodynamics_workshop_4k.exr */,
 				40E7518A29F68F0B0083502A /* wireframe_shader.metal */,
+				402EA02F29F8038F00BB522F /* ARContainerView.swift */,
 				40E7518129F68F0B0083502A /* ContentView.swift */,
 				402EA02D29F6E43E00BB522F /* EntityDetailView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
-				402EA02F29F8038F00BB522F /* ARContainerView.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";
@@ -130,7 +130,7 @@
 			);
 			name = RealityCheck;
 			packageProductDependencies = (
-				402EA02B29F6AE9100BB522F /* RealityDumpClient */,
+				40B370AA2A0BE34E00D0F51D /* AppFeature */,
 			);
 			productName = RealityCheck;
 			productReference = 40FA063C29F66A8500DD5306 /* RealityCheck.app */;
@@ -415,9 +415,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		402EA02B29F6AE9100BB522F /* RealityDumpClient */ = {
+		40B370AA2A0BE34E00D0F51D /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = RealityDumpClient;
+			productName = AppFeature;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
