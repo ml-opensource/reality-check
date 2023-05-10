@@ -43,6 +43,17 @@ public struct AppCore: Reducer {
     
     Reduce<State, Action> { state, action in
       switch action {
+        
+      case .binding(\.$selected):
+        return .task { [state] in
+          if let entity = state.selected?.rawValue {
+            let output = await realityDump.raw(entity)
+            return .dumpOutput(output.joined(separator: "\n"))
+          } else {
+            return .dumpOutput("...")
+          }
+        }
+        
       case .binding:
         return .none
         
