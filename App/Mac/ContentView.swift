@@ -26,9 +26,6 @@ struct ContentView: View {
               }
               .padding()
             }
-            .task {
-              random()
-            }
 
           TextEditor(text: viewStore.binding(\.$dumpOutput))
             .monospaced()
@@ -45,15 +42,6 @@ struct ContentView: View {
         }
         .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         .navigationSplitViewStyle(.prominentDetail)
-      }
-      .toolbar {
-        Button(
-          action: {
-            viewStore.send(.dump(worldOriginAnchor))
-            viewStore.send(.parse(worldOriginAnchor))
-          },
-          label: { Label("Dump", systemImage: "ladybug") }
-        )
       }
       .task {
         random()

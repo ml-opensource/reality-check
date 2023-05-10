@@ -3,6 +3,7 @@ import RealityKit
 import SwiftUI
 
 //MARK: -
+let arView = ARView(frame: .zero)
 let worldOriginAnchor: AnchorEntity = {
   let anchor = AnchorEntity(world: [0, 0, -5])
   anchor.name = "Le Anchor"
@@ -48,7 +49,6 @@ struct ARContainerView: ViewRepresentable {
   var points: [SIMD3<Float>]
 
   func makeNSView(context: Context) -> some NSView {
-    let arView = ARView(frame: .zero)
     arView.environment.background = .color(.windowBackgroundColor)
     let skyboxName = "aerodynamics_workshop_4k.exr"
     let skyboxResource = try! EnvironmentResource.load(named: skyboxName)
