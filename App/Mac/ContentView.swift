@@ -19,6 +19,7 @@ struct ContentView: View {
               HStack {
                 Button("Random") {
                   random()
+                  viewStore.send(.parse(arView.scene.anchors.map { $0 }))
                 }
                 .buttonStyle(.borderedProminent)
                 .controlSize(.large)
@@ -36,7 +37,7 @@ struct ContentView: View {
         }
       } detail: {
         Group {
-          if let entity = viewStore.selected {
+          if let entity = viewStore.selectedEntity {
             EntityDetailView(entity: entity)
           } else {
             Text("Pick an entity")
@@ -55,8 +56,8 @@ struct ContentView: View {
         )
       }
       .task {
-        viewStore.send(.dump(worldOriginAnchor))
-        viewStore.send(.parse(worldOriginAnchor))
+        random()
+        viewStore.send(.parse(arView.scene.anchors.map { $0 }))
       }
     }
   }

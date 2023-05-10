@@ -7,13 +7,23 @@ public struct AppCore: Reducer {
   public init() {}
 
   public struct State: Equatable {
-    public var identifiedEntities: [IdentifiableEntity]
-    @BindingState public var selected: IdentifiableEntity?
+    public var identifiedEntities: IdentifiedArrayOf<IdentifiableEntity>
+    @BindingState public var selection: IdentifiableEntity.ID?
+    public var selectedEntity: IdentifiableEntity? {
+      guard let selection = selection else { return nil }
+      for rootEntity in identifiedEntities {
+        if let entity = findEntity(root: rootEntity, targetID: selection) {
+          return entity
+        }
+      }
+      return nil
+    }
+
     @BindingState public var dumpOutput: String
 
     public init(
-      identifiedEntities: [IdentifiableEntity] = [],
-      selected: IdentifiableEntity? = nil,
+      identifiedEntities: IdentifiedArrayOf<IdentifiableEntity> = [],
+      selection: IdentifiableEntity.ID? = nil,
       dumpOutput: String = """
         Biscuit dessert tart gummi bears pie biscuit.
         Pastry oat cake fruitcake chocolate cake marzipan shortbread pie toffee muffin.
@@ -22,15 +32,15 @@ public struct AppCore: Reducer {
         """
     ) {
       self.identifiedEntities = identifiedEntities
-      self.selected = selected
+      self.selection = selection
       self.dumpOutput = dumpOutput
     }
   }
 
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
-    case entityIdentified(IdentifiableEntity)
-    case parse(RealityKit.Entity)
+    case entitiesIdentified([IdentifiableEntity])
+    case parse([RealityKit.Entity])
     case dump(RealityKit.Entity)
     case dumpOutput(String)
     case select(entity: IdentifiableEntity?)
@@ -40,35 +50,38 @@ public struct AppCore: Reducer {
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
-    
+
     Reduce<State, Action> { state, action in
       switch action {
-        
-      case .binding(\.$selected):
+
+      case .binding(\.$selection):
         return .task { [state] in
-          if let entity = state.selected?.rawValue {
-            return .dump(entity)
+          if let entity = state.selectedEntity {
+            return .dump(entity.rawValue)
           } else {
             return .dumpOutput("...")
           }
         }
-        
+
       case .binding:
         return .none
-        
-      case .entityIdentified(let identifiableEntity):
-        state.identifiedEntities = [identifiableEntity]  //FIXME: allow multiple roots
+
+      case .entitiesIdentified(let identifiableEntities):
+        state.identifiedEntities = .init(uniqueElements: identifiableEntities)
         return .none
 
-      case .parse(let entity):
+      case .parse(let entities):
         return .task {
-          let identifiableEntity = await realityDump.identify(entity)
-          return .entityIdentified(identifiableEntity)
+          var identifiableEntities: [IdentifiableEntity] = []
+          for entity in entities {
+            identifiableEntities.append(await realityDump.identify(entity))
+          }
+          return .entitiesIdentified(identifiableEntities)
         }
 
       case .dump(let entity):
         return .task {
-          let output = await realityDump.raw(entity, org: false)
+          let output = await realityDump.raw(entity, printing: false, org: false)
           return .dumpOutput(output.joined(separator: "\n"))
         }
 
@@ -77,7 +90,7 @@ public struct AppCore: Reducer {
         return .none
 
       case .select(let entity):
-        state.selected = entity
+        state.selection = entity?.id
         return .none
       }
     }

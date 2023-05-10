@@ -1,7 +1,15 @@
 import Foundation
 import RealityKit
 
-public struct IdentifiableEntity: Identifiable, Hashable {
+public struct IdentifiableEntity: Equatable, Identifiable, Hashable {
+  public static func == (lhs: IdentifiableEntity, rhs: IdentifiableEntity) -> Bool {
+    lhs.id == rhs.id
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(self.id)
+  }
+
   public var id: UInt64 { rawValue.id }
   public let rawValue: Entity
   public let isAccessibilityElement: Bool
@@ -48,7 +56,8 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     }
   }
 
-  public struct Hierarhy: Equatable, Hashable {
+  public struct Hierarhy {
+
     public let hasParent: Bool
     public var childrenCount: Int { children.count }
     public var children: [IdentifiableEntity]
@@ -79,8 +88,9 @@ public struct IdentifiableEntity: Identifiable, Hashable {
     hierarhy: IdentifiableEntity.Hierarhy,
     components: IdentifiableEntity.Components
   ) {
-    //FIXME
-    // self.anchorIdentifier = entity.anchorIdentifier
+    if let anchor = entity as? AnchorEntity {
+      self.anchorIdentifier = anchor.anchorIdentifier
+    }
     self.rawValue = entity
     self.isAccessibilityElement = entity.isAccessibilityElement
     self.accessibilityLabel = entity.accessibilityLabel
@@ -220,15 +230,5 @@ extension IdentifiableEntity.EntityType {
         An invisible 3D shape that detects when objects enter or exit a given region of space.
         """
     }
-  }
-}
-
-//MARK: -
-
-extension Entity.ComponentSet: Equatable {
-  //FIXME: Find a better way to use equatable or use another type instear `Entity.ComponentSet`
-
-  public static func == (lhs: Entity.ComponentSet, rhs: Entity.ComponentSet) -> Bool {
-    lhs.count == rhs.count
   }
 }
