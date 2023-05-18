@@ -2,8 +2,10 @@ import ComposableArchitecture
 import Foundation
 import MessagePack
 import Models
+import MultipeerClient
 import RealityDumpClient
 import RealityKit
+import StreamingClient
 
 public struct AppCore: Reducer {
   public init() {}

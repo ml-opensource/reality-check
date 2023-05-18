@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Foundation
+import Models
 import MultipeerClient
 import StreamingClient
 
@@ -34,7 +35,7 @@ public struct MultipeerConnection: Reducer {
           return .none
 
         case .start:
-        return .run(priority: .userInitiated) { send in
+          return .run(priority: .userInitiated) { send in
             for await action in await multipeerClient.start(
               serviceName: "reality-check",
               sessionType: .host

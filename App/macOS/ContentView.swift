@@ -93,29 +93,28 @@ struct ContentView: View {
                 .padding(8)
                 .background(Capsule(style: .continuous).fill(.green))
           }
-
         }
       }
       .task {
         viewStore.send(.multipeerConnection(.start))
       }
-      .task {
-        random()
-        viewStore.send(.parse(arView.scene.anchors.map { $0 }))
-      }
+//      .task {
+//        random()
+//        viewStore.send(.parse(arView.scene.anchors.map { $0 }))
+//      }
     }
   }
 
-  private func random() {
-    points = (0..<Int.random(in: 5...55))
-      .map { _ in
-        SIMD3<Float>(
-          x: Float.random(in: -1...1),
-          y: Float.random(in: 0...1),
-          z: Float.random(in: -1...1)
-        )
-      }
-  }
+//  private func random() {
+//    points = (0..<Int.random(in: 5...55))
+//      .map { _ in
+//        SIMD3<Float>(
+//          x: Float.random(in: -1...1),
+//          y: Float.random(in: 0...1),
+//          z: Float.random(in: -1...1)
+//        )
+//      }
+//  }
 }
 
 struct ContentView_Previews: PreviewProvider {

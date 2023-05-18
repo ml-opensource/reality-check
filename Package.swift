@@ -11,16 +11,16 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "AppFeature",
-      targets: ["AppFeature"]
-    ),
-    .library(
       name: "Models",
       targets: ["Models"]
     ),
     .library(
       name: "MultipeerClient",
       targets: ["MultipeerClient"]
+    ),
+    .library(
+      name: "RealityCheckConnect",
+      targets: ["RealityCheckConnect"]
     ),
     .library(
       name: "RealityDumpClient",
@@ -33,34 +33,11 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/Flight-School/MessagePack",
-      from: "1.2.4"
-    ),
-    .package(
-      url: "https://github.com/pointfreeco/swift-composable-architecture",
-      branch: "prerelease/1.0"
-    ),
-    .package(
       url: "https://github.com/pointfreeco/swift-dependencies",
-      from: "0.4.1"
-    ),
+      from: "0.5.0"
+    )
   ],
   targets: [
-    .target(
-      name: "AppFeature",
-      dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "MessagePack", package: "MessagePack"),
-        "Models",
-        "MultipeerClient",
-        "RealityDumpClient",
-        "StreamingClient",
-      ]
-    ),
-    .testTarget(
-      name: "AppFeatureTests",
-      dependencies: ["AppFeature"]
-    ),
     .target(
       name: "Models",
       dependencies: []
@@ -69,6 +46,14 @@ let package = Package(
       name: "MultipeerClient",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies")
+      ]
+    ),
+    .target(
+      name: "RealityCheckConnect",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-dependencies"),
+        "MultipeerClient",
+        "StreamingClient",
       ]
     ),
     .target(
@@ -82,11 +67,7 @@ let package = Package(
       name: "StreamingClient",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies")
-      ],
-      resources: [
-        .process("Renderer/Shaders")
       ]
-      // publicHeadersPath: "Renderer/Shaders"
     ),
   ]
 )
