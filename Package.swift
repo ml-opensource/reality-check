@@ -33,12 +33,17 @@ let package = Package(
             url: "https://github.com/pointfreeco/swift-dependencies",
             from: "0.4.1"
         ),
+        .package(
+             url: "https://github.com/Flight-School/MessagePack",
+             from: "1.2.4"
+         ),
     ],
     targets: [
         .target(
             name: "AppFeature",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "MessagePack", package: "MessagePack"),
                 "Models",
                 "RealityDumpClient",
             ]

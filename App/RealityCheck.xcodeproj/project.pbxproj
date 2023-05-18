@@ -64,10 +64,10 @@
 				40E7518129F68F0B0083502A /* ContentView.swift */,
 				402EA02D29F6E43E00BB522F /* EntityDetailView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
+				4025FC742A0BF68100A8191F /* Sidebar.swift */,
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
-				4025FC742A0BF68100A8191F /* Sidebar.swift */,
 			);
 			path = Mac;
 			sourceTree = "<group>";

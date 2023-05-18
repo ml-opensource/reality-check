@@ -10,7 +10,7 @@ extension RealityDump: DependencyKey {
                 dumpRealityEntity(loadedEntity, printing: printing, detail: detail, org: org)
             },
             identify: { (loadedEntity, detail) in
-                Dumper.dump(loadedEntity)
+                Parser.identify(loadedEntity)
             }
         )
     }
@@ -18,8 +18,8 @@ extension RealityDump: DependencyKey {
 
 // MARK: -
 
-enum Dumper {
-    static func dump(_ loadedEntity: Entity, detail: Int = 1) -> IdentifiableEntity {
+enum Parser {
+    static func identify(_ loadedEntity: Entity, detail: Int = 1) -> IdentifiableEntity {
         identifyEntity(loadedEntity, detail: detail, nesting: 1)
     }
 
@@ -45,7 +45,7 @@ enum Dumper {
             isAnchored: loadedEntity.isAnchored
         )
         let hierarhy = IdentifiableEntity.Hierarhy(
-            children: loadedEntity.children.compactMap({ dump($0) }),
+            children: loadedEntity.children.compactMap({ identify($0) }),
             hasParent: !(loadedEntity.parent == nil)
         )
         let components = IdentifiableEntity.Components(

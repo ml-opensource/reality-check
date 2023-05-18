@@ -1,4 +1,6 @@
 import ComposableArchitecture
+import Foundation
+import MessagePack
 import Models
 import RealityDumpClient
 import RealityKit
@@ -54,45 +56,67 @@ public struct AppCore: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
 
-      case .binding(\.$selection):
-        return .task { [state] in
-          if let entity = state.selectedEntity {
-            // return .dump(entity.rawValue) //FIXME: reimplement dump avoiding RealityKit dependencies
-            return .dumpOutput("...")
-          } else {
-            return .dumpOutput("...")
+        case .binding(\.$selection):
+          return .task { [state] in
+            if let entity = state.selectedEntity {
+              // return .dump(entity.rawValue) //FIXME: reimplement dump avoiding RealityKit dependencies
+              return .dumpOutput("...")
+            } else {
+              return .dumpOutput("...")
+            }
           }
-        }
 
-      case .binding:
-        return .none
+        case .binding:
+          return .none
 
-      case .entitiesIdentified(let identifiableEntities):
-        state.identifiedEntities = .init(uniqueElements: identifiableEntities)
-        return .none
+        case .entitiesIdentified(let identifiableEntities):
+          state.identifiedEntities = .init(
+            uniqueElements: identifiableEntities
+          )
 
-      case .parse(let entities):
-        return .task {
-          var identifiableEntities: [IdentifiableEntity] = []
-          for entity in entities {
-            identifiableEntities.append(await realityDump.identify(entity))
+          for identifiableEntity in identifiableEntities {
+            let encoder = MessagePackEncoder()
+            // encoder.nonConformingFloatEncodingStrategy = .convertToString(
+            //   positiveInfinity: "INF",
+            //   negativeInfinity: "-INF",
+            //   nan: "NAN"
+            // )
+            // encoder.outputFormatting = .prettyPrinted
+
+            let data = try! encoder.encode(identifiableEntity)
+            print(data)
+            // print(String(data: data, encoding: .utf8)!)
           }
-          return .entitiesIdentified(identifiableEntities)
-        }
+          return .none
 
-      case .dump(let entity):
-        return .task {
-          let output = await realityDump.raw(entity, printing: false, org: false)
-          return .dumpOutput(output.joined(separator: "\n"))
-        }
+        case .parse(let entities):
+          return .task {
+            var identifiableEntities: [IdentifiableEntity] = []
+            for entity in entities {
+              identifiableEntities.append(
+                await realityDump.identify(entity)
+              )
+            }
+            return .entitiesIdentified(identifiableEntities)
+          }
 
-      case .dumpOutput(let output):
-        state.dumpOutput = output
-        return .none
+        case .dump(let entity):
+          return .task {
+            let output = await realityDump.raw(
+              entity,
+              printing: false,
+              org: false
+            )
+            return .dumpOutput(output.joined(separator: "\n"))
+          }
 
-      case .select(let entity):
-        state.selection = entity?.id
-        return .none
+        case .dumpOutput(let output):
+          state.dumpOutput = output
+          return .none
+
+        case .select(let entity):
+          state.selection = entity?.id
+          return .none
       }
     }
   }
