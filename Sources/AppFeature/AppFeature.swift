@@ -10,6 +10,7 @@ public struct AppCore: Reducer {
 
   public struct State: Equatable {
     public var identifiedEntities: IdentifiedArrayOf<IdentifiableEntity>
+    public var multipeerConnection = MultipeerConnection.State()
     @BindingState public var selection: IdentifiableEntity.ID?
     public var selectedEntity: IdentifiableEntity? {
       guard let selection = selection else { return nil }
@@ -20,7 +21,6 @@ public struct AppCore: Reducer {
       }
       return nil
     }
-
     @BindingState public var dumpOutput: String
 
     public init(
@@ -42,6 +42,7 @@ public struct AppCore: Reducer {
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case entitiesIdentified([IdentifiableEntity])
+    case multipeerConnection(MultipeerConnection.Action)
     case parse([RealityKit.Entity])
     case dump(RealityKit.Entity)
     case dumpOutput(String)
@@ -49,17 +50,22 @@ public struct AppCore: Reducer {
   }
 
   @Dependency(\.realityDump) var realityDump
+  @Dependency(\.streamingClient) var streamingClient
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
 
+    Scope(state: \.multipeerConnection, action: /Action.multipeerConnection) {
+      MultipeerConnection()
+    }
+
     Reduce<State, Action> { state, action in
       switch action {
-
         case .binding(\.$selection):
           return .task { [state] in
             if let entity = state.selectedEntity {
-              // return .dump(entity.rawValue) //FIXME: reimplement dump avoiding RealityKit dependencies
+              //FIXME: reimplement dump avoiding RealityKit dependencies
+              // return .dump(entity.rawValue)
               return .dumpOutput("...")
             } else {
               return .dumpOutput("...")
@@ -87,6 +93,13 @@ public struct AppCore: Reducer {
             print(data)
             // print(String(data: data, encoding: .utf8)!)
           }
+          return .none
+
+        case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
+          streamingClient.prepareForRender(videoFrameData)
+          return .none
+
+        case .multipeerConnection(_):
           return .none
 
         case .parse(let entities):

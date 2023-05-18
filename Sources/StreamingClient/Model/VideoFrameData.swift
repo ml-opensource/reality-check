@@ -7,12 +7,14 @@ VideoFrameData contains the essential data from a CMSampleBuffer in a form that 
 
 import CoreMedia
 
-public struct VideoFrameData: Codable {
+public struct VideoFrameData: Codable, Equatable {
 
   // let inverseProjectionMatrix: Matrix
   // let inverseViewMatrix: Matrix
 
-  init(sampleBuffer: CMSampleBuffer) {
+  init(
+    sampleBuffer: CMSampleBuffer
+  ) {
     if let formatDescription = sampleBuffer.formatDescription {
       parameterSets = formatDescription.parameterSets.map { Data($0) }
     }
@@ -34,7 +36,8 @@ public struct VideoFrameData: Codable {
       sampleTimings = try sampleBuffer.sampleTimingInfos().map { VideoFrameData.TimingInfo($0) }
     } catch {
       fatalError(
-        "Failed to get timing info from sample buffer with error: \(error.localizedDescription)")
+        "Failed to get timing info from sample buffer with error: \(error.localizedDescription)"
+      )
     }
 
     // let camera = arFrame.camera
@@ -46,7 +49,7 @@ public struct VideoFrameData: Codable {
   }
 
   /// Explicit representation of a `CMTime` value.
-  struct TimeStamp: Codable {
+  struct TimeStamp: Codable, Equatable {
 
     var timeEpoch: CMTimeEpoch
     var timeValue: CMTimeValue
@@ -62,7 +65,9 @@ public struct VideoFrameData: Codable {
     }
 
     /// Initialize from a `CMTime` value.
-    init(_ time: CMTime) {
+    init(
+      _ time: CMTime
+    ) {
       timeEpoch = time.epoch
       timeValue = time.value
       timeScale = time.timescale
@@ -72,20 +77,25 @@ public struct VideoFrameData: Codable {
     /// Converts back to a `CMTime` value.
     var time: CMTime {
       CMTime(
-        value: timeValue, timescale: timeScale, flags: CMTimeFlags(rawValue: timeFlags),
-        epoch: timeEpoch)
+        value: timeValue,
+        timescale: timeScale,
+        flags: CMTimeFlags(rawValue: timeFlags),
+        epoch: timeEpoch
+      )
     }
   }
 
   /// Explicit representation of a `CMSampleTimingInfo` value.
-  struct TimingInfo: Codable {
+  struct TimingInfo: Codable, Equatable {
 
     var duration = TimeStamp()
     var pts = TimeStamp()
     var dts = TimeStamp()
 
     /// Initializes from a `CMSampleTimingInfo` value.
-    init(_ timingInfo: CMSampleTimingInfo) {
+    init(
+      _ timingInfo: CMSampleTimingInfo
+    ) {
       duration = TimeStamp(timingInfo.duration)
       pts = TimeStamp(timingInfo.presentationTimeStamp)
       dts = TimeStamp(timingInfo.decodeTimeStamp)
@@ -94,7 +104,10 @@ public struct VideoFrameData: Codable {
     /// Converts back to a `CMSampleTimingInfo` value.
     var timingInfo: CMSampleTimingInfo {
       CMSampleTimingInfo(
-        duration: duration.time, presentationTimeStamp: pts.time, decodeTimeStamp: dts.time)
+        duration: duration.time,
+        presentationTimeStamp: pts.time,
+        decodeTimeStamp: dts.time
+      )
     }
   }
 
@@ -124,7 +137,8 @@ public struct VideoFrameData: Codable {
         formatDescription: formatDescription,
         numSamples: sampleCount,
         sampleTimings: sampleTimings.map { $0.timingInfo },
-        sampleSizes: sampleSizes)
+        sampleSizes: sampleSizes
+      )
 
       return sampleBuffer
     } catch {

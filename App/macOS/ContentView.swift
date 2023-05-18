@@ -14,7 +14,29 @@ struct ContentView: View {
       NavigationSplitView {
         Sidebar(viewStore: viewStore)
       } content: {
-        StreamingView()
+        if viewStore.multipeerConnection.sessionState == .connected {
+          StreamingView()
+            .frame(width: 400, height: 800)
+
+        } else {
+          List(viewStore.multipeerConnection.peers) { peer in
+            Button(
+              action: {
+                viewStore.send(.multipeerConnection(.invite(peer)))
+              },
+              label: {
+                Label(
+                  title: { Text(peer.displayName) },
+                  icon: { Image(systemName: "phone") }
+                )
+              }
+            )
+            .padding(2)
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+          }
+          .animation(.easeInOut, value: viewStore.multipeerConnection.peers)
+        }
 
         // VSplitView {
         //   ARContainerView(points: points)
@@ -35,6 +57,7 @@ struct ContentView: View {
         //     .foregroundColor(.cyan)
         //     .multilineTextAlignment(.leading)
         // }
+
       } detail: {
         Group {
           if let entity = viewStore.selectedEntity {
@@ -45,6 +68,36 @@ struct ContentView: View {
         }
         .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         .navigationSplitViewStyle(.prominentDetail)
+      }
+      .toolbar {
+        ToolbarItem {
+          switch viewStore.multipeerConnection.sessionState {
+            case .notConnected:
+              Text("notConnected")
+                .foregroundColor(.white)
+                .font(.caption)
+                .padding(8)
+                .background(Capsule(style: .continuous).fill(.red))
+
+            case .connecting:
+              Text("connecting")
+                .foregroundColor(.white)
+                .font(.caption)
+                .padding(8)
+                .background(Capsule(style: .continuous).fill(.yellow))
+
+            case .connected:
+              Text("connected")
+                .foregroundColor(.white)
+                .font(.caption)
+                .padding(8)
+                .background(Capsule(style: .continuous).fill(.green))
+          }
+
+        }
+      }
+      .task {
+        viewStore.send(.multipeerConnection(.start))
       }
       .task {
         random()
