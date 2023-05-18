@@ -85,21 +85,22 @@ struct EntityDetailView: View {
           )
         }
 
-        Section("Components") {
-          LabeledContent("count", value: "\(entity.components.count)")
-          ForEach(entity.components.components, id: \.self) {
-            component in
-
-            GroupBox(component.componentType.description) {
-              ComponentPropertiesView(
-                component.properties
-              )
-              .monospaced()
-            }
-            .padding(.bottom)
-            .help(component.componentType.help)
-          }
-        }
+        //FIXME: restore (currenclty failing the `Decoding`
+//        Section("Components") {
+//          LabeledContent("count", value: "\(entity.components.count)")
+//          ForEach(entity.components.components, id: \.self) {
+//            component in
+//
+//            GroupBox(component.componentType.description) {
+//              ComponentPropertiesView(
+//                component.properties
+//              )
+//              .monospaced()
+//            }
+//            .padding(.bottom)
+//            .help(component.componentType.help)
+//          }
+//        }
       }
     }
   }

@@ -20,6 +20,7 @@ public struct MultipeerConnection: Reducer {
 
   public enum DelegateAction: Equatable {
     case receivedVideoFrameData(VideoFrameData)
+    case receivedVideoHierarchyData([IdentifiableEntity])
   }
 
   @Dependency(\.multipeerClient) var multipeerClient
@@ -40,6 +41,13 @@ public struct MultipeerConnection: Reducer {
               serviceName: "reality-check",
               sessionType: .host
             ) {
+              let someDecoder = JSONDecoder()
+              someDecoder.nonConformingFloatDecodingStrategy = .convertFromString(
+                positiveInfinity: "INF",
+                negativeInfinity: "-INF",
+                nan: "NAN"
+              )
+
               switch action {
                 case .session(let sessionAction):
                   switch sessionAction {
@@ -51,6 +59,15 @@ public struct MultipeerConnection: Reducer {
                         .decode(VideoFrameData.self, from: data)
                       {
                         await send(.delegate(.receivedVideoFrameData(videoFrameData)))
+                      } else if let hierarchyData = try? someDecoder.decode(
+                        [IdentifiableEntity].self,
+                        from: data
+                      ) {
+                        print(">>> A")
+                        print(String(data: data, encoding: .utf8)!)
+                        await send(.delegate(.receivedVideoHierarchyData(hierarchyData)))
+                      } else {
+                        fatalError()
                       }
                   }
 

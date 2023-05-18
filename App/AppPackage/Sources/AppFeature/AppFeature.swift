@@ -81,25 +81,16 @@ public struct AppCore: Reducer {
           state.identifiedEntities = .init(
             uniqueElements: identifiableEntities
           )
-
-          for identifiableEntity in identifiableEntities {
-            let encoder = MessagePackEncoder()
-            // encoder.nonConformingFloatEncodingStrategy = .convertToString(
-            //   positiveInfinity: "INF",
-            //   negativeInfinity: "-INF",
-            //   nan: "NAN"
-            // )
-            // encoder.outputFormatting = .prettyPrinted
-
-            let data = try! encoder.encode(identifiableEntity)
-            print(data)
-            // print(String(data: data, encoding: .utf8)!)
-          }
           return .none
 
         case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
           streamingClient.prepareForRender(videoFrameData)
           return .none
+
+        case .multipeerConnection(.delegate(.receivedVideoHierarchyData(let identifiableEntities))):
+          return .task {
+            return .entitiesIdentified(identifiableEntities)
+          }
 
         case .multipeerConnection(_):
           return .none

@@ -22,7 +22,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
   }
   public var state: State
   public var hierarhy: Hierarhy
-  public var components: Components
+//  public var components: Components
 
   public enum EntityType: CaseIterable, Codable {
     case anchor
@@ -95,10 +95,10 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
     self.accessibilityLabel = entity.accessibilityLabel
     self.accessibilityDescription = entity.accessibilityDescription
     self.name = entity.name
-    self.entityType = .init(rawValue: Swift.type(of: entity))!
+    self.entityType = .init(rawValue: Swift.type(of: entity)) ?? .entity
     self.state = state
     self.hierarhy = hierarhy
-    self.components = components
+//    self.components = components
   }
 }
 
@@ -134,8 +134,12 @@ extension IdentifiableEntity.EntityType: RawRepresentable {
         self = entityType
         return
       }
+      else {
+        self = .entity
+        return
+      }
     }
-    //TODO: handle unknown entities
+    //TODO: handle unknown/custom entities
     fatalError("Unknown Entity.Type")
   }
 }

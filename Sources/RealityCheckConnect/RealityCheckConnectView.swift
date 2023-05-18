@@ -1,6 +1,8 @@
 import Dependencies
+import Models
 import MultipeerClient
 import MultipeerConnectivity
+import RealityDumpClient
 import RealityKit
 import StreamingClient
 import SwiftUI
@@ -20,16 +22,19 @@ public struct LibraryViewContent: LibraryContentProvider {
 //TODO: allow customization on construction (or via modifiers)
 public struct RealityCheckConnectView: View {
   @Dependency(\.multipeerClient) var multipeerClient
+  @Dependency(\.realityDump) var realityDump
   @Dependency(\.streamingClient) var streamingClient
 
   @State private var connectionState: MultipeerClient.SessionState = .notConnected
   @State private var hostName: String = "..."
   @State private var isRecording = false
 
+  private var arView: ARView?
+
   public init(
     _ arView: ARView? = nil
   ) {
-   //TODO: arView?.scene.anchors
+    self.arView = arView
   }
 
   public var body: some View {
@@ -72,6 +77,29 @@ public struct RealityCheckConnectView: View {
                 }
               }
 
+              Task {
+                let anchors = arView?.scene.anchors.compactMap({ $0 }) ?? []
+                
+                var identifiableEntities: [IdentifiableEntity] = []
+                for anchor in anchors {
+                  identifiableEntities.append(
+                    //MARK: 4. Parse Hierarchy
+                    await realityDump.identify(anchor)
+                  )
+                }
+
+                //MARK: 4. Encode Hierarchy
+                let encoder = JSONEncoder()
+                encoder.nonConformingFloatEncodingStrategy = .convertToString(
+                  positiveInfinity: "INF",
+                  negativeInfinity: "-INF",
+                  nan: "NAN"
+                )
+                encoder.outputFormatting = .prettyPrinted
+                let hierarchyData = try! encoder.encode(identifiableEntities)
+                //MARK: 4. Send Hierarchy
+                multipeerClient.send(hierarchyData)
+              }
             },
             label: {
               ZStack {

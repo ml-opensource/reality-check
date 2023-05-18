@@ -10,19 +10,20 @@ import RealityKit
 import SwiftUI
 
 struct ContentView: View {
+  let arViewContainer = ARViewContainer()
   var body: some View {
     ZStack {
-      ARViewContainer().edgesIgnoringSafeArea(.all)
-      RealityCheckConnectView()
+      arViewContainer.edgesIgnoringSafeArea(.all)
+      RealityCheckConnectView(arViewContainer.arView)
     }
   }
 }
 
 struct ARViewContainer: UIViewRepresentable {
 
-  func makeUIView(context: Context) -> ARView {
+  let arView = ARView(frame: .zero)
 
-    let arView = ARView(frame: .zero)
+  func makeUIView(context: Context) -> ARView {
 
     // Load the "Box" scene from the "Experience" Reality File
     let boxAnchor = try! Experience.loadBox()

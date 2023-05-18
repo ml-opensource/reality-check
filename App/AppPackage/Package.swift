@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "RealityCheckAppPackage",
+  name: "AppPackage",
   platforms: [
     .macOS(.v12)
   ],
