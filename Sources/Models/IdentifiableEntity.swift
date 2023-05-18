@@ -10,8 +10,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable {
     hasher.combine(self.id)
   }
 
-  public var id: UInt64 { rawValue.id }
-  public let rawValue: Entity
+  public var id: UInt64
   public let isAccessibilityElement: Bool
   public let accessibilityLabel: String?
   public let accessibilityDescription: String?
@@ -91,7 +90,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable {
     if let anchor = entity as? AnchorEntity {
       self.anchorIdentifier = anchor.anchorIdentifier
     }
-    self.rawValue = entity
+    self.id = entity.id
     self.isAccessibilityElement = entity.isAccessibilityElement
     self.accessibilityLabel = entity.accessibilityLabel
     self.accessibilityDescription = entity.accessibilityDescription

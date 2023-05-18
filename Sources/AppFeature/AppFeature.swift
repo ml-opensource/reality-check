@@ -57,7 +57,8 @@ public struct AppCore: Reducer {
       case .binding(\.$selection):
         return .task { [state] in
           if let entity = state.selectedEntity {
-            return .dump(entity.rawValue)
+            // return .dump(entity.rawValue) //FIXME: reimplement dump avoiding RealityKit dependencies
+            return .dumpOutput("...")
           } else {
             return .dumpOutput("...")
           }
