@@ -2,7 +2,7 @@ import Dependencies
 import MetalKit
 import SwiftUI
 
-public struct MetalViewRepresentable: NSViewRepresentable {
+public struct StreamingView: NSViewRepresentable {
 	@Dependency(\.streamingClient) var streamingClient
 
 	private let metalView = MTKView()

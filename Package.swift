@@ -52,7 +52,9 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "MessagePack", package: "MessagePack"),
         "Models",
+        "MultipeerClient",
         "RealityDumpClient",
+        "StreamingClient",
       ]
     ),
     .testTarget(

@@ -2,6 +2,7 @@ import AppFeature
 import ComposableArchitecture
 import Dependencies
 import Models
+import StreamingClient
 import SwiftUI
 
 struct ContentView: View {
@@ -13,25 +14,27 @@ struct ContentView: View {
       NavigationSplitView {
         Sidebar(viewStore: viewStore)
       } content: {
-        VSplitView {
-          ARContainerView(points: points)
-            .overlay(alignment: .bottom) {
-              HStack {
-                Button("Random") {
-                  random()
-                  viewStore.send(.parse(arView.scene.anchors.map { $0 }))
-                }
-                .buttonStyle(.borderedProminent)
-                .controlSize(.large)
-              }
-              .padding()
-            }
+        StreamingView()
 
-          TextEditor(text: viewStore.binding(\.$dumpOutput))
-            .monospaced()
-            .foregroundColor(.cyan)
-            .multilineTextAlignment(.leading)
-        }
+        // VSplitView {
+        //   ARContainerView(points: points)
+        //     .overlay(alignment: .bottom) {
+        //       HStack {
+        //         Button("Random") {
+        //           random()
+        //           viewStore.send(.parse(arView.scene.anchors.map { $0 }))
+        //         }
+        //         .buttonStyle(.borderedProminent)
+        //         .controlSize(.large)
+        //       }
+        //       .padding()
+        //     }
+        //
+        //   TextEditor(text: viewStore.binding(\.$dumpOutput))
+        //     .monospaced()
+        //     .foregroundColor(.cyan)
+        //     .multilineTextAlignment(.leading)
+        // }
       } detail: {
         Group {
           if let entity = viewStore.selectedEntity {
