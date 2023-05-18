@@ -4,7 +4,7 @@ import simd
 public struct CodableQuaternion: Codable {
 	let vector: SIMD4<Float>
 
-  public init(_ quaternion: simd_quatf) {
+	public init(_ quaternion: simd_quatf) {
 		vector = quaternion.vector
 	}
 
@@ -12,7 +12,7 @@ public struct CodableQuaternion: Codable {
 		return simd_quatf(vector: vector)
 	}
 
-  public init(from decoder: Decoder) throws {
+	public init(from decoder: Decoder) throws {
 		var container = try decoder.unkeyedContainer()
 		let x = try container.decode(Float.self)
 		let y = try container.decode(Float.self)
@@ -21,11 +21,17 @@ public struct CodableQuaternion: Codable {
 		vector = SIMD4<Float>(x, y, z, w)
 	}
 
-  public func encode(to encoder: Encoder) throws {
+	public func encode(to encoder: Encoder) throws {
 		var container = encoder.unkeyedContainer()
 		try container.encode(vector.x)
 		try container.encode(vector.y)
 		try container.encode(vector.z)
 		try container.encode(vector.w)
+	}
+}
+
+extension CodableQuaternion: CustomDebugStringConvertible {
+	public var debugDescription: String {
+		self.quaternion.debugDescription
 	}
 }

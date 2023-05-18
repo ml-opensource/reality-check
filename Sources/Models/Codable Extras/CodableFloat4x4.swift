@@ -31,3 +31,9 @@ public struct CodableFloat4x4: Codable {
 		try container.encode(columns.3)
 	}
 }
+
+extension CodableFloat4x4: CustomDebugStringConvertible {
+	public var debugDescription: String {
+    self.float4x4.debugDescription
+	}
+}

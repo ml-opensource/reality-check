@@ -3,364 +3,394 @@ import RealityDumpClient
 import SwiftUI
 
 struct EntityDetailView: View {
-  let entity: IdentifiableEntity
+	let entity: IdentifiableEntity
 
-  var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      VStack(alignment: .leading) {
-        Label(entity.entityType.description, systemImage: entity.entityType.symbol)
-          .font(.headline)
+	var body: some View {
+		VStack(alignment: .leading, spacing: 0) {
+			VStack(alignment: .leading) {
+				Label(
+					entity.entityType.description,
+					systemImage: entity.entityType.symbol
+				)
+				.font(.headline)
 
-        Section {
-          LabeledContent("id:", value: entity.id.description)
-          if let name = entity.name, !name.isEmpty {
-            LabeledContent("name:", value: name)
-          }
-          if let anchorIdentifier = entity.anchorIdentifier {
-            LabeledContent("anchorIdentifier", value: anchorIdentifier.uuidString)
-          }
-        }
-      }
-      .padding()
+				Section {
+					LabeledContent("id:", value: entity.id.description)
+					if let name = entity.name, !name.isEmpty {
+						LabeledContent("name:", value: name)
+					}
+					if let anchorIdentifier = entity.anchorIdentifier {
+						LabeledContent(
+							"anchorIdentifier",
+							value: anchorIdentifier.uuidString)
+					}
+				}
+			}
+			.padding()
 
-      Divider()
+			Divider()
 
-      List {
-        Section("Accessibility") {
-          LabeledContent(
-            "isAccessibilityElement", value: "\(entity.isAccessibilityElement ? "YES" : "NO")")
-          if let accessibilityLabel = entity.accessibilityLabel {
-            LabeledContent("accessibilityLabel", value: accessibilityLabel)
-          }
-          if let accessibilityDescription = entity.accessibilityDescription {
-            LabeledContent("accessibilityDescription", value: accessibilityDescription)
-          }
-        }
+			List {
+				Section("Accessibility") {
+					LabeledContent(
+						"isAccessibilityElement",
+						value:
+							"\(entity.isAccessibilityElement ? "YES" : "NO")"
+					)
+					if let accessibilityLabel = entity.accessibilityLabel {
+						LabeledContent(
+							"accessibilityLabel",
+							value: accessibilityLabel)
+					}
+					if let accessibilityDescription = entity
+						.accessibilityDescription
+					{
+						LabeledContent(
+							"accessibilityDescription",
+							value: accessibilityDescription)
+					}
+				}
 
-        Section("State") {
-          LabeledContent("isEnabled", value: "\(entity.state.isEnabled ? "YES" : "NO")")
-          LabeledContent(
-            "isEnabledInHierarchy", value: "\(entity.state.isActive ? "YES" : "NO")")
-          LabeledContent(
-            "isAnchored", value: "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")")
-          LabeledContent("isActive", value: "\(entity.state.isAnchored ? "YES" : "NO")")
-        }
+				Section("State") {
+					LabeledContent(
+						"isEnabled",
+						value: "\(entity.state.isEnabled ? "YES" : "NO")")
+					LabeledContent(
+						"isEnabledInHierarchy",
+						value: "\(entity.state.isActive ? "YES" : "NO")")
+					LabeledContent(
+						"isAnchored",
+						value:
+							"\(entity.state.isEnabledInHierarchy ? "YES" : "NO")"
+					)
+					LabeledContent(
+						"isActive",
+						value: "\(entity.state.isAnchored ? "YES" : "NO")")
+				}
 
-        Section("Hierarhy") {
-          LabeledContent("parent", value: "\(entity.hierarhy.hasParent ? "YES" : "NO")")
-          LabeledContent("children count", value: "\(entity.hierarhy.childrenCount)")
-        }
+				Section("Hierarhy") {
+					LabeledContent(
+						"parent",
+						value: "\(entity.hierarhy.hasParent ? "YES" : "NO")"
+					)
+					LabeledContent(
+						"children count",
+						value: "\(entity.hierarhy.childrenCount)")
+				}
 
-        Section("Components") {
-          LabeledContent("count", value: "\(entity.components.count)")
-          ForEach(entity.components.components, id: \.self) { component in
-            GroupBox(component.componentType.description) {
-              PropertiesView(
-                componentType: component.componentType,
-                properties: component.properties
-              )
-              .monospaced()
-            }
-            .padding(.bottom)
-            .help(component.componentType.help)
-          }
-        }
-      }
-    }
-  }
+				Section("Components") {
+					LabeledContent("count", value: "\(entity.components.count)")
+					ForEach(entity.components.components, id: \.self) {
+						component in
+
+						GroupBox(component.componentType.description) {
+							ComponentPropertiesView(
+								component.properties
+							)
+							.monospaced()
+						}
+						.padding(.bottom)
+						.help(component.componentType.help)
+					}
+				}
+			}
+		}
+	}
 }
 
-struct PropertiesView: View {
-  let componentType: IdentifiableComponent.ComponentType
-  let properties: ComponentPropertiesRepresentable
+struct ComponentPropertiesView: View {
+	let properties: ComponentProperties
 
-  var body: some View {
-    switch componentType {
-    case .anchoringComponent:
-      AnchoringComponentPropertiesView(properties as! Anchoring)
+	init(_ properties: ComponentProperties) {
+		self.properties = properties
+	}
 
-    case .characterControllerComponent:
-      CharacterControllerComponentPropertiesView(
-        properties as! CharacterControllerComponentProperties)
+	var body: some View {
+		switch properties {
+		case .anchoring(let properties):
+			AnchoringComponentPropertiesView(properties)
 
-    case .characterControllerStateComponent:
-      CharacterControllerStateComponentPropertiesView(
-        properties as! CharacterControllerStateComponentProperties)
+		case .characterController(let properties):
+			CharacterControllerComponentPropertiesView(properties)
 
-    case .collisionComponent:
-      CollisionComponentPropertiesView(properties as! CollisionComponentProperties)
+		case .characterControllerState(let properties):
+			CharacterControllerStateComponentPropertiesView(properties)
 
-    case .directionalLightComponent:
-      DirectionalLightComponentPropertiesView(
-        properties as! DirectionalLightComponentProperties)
+		case .collision(let properties):
+			CollisionComponentPropertiesView(properties)
 
-    case .directionalLightComponentShadow:
-      DirectionalLightShadowComponentPropertiesView(
-        properties as! DirectionalLightShadowComponentProperties)
+		case .directionalLight(let properties):
+			DirectionalLightComponentPropertiesView(properties)
 
-    case .modelComponent:
-      ModelComponentPropertiesView(properties as! ModelComponentProperties)
+		case .directionalLightShadow(let properties):
+			DirectionalLightShadowComponentPropertiesView(properties)
 
-    case .modelDebugOptionsComponent:
-      ModelDebugOptionsComponentPropertiesView(
-        properties as! ModelDebugOptionsComponentProperties)
+		case .model(let properties):
+			ModelComponentPropertiesView(properties)
 
-    case .perspectiveCameraComponent:
-      PerspectiveCameraComponentPropertiesView(
-        properties as! PerspectiveCameraComponentProperties)
+		case .modelDebugOptions(let properties):
+			ModelDebugOptionsComponentPropertiesView(properties)
 
-    case .physicsBodyComponent:
-      PhysicsBodyComponentPropertiesView(properties as! PhysicsBodyComponentProperties)
+		case .perspectiveCamera(let properties):
+			PerspectiveCameraComponentPropertiesView(properties)
 
-    case .physicsMotionComponent:
-      PhysicsMotionComponentPropertiesView(properties as! PhysicsMotionComponentProperties)
+		case .physicsBody(let properties):
+			PhysicsBodyComponentPropertiesView(properties)
 
-    case .pointLightComponent:
-      PointLightComponentPropertiesView(properties as! PointLightComponentProperties)
+		case .physicsMotion(let properties):
+			PhysicsMotionComponentPropertiesView(properties)
 
-    case .spotLightComponent:
-      SpotLightComponentPropertiesView(properties as! SpotLightComponentProperties)
+		case .pointLight(let properties):
+			PointLightComponentPropertiesView(properties)
 
-    case .spotLightComponentShadow:
-      SpotLightShadowComponentPropertiesView(
-        properties as! SpotLightShadowComponentProperties)
+		case .spotLight(let properties):
+			SpotLightComponentPropertiesView(properties)
 
-    case .synchronizationComponent:
-      SynchronizationComponentPropertiesView(
-        properties as! SynchronizationComponentProperties)
+		case .spotLightShadow(let properties):
+			SpotLightShadowComponentPropertiesView(properties)
 
-    case .transform:
-      TransformPropertiesView(properties as! TransformProperties)
-    }
-  }
+		case .synchronization(let properties):
+			SynchronizationComponentPropertiesView(properties)
+
+		case .transform(let properties):
+			TransformComponentPropertiesView(properties)
+		}
+	}
 }
 
 struct AnchoringComponentPropertiesView: View {
-  let properties: AnchoringComponentProperties
-  private var targetDebugDescription: String {
-    switch properties.target {
-    case .camera:
-      return "camera"
-    case .world(let transform):
-      return "world(\(transform)"
-    @unknown default:
-      return "@unknown"
-    }
-  }
+	let properties: AnchoringComponentProperties
+	private var targetDebugDescription: String {
+		switch properties.target {
+		case .camera:
+			return "camera"
+		case .world(let transform):
+			return "world(\(transform)"
+		@unknown default:
+			return "@unknown"
+		}
+	}
 
-  init(_ properties: AnchoringComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: AnchoringComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("target", value: targetDebugDescription)
-  }
+	var body: some View {
+		LabeledContent("target", value: targetDebugDescription)
+	}
 }
 
 struct CharacterControllerComponentPropertiesView: View {
-  let properties: CharacterControllerComponentProperties
+	let properties: CharacterControllerComponentProperties
 
-  init(_ properties: CharacterControllerComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: CharacterControllerComponentProperties) {
+		self.properties = properties
+	}
 
-  private var collisionFilterDebugDescription: String {
-    switch properties.collisionFilter {
-    case .default:
-      return "default"
-    case .sensor:
-      return "sensor"
-    default:
-      return "unknown -> default"
-    }
-  }
+	private var collisionFilterDebugDescription: String {
+		switch properties.collisionFilter.rawValue {
+		case .default:
+			return "default"
+		case .sensor:
+			return "sensor"
+		default:
+			return "unknown -> default"
+		}
+	}
 
-  var body: some View {
-    LabeledContent("radius", value: properties.radius.debugDescription)
-    LabeledContent("height", value: properties.height.debugDescription)
-    LabeledContent("skinWidth", value: properties.skinWidth.debugDescription)
-    LabeledContent("slopeLimit", value: properties.slopeLimit.debugDescription)
-    LabeledContent("stepLimit", value: properties.stepLimit.debugDescription)
-    LabeledContent("upVector", value: properties.upVector.debugDescription)
-    LabeledContent("collisionFilter", value: collisionFilterDebugDescription)
-  }
+	var body: some View {
+		LabeledContent("radius", value: properties.radius.debugDescription)
+		LabeledContent("height", value: properties.height.debugDescription)
+		LabeledContent("skinWidth", value: properties.skinWidth.debugDescription)
+		LabeledContent("slopeLimit", value: properties.slopeLimit.debugDescription)
+		LabeledContent("stepLimit", value: properties.stepLimit.debugDescription)
+		LabeledContent("upVector", value: properties.upVector.debugDescription)
+		LabeledContent("collisionFilter", value: collisionFilterDebugDescription)
+	}
 }
 
 struct CharacterControllerStateComponentPropertiesView: View {
-  let properties: CharacterControllerStateComponentProperties
+	let properties: CharacterControllerStateComponentProperties
 
-  init(_ properties: CharacterControllerStateComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: CharacterControllerStateComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("velocity", value: properties.velocity.debugDescription)
-    LabeledContent("isOnGround", value: properties.isOnGround ? "YES" : "NO")
-  }
+	var body: some View {
+		LabeledContent("velocity", value: properties.velocity.debugDescription)
+		LabeledContent("isOnGround", value: properties.isOnGround ? "YES" : "NO")
+	}
 }
 
 struct CollisionComponentPropertiesView: View {
-  let properties: CollisionComponentProperties
+	let properties: CollisionComponentProperties
 
-  private var modeDebugDescription: String {
-    switch properties.mode {
-    case .default:
-      return "default"
-    case .trigger:
-      return "trigger"
-    @unknown default:
-      return "@unknown"
-    }
-  }
+	private var modeDebugDescription: String {
+		switch properties.mode {
+		case .default:
+			return "default"
+		case .trigger:
+			return "trigger"
+		@unknown default:
+			return "@unknown"
+		}
+	}
 
-  init(_ properties: CollisionComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: CollisionComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("shapes", value: properties.shapes.debugDescription)
-    LabeledContent("mode", value: modeDebugDescription)
-    //TODO: find a better way to display filters
-    GroupBox("filter") {
-      LabeledContent("group", value: "\(properties.filter.group.rawValue)")
-      LabeledContent("mask", value: "\(properties.filter.mask.rawValue)")
-    }
-  }
+	var body: some View {
+		LabeledContent("shapes", value: properties.shapes.debugDescription)
+		LabeledContent("mode", value: modeDebugDescription)
+		//TODO: find a better way to display filters
+		GroupBox("filter") {
+			LabeledContent(
+				"group", value: "\(properties.filter.group.collisionGroup.rawValue)"
+			)
+			LabeledContent(
+				"mask", value: "\(properties.filter.mask.collisionGroup.rawValue)")
+		}
+	}
 }
 
 struct DirectionalLightComponentPropertiesView: View {
-  let properties: DirectionalLightComponentProperties
+	let properties: DirectionalLightComponentProperties
 
-  init(_ properties: DirectionalLightComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: DirectionalLightComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("intensity", value: properties.intensity.debugDescription)
-    LabeledContent("isRealWorldProxy", value: properties.isRealWorldProxy ? "YES" : "NO")
-  }
+	var body: some View {
+		LabeledContent("intensity", value: properties.intensity.debugDescription)
+		LabeledContent(
+			"isRealWorldProxy", value: properties.isRealWorldProxy ? "YES" : "NO")
+	}
 }
 
 struct DirectionalLightShadowComponentPropertiesView: View {
-  let properties: DirectionalLightShadowComponentProperties
+	let properties: DirectionalLightShadowComponentProperties
 
-  init(_ properties: DirectionalLightShadowComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: DirectionalLightShadowComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("depthBias", value: properties.depthBias.debugDescription)
-    LabeledContent("maximumDistance", value: properties.maximumDistance.debugDescription)
-  }
+	var body: some View {
+		LabeledContent("depthBias", value: properties.depthBias.debugDescription)
+		LabeledContent(
+			"maximumDistance", value: properties.maximumDistance.debugDescription)
+	}
 }
 
 struct ModelComponentPropertiesView: View {
-  let properties: ModelComponentProperties
+	let properties: ModelComponentProperties
 
-  init(_ properties: ModelComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: ModelComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("mesh", value: "properties.mesh")  //FIXME: find a way to display `mesh`
-    LabeledContent("materials", value: properties.materials.debugDescription)  //TODO: find a better way to display `materials`
-    LabeledContent("boundsMargin", value: properties.boundsMargin.debugDescription)
-  }
+	var body: some View {
+		LabeledContent("mesh", value: "properties.mesh")  //FIXME: find a way to display `mesh`
+		LabeledContent("materials", value: properties.materials.debugDescription)  //TODO: find a better way to display `materials`
+		LabeledContent("boundsMargin", value: properties.boundsMargin.debugDescription)
+	}
 }
 
 struct ModelDebugOptionsComponentPropertiesView: View {
-  let properties: ModelDebugOptionsComponentProperties
+	let properties: ModelDebugOptionsComponentProperties
 
-  private var visualizationModeDebugDescription: String {
-    switch properties.visualizationMode {
-    case .none:
-      return "none"
-    case .normal:
-      return "normal"
-    case .tangent:
-      return "tangent"
-    case .bitangent:
-      return "bitangent"
-    case .baseColor:
-      return "baseColor"
-    case .textureCoordinates:
-      return "textureCoordinates"
-    case .finalColor:
-      return "finalColor"
-    case .finalAlpha:
-      return "finalAlpha"
-    case .roughness:
-      return "roughness"
-    case .metallic:
-      return "metallic"
-    case .ambientOcclusion:
-      return "ambientOcclusion"
-    case .specular:
-      return "specular"
-    case .emissive:
-      return "emissive"
-    case .clearcoat:
-      return "clearcoat"
-    case .clearcoatRoughness:
-      return "clearcoatRoughness"
-    case .lightingDiffuse:
-      return "lightingDiffuse"
-    case .lightingSpecular:
-      return "lightingSpecular"
-    @unknown default:
-      return "@unknown"
-    }
-  }
-  init(_ properties: ModelDebugOptionsComponentProperties) {
-    self.properties = properties
-  }
+	private var visualizationModeDebugDescription: String {
+		switch properties.visualizationMode {
+		case .none:
+			return "none"
+		case .normal:
+			return "normal"
+		case .tangent:
+			return "tangent"
+		case .bitangent:
+			return "bitangent"
+		case .baseColor:
+			return "baseColor"
+		case .textureCoordinates:
+			return "textureCoordinates"
+		case .finalColor:
+			return "finalColor"
+		case .finalAlpha:
+			return "finalAlpha"
+		case .roughness:
+			return "roughness"
+		case .metallic:
+			return "metallic"
+		case .ambientOcclusion:
+			return "ambientOcclusion"
+		case .specular:
+			return "specular"
+		case .emissive:
+			return "emissive"
+		case .clearcoat:
+			return "clearcoat"
+		case .clearcoatRoughness:
+			return "clearcoatRoughness"
+		case .lightingDiffuse:
+			return "lightingDiffuse"
+		case .lightingSpecular:
+			return "lightingSpecular"
+		@unknown default:
+			return "@unknown"
+		}
+	}
+	init(_ properties: ModelDebugOptionsComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("visualizationMode", value: visualizationModeDebugDescription)
+	var body: some View {
+		LabeledContent("visualizationMode", value: visualizationModeDebugDescription)
 
-  }
+	}
 }
 
 struct PerspectiveCameraComponentPropertiesView: View {
-  let properties: PerspectiveCameraComponentProperties
+	let properties: PerspectiveCameraComponentProperties
 
-  init(_ properties: PerspectiveCameraComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: PerspectiveCameraComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("near", value: properties.near.debugDescription)
-    LabeledContent("far", value: properties.far.debugDescription)
-    LabeledContent(
-      "fieldOfViewInDegrees",
-      value: properties.fieldOfViewInDegrees.debugDescription
-    )
-  }
+	var body: some View {
+		LabeledContent("near", value: properties.near.debugDescription)
+		LabeledContent("far", value: properties.far.debugDescription)
+		LabeledContent(
+			"fieldOfViewInDegrees",
+			value: properties.fieldOfViewInDegrees.debugDescription
+		)
+	}
 }
 
 struct PhysicsBodyComponentPropertiesView: View {
-  let properties: PhysicsBodyComponentProperties
+	let properties: PhysicsBodyComponentProperties
 
-  private var modeDebugDescription: String {
-    switch properties.mode {
-    case .static:
-      return "static"
-    case .kinematic:
-      return "kinematic"
-    case .dynamic:
-      return "dynamic"
-    @unknown default:
-      return "@unknown"
+	private var modeDebugDescription: String {
+		switch properties.mode {
+		case .static:
+			return "static"
+		case .kinematic:
+			return "kinematic"
+		case .dynamic:
+			return "dynamic"
+		@unknown default:
+			return "@unknown"
 
-    }
-  }
+		}
+	}
 
-  init(_ properties: PhysicsBodyComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: PhysicsBodyComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("mode", value: modeDebugDescription)
+	var body: some View {
+		LabeledContent("mode", value: modeDebugDescription)
+		//FIXME: Restore "massProperties" display
+		/*
     GroupBox("massProperties") {
       LabeledContent("inertia", value: properties.massProperties.inertia.debugDescription)
       GroupBox("centerOfMass") {
@@ -373,120 +403,125 @@ struct PhysicsBodyComponentPropertiesView: View {
       }
       LabeledContent("mass", value: properties.massProperties.mass.debugDescription)
     }
+     */
 
-    LabeledContent("material", value: "properties.material")  //FIXME: find a way to display `material`
-    LabeledContent(
-      "isTranslationLocked",
-      value:
-        "(x: \(properties.isTranslationLocked.x), y: \(properties.isTranslationLocked.y), z: \(properties.isTranslationLocked.z))"
-    )
-    LabeledContent(
-      "isRotationLocked",
-      value:
-        "(x: \(properties.isRotationLocked.x), y: \(properties.isRotationLocked.y), z: \(properties.isRotationLocked.z))"
-    )
-    LabeledContent(
-      "isContinuousCollisionDetectionEnabled",
-      value: properties.isContinuousCollisionDetectionEnabled ? "YES" : "NO")
-  }
+		LabeledContent("material", value: "properties.material")  //FIXME: find a way to display `material`
+		LabeledContent(
+			"isTranslationLocked",
+			value:
+				"(x: \(properties.isTranslationLocked.x), y: \(properties.isTranslationLocked.y), z: \(properties.isTranslationLocked.z))"
+		)
+		LabeledContent(
+			"isRotationLocked",
+			value:
+				"(x: \(properties.isRotationLocked.x), y: \(properties.isRotationLocked.y), z: \(properties.isRotationLocked.z))"
+		)
+		LabeledContent(
+			"isContinuousCollisionDetectionEnabled",
+			value: properties.isContinuousCollisionDetectionEnabled ? "YES" : "NO")
+	}
 }
 
 struct PhysicsMotionComponentPropertiesView: View {
-  let properties: PhysicsMotionComponentProperties
+	let properties: PhysicsMotionComponentProperties
 
-  init(_ properties: PhysicsMotionComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: PhysicsMotionComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("linearVelocity", value: properties.linearVelocity.debugDescription)
-    LabeledContent("angularVelocity", value: properties.angularVelocity.debugDescription)
-  }
+	var body: some View {
+		LabeledContent("linearVelocity", value: properties.linearVelocity.debugDescription)
+		LabeledContent(
+			"angularVelocity", value: properties.angularVelocity.debugDescription)
+	}
 }
 
 struct PointLightComponentPropertiesView: View {
-  let properties: PointLightComponentProperties
+	let properties: PointLightComponentProperties
 
-  init(_ properties: PointLightComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: PointLightComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("intensity", value: properties.intensity.debugDescription)
-    LabeledContent("attenuationRadius", value: properties.attenuationRadius.debugDescription)
-  }
+	var body: some View {
+		LabeledContent("intensity", value: properties.intensity.debugDescription)
+		LabeledContent(
+			"attenuationRadius", value: properties.attenuationRadius.debugDescription)
+	}
 }
 
 struct SpotLightComponentPropertiesView: View {
-  let properties: SpotLightComponentProperties
+	let properties: SpotLightComponentProperties
 
-  init(_ properties: SpotLightComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: SpotLightComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("intensity", value: properties.innerAngleInDegrees.debugDescription)
-    LabeledContent("outerAngleInDegrees", value: properties.attenuationRadius.debugDescription)
-    LabeledContent("intensity", value: properties.innerAngleInDegrees.debugDescription)
-    LabeledContent("outerAngleInDegrees", value: properties.attenuationRadius.debugDescription)
-  }
+	var body: some View {
+		LabeledContent("intensity", value: properties.innerAngleInDegrees.debugDescription)
+		LabeledContent(
+			"outerAngleInDegrees", value: properties.attenuationRadius.debugDescription)
+		LabeledContent("intensity", value: properties.innerAngleInDegrees.debugDescription)
+		LabeledContent(
+			"outerAngleInDegrees", value: properties.attenuationRadius.debugDescription)
+	}
 }
 
 struct SpotLightShadowComponentPropertiesView: View {
-  let properties: SpotLightShadowComponentProperties
+	let properties: SpotLightShadowComponentProperties
 
-  init(_ properties: SpotLightShadowComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: SpotLightShadowComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    Text("No properties are available.")
-  }
+	var body: some View {
+		Text("No properties are available.")
+	}
 }
 
 struct SynchronizationComponentPropertiesView: View {
-  let properties: SynchronizationComponentProperties
+	let properties: SynchronizationComponentProperties
 
-  private var ownershipTransferModeDebugDescription: String {
-    switch properties.ownershipTransferMode {
-    case .autoAccept:
-      return "autoAccept"
-    case .manual:
-      return "manual"
-    @unknown default:
-      return "@unknown"
-    }
-  }
+	private var ownershipTransferModeDebugDescription: String {
+		switch properties.ownershipTransferMode {
+		case .autoAccept:
+			return "autoAccept"
+		case .manual:
+			return "manual"
+		@unknown default:
+			return "@unknown"
+		}
+	}
 
-  init(_ properties: SynchronizationComponentProperties) {
-    self.properties = properties
-  }
+	init(_ properties: SynchronizationComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    LabeledContent("identifier", value: properties.isOwner ? "YES" : "NO")
-    LabeledContent("ownershipTransferMode", value: properties.identifier.description)
-    LabeledContent("isOwner", value: ownershipTransferModeDebugDescription)
-  }
+	var body: some View {
+		LabeledContent("identifier", value: properties.isOwner ? "YES" : "NO")
+		LabeledContent("ownershipTransferMode", value: properties.identifier.description)
+		LabeledContent("isOwner", value: ownershipTransferModeDebugDescription)
+	}
 }
 
-struct TransformPropertiesView: View {
-  let properties: TransformProperties
+struct TransformComponentPropertiesView: View {
+	let properties: TransformComponentProperties
 
-  init(_ properties: TransformProperties) {
-    self.properties = properties
-  }
+	init(_ properties: TransformComponentProperties) {
+		self.properties = properties
+	}
 
-  var body: some View {
-    //TODO: pretty printer
-    // let prettyMatrixDescription = """
-    //     [\(properties.matrix.columns.0.x), \(properties.matrix.columns.0.y), \(properties.matrix.columns.0.z), \(properties.matrix.columns.0.w)]
-    // \(properties.matrix.columns.1)
-    // \(properties.matrix.columns.2)
-    // \(properties.matrix.columns.3)
-    // """
-    LabeledContent("matrix", value: properties.matrix.debugDescription)
-    LabeledContent("rotation", value: properties.rotation.debugDescription)
-    LabeledContent("scale", value: properties.scale.debugDescription)
-    LabeledContent("translation", value: properties.translation.debugDescription)
-  }
+	var body: some View {
+		//TODO: pretty printer
+		// let prettyMatrixDescription = """
+		//     [\(properties.matrix.columns.0.x), \(properties.matrix.columns.0.y), \(properties.matrix.columns.0.z), \(properties.matrix.columns.0.w)]
+		// \(properties.matrix.columns.1)
+		// \(properties.matrix.columns.2)
+		// \(properties.matrix.columns.3)
+		// """
+		LabeledContent("matrix", value: properties.matrix.debugDescription)
+		LabeledContent("rotation", value: properties.rotation.debugDescription)
+		LabeledContent("scale", value: properties.scale.debugDescription)
+		LabeledContent("translation", value: properties.translation.debugDescription)
+	}
 }

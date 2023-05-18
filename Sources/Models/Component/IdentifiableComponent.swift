@@ -181,7 +181,7 @@ public struct IdentifiableComponent: Codable {
 		case .transform:
 			let component = component as! Transform
 			self.properties = .transform(
-				TransformProperties(
+				TransformComponentProperties(
 					scale: component.scale,
 					rotation: CodableQuaternion(component.rotation),
 					translation: component.translation,

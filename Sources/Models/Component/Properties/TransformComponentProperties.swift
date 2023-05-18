@@ -1,7 +1,7 @@
 import Foundation
 import simd
 
-public struct TransformProperties: ComponentPropertiesRepresentable, Codable {
+public struct TransformComponentProperties: ComponentPropertiesRepresentable, Codable {
 	/// The scaling factor applied to the entity.
 	public let scale: SIMD3<Float>
 

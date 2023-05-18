@@ -43,5 +43,5 @@ public enum ComponentProperties: Codable {
   case spotLight(SpotLightComponentProperties)
   case spotLightShadow(SpotLightShadowComponentProperties)
   case synchronization(SynchronizationComponentProperties)
-  case transform(TransformProperties)
+  case transform(TransformComponentProperties)
 }
