@@ -3,49 +3,49 @@ import RealityKit
 extension IdentifiableComponent.ComponentType: RawRepresentable {
     public var rawValue: Component.Type {
         switch self {
-        case .anchoringComponent:
+        case .anchoring:
             return AnchoringComponent.self
 
-        case .characterControllerComponent:
+        case .characterController:
             return CharacterControllerComponent.self
 
-        case .characterControllerStateComponent:
+        case .characterControllerState:
             return CharacterControllerStateComponent.self
 
-        case .collisionComponent:
+        case .collision:
             return CollisionComponent.self
 
-        case .directionalLightComponent:
+        case .directionalLight:
             return DirectionalLightComponent.self
 
-        case .directionalLightComponentShadow:
+        case .directionalLightShadow:
             return DirectionalLightComponent.Shadow.self
 
-        case .modelComponent:
+        case .model:
             return ModelComponent.self
 
-        case .modelDebugOptionsComponent:
+        case .modelDebugOptions:
             return ModelDebugOptionsComponent.self
 
-        case .perspectiveCameraComponent:
+        case .perspectiveCamera:
             return PerspectiveCameraComponent.self
 
-        case .physicsBodyComponent:
+        case .physicsBody:
             return PhysicsBodyComponent.self
 
-        case .physicsMotionComponent:
+        case .physicsMotion:
             return PhysicsMotionComponent.self
 
-        case .pointLightComponent:
+        case .pointLight:
             return PointLightComponent.self
 
-        case .spotLightComponent:
+        case .spotLight:
             return SpotLightComponent.self
 
-        case .spotLightComponentShadow:
+        case .spotLightShadow:
             return SpotLightComponent.Shadow.self
 
-        case .synchronizationComponent:
+        case .synchronization:
             return SynchronizationComponent.self
 
         case .transform:
@@ -68,49 +68,49 @@ extension IdentifiableComponent.ComponentType: RawRepresentable {
 extension IdentifiableComponent.ComponentType: CustomStringConvertible {
     public var description: String {
         switch self {
-        case .anchoringComponent:
+        case .anchoring:
             return "AnchoringComponent"
 
-        case .characterControllerComponent:
+        case .characterController:
             return "CharacterControllerComponent"
 
-        case .characterControllerStateComponent:
+        case .characterControllerState:
             return "CharacterControllerStateComponent"
 
-        case .collisionComponent:
+        case .collision:
             return "CollisionComponent"
 
-        case .directionalLightComponent:
+        case .directionalLight:
             return "DirectionalLightComponent"
 
-        case .directionalLightComponentShadow:
+        case .directionalLightShadow:
             return "DirectionalLightComponent.Shadow"
 
-        case .modelComponent:
+        case .model:
             return "ModelComponent"
 
-        case .modelDebugOptionsComponent:
+        case .modelDebugOptions:
             return "ModelDebugOptionsComponent"
 
-        case .perspectiveCameraComponent:
+        case .perspectiveCamera:
             return "PerspectiveCameraComponent"
 
-        case .physicsBodyComponent:
+        case .physicsBody:
             return "PhysicsBodyComponent"
 
-        case .physicsMotionComponent:
+        case .physicsMotion:
             return "PhysicsMotionComponent"
 
-        case .pointLightComponent:
+        case .pointLight:
             return "PointLightComponent"
 
-        case .spotLightComponent:
+        case .spotLight:
             return "SpotLightComponent"
 
-        case .spotLightComponentShadow:
+        case .spotLightShadow:
             return "SpotLightComponent.Shadow"
 
-        case .synchronizationComponent:
+        case .synchronization:
             return "SynchronizationComponent"
 
         case .transform:
@@ -122,63 +122,63 @@ extension IdentifiableComponent.ComponentType: CustomStringConvertible {
 extension IdentifiableComponent.ComponentType {
     public var help: String {
         switch self {
-        case .anchoringComponent:
+        case .anchoring:
             return """
                 A description of how virtual content can be anchored to the real world.
                 """
-        case .characterControllerComponent:
+        case .characterController:
             return """
                 A component that manages character movement.
                 """
-        case .characterControllerStateComponent:
+        case .characterControllerState:
             return """
                 An object that maintains state for a character controller.
                 """
-        case .collisionComponent:
+        case .collision:
             return """
                 A component that gives an entity the ability to collide with other entities that also have collision components.
                 """
-        case .directionalLightComponent:
+        case .directionalLight:
             return """
                 A component that defines a directional light source.
                 """
-        case .directionalLightComponentShadow:
+        case .directionalLightShadow:
             return """
                 Defines shadow characteristics for a directional light.
                 """
-        case .modelComponent:
+        case .model:
             return """
                 A collection of resources that create the visual appearance of an entity.
                 """
-        case .modelDebugOptionsComponent:
+        case .modelDebugOptions:
             return """
                 A component that changes how RealityKit renders its entity to help with debugging.
                 """
-        case .perspectiveCameraComponent:
+        case .perspectiveCamera:
             return """
                 In AR applications, the camera is automatically provided by the system. In non-AR scenarios, the camera needs to be set by the app. (If no camera is provided by the app, the system will use default camera.)
                 """
-        case .physicsBodyComponent:
+        case .physicsBody:
             return """
                 A component that defines an entity’s behavior in physics body simulations.
                 """
-        case .physicsMotionComponent:
+        case .physicsMotion:
             return """
                 A component that controls the motion of the body in physics simulations.
                 """
-        case .pointLightComponent:
+        case .pointLight:
             return """
                 A component that defines a point light source.
                 """
-        case .spotLightComponent:
+        case .spotLight:
             return """
                 A component that defines a spotlight source.
                 """
-        case .spotLightComponentShadow:
+        case .spotLightShadow:
             return """
                 Characteristics of a shadow for the spotlight.
                 """
-        case .synchronizationComponent:
+        case .synchronization:
             return """
                 A component that synchronizes an entity between processes and networked applications.
                 """

@@ -1,28 +1,27 @@
-import Foundation
 import RealityKit
 
-public struct IdentifiableComponent {
+public struct IdentifiableComponent: Codable {
 
 	public let componentType: ComponentType
-	private(set) public var properties: any ComponentPropertiesRepresentable
+	private(set) public var properties: ComponentProperties
 
 	//TODO: include TransientComponent.self
 	public enum ComponentType: CaseIterable, Codable {
-		case anchoringComponent
-		case characterControllerComponent
-		case characterControllerStateComponent
-		case collisionComponent
-		case directionalLightComponent
-		case directionalLightComponentShadow
-		case modelComponent
-		case modelDebugOptionsComponent
-		case perspectiveCameraComponent
-		case physicsBodyComponent
-		case physicsMotionComponent
-		case pointLightComponent
-		case spotLightComponent
-		case spotLightComponentShadow
-		case synchronizationComponent
+		case anchoring
+		case characterController
+		case characterControllerState
+		case collision
+		case directionalLight
+		case directionalLightShadow
+		case model
+		case modelDebugOptions
+		case perspectiveCamera
+		case physicsBody
+		case physicsMotion
+		case pointLight
+		case spotLight
+		case spotLightShadow
+		case synchronization
 		case transform
 	}
 
@@ -31,131 +30,163 @@ public struct IdentifiableComponent {
 		self.componentType = ComponentType(rawValue: Swift.type(of: component))!
 
 		switch self.componentType {
-		case .anchoringComponent:
+		case .anchoring:
 			let component = component as! AnchoringComponent
-			self.properties = AnchoringComponentProperties(
-				target: CodableTarget(component.target)
+			self.properties = .anchoring(
+				AnchoringComponentProperties(
+					target: CodableTarget(component.target)
+				)
 			)
 
-		case .characterControllerComponent:
+		case .characterController:
 			let component = component as! CharacterControllerComponent
-			self.properties = CharacterControllerComponentProperties(
-				radius: component.radius,
-				height: component.height,
-				skinWidth: component.skinWidth,
-				slopeLimit: component.slopeLimit,
-				stepLimit: component.stepLimit,
-				upVector: component.upVector,
-				collisionFilter: CodableCollisionFilter(component.collisionFilter)
+			self.properties = .characterController(
+				CharacterControllerComponentProperties(
+					radius: component.radius,
+					height: component.height,
+					skinWidth: component.skinWidth,
+					slopeLimit: component.slopeLimit,
+					stepLimit: component.stepLimit,
+					upVector: component.upVector,
+					collisionFilter: CodableCollisionFilter(
+						component.collisionFilter)
+				)
 			)
 
-		case .characterControllerStateComponent:
+		case .characterControllerState:
 			let component = component as! CharacterControllerStateComponent
-			self.properties = CharacterControllerStateComponentProperties(
-				velocity: component.velocity,
-				isOnGround: component.isOnGround
+			self.properties = .characterControllerState(
+				CharacterControllerStateComponentProperties(
+					velocity: component.velocity,
+					isOnGround: component.isOnGround
+				)
 			)
 
-		case .collisionComponent:
+		case .collision:
 			let component = component as! CollisionComponent
-			self.properties = CollisionComponentProperties(
-        shapes: component.shapes.map(CodableShapeResource.init),
-				mode: CodableCollisionComponentMode(component.mode),
-				filter: CodableCollisionFilter(component.filter)
+			self.properties = .collision(
+				CollisionComponentProperties(
+					shapes: component.shapes.map(CodableShapeResource.init),
+					mode: CodableCollisionComponentMode(component.mode),
+					filter: CodableCollisionFilter(component.filter)
+				)
 			)
 
-		case .directionalLightComponent:
+		case .directionalLight:
 			let component = component as! DirectionalLightComponent
-			self.properties = DirectionalLightComponentProperties(
-				intensity: component.intensity,
-				isRealWorldProxy: component.isRealWorldProxy
+			self.properties = .directionalLight(
+				DirectionalLightComponentProperties(
+					intensity: component.intensity,
+					isRealWorldProxy: component.isRealWorldProxy
+				)
 			)
 
-		case .directionalLightComponentShadow:
+		case .directionalLightShadow:
 			let component = component as! DirectionalLightComponent.Shadow
-			self.properties = DirectionalLightShadowComponentProperties(
-				depthBias: component.depthBias,
-				maximumDistance: component.maximumDistance
+			self.properties = .directionalLightShadow(
+				DirectionalLightShadowComponentProperties(
+					depthBias: component.depthBias,
+					maximumDistance: component.maximumDistance
+				)
 			)
 
-		case .modelComponent:
+		case .model:
 			let component = component as! ModelComponent
-			self.properties = ModelComponentProperties(
-				mesh: CodableMeshResource(component.mesh),
-				materials: component.materials.map(CodableMaterial.init),
-				boundsMargin: component.boundsMargin
+			self.properties = .model(
+				ModelComponentProperties(
+					mesh: CodableMeshResource(component.mesh),
+					materials: component.materials.map(CodableMaterial.init),
+					boundsMargin: component.boundsMargin
+				)
 			)
 
-		case .modelDebugOptionsComponent:
+		case .modelDebugOptions:
 			let component = component as! ModelDebugOptionsComponent
-			self.properties = ModelDebugOptionsComponentProperties(
-				visualizationMode: component.visualizationMode
+			self.properties = .modelDebugOptions(
+				ModelDebugOptionsComponentProperties(
+					visualizationMode: component.visualizationMode
+				)
 			)
 
-		case .perspectiveCameraComponent:
+		case .perspectiveCamera:
 			let component = component as! PerspectiveCameraComponent
-			self.properties = PerspectiveCameraComponentProperties(
-				near: component.near,
-				far: component.far,
-				fieldOfViewInDegrees: component.fieldOfViewInDegrees
+			self.properties = .perspectiveCamera(
+				PerspectiveCameraComponentProperties(
+					near: component.near,
+					far: component.far,
+					fieldOfViewInDegrees: component.fieldOfViewInDegrees
+				)
 			)
 
-		case .physicsBodyComponent:
+		case .physicsBody:
 			let component = component as! PhysicsBodyComponent
-			self.properties = PhysicsBodyComponentProperties(
-				mode: CodablePhysicsBodyMode(component.mode),
-				//FIXME: massProperties: component.massProperties,
-				//FIXME: material: component.material,
-				isTranslationLocked: MovementLock(component.isTranslationLocked),
-				isRotationLocked: MovementLock(component.isRotationLocked),
-				isContinuousCollisionDetectionEnabled: component
-					.isContinuousCollisionDetectionEnabled
+			self.properties = .physicsBody(
+				PhysicsBodyComponentProperties(
+					mode: CodablePhysicsBodyMode(component.mode),
+					//FIXME: massProperties: component.massProperties,
+					//FIXME: material: component.material,
+					isTranslationLocked: MovementLock(
+						component.isTranslationLocked),
+					isRotationLocked: MovementLock(component.isRotationLocked),
+					isContinuousCollisionDetectionEnabled: component
+						.isContinuousCollisionDetectionEnabled
+				)
 			)
 
-		case .physicsMotionComponent:
+		case .physicsMotion:
 			let component = component as! PhysicsMotionComponent
-			self.properties = PhysicsMotionComponentProperties(
-				linearVelocity: component.linearVelocity,
-				angularVelocity: component.angularVelocity
+			self.properties = .physicsMotion(
+				PhysicsMotionComponentProperties(
+					linearVelocity: component.linearVelocity,
+					angularVelocity: component.angularVelocity
+				)
 			)
 
-		case .pointLightComponent:
+		case .pointLight:
 			let component = component as! PointLightComponent
-			self.properties = PointLightComponentProperties(
-				intensity: component.intensity,
-				attenuationRadius: component.attenuationRadius
+			self.properties = .pointLight(
+				PointLightComponentProperties(
+					intensity: component.intensity,
+					attenuationRadius: component.attenuationRadius
+				)
 			)
 
-		case .spotLightComponent:
+		case .spotLight:
 			let component = component as! SpotLightComponent
-			self.properties = SpotLightComponentProperties(
-				intensity: component.intensity,
-				innerAngleInDegrees: component.innerAngleInDegrees,
-				outerAngleInDegrees: component.outerAngleInDegrees,
-				attenuationRadius: component.attenuationRadius
+			self.properties = .spotLight(
+				SpotLightComponentProperties(
+					intensity: component.intensity,
+					innerAngleInDegrees: component.innerAngleInDegrees,
+					outerAngleInDegrees: component.outerAngleInDegrees,
+					attenuationRadius: component.attenuationRadius
+				)
 			)
 
-		case .spotLightComponentShadow:
+		case .spotLightShadow:
 			// As of RealityKit 2.0, it was empty.
 			// let component = component as! SpotLightComponent.Shadow
-			self.properties = SpotLightShadowComponentProperties()
+			self.properties = .spotLightShadow(SpotLightShadowComponentProperties())
 
-		case .synchronizationComponent:
+		case .synchronization:
 			let component = component as! SynchronizationComponent
-			self.properties = SynchronizationComponentProperties(
-				identifier: component.identifier,
-				isOwner: component.isOwner,
-				ownershipTransferMode: CodableOwnershipTransferMode(
-					component.ownershipTransferMode)
+			self.properties = .synchronization(
+				SynchronizationComponentProperties(
+					identifier: component.identifier,
+					isOwner: component.isOwner,
+					ownershipTransferMode: CodableOwnershipTransferMode(
+						component.ownershipTransferMode)
+				)
 			)
 
 		case .transform:
 			let component = component as! Transform
-			self.properties = TransformProperties(
-				scale: component.scale,
-				rotation: CodableQuaternion(component.rotation),
-				translation: component.translation,
-				matrix: CodableFloat4x4(component.matrix)
+			self.properties = .transform(
+				TransformProperties(
+					scale: component.scale,
+					rotation: CodableQuaternion(component.rotation),
+					translation: component.translation,
+					matrix: CodableFloat4x4(component.matrix)
+				)
 			)
 		}
 	}

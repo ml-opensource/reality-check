@@ -26,3 +26,22 @@ import Foundation
 /// let decodedEntity = try decoder.decode(Entity.self, from: data)
 /// ```
 public protocol ComponentPropertiesRepresentable: Codable {}
+
+public enum ComponentProperties: Codable {
+  case anchoring(AnchoringComponentProperties)
+  case characterController(CharacterControllerComponentProperties)
+  case characterControllerState(CharacterControllerStateComponentProperties)
+  case collision(CollisionComponentProperties)
+  case directionalLight(DirectionalLightComponentProperties)
+  case directionalLightShadow(DirectionalLightShadowComponentProperties)
+  case model(ModelComponentProperties)
+  case modelDebugOptions(ModelDebugOptionsComponentProperties)
+  case perspectiveCamera(PerspectiveCameraComponentProperties)
+  case physicsBody(PhysicsBodyComponentProperties)
+  case physicsMotion(PhysicsMotionComponentProperties)
+  case pointLight(PointLightComponentProperties)
+  case spotLight(SpotLightComponentProperties)
+  case spotLightShadow(SpotLightShadowComponentProperties)
+  case synchronization(SynchronizationComponentProperties)
+  case transform(TransformProperties)
+}

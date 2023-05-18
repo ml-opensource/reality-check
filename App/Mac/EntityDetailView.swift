@@ -77,7 +77,7 @@ struct PropertiesView: View {
   var body: some View {
     switch componentType {
     case .anchoringComponent:
-      AnchoringComponentPropertiesView(properties as! AnchoringComponentProperties)
+      AnchoringComponentPropertiesView(properties as! Anchoring)
 
     case .characterControllerComponent:
       CharacterControllerComponentPropertiesView(
