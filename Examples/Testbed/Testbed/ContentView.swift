@@ -1,9 +1,26 @@
-import Foundation
+//
+//  ContentView.swift
+//  Testbed
+//
+//  Created by Cristian Díaz on 19.05.23.
+//
+
+import RealityCheckConnect
 import RealityKit
 import SwiftUI
 
+struct ContentView: View {
+  let container = ARViewContainer()
+  var body: some View {
+    ZStack {
+      container.edgesIgnoringSafeArea(.all)
+      RealityCheckConnectView(container.arView)
+    }
+  }
+}
+
 //MARK: -
-let arView = ARView(frame: .zero)
+
 let worldOriginAnchor: AnchorEntity = {
   let anchor = AnchorEntity(world: [0, 0, -5])
   anchor.name = "Le Anchor"
@@ -38,68 +55,40 @@ let boxEntity: ModelEntity = {
 }()
 
 var balls: [ModelEntity] = []
+var points: [SIMD3<Float>] = []
 
-#if os(iOS)
-  typealias ViewRepresentable = UIViewRepresentable
-#elseif os(macOS)
-  typealias ViewRepresentable = NSViewRepresentable
-#endif
+struct ARViewContainer: UIViewRepresentable {
 
-struct ARContainerView: ViewRepresentable {
-  var points: [SIMD3<Float>]
+  let arView = ARView(frame: .zero)
 
-  func makeNSView(context: Context) -> some NSView {
-    arView.environment.background = .color(.windowBackgroundColor)
-    let skyboxName = "aerodynamics_workshop_4k.exr"
-    let skyboxResource = try! EnvironmentResource.load(named: skyboxName)
-    arView.environment.lighting.resource = skyboxResource
-    arView.environment.background = .skybox(skyboxResource)
-
-    arView.scene.anchors.append(worldOriginAnchor)
-    arView.scene.anchors.append(dummyAnchor)
-    worldOriginAnchor.setOrientation(
-      .init(angle: deg2rad(35), axis: [1, 0, 0]), relativeTo: nil)
-
-    let cameraEntity = PerspectiveCamera()
-    cameraEntity.camera.fieldOfViewInDegrees = 60
-    cameraEntity.look(
-      at: .zero,
-      from: .zero,
-      relativeTo: worldOriginAnchor
-    )
-
-    let cameraAnchor = AnchorEntity(world: [0.5, 0.5, 5])
-    cameraAnchor.addChild(cameraEntity)
-    arView.scene.addAnchor(cameraAnchor)
-
-    arView.setAccessibilityRole(.application)
-
-    worldOriginAnchor.addChild(boxEntity)
-
-    let floor = ModelEntity(
-      mesh: .generatePlane(width: 4, depth: 5),
-      materials: [UnlitMaterial(color: .highlightColor)]
-    )
-    floor.name = "Le Floor"
-    floor.modelDebugOptions = dummDebugOptionsComponent
-    floor.position.y -= 0.1
-    floor.isAccessibilityElement = true
-    floor.accessibilityLabel = "label: Le accessible floor"
-    floor.accessibilityDescription = "description: Le accessible floor"
-    worldOriginAnchor.addChild(floor)
-
-    boxEntity.addChild(dummyEntity)
-    boxEntity.addChild(anotherDummyAnchor)
-    anotherDummyAnchor.addChild(dummyDirectionalLight)
-    anotherDummyAnchor.addChild(dummyPointLight)
-    worldOriginAnchor.addChild(dummyCamera)
-    dummyCamera.addChild(dummyTriggerVolume)
-    dummyCamera.addChild(dummySpotLight)
-
-    return arView
+  private func random() {
+    points = (0..<Int.random(in: 5...55))
+      .map { _ in
+        SIMD3<Float>(
+          x: Float.random(in: -1...1),
+          y: Float.random(in: 0...1),
+          z: Float.random(in: -1...1)
+        )
+      }
   }
 
-  func updateNSView(_ nsView: NSViewType, context: Context) {
+  func makeUIView(context: Context) -> ARView {
+
+    // Load the "Box" scene from the "Experience" Reality File
+    let boxAnchor = try! Experience.loadBox()
+
+    // Add the box anchor to the scene
+    arView.scene.anchors.append(boxAnchor)
+    boxAnchor.addChild(boxEntity)
+    arView.scene.anchors.append(worldOriginAnchor)
+    arView.scene.anchors.append(dummyAnchor)
+
+    random()
+    return arView
+
+  }
+
+  func updateUIView(_ uiView: ARView, context: Context) {
     //Clean balls
     for ballEntity in balls {
       ballEntity.removeFromParent()
@@ -163,6 +152,7 @@ struct ARContainerView: ViewRepresentable {
       duration: 0.25
     )
   }
+
 }
 
 var customMaterial: CustomMaterial = {
@@ -187,3 +177,11 @@ var customMaterial: CustomMaterial = {
 }()
 
 func deg2rad(_ number: Float) -> Float { number * .pi / 180 }
+
+#if DEBUG
+  struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+      ContentView()
+    }
+  }
+#endif

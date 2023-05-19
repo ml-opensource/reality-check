@@ -7,7 +7,14 @@
    <FileRef
       location = "group:App/RealityCheck.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:Examples/Connect/Connect.xcodeproj">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "Examples">
+      <FileRef
+         location = "group:Examples/Connect/Connect.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Examples/Testbed/Testbed.xcodeproj">
+      </FileRef>
+   </Group>
 </Workspace>
