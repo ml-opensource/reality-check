@@ -22,7 +22,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
   }
   public var state: State
   public var hierarhy: Hierarhy
-//  public var components: Components
+  public var components: Components
 
   public enum EntityType: CaseIterable, Codable {
     case anchor
@@ -98,7 +98,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
     self.entityType = .init(rawValue: Swift.type(of: entity)) ?? .entity
     self.state = state
     self.hierarhy = hierarhy
-//    self.components = components
+    self.components = components
   }
 }
 
@@ -133,8 +133,7 @@ extension IdentifiableEntity.EntityType: RawRepresentable {
       if entityType.rawValue == rawValue {
         self = entityType
         return
-      }
-      else {
+      } else {
         self = .entity
         return
       }

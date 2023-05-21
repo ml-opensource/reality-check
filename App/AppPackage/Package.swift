@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "AppPackage",
   platforms: [
-    .macOS(.v12)
+    .macOS(.v13)
   ],
   products: [
     .library(
@@ -39,7 +39,14 @@ let package = Package(
     ),
     .testTarget(
       name: "AppFeatureTests",
-      dependencies: ["AppFeature"]
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        "AppFeature"
+      ],
+      resources: [
+        .copy("Resources/simple_hierarchy.json"),
+        .copy("Resources/not_so_simple_hierarchy.json")
+      ]
     ),
   ]
 )

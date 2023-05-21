@@ -63,8 +63,6 @@ public struct MultipeerConnection: Reducer {
                         [IdentifiableEntity].self,
                         from: data
                       ) {
-                        print(">>> A")
-                        print(String(data: data, encoding: .utf8)!)
                         await send(.delegate(.receivedVideoHierarchyData(hierarchyData)))
                       } else {
                         fatalError()

@@ -33,6 +33,10 @@ let package = Package(
   ],
   dependencies: [
     .package(
+      url: "https://github.com/pointfreeco/swift-custom-dump",
+      from: "0.10.3"
+    ),
+    .package(
       url: "https://github.com/pointfreeco/swift-dependencies",
       from: "0.5.0"
     )
@@ -40,7 +44,9 @@ let package = Package(
   targets: [
     .target(
       name: "Models",
-      dependencies: []
+      dependencies: [
+        .product(name: "CustomDump", package: "swift-custom-dump"),
+      ]
     ),
     .target(
       name: "MultipeerClient",
