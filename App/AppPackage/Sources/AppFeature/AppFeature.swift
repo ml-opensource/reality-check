@@ -46,7 +46,6 @@ public struct AppCore: Reducer {
     case entitiesIdentified([IdentifiableEntity])
     case multipeerConnection(MultipeerConnection.Action)
     case parse([RealityKit.Entity])
-    case dump(RealityKit.Entity)
     case dumpOutput(String)
     case select(entity: IdentifiableEntity?)
   }
@@ -66,9 +65,9 @@ public struct AppCore: Reducer {
         case .binding(\.$selection):
           return .task { [state] in
             if let entity = state.selectedEntity {
-              //FIXME: reimplement dump avoiding RealityKit dependencies
-              // return .dump(entity.rawValue)
-              return .dumpOutput("...")
+              var output = ""
+              customDump(entity, to: &output)              
+              return .dumpOutput(output)
             } else {
               return .dumpOutput("...")
             }
@@ -104,16 +103,6 @@ public struct AppCore: Reducer {
               )
             }
             return .entitiesIdentified(identifiableEntities)
-          }
-
-        case .dump(let entity):
-          return .task {
-            let output = await realityDump.raw(
-              entity,
-              printing: false,
-              org: false
-            )
-            return .dumpOutput(output.joined(separator: "\n"))
           }
 
         case .dumpOutput(let output):
