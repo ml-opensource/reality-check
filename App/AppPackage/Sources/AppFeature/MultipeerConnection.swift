@@ -19,6 +19,7 @@ public struct MultipeerConnection: Reducer {
   }
 
   public enum DelegateAction: Equatable {
+    case didUpdateSessionState(MultipeerClient.SessionState)
     case receivedVideoFrameData(VideoFrameData)
     case receivedVideoHierarchyData([IdentifiableEntity])
   }
@@ -87,7 +88,9 @@ public struct MultipeerConnection: Reducer {
 
         case .updateSessionState(let sessionState):
           state.sessionState = sessionState
-          return .none
+          return .task {
+            .delegate(.didUpdateSessionState(sessionState))
+          }
       }
     }
   }

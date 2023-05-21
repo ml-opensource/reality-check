@@ -19,7 +19,6 @@ struct ContentView: View {
               StreamingView()
                 .frame(width: 400, height: 800)
               
-              
               VSplitView {
                 Color.clear
                 TextEditor(text: viewStore.binding(\.$dumpOutput))

@@ -66,7 +66,7 @@ public struct AppCore: Reducer {
           return .task { [state] in
             if let entity = state.selectedEntity {
               var output = ""
-              customDump(entity, to: &output)              
+              customDump(entity, to: &output)
               return .dumpOutput(output)
             } else {
               return .dumpOutput("...")
@@ -91,6 +91,13 @@ public struct AppCore: Reducer {
             return .entitiesIdentified(identifiableEntities)
           }
 
+        case .multipeerConnection(.delegate(.didUpdateSessionState(let connectionState))):
+          if connectionState == .notConnected {
+            state.selection = nil
+            state.identifiedEntities.removeAll()
+          }
+          return .none
+
         case .multipeerConnection(_):
           return .none
 
@@ -111,7 +118,9 @@ public struct AppCore: Reducer {
 
         case .select(let entity):
           state.selection = entity?.id
-          return .none
+          return .task {
+            .dumpOutput("...")
+          }
       }
     }
   }
