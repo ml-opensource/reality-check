@@ -51,7 +51,6 @@ enum Parser {
         let components = IdentifiableEntity.Components(
             components: identifyComponents(loadedEntity.components)
         )
-
         return IdentifiableEntity(
             loadedEntity,
             state: state,
