@@ -25,7 +25,7 @@ struct ContentView: View {
               Color.clear
               TextEditor(text: .constant(viewStore.dumpOutput))
                 .monospaced()
-                .foregroundColor(.cyan)
+                // .foregroundColor(.cyan)
                 .multilineTextAlignment(.leading)
             }
           }

@@ -1,3 +1,4 @@
+import CustomDump
 import RealityKit
 
 public struct IdentifiableComponent: Codable {
@@ -205,5 +206,73 @@ extension IdentifiableComponent: Equatable, Hashable {
 
   public func hash(into hasher: inout Hasher) {
     hasher.combine(componentType)
+  }
+}
+
+extension IdentifiableComponent: CustomDumpReflectable {
+  public var customDumpMirror: Mirror {
+    .init(
+      self.properties,
+      children: [
+        "componentType": self.componentType,
+        "properties": self.properties,
+      ],
+      displayStyle: .struct
+    )
+  }
+}
+
+extension IdentifiableComponent: CustomDumpRepresentable {
+  public var customDumpValue: Any {
+    switch self.properties {
+      case .anchoring(let value):
+        return value
+        
+      case .characterController(let value):
+        return value
+
+      case .characterControllerState(let value):
+        return value
+
+      case .collision(let value):
+        return value
+
+      case .directionalLight(let value):
+        return value
+
+      case .directionalLightShadow(let value):
+        return value
+
+      case .model(let value):
+        return value
+
+      case .modelDebugOptions(let value):
+        return value
+
+      case .perspectiveCamera(let value):
+        return value
+
+      case .physicsBody(let value):
+        return value
+
+      case .physicsMotion(let value):
+        return value
+
+      case .pointLight(let value):
+        return value
+
+      case .spotLight(let value):
+        return value
+
+      case .spotLightShadow(let value):
+        return value
+
+      case .synchronization(let value):
+        return value
+
+      case .transform(let value):
+        return value
+
+    }
   }
 }

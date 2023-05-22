@@ -10,7 +10,7 @@ struct RealityCheckApp: App {
         store: .init(
           initialState: AppCore.State(),
           reducer: AppCore()
-            .dependency(\.multipeerClient, .previewValue)
+            // .dependency(\.multipeerClient, .previewValue)
         )
       )
     }
