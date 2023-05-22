@@ -3,7 +3,7 @@ import RealityKit
 public struct IdentifiableComponent: Codable {
 
   public let componentType: ComponentType
-  private(set) public var properties: ComponentProperties?
+  private(set) public var properties: ComponentProperties
 
   //TODO: include TransientComponent.self
   public enum ComponentType: CaseIterable, Codable {
