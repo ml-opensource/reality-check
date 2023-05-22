@@ -15,15 +15,26 @@ struct EntityDetailView: View {
         .font(.headline)
 
         Section {
-          LabeledContent("id:", value: entity.id.description)
+          LabeledContent(
+            "id:",
+            value: entity.id.description
+          )
+          .textSelection(.enabled)
+
           if let name = entity.name, !name.isEmpty {
-            LabeledContent("name:", value: name)
+            LabeledContent(
+              "name:",
+              value: name
+            )
+            .textSelection(.enabled)
           }
+
           if let anchorIdentifier = entity.anchorIdentifier {
             LabeledContent(
               "anchorIdentifier",
               value: anchorIdentifier.uuidString
             )
+            .textSelection(.enabled)
           }
         }
       }
@@ -175,8 +186,18 @@ struct AnchoringComponentPropertiesView: View {
         return "camera"
       case .world(let transform):
         return "world(\(transform)"
-      @unknown default:
-        return "@unknown"
+      case .anchor(let identifier):
+        return "anchor(identifier: \(identifier))"
+      case .plane(_, let classifications, let minimumBounds):
+        return "plane(_, \(classifications), \(minimumBounds))"
+      case .image(let group, let name):
+        return "image(\(group), \(name))"
+      case .object(let group, let name):
+        return "object(\(group), \(name))"
+      case .face:
+        return "face"
+      case .body:
+        return "body"
     }
   }
 
@@ -187,7 +208,10 @@ struct AnchoringComponentPropertiesView: View {
   }
 
   var body: some View {
-    LabeledContent("target", value: targetDebugDescription)
+    LabeledContent(
+      "target",
+      value: targetDebugDescription
+    )
   }
 }
 
@@ -242,12 +266,10 @@ struct CollisionComponentPropertiesView: View {
 
   private var modeDebugDescription: String {
     switch properties.mode {
-      case .default:
+      case .`default`:
         return "default"
       case .trigger:
         return "trigger"
-      @unknown default:
-        return "@unknown"
     }
   }
 
@@ -411,9 +433,6 @@ struct PhysicsBodyComponentPropertiesView: View {
         return "kinematic"
       case .dynamic:
         return "dynamic"
-      @unknown default:
-        return "@unknown"
-
     }
   }
 
@@ -541,8 +560,6 @@ struct SynchronizationComponentPropertiesView: View {
         return "autoAccept"
       case .manual:
         return "manual"
-      @unknown default:
-        return "@unknown"
     }
   }
 
@@ -569,16 +586,21 @@ struct TransformComponentPropertiesView: View {
   }
 
   var body: some View {
-    //TODO: pretty printer
-    // let prettyMatrixDescription = """
-    // [\(properties.matrix.columns.0.x), \(properties.matrix.columns.0.y), \(properties.matrix.columns.0.z), \(properties.matrix.columns.0.w)]
-    // \(properties.matrix.columns.1)
-    // \(properties.matrix.columns.2)
-    // \(properties.matrix.columns.3)
-    // """
-    LabeledContent("matrix", value: properties.matrix.debugDescription)
-    LabeledContent("rotation", value: properties.rotation.debugDescription)
-    LabeledContent("scale", value: properties.scale.debugDescription)
-    LabeledContent("translation", value: properties.translation.debugDescription)
+    LabeledContent(
+      "matrix",
+      value: properties.matrix.debugDescription
+    )
+    LabeledContent(
+      "rotation",
+      value: properties.rotation.debugDescription
+    )
+    LabeledContent(
+      "scale",
+      value: properties.scale.debugDescription
+    )
+    LabeledContent(
+      "translation",
+      value: properties.translation.debugDescription
+    )
   }
 }
