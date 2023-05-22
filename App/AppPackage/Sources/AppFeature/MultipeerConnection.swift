@@ -6,8 +6,16 @@ import StreamingClient
 
 public struct MultipeerConnection: Reducer {
   public struct State: Equatable {
-    public var sessionState: MultipeerClient.SessionState = .notConnected
-    public var peers: [Peer] = []
+    public var sessionState: MultipeerClient.SessionState
+    public var peers: [Peer]
+
+    public init(
+      sessionState: MultipeerClient.SessionState = .notConnected,
+      peers: [Peer] = []
+    ) {
+      self.sessionState = sessionState
+      self.peers = peers
+    }
   }
 
   public enum Action: Equatable {
@@ -64,7 +72,9 @@ public struct MultipeerConnection: Reducer {
                         [IdentifiableEntity].self,
                         from: data
                       ) {
-                        await send(.delegate(.receivedVideoHierarchyData(hierarchyData)))
+                        await send(
+                          .delegate(.receivedVideoHierarchyData(hierarchyData))
+                        )
                       } else {
                         fatalError()
                       }

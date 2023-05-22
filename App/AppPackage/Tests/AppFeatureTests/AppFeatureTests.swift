@@ -28,7 +28,7 @@ final class RealityCheckTests: XCTestCase {
 
   func testSimpleDecodable() throws {
     let url = Bundle.module.url(forResource: "simple_hierarchy", withExtension: "json")!
-    let data = try Data(contentsOf: url, options: .mappedIfSafe)
+    let data = try Data(contentsOf: url)
     let hierarchy = try! decoder.decode([IdentifiableEntity].self, from: data)
     XCTAssertNotNil(hierarchy)
     customDump(hierarchy)

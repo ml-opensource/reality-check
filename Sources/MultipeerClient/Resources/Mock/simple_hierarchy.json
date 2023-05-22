@@ -1,0 +1,701 @@
+[
+  {
+    "isAccessibilityElement" : false,
+    "id" : 5308927511557078598,
+    "components" : {
+      "components" : [
+        {
+          "properties" : {
+            "anchoring" : {
+              "_0" : {
+                "target" : {
+                  "plane" : [
+                    0,
+                    0
+                  ]
+                }
+              }
+            }
+          },
+          "componentType" : {
+            "anchoring" : {
+
+            }
+          }
+        },
+        {
+          "properties" : {
+            "synchronization" : {
+              "_0" : {
+                "isOwner" : true,
+                "ownershipTransferMode" : "autoAccept",
+                "identifier" : 6947983313088354056
+              }
+            }
+          },
+          "componentType" : {
+            "synchronization" : {
+
+            }
+          }
+        },
+        {
+          "properties" : {
+            "transform" : {
+              "_0" : {
+                "rotation" : [
+                  0,
+                  -0.07199878990650177,
+                  0,
+                  0.99740469455718994
+                ],
+                "translation" : [
+                  -0.19728308916091919,
+                  0,
+                  0.65218722820281982
+                ],
+                "matrix" : [
+                  [
+                    0.98963236808776855,
+                    0,
+                    0.14362385869026184,
+                    0
+                  ],
+                  [
+                    -0,
+                    1,
+                    0,
+                    0
+                  ],
+                  [
+                    -0.14362385869026184,
+                    -0,
+                    0.98963236808776855,
+                    0
+                  ],
+                  [
+                    -0.19728308916091919,
+                    0,
+                    0.65218722820281982,
+                    1
+                  ]
+                ],
+
+                "scale" : [
+                  1,
+                  1,
+                  1
+                ]
+              }
+            }
+          },
+          "componentType" : {
+            "transform" : {
+
+            }
+          }
+        }
+      ]
+    },
+    "hierarhy" : {
+      "children" : [
+        {
+          "isAccessibilityElement" : false,
+          "id" : 14271173229953829431,
+          "components" : {
+            "components" : [
+              {
+                "properties" : {
+                  "anchoring" : {
+                    "_0" : {
+                      "target" : {
+                        "plane" : [
+                          0,
+                          0
+                        ]
+                      }
+                    }
+                  }
+                },
+                "componentType" : {
+                  "anchoring" : {
+
+                  }
+                }
+              },
+              {
+                "properties" : {
+                  "synchronization" : {
+                    "_0" : {
+                      "isOwner" : true,
+                      "ownershipTransferMode" : "autoAccept",
+                      "identifier" : 7578857053614177546
+                    }
+                  }
+                },
+                "componentType" : {
+                  "synchronization" : {
+
+                  }
+                }
+              },
+              {
+                "properties" : {
+                  "transform" : {
+                    "_0" : {
+                      "rotation" : [
+                        0,
+                        -0.07199878990650177,
+                        0,
+                        0.99740469455718994
+                      ],
+                      "translation" : [
+                        -0.19728308916091919,
+                        0,
+                        0.65218722820281982
+                      ],
+                      "matrix" : [
+                        [
+                          0.98963236808776855,
+                          0,
+                          0.14362385869026184,
+                          0
+                        ],
+                        [
+                          -0,
+                          1,
+                          0,
+                          0
+                        ],
+                        [
+                          -0.14362385869026184,
+                          -0,
+                          0.98963236808776855,
+                          0
+                        ],
+                        [
+                          -0.19728308916091919,
+                          0,
+                          0.65218722820281982,
+                          1
+                        ]
+                      ],
+                      "scale" : [
+                        1,
+                        1,
+                        1
+                      ]
+                    }
+                  }
+                },
+                "componentType" : {
+                  "transform" : {
+
+                  }
+                }
+              }
+            ]
+          },
+          "hierarhy" : {
+            "children" : [
+              {
+                "isAccessibilityElement" : false,
+                "id" : 12532930754660024019,
+                "components" : {
+                  "components" : [
+                    {
+                      "properties" : {
+                        "synchronization" : {
+                          "_0" : {
+                            "isOwner" : true,
+                            "ownershipTransferMode" : "autoAccept",
+                            "identifier" : 1996061669212804554
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "synchronization" : {
+
+                        }
+                      }
+                    },
+                    {
+                      "properties" : {
+                        "transform" : {
+                          "_0" : {
+                            "rotation" : [
+                              0,
+                              0,
+                              0,
+                              1
+                            ],
+                            "translation" : [
+                              0,
+                              0,
+                              0
+                            ],
+                            "matrix" : [
+                              [
+                                1,
+                                0,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                0,
+                                1,
+                                0
+                              ],
+                              [
+                                0,
+                                0,
+                                0,
+                                1
+                              ]
+                            ],
+                            "scale" : [
+                              1,
+                              1,
+                              1
+                            ]
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "transform" : {
+
+                        }
+                      }
+                    }
+                  ]
+                },
+                "hierarhy" : {
+                  "children" : [
+                    {
+                      "isAccessibilityElement" : false,
+                      "id" : 15124575570803403703,
+                      "components" : {
+                        "components" : [
+                          {
+                            "properties" : {
+                              "synchronization" : {
+                                "_0" : {
+                                  "isOwner" : true,
+                                  "ownershipTransferMode" : "autoAccept",
+                                  "identifier" : 4592381370981499819
+                                }
+                              }
+                            },
+                            "componentType" : {
+                              "synchronization" : {
+
+                              }
+                            }
+                          },
+                          {
+                            "properties" : {
+                              "transform" : {
+                                "_0" : {
+                                  "rotation" : [
+                                    0,
+                                    0,
+                                    0,
+                                    1
+                                  ],
+                                  "translation" : [
+                                    0,
+                                    0.05000000074505806,
+                                    0
+                                  ],
+                                  "matrix" : [
+                                    [
+                                      1,
+                                      0,
+                                      0,
+                                      0
+                                    ],
+                                    [
+                                      0,
+                                      1,
+                                      0,
+                                      0
+                                    ],
+                                    [
+                                      0,
+                                      0,
+                                      1,
+                                      0
+                                    ],
+                                    [
+                                      0,
+                                      0.05000000074505806,
+                                      0,
+                                      1
+                                    ]
+                                  ],
+                                  "scale" : [
+                                    1,
+                                    1,
+                                    1
+                                  ]
+                                }
+                              }
+                            },
+                            "componentType" : {
+                              "transform" : {
+
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "hierarhy" : {
+                        "children" : [
+                          {
+                            "isAccessibilityElement" : false,
+                            "id" : 7459684402599420253,
+                            "components" : {
+                              "components" : [
+                                {
+                                  "properties" : {
+                                    "model" : {
+                                      "_0" : {
+                                        "materials" : [
+                                          {
+
+                                          }
+                                        ],
+                                        "mesh" : {
+                                          "expectedMaterialCount" : 1,
+                                          "bounds" : {
+                                            "min" : [
+                                              -0.05000000074505806,
+                                              -0.05000000074505806,
+                                              -0.05000000074505806
+                                            ],
+                                            "max" : [
+                                              0.05000000074505806,
+                                              0.05000000074505806,
+                                              0.05000000074505806
+                                            ]
+                                          }
+                                        },
+                                        "boundsMargin" : 0
+                                      }
+                                    }
+                                  },
+                                  "componentType" : {
+                                    "model" : {
+
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties" : {
+                                    "synchronization" : {
+                                      "_0" : {
+                                        "isOwner" : true,
+                                        "ownershipTransferMode" : "autoAccept",
+                                        "identifier" : 12720945427537173584
+                                      }
+                                    }
+                                  },
+                                  "componentType" : {
+                                    "synchronization" : {
+
+                                    }
+                                  }
+                                },
+                                {
+                                  "properties" : {
+                                    "transform" : {
+                                      "_0" : {
+                                        "rotation" : [
+                                          0,
+                                          0,
+                                          0,
+                                          1
+                                        ],
+                                        "translation" : [
+                                          0,
+                                          0,
+                                          0
+                                        ],
+                                        "matrix" : [
+                                          [
+                                            1,
+                                            0,
+                                            0,
+                                            0
+                                          ],
+                                          [
+                                            0,
+                                            1,
+                                            0,
+                                            0
+                                          ],
+                                          [
+                                            0,
+                                            0,
+                                            1,
+                                            0
+                                          ],
+                                          [
+                                            0,
+                                            0,
+                                            0,
+                                            1
+                                          ]
+                                        ],
+                                        "scale" : [
+                                          1,
+                                          1,
+                                          1
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "componentType" : {
+                                    "transform" : {
+
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "hierarhy" : {
+                              "children" : [
+
+                              ],
+                              "hasParent" : true
+                            },
+                            "entityType" : {
+                              "entity" : {
+
+                              }
+                            },
+                            "state" : {
+                              "isActive" : false,
+                              "isEnabledInHierarchy" : true,
+                              "isAnchored" : false,
+                              "isEnabled" : true
+                            },
+                            "name" : "simpBld_root"
+                          }
+                        ],
+                        "hasParent" : true
+                      },
+                      "entityType" : {
+                        "entity" : {
+
+                        }
+                      },
+                      "state" : {
+                        "isActive" : false,
+                        "isEnabledInHierarchy" : true,
+                        "isAnchored" : false,
+                        "isEnabled" : true
+                      },
+                      "name" : "Steel Box"
+                    }
+                  ],
+                  "hasParent" : true
+                },
+                "entityType" : {
+                  "entity" : {
+
+                  }
+                },
+                "state" : {
+                  "isActive" : false,
+                  "isEnabledInHierarchy" : true,
+                  "isAnchored" : false,
+                  "isEnabled" : true
+                },
+                "name" : ""
+              },
+              {
+                "isAccessibilityElement" : false,
+                "id" : 3651042362821696331,
+                "components" : {
+                  "components" : [
+                    {
+                      "properties" : {
+                        "collision" : {
+                          "_0" : {
+                            "shapes" : [
+                              {
+
+                              }
+                            ],
+                            "mode" : "default",
+                            "filter" : {
+                              "group" : 1,
+                              "mask" : 1
+                            }
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "collision" : {
+
+                        }
+                      }
+                    },
+                    {
+                      "properties" : {
+                        "physicsBody" : {
+                          "_0" : {
+                            "isTranslationLocked" : {
+                              "x" : false,
+                              "y" : false,
+                              "z" : false
+                            },
+                            "isContinuousCollisionDetectionEnabled" : false,
+                            "isRotationLocked" : {
+                              "x" : false,
+                              "y" : false,
+                              "z" : false
+                            },
+                            "mode" : "static"
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "physicsBody" : {
+
+                        }
+                      }
+                    },
+                    {
+                      "properties" : {
+                        "synchronization" : {
+                          "_0" : {
+                            "isOwner" : true,
+                            "ownershipTransferMode" : "autoAccept",
+                            "identifier" : 42155222262896529
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "synchronization" : {
+
+                        }
+                      }
+                    },
+                    {
+                      "properties" : {
+                        "transform" : {
+                          "_0" : {
+                            "rotation" : [
+                              0,
+                              0,
+                              0,
+                              1
+                            ],
+                            "translation" : [
+                              0,
+                              0,
+                              0
+                            ],
+                            "matrix" : [
+                              [
+                                1,
+                                0,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                1,
+                                0,
+                                0
+                              ],
+                              [
+                                0,
+                                0,
+                                1,
+                                0
+                              ],
+                              [
+                                0,
+                                0,
+                                0,
+                                1
+                              ]
+                            ],
+                            "scale" : [
+                              1,
+                              1,
+                              1
+                            ]
+                          }
+                        }
+                      },
+                      "componentType" : {
+                        "transform" : {
+
+                        }
+                      }
+                    }
+                  ]
+                },
+                "hierarhy" : {
+                  "children" : [
+
+                  ],
+                  "hasParent" : true
+                },
+                "entityType" : {
+                  "entity" : {
+
+                  }
+                },
+                "state" : {
+                  "isActive" : false,
+                  "isEnabledInHierarchy" : true,
+                  "isAnchored" : false,
+                  "isEnabled" : true
+                },
+                "name" : "Ground Plane"
+              }
+            ],
+            "hasParent" : true
+          },
+          "entityType" : {
+            "anchor" : {
+
+            }
+          },
+          "state" : {
+            "isActive" : false,
+            "isEnabledInHierarchy" : true,
+            "isAnchored" : false,
+            "isEnabled" : true
+          },
+          "name" : ""
+        }
+      ],
+      "hasParent" : false
+    },
+    "entityType" : {
+      "entity" : {
+
+      }
+    },
+    "state" : {
+      "isActive" : false,
+      "isEnabledInHierarchy" : true,
+      "isAnchored" : false,
+      "isEnabled" : true
+    },
+    "name" : ""
+  }
+]
