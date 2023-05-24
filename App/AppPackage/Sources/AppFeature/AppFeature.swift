@@ -80,7 +80,9 @@ public struct AppCore: Reducer {
           state.identifiedEntities = .init(
             uniqueElements: identifiableEntities
           )
-          return .none
+          return .task { [state] in
+            .set(\.$selection, state.identifiedEntities.first?.id)
+          }
 
         case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
           streamingClient.prepareForRender(videoFrameData)
@@ -90,15 +92,15 @@ public struct AppCore: Reducer {
           .delegate(.receivedVideoHierarchyData(let identifiableEntities))
         ):
           return .task {
-            return .entitiesIdentified(identifiableEntities)
+            .entitiesIdentified(identifiableEntities)
           }
 
-//        case .multipeerConnection(.delegate(.didUpdateSessionState(let connectionState))):
-//          if connectionState == .notConnected {
-//            state.selection = nil
-//            state.identifiedEntities.removeAll()
-//          }
-//          return .none
+        //case .multipeerConnection(.delegate(.didUpdateSessionState(let connectionState))):
+        //  if connectionState == .notConnected {
+        //    state.selection = nil
+        //    state.identifiedEntities.removeAll()
+        //  }
+        //  return .none
 
         case .multipeerConnection(_):
           return .none
@@ -120,9 +122,7 @@ public struct AppCore: Reducer {
 
         case .select(let entity):
           state.selection = entity?.id
-          return .task {
-            .dumpOutput("...")
-          }
+          return .none
       }
     }
   }

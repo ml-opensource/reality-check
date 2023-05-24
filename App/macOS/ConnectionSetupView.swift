@@ -4,82 +4,25 @@ import MultipeerClient
 import SwiftUI
 
 struct ConnectionSetupView: View {
-  @Environment(\.openWindow) var openWindow
-
   let store: StoreOf<MultipeerConnection>
-  var columns: [GridItem] { [.init(.flexible())] }
+  var columns: [GridItem] {
+    [
+      .init(.flexible()),
+      .init(.flexible()),
+      .init(.flexible()),
+    ]
+  }
 
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
-        Text("RealityCheck")
-          .font(.largeTitle)
-          .padding()
-
         ScrollView(.vertical) {
-          LazyVGrid(columns: columns, alignment: .center) {
+          LazyVGrid(columns: columns, alignment: .leading) {
             ForEach(Array(viewStore.peers.keys)) { peer in
-              let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
-              Button(
-                action: {
-                  viewStore.send(.invite(peer))
-                  openWindow(id: "RealityCheckWindowID")
-                },
-                label: {
-                  VStack {
-                    Image(systemName: "link.badge.plus")
-                      .resizable()
-                      .aspectRatio(contentMode: .fit)
-                      .padding()
-                      .frame(width: 88, height: 88)
-                      .foregroundColor(.purple)
-                      .background {
-                        Image(systemName: "app.dashed")
-                          .resizable()
-                          .aspectRatio(contentMode: .fit)
-                          .foregroundColor(.secondary)
-                          .fontWeight(.thin)
-                      }
-
-                    if let appName = discoveryInfo?.appName {
-                      Text(appName)
-                        .font(.title2)
-
-                    }
-
-                    if let appVersion = discoveryInfo?.appVersion {
-                      Text(appVersion)
-                    }
-
-                    GroupBox {
-                      if let device = discoveryInfo?.device {
-                        Label(device, systemImage: "iphone")
-                      }
-
-                      if let system = discoveryInfo?.system {
-                        Text(system)
-                      }
-                    }
-                  }
-                  .padding(8)
-                  .background(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(Color(nsColor: .controlBackgroundColor))
-                  )
-                  .drawingGroup()
-                    // .overlay(
-                    //   RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    //     .stroke(lineWidth: 4)
-                    //     .foregroundColor(.white)
-                    // )
-                }
-              )
-              .buttonStyle(.plain)
-              .shadow(radius: 16, y: 16)
-              .help("Insert coin to continue")
+              PeerConnectView(peer: peer, viewStore: viewStore)
             }
           }
-          .padding(.top)
+          .padding()
         }
         .overlay(
           Group {
@@ -100,7 +43,7 @@ struct ConnectionSetupView: View {
           Button(
             action: {},
             label: {
-              Label("Integrate Guide", systemImage: "questionmark.circle")
+              Label("Integration Guide", systemImage: "questionmark.circle")
             }
           )
           .controlSize(.large)
@@ -110,8 +53,70 @@ struct ConnectionSetupView: View {
         .padding()
         .background(.bar)
       }
-      .frame(width: 300, height: 500)
+      .frame(width: 521, height: 521)
     }
+  }
+}
+
+struct PeerConnectView: View {
+  @Environment(\.openWindow) private var openWindow
+  let peer: Peer
+  @ObservedObject var viewStore: ViewStoreOf<MultipeerConnection>
+
+  var body: some View {
+    let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
+    Button(
+      action: {
+        viewStore.send(.invite(peer))
+        openWindow(id: "RealityCheckWindowID")
+      },
+      label: {
+        VStack {
+          Image(systemName: "app.fill")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .fontWeight(.thin)
+            .foregroundColor(colorFromHash(discoveryInfo?.hashValue ?? peer.displayName))
+
+          if let appName = discoveryInfo?.appName {
+            Text(appName)
+              .font(.headline)
+          }
+
+          if let appVersion = discoveryInfo?.appVersion {
+            Text(appVersion)
+              .font(.caption2)
+              .foregroundColor(.secondary)
+          }
+
+          GroupBox {
+            if let device = discoveryInfo?.device {
+              Label(device, systemImage: "iphone")
+            }
+
+            if let system = discoveryInfo?.system {
+              Text(system)
+            }
+          }
+          .font(.caption2)
+        }
+
+        .padding()
+        .background(
+          RoundedRectangle(cornerRadius: 4, style: .continuous)
+            .fill(Color(nsColor: .controlBackgroundColor))
+        )
+        .drawingGroup()
+        .overlay(
+          RoundedRectangle(cornerRadius: 4, style: .continuous)
+            .stroke(lineWidth: 0.2)
+            .foregroundColor(.secondary)
+        )
+      }
+    )
+    .buttonStyle(.plain)
+    .shadow(radius: 8, y: 8)
+    .help("Insert coin to continue")
   }
 }
 
@@ -164,28 +169,28 @@ struct ConnectionSetupView_Previews: PreviewProvider {
                 system: "iOS 15.1"
               ),
               Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
+                appName: "TheAugmentedApp",
+                appVersion: "0.3 (17)",
                 device: "iPhone 12 Pro",
                 system: "iOS 15.1"
               ),
               Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
+                appName: "MyRealAR",
+                appVersion: "1.5.1 (12)",
                 device: "iPhone 12 Pro",
                 system: "iOS 15.1"
               ),
               Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
+                appName: "SomethingInTheAR",
+                appVersion: "5.3 (99)",
+                device: "iPhone 11",
+                system: "iOS 12.5"
               ),
               Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
+                appName: "Appgmented",
+                appVersion: "15.0 (2)",
+                device: "iPhone X",
+                system: "iOS 16.5"
               ),
             ]
           )

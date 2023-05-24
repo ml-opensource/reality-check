@@ -49,4 +49,8 @@ public struct DiscoveryInfo: Equatable {
     }
     return info
   }
+
+  public var hashValue: String {
+    "\(appName ?? "")\(appVersion ?? "")\(device)\(system ?? "")"
+  }
 }
