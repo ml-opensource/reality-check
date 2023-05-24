@@ -16,6 +16,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
   public let accessibilityLabel: String?
   public let accessibilityDescription: String?
   public var anchorIdentifier: UUID?
+  public var availableAnimations: [CodableAnimationResource]
   public var name: String?
   public let entityType: EntityType
   public var children: [IdentifiableEntity]? {
@@ -95,6 +96,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
     self.isAccessibilityElement = entity.isAccessibilityElement
     self.accessibilityLabel = entity.accessibilityLabel
     self.accessibilityDescription = entity.accessibilityDescription
+    self.availableAnimations = entity.availableAnimations.compactMap(CodableAnimationResource.init)
     self.name = entity.name
     self.entityType = .init(rawValue: Swift.type(of: entity)) ?? .entity
     self.state = state
@@ -246,7 +248,7 @@ extension IdentifiableEntity.State: CustomDumpReflectable {
         "isEnabled": self.isEnabled,
         "isEnabledInHierarchy": self.isEnabledInHierarchy,
         "isActive": self.isActive,
-        "isAnchored": self.isAnchored
+        "isAnchored": self.isAnchored,
       ],
       displayStyle: .dictionary
     )
@@ -256,10 +258,10 @@ extension IdentifiableEntity.State: CustomDumpReflectable {
 extension IdentifiableEntity.Hierarhy: CustomDumpReflectable {
   public var customDumpMirror: Mirror {
     .init(
-        self,
+      self,
       children: [
         "hasParent": self.hasParent,
-        "children": self.children
+        "children": self.children,
       ],
       displayStyle: .dictionary
     )
@@ -300,6 +302,7 @@ extension IdentifiableEntity: CustomDumpReflectable {
         "accessibilityLabel": self.accessibilityLabel,
         "accessibilityDescription": self.accessibilityDescription,
         "anchorIdentifier": self.anchorIdentifier,
+        "availableAnimations": self.availableAnimations,
         "name": self.name,
         "entityType": self.entityType,
         "state": self.state,

@@ -83,6 +83,19 @@ struct ARViewContainer: UIViewRepresentable {
     arView.scene.anchors.append(worldOriginAnchor)
     arView.scene.anchors.append(dummyAnchor)
 
+    let path = Bundle.main.path(forResource: "robot_walk_idle", ofType: "usdz")!
+
+    let url = URL(fileURLWithPath: path)
+
+    // robot
+    let robot = try! Entity.load(contentsOf: url)
+      robot.playAnimation(robot.availableAnimations[0].repeat(duration: .infinity))
+    let anchor = AnchorEntity(plane: .any)
+    anchor.name = "RobotAnchor"
+    anchor.setPosition([0, 0, 0.5], relativeTo: boxEntity)
+    anchor.addChild(robot)
+    arView.scene.anchors.append(anchor)
+
     random()
     return arView
 

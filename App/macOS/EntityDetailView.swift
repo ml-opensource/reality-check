@@ -64,6 +64,16 @@ struct EntityDetailView: View {
           }
         }
 
+        if !entity.availableAnimations.isEmpty {
+          Section("Animation") {
+            LabeledContent(
+              "availableAnimations",
+              value: String(customDumping: entity.availableAnimations)
+            )
+            .textSelection(.enabled)
+          }
+        }
+
         Section("State") {
           LabeledContent(
             "isEnabled",
@@ -94,7 +104,6 @@ struct EntityDetailView: View {
             value: "\(entity.hierarhy.childrenCount)"
           )
         }
-      
 
         Section("Components") {
           LabeledContent("count", value: "\(entity.components.count)")

@@ -7,7 +7,7 @@ import StreamingClient
 public struct MultipeerConnection: Reducer {
   public struct State: Equatable {
     public var sessionState: MultipeerClient.SessionState
-      public var peers: [Peer: DiscoveryInfo]
+    public var peers: [Peer: DiscoveryInfo]
 
     public init(
       sessionState: MultipeerClient.SessionState = .notConnected,
@@ -102,6 +102,6 @@ public struct MultipeerConnection: Reducer {
             .delegate(.didUpdateSessionState(sessionState))
           }
       }
-    }._printChanges()
+    }
   }
 }

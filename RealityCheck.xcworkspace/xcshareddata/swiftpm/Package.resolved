@@ -91,6 +91,15 @@
       }
     },
     {
+      "identity" : "swift-msgpack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nnabeyang/swift-msgpack",
+      "state" : {
+        "revision" : "09dc472d8538a578a1db3b607b0c1d63d3545dba",
+        "version" : "0.2.5"
+      }
+    },
+    {
       "identity" : "swiftui-navigation",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swiftui-navigation",
