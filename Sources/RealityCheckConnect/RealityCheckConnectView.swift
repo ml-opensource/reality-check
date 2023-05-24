@@ -6,9 +6,6 @@ import RealityDumpClient
 import RealityKit
 import StreamingClient
 import SwiftUI
-#if os(iOS)
-  import DeviceKit
-#endif
 
 public struct LibraryViewContent: LibraryContentProvider {
 
@@ -33,25 +30,6 @@ public struct RealityCheckConnectView: View {
   @State private var isRecording = false
 
   private var arView: ARView?
-
-  private var discoveryInfo: [MultipeerClient.DiscoveryInfoKey: String] {
-    var discoveryInfo: [MultipeerClient.DiscoveryInfoKey: String] = [
-      .device: Device.current.safeDescription
-    ]
-    if let appName = AppInfo.appName {
-      discoveryInfo[.appName] = appName
-    }
-    if let version = AppInfo.version, let build = AppInfo.build {
-      discoveryInfo[.appVersion] = "\(version) (\(build))"
-    }
-
-    if let systemName = Device.current.systemName, let systemVersion = Device.current.systemVersion
-    {
-      discoveryInfo[.system] = "\(systemName) \(systemVersion)"
-    }
-
-    return discoveryInfo
-  }
 
   public init(
     _ arView: ARView? = nil
@@ -121,7 +99,6 @@ public struct RealityCheckConnectView: View {
                   multipeerClient.send(frameData)
                 }
               }
-
             },
             label: {
               ZStack {
@@ -145,7 +122,7 @@ public struct RealityCheckConnectView: View {
       for await action in await multipeerClient.start(
         serviceName: "reality-check",
         sessionType: .peer,
-        discoveryInfo: discoveryInfo
+        discoveryInfo: AppInfo.discoveryInfo
       ) {
         switch action {
           case .session(let sessionAction):

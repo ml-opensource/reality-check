@@ -7,11 +7,11 @@ import StreamingClient
 public struct MultipeerConnection: Reducer {
   public struct State: Equatable {
     public var sessionState: MultipeerClient.SessionState
-    public var peers: [Peer]
+      public var peers: [Peer: DiscoveryInfo]
 
     public init(
       sessionState: MultipeerClient.SessionState = .notConnected,
-      peers: [Peer] = []
+      peers: [Peer: DiscoveryInfo] = [:]
     ) {
       self.sessionState = sessionState
       self.peers = peers
@@ -22,7 +22,7 @@ public struct MultipeerConnection: Reducer {
     case delegate(DelegateAction)
     case invite(Peer)
     case start
-    case updatePeers([Peer])
+    case updatePeers([Peer: DiscoveryInfo])
     case updateSessionState(MultipeerClient.SessionState)
   }
 
@@ -102,6 +102,6 @@ public struct MultipeerConnection: Reducer {
             .delegate(.didUpdateSessionState(sessionState))
           }
       }
-    }
+    }._printChanges()
   }
 }

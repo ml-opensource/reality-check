@@ -16,18 +16,11 @@ extension MultipeerClient: DependencyKey {
         #endif
       }
 
-      var rawDiscoveryInfo: [String: String] = [:]
-      if let discoveryInfo {
-        for key in discoveryInfo.keys {
-          rawDiscoveryInfo[key.rawValue] = discoveryInfo[key]
-        }
-      }
-
       return await MultipeerActor.shared.start(
         serviceName: serviceName,
         sessionType: sessionType,
         peerName: name,
-        discoveryInfo: rawDiscoveryInfo,
+        discoveryInfo: discoveryInfo?.rawValue,
         encryptionPreference: encryptionPreference
       )
     },
@@ -266,30 +259,24 @@ extension MultipeerClient.MultipeerActor {
 extension MultipeerClient.MultipeerActor {
   final class ServiceBrowserDelegate: NSObject, MCNearbyServiceBrowserDelegate {
     var continuation: AsyncStream<MultipeerClient.Action>.Continuation?
-    private var peers: [MCPeerID] = []  //FIXME: consider using lookup table
+    private var peers: [Peer: DiscoveryInfo] = [:]
 
     func browser(
       _ browser: MCNearbyServiceBrowser,
       foundPeer peerID: MCPeerID,
       withDiscoveryInfo info: [String: String]?
     ) {
-      print(">>> info:", info)
-      peers.append(peerID)
-      continuation?
-        .yield(
-          .browser(.peersUpdated(peers.map(Peer.init(rawValue:))))
-        )
+
+      peers[Peer.init(rawValue: peerID)] = DiscoveryInfo(rawValue: info)
+      continuation?.yield(.browser(.peersUpdated(peers)))
     }
 
     func browser(
       _ browser: MCNearbyServiceBrowser,
       lostPeer peerID: MCPeerID
     ) {
-      peers.removeAll(where: { $0 == peerID })
-      continuation?
-        .yield(
-          .browser(.peersUpdated(peers.map(Peer.init(rawValue:))))
-        )
+      peers.removeValue(forKey: Peer.init(rawValue: peerID))
+      continuation?.yield(.browser(.peersUpdated(peers)))
     }
   }
 }

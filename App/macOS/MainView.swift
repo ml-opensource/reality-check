@@ -6,13 +6,35 @@ import StreamingClient
 import SwiftUI
 
 struct MainView: View {
+  @Environment(\.openWindow) var openWindow
   @State private var points: [SIMD3<Float>] = []
   let store: StoreOf<AppCore>
 
-  @State private var isPresented = false
-
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
+
+      var contextualBackground: Color {
+        switch viewStore.multipeerConnection.sessionState {
+          case .notConnected:
+            return .red
+          case .connecting:
+            return .orange
+          case .connected:
+            return .green
+        }
+      }
+
+      var contextualLabel: String {
+        switch viewStore.multipeerConnection.sessionState {
+          case .notConnected:
+            return "notConnected"
+          case .connecting:
+            return "connecting"
+          case .connected:
+            return "connected"
+        }
+      }
+
       NavigationSplitView {
         Sidebar(viewStore: viewStore)
       } content: {
@@ -23,9 +45,8 @@ struct MainView: View {
           VSplitView {
             Color.clear
             TextEditor(text: .constant(viewStore.dumpOutput))
+              .font(.body)
               .monospaced()
-              // .foregroundColor(.cyan)
-              .multilineTextAlignment(.leading)
           }
         }
       } detail: {
@@ -41,32 +62,19 @@ struct MainView: View {
       }
       .toolbar {
         ToolbarItem {
-          switch viewStore.multipeerConnection.sessionState {
-            case .notConnected:
-              Button(
-                "notConnected",
-                action: {}
-              )
-              .buttonStyle(.plain)
-              .foregroundColor(.white)
-              .font(.caption)
-              .padding(8)
-              .background(Capsule(style: .continuous).fill(.red))
-
-            case .connecting:
-              Text("connecting")
+          Button(
+            action: {
+              openWindow(id: "ConnectionWindowID")
+            },
+            label: {
+              Text(contextualLabel)
                 .foregroundColor(.white)
                 .font(.caption)
                 .padding(8)
-                .background(Capsule(style: .continuous).fill(.yellow))
-
-            case .connected:
-              Text("connected")
-                .foregroundColor(.white)
-                .font(.caption)
-                .padding(8)
-                .background(Capsule(style: .continuous).fill(.green))
-          }
+                .background(Capsule(style: .continuous).fill(contextualBackground))
+            }
+          )
+          .buttonStyle(.plain)
         }
       }
     }

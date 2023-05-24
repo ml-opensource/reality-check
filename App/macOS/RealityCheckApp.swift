@@ -6,7 +6,7 @@ import SwiftUI
 struct RealityCheckApp: App {
   let store: StoreOf<AppCore> = .init(
     initialState: AppCore.State(),
-    reducer: AppCore()  // .dependency(\.multipeerClient, .previewValue)
+    reducer: AppCore()  //.dependency(\.multipeerClient, .previewValue)
   )
 
   var body: some Scene {

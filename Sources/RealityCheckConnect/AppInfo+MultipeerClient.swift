@@ -1,4 +1,9 @@
 import Foundation
+import MultipeerClient
+
+#if os(iOS)
+  import DeviceKit
+#endif
 
 struct AppInfo {
   static var appName: String? {
@@ -31,5 +36,30 @@ struct AppInfo {
   /// Retrieves and returns associated values (of Type String) from info.Plist of the app.
   static private func readFromInfoPlist(withKey key: String) -> String? {
     infoPlistDictionary?[key] as? String
+  }
+}
+
+extension AppInfo {
+  static var discoveryInfo: DiscoveryInfo {
+    var appVersion: String?
+    if let version = AppInfo.version,
+      let build = AppInfo.build
+    {
+      appVersion = "\(version) (\(build))"
+    }
+
+    var system: String?
+    if let systemName = Device.current.systemName,
+      let systemVersion = Device.current.systemVersion
+    {
+      system = "\(systemName) \(systemVersion)"
+    }
+
+    return DiscoveryInfo(
+      appName: AppInfo.appName,
+      appVersion: appVersion,
+      device: Device.current.safeDescription,
+      system: system
+    )
   }
 }

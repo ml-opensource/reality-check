@@ -5,13 +5,6 @@ import MultipeerConnectivity
 /// A client for MultipeerConnectivity that can be used as a dependency in a `@Dependency`.
 public struct MultipeerClient {
 
-  public enum DiscoveryInfoKey: String {
-    case appName = "AppNameKey"
-    case appVersion = "AppVersionKey"
-    case device = "DeviceKey"
-    case system = "SystemKey"
-  }
-
   /// The session type for the Multipeer session.
   public enum SessionType: Int {
     case host = 1
@@ -37,7 +30,7 @@ public struct MultipeerClient {
     }
 
     public enum BrowserAction: Equatable {
-      case peersUpdated([Peer])
+      case peersUpdated([Peer: DiscoveryInfo])
     }
 
     public enum AdvertiserAction: Equatable {
@@ -47,10 +40,9 @@ public struct MultipeerClient {
 
   /// The internal closure that sets up the Multipeer session.
   var start:
-    (String, SessionType, String?, [DiscoveryInfoKey: String]?, MCEncryptionPreference) async ->
-      AsyncStream<
-        Action
-      >
+    (String, SessionType, String?, DiscoveryInfo?, MCEncryptionPreference) async -> AsyncStream<
+      Action
+    >
 
   /**
     Sets up the Multipeer session.
@@ -70,7 +62,7 @@ public struct MultipeerClient {
     serviceName: String,
     sessionType: SessionType = .both,
     peerName: String? = nil,
-    discoveryInfo: [DiscoveryInfoKey: String]? = nil,
+    discoveryInfo: DiscoveryInfo? = nil,
     encryptionPreference: MCEncryptionPreference = .required
   ) async -> AsyncStream<Action> {
     await self.start(serviceName, sessionType, peerName, discoveryInfo, encryptionPreference)
