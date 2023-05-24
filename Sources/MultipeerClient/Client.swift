@@ -5,6 +5,13 @@ import MultipeerConnectivity
 /// A client for MultipeerConnectivity that can be used as a dependency in a `@Dependency`.
 public struct MultipeerClient {
 
+  public enum DiscoveryInfoKey: String {
+    case appName = "AppNameKey"
+    case appVersion = "AppVersionKey"
+    case device = "DeviceKey"
+    case system = "SystemKey"
+  }
+
   /// The session type for the Multipeer session.
   public enum SessionType: Int {
     case host = 1
@@ -39,7 +46,11 @@ public struct MultipeerClient {
   }
 
   /// The internal closure that sets up the Multipeer session.
-  var start: (String, SessionType, String?, MCEncryptionPreference) async -> AsyncStream<Action>
+  var start:
+    (String, SessionType, String?, [DiscoveryInfoKey: String]?, MCEncryptionPreference) async ->
+      AsyncStream<
+        Action
+      >
 
   /**
     Sets up the Multipeer session.
@@ -48,6 +59,7 @@ public struct MultipeerClient {
        - serviceName: The service name for the Multipeer session.
        - sessionType: The session type for the Multipeer session. Default is `.both`.
        - peerName: The name of the local peer. If `nil`, the device name is used.
+       - discoveryInfo: A dictionary of key-value pairs that are made available to browsers.
        - encryptionPreference: The encryption preference for the Multipeer session. Default is `.required`.
 
     - Returns: An `AsyncStream<Action>` that emits `Action` objects.
@@ -58,9 +70,10 @@ public struct MultipeerClient {
     serviceName: String,
     sessionType: SessionType = .both,
     peerName: String? = nil,
+    discoveryInfo: [DiscoveryInfoKey: String]? = nil,
     encryptionPreference: MCEncryptionPreference = .required
   ) async -> AsyncStream<Action> {
-    await self.start(serviceName, sessionType, peerName, encryptionPreference)
+    await self.start(serviceName, sessionType, peerName, discoveryInfo, encryptionPreference)
   }
 
   /**
@@ -114,7 +127,7 @@ public struct MultipeerClient {
   This function accepts an invitation from a remote peer to connect to the local device.
   */
   public var acceptInvitation: () -> Void
- 
+
   // FIXME: consider throwing for those not so ideal cases
   /**
   Rejects an invitation from a remote peer.

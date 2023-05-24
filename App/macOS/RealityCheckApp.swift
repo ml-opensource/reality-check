@@ -4,15 +4,26 @@ import SwiftUI
 
 @main
 struct RealityCheckApp: App {
+  let store: StoreOf<AppCore> = .init(
+    initialState: AppCore.State(),
+    reducer: AppCore()  // .dependency(\.multipeerClient, .previewValue)
+  )
+
   var body: some Scene {
-    WindowGroup {
-      ContentView(
-        store: .init(
-          initialState: AppCore.State(),
-          reducer: AppCore()
-            // .dependency(\.multipeerClient, .previewValue)
+    Window("Connection", id: "ConnectionWindowID") {
+      ConnectionSetupView(
+        store: store.scope(
+          state: \.multipeerConnection,
+          action: AppCore.Action.multipeerConnection
         )
       )
+    }
+    .windowResizability(.contentSize)
+    .windowStyle(.hiddenTitleBar)
+    .defaultPosition(.center)
+
+    Window("RealityCheck", id: "RealityCheckWindowID") {
+      MainView(store: store)
     }
   }
 }

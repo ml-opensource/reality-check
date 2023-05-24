@@ -172,11 +172,11 @@ struct CollisionComponentPropertiesView: View {
       LabeledContent(
         "group",
         value: "\(properties.filter.group.collisionGroup.rawValue)"
-      )
+      ).padding([.leading, .trailing, .top], 8)
       LabeledContent(
         "mask",
         value: "\(properties.filter.mask.collisionGroup.rawValue)"
-      )
+      ).padding([.leading, .trailing, .bottom], 8)
     }
   }
 }

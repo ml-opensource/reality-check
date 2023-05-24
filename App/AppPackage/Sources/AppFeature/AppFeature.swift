@@ -93,12 +93,12 @@ public struct AppCore: Reducer {
             return .entitiesIdentified(identifiableEntities)
           }
 
-        case .multipeerConnection(.delegate(.didUpdateSessionState(let connectionState))):
-          if connectionState == .notConnected {
-            state.selection = nil
-            state.identifiedEntities.removeAll()
-          }
-          return .none
+//        case .multipeerConnection(.delegate(.didUpdateSessionState(let connectionState))):
+//          if connectionState == .notConnected {
+//            state.selection = nil
+//            state.identifiedEntities.removeAll()
+//          }
+//          return .none
 
         case .multipeerConnection(_):
           return .none

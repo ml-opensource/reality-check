@@ -5,7 +5,7 @@ import Models
 import StreamingClient
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
   @State private var points: [SIMD3<Float>] = []
   let store: StoreOf<AppCore>
 
@@ -16,37 +16,17 @@ struct ContentView: View {
       NavigationSplitView {
         Sidebar(viewStore: viewStore)
       } content: {
-        if viewStore.multipeerConnection.sessionState == .connected {
-          ZStack {
-            StreamingView()
-              .frame(width: 400, height: 800)
+        ZStack {
+          StreamingView()
+            .frame(width: 400, height: 800)
 
-            VSplitView {
-              Color.clear
-              TextEditor(text: .constant(viewStore.dumpOutput))
-                .monospaced()
-                // .foregroundColor(.cyan)
-                .multilineTextAlignment(.leading)
-            }
+          VSplitView {
+            Color.clear
+            TextEditor(text: .constant(viewStore.dumpOutput))
+              .monospaced()
+              // .foregroundColor(.cyan)
+              .multilineTextAlignment(.leading)
           }
-        } else {
-          List(viewStore.multipeerConnection.peers) { peer in
-            Button(
-              action: {
-                viewStore.send(.multipeerConnection(.invite(peer)))
-              },
-              label: {
-                Label(
-                  title: { Text(peer.displayName) },
-                  icon: { Image(systemName: "phone") }
-                )
-              }
-            )
-            .padding(2)
-            .buttonStyle(.bordered)
-            .controlSize(.large)
-          }
-          .animation(.easeInOut, value: viewStore.multipeerConnection.peers)
         }
       } detail: {
         Group {
@@ -63,11 +43,15 @@ struct ContentView: View {
         ToolbarItem {
           switch viewStore.multipeerConnection.sessionState {
             case .notConnected:
-              Text("notConnected")
-                .foregroundColor(.white)
-                .font(.caption)
-                .padding(8)
-                .background(Capsule(style: .continuous).fill(.red))
+              Button(
+                "notConnected",
+                action: {}
+              )
+              .buttonStyle(.plain)
+              .foregroundColor(.white)
+              .font(.caption)
+              .padding(8)
+              .background(Capsule(style: .continuous).fill(.red))
 
             case .connecting:
               Text("connecting")
@@ -85,16 +69,13 @@ struct ContentView: View {
           }
         }
       }
-      .task {
-        viewStore.send(.multipeerConnection(.start))
-      }
     }
   }
 }
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView(
+    MainView(
       store: .init(
         initialState: AppCore.State(selection: 14_973_088_022_893_562_172),
         reducer: AppCore()

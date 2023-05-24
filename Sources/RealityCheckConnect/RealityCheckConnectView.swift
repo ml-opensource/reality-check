@@ -6,6 +6,9 @@ import RealityDumpClient
 import RealityKit
 import StreamingClient
 import SwiftUI
+#if os(iOS)
+  import DeviceKit
+#endif
 
 public struct LibraryViewContent: LibraryContentProvider {
 
@@ -31,10 +34,52 @@ public struct RealityCheckConnectView: View {
 
   private var arView: ARView?
 
+  private var discoveryInfo: [MultipeerClient.DiscoveryInfoKey: String] {
+    var discoveryInfo: [MultipeerClient.DiscoveryInfoKey: String] = [
+      .device: Device.current.safeDescription
+    ]
+    if let appName = AppInfo.appName {
+      discoveryInfo[.appName] = appName
+    }
+    if let version = AppInfo.version, let build = AppInfo.build {
+      discoveryInfo[.appVersion] = "\(version) (\(build))"
+    }
+
+    if let systemName = Device.current.systemName, let systemVersion = Device.current.systemVersion
+    {
+      discoveryInfo[.system] = "\(systemName) \(systemVersion)"
+    }
+
+    return discoveryInfo
+  }
+
   public init(
     _ arView: ARView? = nil
   ) {
     self.arView = arView
+  }
+
+  private func sendHierarchy() async {
+    let anchors = await arView?.scene.anchors.compactMap({ $0 }) ?? []
+    var identifiableEntities: [IdentifiableEntity] = []
+    for anchor in anchors {
+      identifiableEntities.append(
+        //MARK: 4. Parse Hierarchy
+        await realityDump.identify(anchor)
+      )
+    }
+
+    //MARK: 4. Encode Hierarchy
+    let encoder = JSONEncoder()
+    encoder.nonConformingFloatEncodingStrategy = .convertToString(
+      positiveInfinity: "INF",
+      negativeInfinity: "-INF",
+      nan: "NAN"
+    )
+    encoder.outputFormatting = .prettyPrinted
+    let hierarchyData = try! encoder.encode(identifiableEntities)
+    //MARK: 5. Send Hierarchy
+    multipeerClient.send(hierarchyData)
   }
 
   public var body: some View {
@@ -77,31 +122,6 @@ public struct RealityCheckConnectView: View {
                 }
               }
 
-              Task {
-                let anchors = arView?.scene.anchors.compactMap({ $0 }) ?? []
-                
-                var identifiableEntities: [IdentifiableEntity] = []
-                for anchor in anchors {
-                  identifiableEntities.append(
-                    //MARK: 4. Parse Hierarchy
-                    await realityDump.identify(anchor)
-                  )
-                }
-
-                //MARK: 4. Encode Hierarchy
-                let encoder = JSONEncoder()
-                encoder.nonConformingFloatEncodingStrategy = .convertToString(
-                  positiveInfinity: "INF",
-                  negativeInfinity: "-INF",
-                  nan: "NAN"
-                )
-                encoder.outputFormatting = .prettyPrinted
-                let hierarchyData = try! encoder.encode(identifiableEntities)
-                 print(String(data: hierarchyData, encoding: .utf8)!)
-
-                //MARK: 4. Send Hierarchy
-                multipeerClient.send(hierarchyData)
-              }
             },
             label: {
               ZStack {
@@ -124,13 +144,17 @@ public struct RealityCheckConnectView: View {
       //MARK: 1. Setup
       for await action in await multipeerClient.start(
         serviceName: "reality-check",
-        sessionType: .peer
+        sessionType: .peer,
+        discoveryInfo: discoveryInfo
       ) {
         switch action {
           case .session(let sessionAction):
             switch sessionAction {
               case .stateDidChange(let state):
                 connectionState = state
+                if state == .connected {
+                  await sendHierarchy()
+                }
 
               case .didReceiveData(_):
                 //TODO:

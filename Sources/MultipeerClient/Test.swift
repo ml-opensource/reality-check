@@ -2,7 +2,7 @@ import Foundation
 
 extension MultipeerClient {
   static public var testValue: Self = .init(
-    start: { (_, _, _, _) in
+    start: { (_, _, _, _, _) in
       AsyncStream { continuation in
         let data = Data()
         continuation.yield(.session(.didReceiveData(data)))
