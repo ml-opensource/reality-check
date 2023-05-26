@@ -51,7 +51,7 @@ struct MainView: View {
         }
       } detail: {
         Group {
-          if let entity = viewStore.selectedEntity {
+          if let entity = viewStore.entitiesHierarchy.selectedEntity {
             EntityDetailView(entity: entity)
           } else {
             Text("Pick an entity")
@@ -85,7 +85,9 @@ struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
     MainView(
       store: .init(
-        initialState: AppCore.State(selection: 14_973_088_022_893_562_172),
+        initialState: AppCore.State(
+          entitiesHierarchy: .init(selection: 14_973_088_022_893_562_172)
+        ),
         reducer: AppCore()
       )
     )

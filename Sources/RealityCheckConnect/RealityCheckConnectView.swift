@@ -85,12 +85,9 @@ public struct RealityCheckConnectView: View {
   }
 
   private func sendHierarchy() async {
-    let anchors = await arView?.scene.anchors.compactMap({ $0 }) ?? []
-    var identifiableEntities: [IdentifiableEntity] = []
-    for anchor in anchors {
-      identifiableEntities.append(
-        await realityDump.identify(anchor)
-      )
+    guard let arView else {
+      //FIXME: make a runtime error instead
+      fatalError("ARView is required in order to be able to send its hierarchy")
     }
 
     let encoder = JSONEncoder()
@@ -100,9 +97,18 @@ public struct RealityCheckConnectView: View {
       nan: "NAN"
     )
     encoder.outputFormatting = .prettyPrinted
-    let hierarchyData = try! encoder.encode(identifiableEntities)
-    print(">>>:", String(data: hierarchyData, encoding: .utf8)!)
-    multipeerClient.send(hierarchyData)
+
+    let anchors = await arView.scene.anchors.compactMap { $0 }
+    var identifiableAnchors: [IdentifiableEntity] = []
+    for anchor in anchors {
+      identifiableAnchors.append(
+        await realityDump.identify(anchor)
+      )
+    }
+
+    let arViewData = try! encoder.encode(CodableARView(arView, anchors: identifiableAnchors))
+    print(String(data: arViewData, encoding: .utf8)!)
+    multipeerClient.send(arViewData)
   }
 }
 

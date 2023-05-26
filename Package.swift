@@ -58,8 +58,8 @@ let package = Package(
         .product(name: "Dependencies", package: "swift-dependencies")
       ],
       resources: [
-        .copy("Resources/Mock/simple_hierarchy.json"),
-        .copy("Resources/Mock/not_so_simple_hierarchy.json"),
+        .copy("Resources/Mock/simple_arview.json"),
+        .copy("Resources/Mock/not_so_simple_arview.json"),
       ]
     ),
     .target(

@@ -8,11 +8,12 @@ struct Sidebar: View {
   @State var selection: IdentifiableEntity.ID? = nil
 
   var body: some View {
-    List(selection: viewStore.binding(\.$selection)) {
+    List(selection: viewStore.binding(\.entitiesHierarchy.$selection)) {
       Section("ARView") {}
       Section("Scenes") {}
       Section("Entities") {
-        OutlineGroup(viewStore.identifiedEntities.elements, children: \.children) { entity in
+        OutlineGroup(viewStore.entitiesHierarchy.identifiedEntities.elements, children: \.children)
+        { entity in
           HStack {
             if let name = entity.name, !name.isEmpty {
               Label(
