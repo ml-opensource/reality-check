@@ -22,12 +22,11 @@ struct Sidebar: View {
               }
               .popover(
                 isPresented: viewStore.binding(\.$isDebugOptionsDisplayed),
-                arrowEdge: .trailing,
-                content: {
-                    ARViewOptionsView(store: store)
-                        .padding()
-                }
-              )
+                arrowEdge: .trailing
+              ) {
+                DebugOptionsView(store: store)
+                  .padding()
+              }
             }
           }
         },

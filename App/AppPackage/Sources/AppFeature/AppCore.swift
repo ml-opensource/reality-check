@@ -39,6 +39,11 @@ public struct AppCore: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
+        case .arViewOptions(.delegate(.didUpdateDebugOptions(let options))):
+          return .task {
+              .multipeerConnection(.sendDebugOptions(options))
+          }
+
         case .arViewOptions(_):
           return .none
 

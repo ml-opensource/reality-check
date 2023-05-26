@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401215A22A210AC100D98058 /* DebugOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A12A210AC100D98058 /* DebugOptionsView.swift */; };
 		4025FC752A0BF68100A8191F /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4025FC742A0BF68100A8191F /* Sidebar.swift */; };
 		402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* EntityDetailView.swift */; };
 		4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		401215A12A210AC100D98058 /* DebugOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptionsView.swift; sourceTree = "<group>"; };
 		4025FC742A0BF68100A8191F /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		402EA02D29F6E43E00BB522F /* EntityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityDetailView.swift; sourceTree = "<group>"; };
 		404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentPropertiesView.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
 				40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */,
+				401215A12A210AC100D98058 /* DebugOptionsView.swift */,
 				402EA02D29F6E43E00BB522F /* EntityDetailView.swift */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
@@ -202,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */,
+				401215A22A210AC100D98058 /* DebugOptionsView.swift in Sources */,
 				4025FC752A0BF68100A8191F /* Sidebar.swift in Sources */,
 				40E7519429F68F0B0083502A /* Matrix+Utils.swift in Sources */,
 				40E7519329F68F0B0083502A /* Entity+HasCollision.swift in Sources */,

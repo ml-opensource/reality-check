@@ -21,6 +21,7 @@ public struct MultipeerConnection: Reducer {
   public enum Action: Equatable {
     case delegate(DelegateAction)
     case invite(Peer)
+    case sendDebugOptions(_DebugOptions)
     case start
     case updatePeers([Peer: DiscoveryInfo])
     case updateSessionState(MultipeerClient.SessionState)
@@ -28,8 +29,8 @@ public struct MultipeerConnection: Reducer {
 
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
-    case receivedVideoFrameData(VideoFrameData)
     case receivedDecodedARView(CodableARView)
+    case receivedVideoFrameData(VideoFrameData)
   }
 
   @Dependency(\.multipeerClient) var multipeerClient
@@ -44,14 +45,23 @@ public struct MultipeerConnection: Reducer {
           multipeerClient.invitePeer(peer)
           return .none
 
+        case .sendDebugOptions(let options):
+          do {
+            let data = try JSONEncoder().encode(options)
+            multipeerClient.send(data)
+          } catch {
+            fatalError("Failed to encode debug options while sending them.")
+          }
+          return .none
+
         case .start:
           return .run(priority: .userInitiated) { send in
             for await action in await multipeerClient.start(
               serviceName: "reality-check",
               sessionType: .host
             ) {
-              let someDecoder = JSONDecoder()
-              someDecoder.nonConformingFloatDecodingStrategy = .convertFromString(
+              let decoder = JSONDecoder()
+              decoder.nonConformingFloatDecodingStrategy = .convertFromString(
                 positiveInfinity: "INF",
                 negativeInfinity: "-INF",
                 nan: "NAN"
@@ -65,20 +75,19 @@ public struct MultipeerConnection: Reducer {
 
                     case .didReceiveData(let data):
                       guard !data.isEmpty else { return }
-                      if let videoFrameData = try? JSONDecoder()
-                        .decode(VideoFrameData.self, from: data)
-                      {
+
+                      //MARK: VideoFrameData
+                      if let videoFrameData = try? decoder.decode(VideoFrameData.self, from: data) {
                         await send(.delegate(.receivedVideoFrameData(videoFrameData)))
-                      } else if let decodedARView = try? someDecoder.decode(
+
+                      }  //MARK: CodableARView
+                      else if let decodedARView = try? decoder.decode(
                         CodableARView.self,
                         from: data
                       ) {
-                        await send(
-                          .delegate(.receivedDecodedARView(decodedARView))
-                        )
+                        await send(.delegate(.receivedDecodedARView(decodedARView)))
                       } else {
-                          print(String(data: data, encoding: .utf8)!)
-                        fatalError()
+                        fatalError(String(data: data, encoding: .utf8)!)
                       }
                   }
 

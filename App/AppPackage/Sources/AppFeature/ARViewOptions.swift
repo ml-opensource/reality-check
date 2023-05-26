@@ -7,7 +7,7 @@ import SwiftUI
 public struct ARViewOptions: Reducer {
   public struct State: Equatable {
     public var arView: CodableARView
-    var debugOptions: DebugOptions.State
+    public var debugOptions: DebugOptions.State
     @BindingState public var isDebugOptionsDisplayed: Bool
 
     init(
@@ -23,6 +23,11 @@ public struct ARViewOptions: Reducer {
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
     case debugOptions(DebugOptions.Action)
+    case delegate(DelegateAction)
+  }
+
+  public enum DelegateAction: Equatable {
+    case didUpdateDebugOptions(_DebugOptions)
   }
 
   public var body: some Reducer<State, Action> {
@@ -37,36 +42,31 @@ public struct ARViewOptions: Reducer {
         case .binding(_):
           return .none
 
+        case .debugOptions(.binding(_)):
+          return .task { [state] in
+            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
+          }
+
         case .debugOptions(_):
+          return .none
+
+        case .delegate(_):
           return .none
       }
     }
+    ._printChanges()
   }
 }
 
 public struct DebugOptions: Reducer {
-  //Needed because macOS doesn't have all the values available.
-  struct _DebugOptions: OptionSet {
-    let rawValue: Int
-
-    static let none = _DebugOptions(rawValue: 0)
-    static let showAnchorGeometry = _DebugOptions(rawValue: 1 << 4)  // 16
-    static let showAnchorOrigins = _DebugOptions(rawValue: 1 << 3)  // 8
-    static let showFeaturePoints = _DebugOptions(rawValue: 1 << 5)  // 32
-    static let showPhysics = _DebugOptions(rawValue: 1 << 0)  // 1
-    static let showSceneUnderstanding = _DebugOptions(rawValue: 1 << 6)  // 64
-    static let showStatistics = _DebugOptions(rawValue: 1 << 1)  // 2
-    static let showWorldOrigin = _DebugOptions(rawValue: 1 << 2)  // 4
-  }
-
   public struct State: Equatable {
-    @BindingState var showAnchorGeometry: Bool
-    @BindingState var showAnchorOrigins: Bool
-    @BindingState var showFeaturePoints: Bool
-    @BindingState var showPhysics: Bool
-    @BindingState var showSceneUnderstanding: Bool
-    @BindingState var showStatistics: Bool
-    @BindingState var showWorldOrigin: Bool
+    @BindingState public var showAnchorGeometry: Bool
+    @BindingState public var showAnchorOrigins: Bool
+    @BindingState public var showFeaturePoints: Bool
+    @BindingState public var showPhysics: Bool
+    @BindingState public var showSceneUnderstanding: Bool
+    @BindingState public var showStatistics: Bool
+    @BindingState public var showWorldOrigin: Bool
     var options: _DebugOptions = .none
 
     public init(
@@ -150,42 +150,6 @@ public struct DebugOptions: Reducer {
 
         case .binding(_):
           return .none
-      }
-    }
-  }
-}
-
-//MARK: - View
-
-public struct ARViewOptionsView: View {
-  let store: StoreOf<ARViewOptions>
-
-  public init(
-    store: StoreOf<ARViewOptions>
-  ) {
-    self.store = store
-  }
-
-  public var body: some View {
-    WithViewStore(
-      self.store.scope(
-        state: \.debugOptions,
-        action: ARViewOptions.Action.debugOptions
-      ),
-      observe: { $0 }
-    ) { viewStore in
-      Form {
-        Toggle("Anchor Geometry", isOn: viewStore.binding(\.$showAnchorGeometry))
-        Toggle("Anchor Origins", isOn: viewStore.binding(\.$showAnchorOrigins))
-        Toggle("Feature Points", isOn: viewStore.binding(\.$showFeaturePoints))
-        Toggle("Physics", isOn: viewStore.binding(\.$showPhysics))
-        Toggle(
-          "Scene Reconstruction",
-          isOn: viewStore.binding(\.$showSceneUnderstanding)
-        )
-        //.disabled(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh))
-        Toggle("Statistics", isOn: viewStore.binding(\.$showStatistics))
-        Toggle("World Origin", isOn: viewStore.binding(\.$showWorldOrigin))
       }
     }
   }

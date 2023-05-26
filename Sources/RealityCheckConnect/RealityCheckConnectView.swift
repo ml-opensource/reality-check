@@ -64,9 +64,16 @@ public struct RealityCheckConnectView: View {
                   await sendHierarchy()
                 }
 
-              case .didReceiveData(_):
-                //TODO:
-                break
+              case .didReceiveData(let data):
+                //MARK: DebugOptions
+                if let debugOptions = try? JSONDecoder()
+                  .decode(
+                    _DebugOptions.self,
+                    from: data
+                  )
+                {
+                  arView?.debugOptions = ARView.DebugOptions(rawValue: debugOptions.rawValue)
+                }
             }
 
           case .browser(_):

@@ -5,7 +5,7 @@ import SwiftUI
 
 struct ConnectedView: View {
   @State private var isRecording = false
-    
+
   let hostName: String
 
   @Dependency(\.multipeerClient) var multipeerClient
@@ -22,7 +22,7 @@ struct ConnectedView: View {
     Button(
       action: {
         //TODO: Toggle start/stop recording at the client level
-        isRecording.toggle()
+        defer { isRecording.toggle() }
         if isRecording {
           //TODO: stop streaming
         } else {
