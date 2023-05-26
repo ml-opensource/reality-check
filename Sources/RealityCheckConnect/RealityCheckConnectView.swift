@@ -1,33 +1,19 @@
 import Dependencies
 import Models
 import MultipeerClient
-import MultipeerConnectivity
 import RealityDumpClient
 import RealityKit
 import StreamingClient
 import SwiftUI
 
-public struct LibraryViewContent: LibraryContentProvider {
-
-  @LibraryContentBuilder
-  public var views: [LibraryItem] {
-    LibraryItem(
-      RealityCheckConnectView(),
-      title: "RealityCheck Connect View",
-      category: .control
-    )
-  }
-}
-
 //TODO: allow customization on construction (or via modifiers)
 public struct RealityCheckConnectView: View {
+  @State private var connectionState: MultipeerClient.SessionState = .notConnected
+  @State private var hostName: String = "..."
+
   @Dependency(\.multipeerClient) var multipeerClient
   @Dependency(\.realityDump) var realityDump
   @Dependency(\.streamingClient) var streamingClient
-
-  @State private var connectionState: MultipeerClient.SessionState = .notConnected
-  @State private var hostName: String = "..."
-  @State private var isRecording = false
 
   private var arView: ARView?
 
@@ -35,29 +21,6 @@ public struct RealityCheckConnectView: View {
     _ arView: ARView? = nil
   ) {
     self.arView = arView
-  }
-
-  private func sendHierarchy() async {
-    let anchors = await arView?.scene.anchors.compactMap({ $0 }) ?? []
-    var identifiableEntities: [IdentifiableEntity] = []
-    for anchor in anchors {
-      identifiableEntities.append(
-        //MARK: 4. Parse Hierarchy
-        await realityDump.identify(anchor)
-      )
-    }
-
-    //MARK: 4. Encode Hierarchy
-    let encoder = JSONEncoder()
-    encoder.nonConformingFloatEncodingStrategy = .convertToString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    encoder.outputFormatting = .prettyPrinted
-    let hierarchyData = try! encoder.encode(identifiableEntities)
-    //MARK: 5. Send Hierarchy
-    multipeerClient.send(hierarchyData)
   }
 
   public var body: some View {
@@ -80,40 +43,7 @@ public struct RealityCheckConnectView: View {
           Spacer()
 
         case .connected:
-          Text("connected to: \(hostName)")
-            .font(.caption)
-            .padding(8)
-            .background(Capsule(style: .continuous).fill(.green))
-
-          Spacer()
-
-          Button(
-            action: {
-              //TODO: Toggle start/stop recording at the client level
-              isRecording.toggle()
-
-              //MARK: 2. Record
-              Task {
-                for await frameData in await streamingClient.startScreenCapture() {
-                  //MARK: 3. Stream
-                  multipeerClient.send(frameData)
-                }
-              }
-            },
-            label: {
-              ZStack {
-                Circle().stroke(lineWidth: 4).fill(.white)
-
-                RoundedRectangle(cornerRadius: isRecording ? 8 : 40, style: .continuous)
-                  .fill(.purple)
-                  .padding(isRecording ? 24 : 6)
-                  .animation(.easeInOut(duration: 0.15), value: isRecording)
-              }
-              .shadow(radius: 3)
-            }
-          )
-          .frame(width: 88, height: 88)
-          .buttonStyle(.plain)
+          ConnectedView(hostName: hostName)
       }
     }
     .animation(.default, value: connectionState)
@@ -130,6 +60,7 @@ public struct RealityCheckConnectView: View {
               case .stateDidChange(let state):
                 connectionState = state
                 if state == .connected {
+                  //MARK: 2. Send Hierarchy
                   await sendHierarchy()
                 }
 
@@ -151,6 +82,26 @@ public struct RealityCheckConnectView: View {
         }
       }
     }
+  }
+
+  private func sendHierarchy() async {
+    let anchors = await arView?.scene.anchors.compactMap({ $0 }) ?? []
+    var identifiableEntities: [IdentifiableEntity] = []
+    for anchor in anchors {
+      identifiableEntities.append(
+        await realityDump.identify(anchor)
+      )
+    }
+
+    let encoder = JSONEncoder()
+    encoder.nonConformingFloatEncodingStrategy = .convertToString(
+      positiveInfinity: "INF",
+      negativeInfinity: "-INF",
+      nan: "NAN"
+    )
+    encoder.outputFormatting = .prettyPrinted
+    let hierarchyData = try! encoder.encode(identifiableEntities)
+    multipeerClient.send(hierarchyData)
   }
 }
 
