@@ -64,6 +64,7 @@ public struct MultipeerConnection: Reducer {
                       await send(.updateSessionState(sessionState))
 
                     case .didReceiveData(let data):
+                      guard !data.isEmpty else { return }
                       if let videoFrameData = try? JSONDecoder()
                         .decode(VideoFrameData.self, from: data)
                       {
@@ -76,6 +77,7 @@ public struct MultipeerConnection: Reducer {
                           .delegate(.receivedDecodedARView(decodedARView))
                         )
                       } else {
+                          print(String(data: data, encoding: .utf8)!)
                         fatalError()
                       }
                   }

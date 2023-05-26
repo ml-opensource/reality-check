@@ -1,4 +1,3 @@
-import Dependencies
 import Foundation
 import RealityKit
 
@@ -27,14 +26,14 @@ public struct CodableARView: Codable, Equatable {
 
   //MARK: Debugging the Session
   ///The current debugging options.
-  public let debugOptions: RealityKit.ARView.DebugOptions
+  public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
 
   public init(
     _ arView: RealityKit.ARView,
     anchors: [IdentifiableEntity]
   ) {
     self.scene = CodableScene(anchors: anchors)
-    self.debugOptions = arView.debugOptions
+    self.debugOptionsRawValue = arView.debugOptions.rawValue
   }
 }
 

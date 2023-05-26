@@ -24,8 +24,8 @@ struct Sidebar: View {
                 isPresented: viewStore.binding(\.$isDebugOptionsDisplayed),
                 arrowEdge: .trailing,
                 content: {
-                  Text("viewStore.arView.debugOptions")
-                    .padding()
+                    ARViewOptionsView(store: store)
+                        .padding()
                 }
               )
             }
