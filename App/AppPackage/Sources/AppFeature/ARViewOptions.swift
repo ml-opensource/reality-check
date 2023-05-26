@@ -10,7 +10,7 @@ public struct ARViewOptions: Reducer {
     public var debugOptions: DebugOptions.State
     @BindingState public var isDebugOptionsDisplayed: Bool
 
-    init(
+    public init(
       arView: CodableARView,
       isDebugOptionsDisplayed: Bool = false
     ) {

@@ -87,11 +87,13 @@ struct ContentView_Previews: PreviewProvider {
       store: .init(
         initialState: AppCore.State(
           //FIXME: avoid constructor cleaning mock return
+          arViewOptions: ARViewOptions.State.init(arView: .init(.init(frame: .zero), anchors: [])),
           entitiesHierarchy: .init([], selection: 14_973_088_022_893_562_172)
         ),
         reducer: AppCore()
       )
     )
     .navigationSplitViewStyle(.prominentDetail)
+    .frame(width: 500, height: 900)
   }
 }
