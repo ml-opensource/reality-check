@@ -1,6 +1,5 @@
 import ComposableArchitecture
 import Foundation
-import MessagePack
 import Models
 import MultipeerClient
 import RealityDumpClient

@@ -101,6 +101,7 @@ public struct RealityCheckConnectView: View {
     )
     encoder.outputFormatting = .prettyPrinted
     let hierarchyData = try! encoder.encode(identifiableEntities)
+    print(">>>:", String(data: hierarchyData, encoding: .utf8)!)
     multipeerClient.send(hierarchyData)
   }
 }
