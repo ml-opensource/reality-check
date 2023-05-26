@@ -36,7 +36,7 @@ struct MainView: View {
       }
 
       NavigationSplitView {
-        Sidebar(viewStore: viewStore)
+        Sidebar(store: store)
       } content: {
         ZStack {
           StreamingView()
@@ -44,7 +44,7 @@ struct MainView: View {
 
           VSplitView {
             Color.clear
-            TextEditor(text: .constant(viewStore.dumpOutput))
+            TextEditor(text: .constant(viewStore.entitiesHierarchy.dumpOutput))
               .font(.body)
               .monospaced()
           }
