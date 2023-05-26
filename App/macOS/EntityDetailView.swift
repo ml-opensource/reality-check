@@ -66,11 +66,12 @@ struct EntityDetailView: View {
 
         if !entity.availableAnimations.isEmpty {
           Section("Animation") {
-            LabeledContent(
-              "availableAnimations",
-              value: String(customDumping: entity.availableAnimations)
-            )
-            .textSelection(.enabled)
+            DisclosureGroup("availableAnimations") {
+              Text(String(customDumping: entity.availableAnimations))
+                .monospaced()
+                .textSelection(.enabled)
+            }
+
           }
         }
 

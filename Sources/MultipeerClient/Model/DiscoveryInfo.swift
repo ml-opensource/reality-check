@@ -50,7 +50,7 @@ public struct DiscoveryInfo: Equatable {
     return info
   }
 
-  public var hashValue: String {
+  public var colorHash: String {
     "\(appName ?? "")\(appVersion ?? "")\(device)\(system ?? "")"
   }
 }

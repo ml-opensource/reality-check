@@ -28,7 +28,7 @@ let worldOriginAnchor: AnchorEntity = {
 }()
 
 let dummyEntity: Entity = .init()
-let dummyAnchor: AnchorEntity = .init(world: .zero)
+let dummyAnchor: AnchorEntity = .init(plane: .any)
 let anotherDummyAnchor: AnchorEntity = .init(world: .zero)
 let dummyDirectionalLight: DirectionalLight = .init()
 let dummyPointLight: PointLight = .init()
@@ -83,18 +83,29 @@ struct ARViewContainer: UIViewRepresentable {
     arView.scene.anchors.append(worldOriginAnchor)
     arView.scene.anchors.append(dummyAnchor)
 
-    let path = Bundle.main.path(forResource: "robot_walk_idle", ofType: "usdz")!
-
-    let url = URL(fileURLWithPath: path)
-
     // robot
-    let robot = try! Entity.load(contentsOf: url)
-      robot.playAnimation(robot.availableAnimations[0].repeat(duration: .infinity))
+    let robot_url = Bundle.main.url(forResource: "robot_walk_idle", withExtension: "usdz")!
+    let robot = try! Entity.load(contentsOf: robot_url)
+    robot.isAccessibilityElement = true
+    robot.accessibilityLabel = "Le robot accessibilityLabel"
+    robot.accessibilityDescription = ""
+    robot.playAnimation(robot.availableAnimations[0].repeat(duration: .infinity))
     let anchor = AnchorEntity(plane: .any)
     anchor.name = "RobotAnchor"
     anchor.setPosition([0, 0, 0.5], relativeTo: boxEntity)
     anchor.addChild(robot)
     arView.scene.anchors.append(anchor)
+
+    // toy
+    let toy_car_url = Bundle.main.url(forResource: "toy_car", withExtension: "usdz")!
+    let toy_car = try! Entity.load(contentsOf: toy_car_url)
+    toy_car.setPosition([-0.5, 0, -0.25], relativeTo: nil)
+    toy_car.setOrientation(.init(angle: 27, axis: [0, 1, 0]), relativeTo: nil)
+    // toy_car.setScale(.one, relativeTo: robot)
+    toy_car.addChild(dummySpotLight)
+    toy_car.addChild(dummyPointLight)
+
+    dummyAnchor.addChild(toy_car)
 
     random()
     return arView

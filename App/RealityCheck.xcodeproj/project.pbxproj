@@ -70,6 +70,7 @@
 			children = (
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40BD84CE2A16808400522CED /* RealityCheck-Info.plist */,
+				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
 				40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */,
 				402EA02D29F6E43E00BB522F /* EntityDetailView.swift */,
@@ -79,7 +80,6 @@
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
-				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";

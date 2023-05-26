@@ -76,7 +76,7 @@ struct PeerConnectView: View {
             .resizable()
             .aspectRatio(contentMode: .fill)
             .fontWeight(.thin)
-            .foregroundColor(colorFromHash(discoveryInfo?.hashValue ?? peer.displayName))
+            .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
 
           if let appName = discoveryInfo?.appName {
             Text(appName)
