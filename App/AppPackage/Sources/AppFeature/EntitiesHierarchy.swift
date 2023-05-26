@@ -20,11 +20,11 @@ public struct EntitiesHierarchy: Reducer {
     }
 
     public init(
-      identifiedEntities: IdentifiedArrayOf<IdentifiableEntity> = [],
+      _ identifiedEntities: [IdentifiableEntity],
       selection: IdentifiableEntity.ID? = nil
     ) {
-      self.identifiedEntities = identifiedEntities
-      self.selection = selection
+      self.identifiedEntities = .init(uniqueElements: identifiedEntities)
+      self.selection = selection ?? self.identifiedEntities.first?.id
       self.dumpOutput = """
         Biscuit dessert tart gummi bears pie biscuit.
         Pastry oat cake fruitcake chocolate cake marzipan shortbread pie toffee muffin.
@@ -37,7 +37,6 @@ public struct EntitiesHierarchy: Reducer {
   public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
     case dumpOutput(String)
-    case identified([IdentifiableEntity])
     case select(entity: IdentifiableEntity?)
   }
 
@@ -61,14 +60,6 @@ public struct EntitiesHierarchy: Reducer {
         case .dumpOutput(let output):
           state.dumpOutput = output
           return .none
-
-        case .identified(let identifiedEntities):
-          state.identifiedEntities = .init(
-            uniqueElements: identifiedEntities
-          )
-          return .task { [state] in
-            .set(\.$selection, state.identifiedEntities.first?.id)
-          }
 
         case .select(let entity):
           state.selection = entity?.id

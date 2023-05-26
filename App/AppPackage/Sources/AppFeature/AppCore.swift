@@ -9,19 +9,23 @@ public struct AppCore: Reducer {
   public init() {}
 
   public struct State: Equatable {
-    public var entitiesHierarchy: EntitiesHierarchy.State
+    public var arViewOptions: ARViewOptions.State?
+    public var entitiesHierarchy: EntitiesHierarchy.State?
     public var multipeerConnection: MultipeerConnection.State
 
     public init(
-      entitiesHierarchy: EntitiesHierarchy.State = .init(),
+      arViewOptions: ARViewOptions.State? = nil,
+      entitiesHierarchy: EntitiesHierarchy.State? = nil,
       multipeerConnection: MultipeerConnection.State = .init()
     ) {
+      self.arViewOptions = arViewOptions
       self.entitiesHierarchy = entitiesHierarchy
       self.multipeerConnection = multipeerConnection
     }
   }
 
   public enum Action: Equatable {
+    case arViewOptions(ARViewOptions.Action)
     case entitiesHierarchy(EntitiesHierarchy.Action)
     case multipeerConnection(MultipeerConnection.Action)
   }
@@ -29,16 +33,15 @@ public struct AppCore: Reducer {
   @Dependency(\.streamingClient) var streamingClient
 
   public var body: some Reducer<State, Action> {
-    Scope(state: \.entitiesHierarchy, action: /Action.entitiesHierarchy) {
-      EntitiesHierarchy()
-    }
-
     Scope(state: \.multipeerConnection, action: /Action.multipeerConnection) {
       MultipeerConnection()
     }
 
     Reduce<State, Action> { state, action in
       switch action {
+        case .arViewOptions(_):
+          return .none
+
         case .entitiesHierarchy(_):
           return .none
 
@@ -47,13 +50,19 @@ public struct AppCore: Reducer {
           return .none
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
-          return .task {
-            .entitiesHierarchy(.identified(decodedARView.scene.anchors))
-          }
+          state.arViewOptions = .init(arView: decodedARView)
+          state.entitiesHierarchy = .init(decodedARView.scene.anchors)
+          return .none
 
         case .multipeerConnection(_):
           return .none
       }
+    }
+    .ifLet(\.arViewOptions, action: /Action.arViewOptions) {
+      ARViewOptions()
+    }
+    .ifLet(\.entitiesHierarchy, action: /Action.entitiesHierarchy) {
+      EntitiesHierarchy()
     }
   }
 }

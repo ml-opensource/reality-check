@@ -44,14 +44,14 @@ struct MainView: View {
 
           VSplitView {
             Color.clear
-            TextEditor(text: .constant(viewStore.entitiesHierarchy.dumpOutput))
+            TextEditor(text: .constant(viewStore.entitiesHierarchy?.dumpOutput ?? "???"))
               .font(.body)
               .monospaced()
           }
         }
       } detail: {
         Group {
-          if let entity = viewStore.entitiesHierarchy.selectedEntity {
+          if let entity = viewStore.entitiesHierarchy?.selectedEntity {
             EntityDetailView(entity: entity)
           } else {
             Text("Pick an entity")
@@ -86,7 +86,8 @@ struct ContentView_Previews: PreviewProvider {
     MainView(
       store: .init(
         initialState: AppCore.State(
-          entitiesHierarchy: .init(selection: 14_973_088_022_893_562_172)
+          //FIXME: avoid constructor cleaning mock return
+          entitiesHierarchy: .init([], selection: 14_973_088_022_893_562_172)
         ),
         reducer: AppCore()
       )
