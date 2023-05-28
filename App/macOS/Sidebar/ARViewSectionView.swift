@@ -37,7 +37,13 @@ struct ARViewSectionView: View {
               isPresented: viewStore.binding(\.$isDebugOptionsDisplayed),
               arrowEdge: .trailing
             ) {
-              DebugOptionsView(store: store).padding()
+              DebugOptionsView(
+                store: store.scope(
+                  state: \.debugOptions,
+                  action: ARViewOptions.Action.debugOptions
+                )
+              )
+              .padding()
             }
           }
 
