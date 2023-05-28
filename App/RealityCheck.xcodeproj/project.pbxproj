@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		401215A22A210AC100D98058 /* DebugOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A12A210AC100D98058 /* DebugOptionsView.swift */; };
+		401215AA2A23658A00D98058 /* SplitViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A42A23658A00D98058 /* SplitViewItem.swift */; };
+		401215AB2A23658A00D98058 /* SplitViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A52A23658A00D98058 /* SplitViewModifiers.swift */; };
+		401215AC2A23658A00D98058 /* SplitViewControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A62A23658A00D98058 /* SplitViewControllerView.swift */; };
+		401215AD2A23658A00D98058 /* SplitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A72A23658A00D98058 /* SplitView.swift */; };
+		401215AE2A23658A00D98058 /* Variadic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A82A23658A00D98058 /* Variadic.swift */; };
+		401215AF2A23658A00D98058 /* SplitViewReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215A92A23658A00D98058 /* SplitViewReader.swift */; };
+		401215B22A23659D00D98058 /* View+isHovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215B02A23659D00D98058 /* View+isHovering.swift */; };
+		401215B32A23659D00D98058 /* StatusBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215B12A23659D00D98058 /* StatusBarView.swift */; };
 		4025FC752A0BF68100A8191F /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4025FC742A0BF68100A8191F /* Sidebar.swift */; };
 		402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* EntityDetailView.swift */; };
 		4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */; };
@@ -26,6 +34,14 @@
 
 /* Begin PBXFileReference section */
 		401215A12A210AC100D98058 /* DebugOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOptionsView.swift; sourceTree = "<group>"; };
+		401215A42A23658A00D98058 /* SplitViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewItem.swift; sourceTree = "<group>"; };
+		401215A52A23658A00D98058 /* SplitViewModifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewModifiers.swift; sourceTree = "<group>"; };
+		401215A62A23658A00D98058 /* SplitViewControllerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewControllerView.swift; sourceTree = "<group>"; };
+		401215A72A23658A00D98058 /* SplitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitView.swift; sourceTree = "<group>"; };
+		401215A82A23658A00D98058 /* Variadic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variadic.swift; sourceTree = "<group>"; };
+		401215A92A23658A00D98058 /* SplitViewReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewReader.swift; sourceTree = "<group>"; };
+		401215B02A23659D00D98058 /* View+isHovering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+isHovering.swift"; sourceTree = "<group>"; };
+		401215B12A23659D00D98058 /* StatusBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusBarView.swift; sourceTree = "<group>"; };
 		4025FC742A0BF68100A8191F /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		402EA02D29F6E43E00BB522F /* EntityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityDetailView.swift; sourceTree = "<group>"; };
 		404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentPropertiesView.swift; sourceTree = "<group>"; };
@@ -58,6 +74,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		401215A32A23658A00D98058 /* CustomSplitView */ = {
+			isa = PBXGroup;
+			children = (
+				401215A42A23658A00D98058 /* SplitViewItem.swift */,
+				401215A52A23658A00D98058 /* SplitViewModifiers.swift */,
+				401215A62A23658A00D98058 /* SplitViewControllerView.swift */,
+				401215A72A23658A00D98058 /* SplitView.swift */,
+				401215A82A23658A00D98058 /* Variadic.swift */,
+				401215A92A23658A00D98058 /* SplitViewReader.swift */,
+			);
+			path = CustomSplitView;
+			sourceTree = "<group>";
+		};
 		409B76522A16D2D1001B28E1 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +99,8 @@
 		40E7517C29F68F0B0083502A /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				401215B12A23659D00D98058 /* StatusBarView.swift */,
+				401215B02A23659D00D98058 /* View+isHovering.swift */,
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40BD84CE2A16808400522CED /* RealityCheck-Info.plist */,
 				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
@@ -81,6 +112,7 @@
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
 				4025FC742A0BF68100A8191F /* Sidebar.swift */,
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
+				401215A32A23658A00D98058 /* CustomSplitView */,
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
 			);
@@ -205,15 +237,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */,
+				401215AD2A23658A00D98058 /* SplitView.swift in Sources */,
 				401215A22A210AC100D98058 /* DebugOptionsView.swift in Sources */,
 				4025FC752A0BF68100A8191F /* Sidebar.swift in Sources */,
+				401215AA2A23658A00D98058 /* SplitViewItem.swift in Sources */,
 				40E7519429F68F0B0083502A /* Matrix+Utils.swift in Sources */,
+				401215B32A23659D00D98058 /* StatusBarView.swift in Sources */,
+				401215AF2A23658A00D98058 /* SplitViewReader.swift in Sources */,
 				40E7519329F68F0B0083502A /* Entity+HasCollision.swift in Sources */,
+				401215AB2A23658A00D98058 /* SplitViewModifiers.swift in Sources */,
 				40E7518D29F68F0B0083502A /* MainView.swift in Sources */,
 				4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */,
 				40E7518E29F68F0B0083502A /* RealityCheckApp.swift in Sources */,
 				40876A542A1E0F4A00C96893 /* ConnectionSetupView.swift in Sources */,
+				401215AE2A23658A00D98058 /* Variadic.swift in Sources */,
+				401215B22A23659D00D98058 /* View+isHovering.swift in Sources */,
 				402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */,
+				401215AC2A23658A00D98058 /* SplitViewControllerView.swift in Sources */,
 				40E7519129F68F0B0083502A /* Transform+Rotation.swift in Sources */,
 				40E7519229F68F0B0083502A /* Comparable+clamp.swift in Sources */,
 			);

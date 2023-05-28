@@ -7,7 +7,7 @@ import SwiftUI
 
 struct MainView: View {
   @Environment(\.openWindow) var openWindow
-  @State private var points: [SIMD3<Float>] = []
+  @State private var terminalCollapsed = true
   let store: StoreOf<AppCore>
 
   var body: some View {
@@ -41,12 +41,27 @@ struct MainView: View {
         ZStack {
           StreamingView()
             .frame(width: 400, height: 800)
+            .overlay {
+                Rectangle().stroke()
+            }
 
-          VSplitView {
-            Color.clear
-            TextEditor(text: .constant(viewStore.entitiesHierarchy?.dumpOutput ?? "???"))
-              .font(.body)
-              .monospaced()
+          SplitViewReader { proxy in
+            SplitView(axis: .vertical) {
+              Color.clear
+                .safeAreaInset(edge: .bottom, spacing: 0) {
+                  StatusBarView(proxy: proxy, collapsed: $terminalCollapsed)
+                }
+
+              TextEditor(text: .constant(viewStore.entitiesHierarchy?.dumpOutput ?? "???"))
+                .font(.body)
+                .monospaced()
+                .collapsable()
+                .collapsed($terminalCollapsed)
+                .frame(minHeight: 200, maxHeight: .infinity)
+            }
+            .edgesIgnoringSafeArea(.top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
           }
         }
       } detail: {
@@ -58,7 +73,7 @@ struct MainView: View {
           }
         }
         .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-        .navigationSplitViewStyle(.prominentDetail)
+        .navigationSplitViewStyle(.balanced)
       }
       .toolbar {
         ToolbarItem {

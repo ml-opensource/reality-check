@@ -70,7 +70,6 @@ struct Sidebar: View {
         Text("//TODO: Entities placeholder")
       }
     )
-
     .toolbar {
       ToolbarItem {
         IfLetStore(
