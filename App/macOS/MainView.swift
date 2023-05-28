@@ -7,7 +7,6 @@ import SwiftUI
 
 struct MainView: View {
   @Environment(\.openWindow) var openWindow
-  @State private var terminalCollapsed = true
   let store: StoreOf<AppCore>
 
   var body: some View {
@@ -36,44 +35,48 @@ struct MainView: View {
       }
 
       NavigationSplitView {
-        Sidebar(store: store)
+        SidebarView(store: store)
       } content: {
         ZStack {
           StreamingView()
-            .frame(width: 400, height: 800)
+            .frame(maxWidth: 400, maxHeight: 800)
+            .aspectRatio(1 / 2, contentMode: .fit)  //FIXME: make adaptative
             .overlay {
-                Rectangle().stroke()
+              Rectangle().stroke()
             }
+            .background(Color(nsColor: .controlBackgroundColor))
+            .padding()
+            .padding(.bottom, 32)
 
           SplitViewReader { proxy in
             SplitView(axis: .vertical) {
               Color.clear
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                  StatusBarView(proxy: proxy, collapsed: $terminalCollapsed)
+                  StatusBarView(proxy: proxy, collapsed: viewStore.binding(\.$isDumpAreaCollapsed))
                 }
 
               TextEditor(text: .constant(viewStore.entitiesHierarchy?.dumpOutput ?? "???"))
                 .font(.body)
                 .monospaced()
                 .collapsable()
-                .collapsed($terminalCollapsed)
+                .collapsed(viewStore.binding(\.$isDumpAreaCollapsed))
                 .frame(minHeight: 200, maxHeight: .infinity)
             }
             .edgesIgnoringSafeArea(.top)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+          }
+        }
+        .background(Color(nsColor: .lightGray))
 
-          }
-        }
       } detail: {
-        Group {
-          if let entity = viewStore.entitiesHierarchy?.selectedEntity {
-            EntityDetailView(entity: entity)
-          } else {
-            Text("Pick an entity")
-          }
+        if let entity = viewStore.entitiesHierarchy?.selectedEntity {
+          EntityDetailView(entity: entity)
+            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+            .navigationSplitViewStyle(.balanced)
+        } else {
+          Spacer()
+            .navigationSplitViewColumnWidth(0)
         }
-        .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-        .navigationSplitViewStyle(.balanced)
       }
       .toolbar {
         ToolbarItem {

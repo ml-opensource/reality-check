@@ -20,18 +20,26 @@ public struct DebugOptionsView: View {
       observe: { $0 }
     ) { viewStore in
       Form {
-        Toggle("Anchor Geometry", isOn: viewStore.binding(\.$showAnchorGeometry))
-        Toggle("Anchor Origins", isOn: viewStore.binding(\.$showAnchorOrigins))
-        Toggle("Feature Points", isOn: viewStore.binding(\.$showFeaturePoints))
-        Toggle("Physics", isOn: viewStore.binding(\.$showPhysics))
-        //TODO: find a way to verify this value
-        // Toggle(
-        //   "Scene Reconstruction",
-        //   isOn: viewStore.binding(\.$showSceneUnderstanding)
-        // )
-        //.disabled(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh))
-        Toggle("Statistics", isOn: viewStore.binding(\.$showStatistics))
-        Toggle("World Origin", isOn: viewStore.binding(\.$showWorldOrigin))
+        Section(
+          content: {
+            Toggle("Anchor Geometry", isOn: viewStore.binding(\.$showAnchorGeometry))
+            Toggle("Anchor Origins", isOn: viewStore.binding(\.$showAnchorOrigins))
+            Toggle("Feature Points", isOn: viewStore.binding(\.$showFeaturePoints))
+            Toggle("Physics", isOn: viewStore.binding(\.$showPhysics))
+            //TODO: find a way to verify this value
+            // Toggle(
+            //   "Scene Reconstruction",
+            //   isOn: viewStore.binding(\.$showSceneUnderstanding)
+            // )
+            //.disabled(!ARWorldTrackingConfiguration.supportsSceneReconstruction(.mesh))
+            Toggle("Statistics", isOn: viewStore.binding(\.$showStatistics))
+            Toggle("World Origin", isOn: viewStore.binding(\.$showWorldOrigin))
+          },
+          header: {
+            Text("ARView Debug Options")
+              .font(.headline)
+          }
+        )
       }
     }
   }

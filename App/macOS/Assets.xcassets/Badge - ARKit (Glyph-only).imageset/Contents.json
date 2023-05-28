@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Badge - ARKit (Glyph-only).pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

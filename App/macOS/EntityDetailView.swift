@@ -11,7 +11,7 @@ struct EntityDetailView: View {
           entity.entityType.description,
           systemImage: entity.entityType.symbol
         )
-        .font(.title)
+        .font(.headline)
 
         Section {
           LabeledContent(

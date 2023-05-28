@@ -11,20 +11,24 @@ public struct AppCore: Reducer {
   public struct State: Equatable {
     public var arViewOptions: ARViewOptions.State?
     public var entitiesHierarchy: EntitiesHierarchy.State?
+    @BindingState public var isDumpAreaCollapsed: Bool
     public var multipeerConnection: MultipeerConnection.State
 
     public init(
       arViewOptions: ARViewOptions.State? = nil,
       entitiesHierarchy: EntitiesHierarchy.State? = nil,
+      isDumpAreaDisplayed: Bool = true,
       multipeerConnection: MultipeerConnection.State = .init()
     ) {
       self.arViewOptions = arViewOptions
       self.entitiesHierarchy = entitiesHierarchy
+      self.isDumpAreaCollapsed = isDumpAreaDisplayed
       self.multipeerConnection = multipeerConnection
     }
   }
 
-  public enum Action: Equatable {
+  public enum Action: Equatable, BindableAction {
+    case binding(BindingAction<State>)
     case arViewOptions(ARViewOptions.Action)
     case entitiesHierarchy(EntitiesHierarchy.Action)
     case multipeerConnection(MultipeerConnection.Action)
@@ -33,6 +37,8 @@ public struct AppCore: Reducer {
   @Dependency(\.streamingClient) var streamingClient
 
   public var body: some Reducer<State, Action> {
+    BindingReducer()
+
     Scope(state: \.multipeerConnection, action: /Action.multipeerConnection) {
       MultipeerConnection()
     }
@@ -41,10 +47,13 @@ public struct AppCore: Reducer {
       switch action {
         case .arViewOptions(.delegate(.didUpdateDebugOptions(let options))):
           return .task {
-              .multipeerConnection(.sendDebugOptions(options))
+            .multipeerConnection(.sendDebugOptions(options))
           }
 
         case .arViewOptions(_):
+          return .none
+
+        case .binding(_):
           return .none
 
         case .entitiesHierarchy(_):
