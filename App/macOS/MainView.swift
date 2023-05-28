@@ -46,14 +46,28 @@ struct MainView: View {
         .background(Color(nsColor: .lightGray))
 
       } detail: {
-        if let entity = viewStore.entitiesSection?.selectedEntity {
-          EntityDetailView(entity: entity)
-            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-            .navigationSplitViewStyle(.balanced)
-        } else {
-          Spacer()
-            .navigationSplitViewColumnWidth(0)
+        switch viewStore.selectedSection {
+          case .none:
+            Spacer().navigationSplitViewColumnWidth(0)
+          case .arView:
+            Text("ARView")
+              .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+              .navigationSplitViewStyle(.balanced)
+
+          case .entities:
+            if let entity = viewStore.entitiesSection?.selectedEntity {
+              EntityDetailView(entity: entity)
+                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+                .navigationSplitViewStyle(.balanced)
+            }
         }
+        //        if let entity = viewStore.entitiesSection?.selectedEntity {
+        //          EntityDetailView(entity: entity)
+        //            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+        //            .navigationSplitViewStyle(.balanced)
+        //        } else {
+        //
+        //        }
       }
       .toolbar {
         ToolbarItem {

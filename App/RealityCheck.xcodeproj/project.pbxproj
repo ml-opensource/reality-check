@@ -113,8 +113,6 @@
 		40E7517C29F68F0B0083502A /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				401215B12A23659D00D98058 /* StatusBarView.swift */,
-				401215B02A23659D00D98058 /* View+isHovering.swift */,
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40BD84CE2A16808400522CED /* RealityCheck-Info.plist */,
 				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
@@ -124,11 +122,13 @@
 				402EA02D29F6E43E00BB522F /* EntityDetailView.swift */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
-				401215B42A2379F200D98058 /* Sidebar */,
+				401215B12A23659D00D98058 /* StatusBarView.swift */,
+				401215B02A23659D00D98058 /* View+isHovering.swift */,
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				401215A32A23658A00D98058 /* CustomSplitView */,
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
+				401215B42A2379F200D98058 /* Sidebar */,
 			);
 			path = macOS;
 			sourceTree = "<group>";

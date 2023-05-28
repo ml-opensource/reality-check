@@ -13,17 +13,20 @@ public struct AppCore: Reducer {
     public var entitiesSection: EntitiesSection.State?
     @BindingState public var isDumpAreaCollapsed: Bool
     public var multipeerConnection: MultipeerConnection.State
+    public var selectedSection: Section?
 
     public init(
       arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesSection.State? = nil,
       isDumpAreaDisplayed: Bool = true,
-      multipeerConnection: MultipeerConnection.State = .init()
+      multipeerConnection: MultipeerConnection.State = .init(),
+      selectedSection: Section? = nil
     ) {
       self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
       self.isDumpAreaCollapsed = isDumpAreaDisplayed
       self.multipeerConnection = multipeerConnection
+      self.selectedSection = selectedSection
     }
   }
 
@@ -32,6 +35,12 @@ public struct AppCore: Reducer {
     case arViewSection(ARViewSection.Action)
     case entitiesSection(EntitiesSection.Action)
     case multipeerConnection(MultipeerConnection.Action)
+    case selectSection(Section?)
+  }
+
+  public enum Section {
+    case arView
+    case entities
   }
 
   @Dependency(\.streamingClient) var streamingClient
@@ -45,6 +54,11 @@ public struct AppCore: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
+        case .arViewSection(.delegate(.didToggleSelectSection)):
+          return .task { [state] in
+            .selectSection(state.selectedSection == .arView ? nil : .arView)
+          }
+
         case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
           return .task {
             .multipeerConnection(.sendDebugOptions(options))
@@ -55,6 +69,11 @@ public struct AppCore: Reducer {
 
         case .binding(_):
           return .none
+
+        case .entitiesSection(.delegate(.didToggleSelectSection)):
+          return .task { [state] in
+            .selectSection((state.entitiesSection?.selection == nil) ? nil : .entities)
+          }
 
         case .entitiesSection(_):
           return .none
@@ -69,6 +88,21 @@ public struct AppCore: Reducer {
           return .none
 
         case .multipeerConnection(_):
+          return .none
+
+        case .selectSection(let section):
+          state.selectedSection = section
+          switch section {
+            case .none:
+              state.entitiesSection?.selection = nil
+              state.arViewSection?.isSelected = false
+
+            case .some(.arView):
+              state.entitiesSection?.selection = nil
+
+            case .some(.entities):
+              state.arViewSection?.isSelected = false
+          }
           return .none
       }
     }

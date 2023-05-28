@@ -10,13 +10,32 @@ struct ARViewSectionView: View {
       GroupBox {
         VStack {
           Button(
-            action: {},
+            action: {
+              viewStore.send(.toggleSelection)
+            },
             label: {
-              Label.init("ARView", systemImage: "cube.transparent")
-              Spacer()
+              HStack {
+                Label.init("ARView", systemImage: "cube.transparent")
+                  .foregroundColor(
+                    viewStore.isSelected
+                      ? Color(nsColor: .alternateSelectedControlTextColor)
+                      : Color(nsColor: .controlTextColor)
+                  )
+                Spacer()
+              }
+              .padding()
+              .background(
+                RoundedRectangle(cornerRadius: 8, style: .continuous)
+                  .fill(
+                    viewStore.isSelected
+                      ? Color(nsColor: .controlAccentColor)
+                      : Color(nsColor: .controlBackgroundColor)
+                  )
+              )
             }
           )
           .controlSize(.large)
+          .buttonStyle(.plain)
           .overlay(alignment: .trailing) {
             Button(
               action: {

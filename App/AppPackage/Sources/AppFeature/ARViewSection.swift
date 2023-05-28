@@ -9,10 +9,12 @@ public struct ARViewSection: Reducer {
     public var arView: CodableARView
     public var debugOptions: DebugOptions.State
     @BindingState public var isDebugOptionsDisplayed: Bool
+    public var isSelected: Bool = false
 
     public init(
       arView: CodableARView,
-      isDebugOptionsDisplayed: Bool = false
+      isDebugOptionsDisplayed: Bool = false,
+      isSelected: Bool = false
     ) {
       self.arView = arView
       self.debugOptions = .init(arView.debugOptionsRawValue)
@@ -24,9 +26,11 @@ public struct ARViewSection: Reducer {
     case binding(BindingAction<State>)
     case debugOptions(DebugOptions.Action)
     case delegate(DelegateAction)
+    case toggleSelection
   }
 
   public enum DelegateAction: Equatable {
+    case didToggleSelectSection
     case didUpdateDebugOptions(_DebugOptions)
   }
 
@@ -52,9 +56,14 @@ public struct ARViewSection: Reducer {
 
         case .delegate(_):
           return .none
+
+        case .toggleSelection:
+          state.isSelected.toggle()
+          return .task {
+            .delegate(.didToggleSelectSection)
+          }
       }
     }
-    ._printChanges()
   }
 }
 

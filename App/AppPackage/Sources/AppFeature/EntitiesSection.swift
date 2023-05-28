@@ -36,8 +36,13 @@ public struct EntitiesSection: Reducer {
 
   public enum Action: BindableAction, Equatable {
     case binding(BindingAction<State>)
+    case delegate(DelegateAction)
     case dumpOutput(String)
     case select(entity: IdentifiableEntity?)
+  }
+
+  public enum DelegateAction: Equatable {
+    case didToggleSelectSection
   }
 
   public var body: some Reducer<State, Action> {
@@ -46,15 +51,22 @@ public struct EntitiesSection: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
         case .binding(\.$selection):
-          return .task { [state] in
-            if let entity = state.selectedEntity {
-              return .dumpOutput(String(customDumping: entity))
-            } else {
-              return .dumpOutput("...")
-            }
+          if let entity = state.selectedEntity {
+            return .merge(
+              .send(.dumpOutput(String(customDumping: entity))),
+              .send(.delegate(.didToggleSelectSection))
+            )
+          } else {
+            return .merge(
+              .send(.dumpOutput("...")),
+              .send(.delegate(.didToggleSelectSection))
+            )
           }
 
         case .binding:
+          return .none
+
+        case .delegate(_):
           return .none
 
         case .dumpOutput(let output):
