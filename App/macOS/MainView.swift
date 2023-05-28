@@ -2,38 +2,15 @@ import AppFeature
 import ComposableArchitecture
 import Dependencies
 import Models
+import MultipeerClient
 import StreamingClient
 import SwiftUI
 
 struct MainView: View {
-  @Environment(\.openWindow) var openWindow
   let store: StoreOf<AppCore>
 
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-
-      var contextualBackground: Color {
-        switch viewStore.multipeerConnection.sessionState {
-          case .notConnected:
-            return .red
-          case .connecting:
-            return .orange
-          case .connected:
-            return .green
-        }
-      }
-
-      var contextualLabel: String {
-        switch viewStore.multipeerConnection.sessionState {
-          case .notConnected:
-            return "notConnected"
-          case .connecting:
-            return "connecting"
-          case .connected:
-            return "connected"
-        }
-      }
-
       NavigationSplitView {
         SidebarView(store: store)
       } content: {
@@ -55,7 +32,7 @@ struct MainView: View {
                   StatusBarView(proxy: proxy, collapsed: viewStore.binding(\.$isDumpAreaCollapsed))
                 }
 
-              TextEditor(text: .constant(viewStore.entitiesHierarchy?.dumpOutput ?? "???"))
+              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "???"))
                 .font(.body)
                 .monospaced()
                 .collapsable()
@@ -69,7 +46,7 @@ struct MainView: View {
         .background(Color(nsColor: .lightGray))
 
       } detail: {
-        if let entity = viewStore.entitiesHierarchy?.selectedEntity {
+        if let entity = viewStore.entitiesSection?.selectedEntity {
           EntityDetailView(entity: entity)
             .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
             .navigationSplitViewStyle(.balanced)
@@ -80,22 +57,59 @@ struct MainView: View {
       }
       .toolbar {
         ToolbarItem {
-          Button(
-            action: {
-              openWindow(id: "ConnectionWindowID")
-            },
-            label: {
-              Text(contextualLabel)
-                .foregroundColor(.white)
-                .font(.caption)
-                .padding(8)
-                .background(Capsule(style: .continuous).fill(contextualBackground))
-            }
-          )
-          .buttonStyle(.plain)
+          SessionStateButtonView(viewStore.multipeerConnection.sessionState)
         }
       }
     }
+  }
+}
+
+struct SessionStateButtonView: View {
+  @Environment(\.openWindow) private var openWindow
+  private let sessionState: MultipeerClient.SessionState
+
+  init(
+    _ sessionState: MultipeerClient.SessionState
+  ) {
+    self.sessionState = sessionState
+  }
+
+  var contextualBackground: Color {
+    switch sessionState {
+      case .notConnected:
+        return .red
+      case .connecting:
+        return .orange
+      case .connected:
+        return .green
+    }
+  }
+
+  var contextualLabel: String {
+    switch sessionState {
+      case .notConnected:
+        return "notConnected"
+      case .connecting:
+        return "connecting"
+      case .connected:
+        return "connected"
+    }
+  }
+
+  var body: some View {
+    Button(
+      action: {
+        openWindow(id: "ConnectionWindowID")
+      },
+      label: {
+        Text(contextualLabel)
+          .foregroundColor(.white)
+          .font(.caption)
+          .padding(8)
+          .background(Capsule(style: .continuous).fill(contextualBackground))
+      }
+    )
+    .buttonStyle(.plain)
   }
 }
 
@@ -105,8 +119,8 @@ struct ContentView_Previews: PreviewProvider {
       store: .init(
         initialState: AppCore.State(
           //FIXME: avoid constructor cleaning mock return
-          arViewOptions: ARViewOptions.State.init(arView: .init(.init(frame: .zero), anchors: [])),
-          entitiesHierarchy: .init([], selection: 14_973_088_022_893_562_172)
+          arViewSection: ARViewSection.State.init(arView: .init(.init(frame: .zero), anchors: [])),
+          entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
         ),
         reducer: AppCore()
       )

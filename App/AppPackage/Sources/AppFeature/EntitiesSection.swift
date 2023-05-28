@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Foundation
 import Models
 
-public struct EntitiesHierarchy: Reducer {
+public struct EntitiesSection: Reducer {
   public struct State: Equatable {
     public var identifiedEntities: IdentifiedArrayOf<IdentifiableEntity>
 

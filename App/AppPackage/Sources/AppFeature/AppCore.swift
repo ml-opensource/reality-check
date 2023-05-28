@@ -9,19 +9,19 @@ public struct AppCore: Reducer {
   public init() {}
 
   public struct State: Equatable {
-    public var arViewOptions: ARViewOptions.State?
-    public var entitiesHierarchy: EntitiesHierarchy.State?
+    public var arViewSection: ARViewSection.State?
+    public var entitiesSection: EntitiesSection.State?
     @BindingState public var isDumpAreaCollapsed: Bool
     public var multipeerConnection: MultipeerConnection.State
 
     public init(
-      arViewOptions: ARViewOptions.State? = nil,
-      entitiesHierarchy: EntitiesHierarchy.State? = nil,
+      arViewSection: ARViewSection.State? = nil,
+      entitiesSection: EntitiesSection.State? = nil,
       isDumpAreaDisplayed: Bool = true,
       multipeerConnection: MultipeerConnection.State = .init()
     ) {
-      self.arViewOptions = arViewOptions
-      self.entitiesHierarchy = entitiesHierarchy
+      self.arViewSection = arViewSection
+      self.entitiesSection = entitiesSection
       self.isDumpAreaCollapsed = isDumpAreaDisplayed
       self.multipeerConnection = multipeerConnection
     }
@@ -29,8 +29,8 @@ public struct AppCore: Reducer {
 
   public enum Action: Equatable, BindableAction {
     case binding(BindingAction<State>)
-    case arViewOptions(ARViewOptions.Action)
-    case entitiesHierarchy(EntitiesHierarchy.Action)
+    case arViewSection(ARViewSection.Action)
+    case entitiesSection(EntitiesSection.Action)
     case multipeerConnection(MultipeerConnection.Action)
   }
 
@@ -45,18 +45,18 @@ public struct AppCore: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
-        case .arViewOptions(.delegate(.didUpdateDebugOptions(let options))):
+        case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
           return .task {
             .multipeerConnection(.sendDebugOptions(options))
           }
 
-        case .arViewOptions(_):
+        case .arViewSection(_):
           return .none
 
         case .binding(_):
           return .none
 
-        case .entitiesHierarchy(_):
+        case .entitiesSection(_):
           return .none
 
         case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
@@ -64,19 +64,19 @@ public struct AppCore: Reducer {
           return .none
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
-          state.arViewOptions = .init(arView: decodedARView)
-          state.entitiesHierarchy = .init(decodedARView.scene.anchors)
+          state.arViewSection = .init(arView: decodedARView)
+          state.entitiesSection = .init(decodedARView.scene.anchors)
           return .none
 
         case .multipeerConnection(_):
           return .none
       }
     }
-    .ifLet(\.arViewOptions, action: /Action.arViewOptions) {
-      ARViewOptions()
+    .ifLet(\.arViewSection, action: /Action.arViewSection) {
+      ARViewSection()
     }
-    .ifLet(\.entitiesHierarchy, action: /Action.entitiesHierarchy) {
-      EntitiesHierarchy()
+    .ifLet(\.entitiesSection, action: /Action.entitiesSection) {
+      EntitiesSection()
     }
   }
 }

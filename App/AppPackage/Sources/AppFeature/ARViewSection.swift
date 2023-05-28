@@ -4,7 +4,7 @@ import Models
 import RealityKit
 import SwiftUI
 
-public struct ARViewOptions: Reducer {
+public struct ARViewSection: Reducer {
   public struct State: Equatable {
     public var arView: CodableARView
     public var debugOptions: DebugOptions.State

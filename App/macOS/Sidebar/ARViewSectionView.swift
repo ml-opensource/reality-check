@@ -3,7 +3,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct ARViewSectionView: View {
-  let store: StoreOf<ARViewOptions>
+  let store: StoreOf<ARViewSection>
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -40,7 +40,7 @@ struct ARViewSectionView: View {
               DebugOptionsView(
                 store: store.scope(
                   state: \.debugOptions,
-                  action: ARViewOptions.Action.debugOptions
+                  action: ARViewSection.Action.debugOptions
                 )
               )
               .padding()

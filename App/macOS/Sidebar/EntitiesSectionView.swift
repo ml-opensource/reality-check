@@ -3,7 +3,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct EntitiesSectionView: View {
-  let store: StoreOf<EntitiesHierarchy>
+  let store: StoreOf<EntitiesSection>
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
