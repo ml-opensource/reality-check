@@ -6,8 +6,30 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
-//TODO: allow customization on construction (or via modifiers)
+/**
+Represents a SwiftUI view for controlling the RealityCheck connection and exchange of  the running AR experience data.
+
+Use the `RealityCheckConnectView` struct to display the state of the connection and provide a user interface for establishing a connection with **RealityCheck** macOS app. Once integrated, the GUI will allow to connect and exchange AR scene hierarchy data. It utilizes SwiftUI for rendering the user interface. and can be accessed as a `LibraryItem` from the `Library` panel.
+
+**Usage**
+
+1. Initialize `RealityCheckConnectView` and provide an optional `ARView` instance to enable hierarchy sending functionality.
+2. Add `RealityCheckConnectView` to your SwiftUI view hierarchy.
+
+**Example**
+
+Here's an example of how to use `RealityCheckConnectView`:
+```swift
+var body: some View {
+    ZStack {
+        // Other views
+        RealityCheckConnectView(arView)
+    }
+}
+```
+ */
 public struct RealityCheckConnectView: View {
+  //TODO: allow customization on construction (or via modifiers)
   @State private var connectionState: MultipeerClient.SessionState = .notConnected
   @State private var hostName: String = "..."
 
