@@ -13,7 +13,3 @@ This library provides a set of components that enable the establishment of conne
 The main and unique component available at this time is ``RealityCheckConnectView``, which allows for the rapid integration of an existing SwiftUI-based AR app.
 
 - ``RealityCheckConnectView``
-
-## Something else 
-
-dasfdasfsd
