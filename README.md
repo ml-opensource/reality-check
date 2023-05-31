@@ -17,7 +17,7 @@
 ## Getting Started
 
 
-To use RealityCheck in your AR project, you'll need to import the RealityCheck library and connect to a live session running on an iOS device. Please refer to the [Documentation](https://github.com/monstar-lab/reality-check/docs) for detailed instructions on how to integrate RealityCheck into your project.
+To use RealityCheck in your AR project, you'll need to import the RealityCheck library and connect to a live session running on an iOS device. Please refer to the [Documentation](https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/) for detailed instructions on how to integrate RealityCheck into your project.
 
 ## Thanks
 
