@@ -66,7 +66,11 @@ let package = Package(
       name: "RealityCheckConnect",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
-        .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
+        .product(
+          name: "DeviceKit",
+          package: "DeviceKit",
+          condition: .when(platforms: [.iOS])
+        ),
         "MultipeerClient",
         "RealityDumpClient",
         "StreamingClient",
