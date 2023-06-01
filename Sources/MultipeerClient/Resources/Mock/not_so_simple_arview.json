@@ -5218,5 +5218,6 @@
       }
     ]
   },
-  "debugOptionsRawValue" : 17
+  "debugOptionsRawValue" : 17,
+  "contentScaleFactor" : 3
 }

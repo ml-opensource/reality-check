@@ -49,26 +49,21 @@ struct MainView: View {
         switch viewStore.selectedSection {
           case .none:
             Spacer().navigationSplitViewColumnWidth(0)
+
           case .arView:
-            Text("ARView")
-              .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-              .navigationSplitViewStyle(.balanced)
+            if let arView = viewStore.arViewSection?.arView {
+              ARViewDetailView(arView)
+                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+            }
 
           case .entities:
             if let entity = viewStore.entitiesSection?.selectedEntity {
-              EntityDetailView(entity: entity)
+              EntityDetailView(entity)
                 .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-                .navigationSplitViewStyle(.balanced)
             }
         }
-        //        if let entity = viewStore.entitiesSection?.selectedEntity {
-        //          EntityDetailView(entity: entity)
-        //            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-        //            .navigationSplitViewStyle(.balanced)
-        //        } else {
-        //
-        //        }
       }
+      .navigationSplitViewStyle(.balanced)
       .toolbar {
         ToolbarItem {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
@@ -133,7 +128,13 @@ struct ContentView_Previews: PreviewProvider {
       store: .init(
         initialState: AppCore.State(
           //FIXME: avoid constructor cleaning mock return
-          arViewSection: ARViewSection.State.init(arView: .init(.init(frame: .zero), anchors: [])),
+          arViewSection: ARViewSection.State.init(
+            arView: .init(
+              .init(frame: .zero),
+              anchors: [],
+              contentScaleFactor: 1
+            )
+          ),
           entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
         ),
         reducer: AppCore()

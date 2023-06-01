@@ -22,6 +22,7 @@
 		402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* EntityDetailView.swift */; };
 		4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */; };
 		4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4076368A2A1EBB23008378B6 /* Color+Hash.swift */; };
+		40874E8F2A289B9D00DD88FD /* ARViewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */; };
 		40876A542A1E0F4A00C96893 /* ConnectionSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */; };
 		40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517D29F68F0B0083502A /* Assets.xcassets */; };
 		40E7518C29F68F0B0083502A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517F29F68F0B0083502A /* Preview Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentPropertiesView.swift; sourceTree = "<group>"; };
 		4076368A2A1EBB23008378B6 /* Color+Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hash.swift"; sourceTree = "<group>"; };
 		4086EDAC2A16C326001CFF27 /* AppPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppPackage; sourceTree = "<group>"; };
+		40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewDetailView.swift; sourceTree = "<group>"; };
 		40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSetupView.swift; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
 		40BD84CE2A16808400522CED /* RealityCheck-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RealityCheck-Info.plist"; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
 				401215B42A2379F200D98058 /* Sidebar */,
+				40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				401215B22A23659D00D98058 /* View+isHovering.swift in Sources */,
 				402EA02E29F6E43E00BB522F /* EntityDetailView.swift in Sources */,
 				401215AC2A23658A00D98058 /* SplitViewControllerView.swift in Sources */,
+				40874E8F2A289B9D00DD88FD /* ARViewDetailView.swift in Sources */,
 				40E7519129F68F0B0083502A /* Transform+Rotation.swift in Sources */,
 				40E7519229F68F0B0083502A /* Comparable+clamp.swift in Sources */,
 			);

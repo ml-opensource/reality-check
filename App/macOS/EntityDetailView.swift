@@ -4,6 +4,12 @@ import SwiftUI
 struct EntityDetailView: View {
   let entity: IdentifiableEntity
 
+  init(
+    _ entity: IdentifiableEntity
+  ) {
+    self.entity = entity
+  }
+
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
       VStack(alignment: .leading) {

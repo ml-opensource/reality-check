@@ -135,8 +135,13 @@ public struct RealityCheckConnectView: View {
       )
     }
 
-    let arViewData = try! encoder.encode(CodableARView(arView, anchors: identifiableAnchors))
-    print(String(data: arViewData, encoding: .utf8)!)
+    let arViewData = try! await encoder.encode(
+      CodableARView(
+        arView,
+        anchors: identifiableAnchors,
+        contentScaleFactor: arView.contentScaleFactor
+      )
+    )
     multipeerClient.send(arViewData)
   }
 }
