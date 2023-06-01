@@ -87,7 +87,7 @@ public struct RealityCheckConnectView: View {
                 }
 
               case .didReceiveData(let data):
-                //MARK: DebugOptions
+                //MARK: ARView Debug Options
                 if let debugOptions = try? JSONDecoder()
                   .decode(
                     _DebugOptions.self,

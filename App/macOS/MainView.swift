@@ -15,9 +15,12 @@ struct MainView: View {
         SidebarView(store: store)
       } content: {
         ZStack {
-          StreamingView()
-            .frame(maxWidth: 400, maxHeight: 800)
-            .aspectRatio(1 / 2, contentMode: .fit)  //FIXME: make adaptative
+          StreamingView(viewportSize: viewStore.binding(\.$viewPortSize))
+            .frame(maxWidth: viewStore.viewPortSize.width, maxHeight: viewStore.viewPortSize.height)
+            .aspectRatio(
+              viewStore.viewPortSize.width / viewStore.viewPortSize.height,
+              contentMode: .fit
+            )
             .overlay {
               Rectangle().stroke()
             }

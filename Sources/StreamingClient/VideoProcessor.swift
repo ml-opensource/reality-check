@@ -55,14 +55,17 @@ class VideoProcessor {
         compressedDataAllocator: nil,
         outputCallback: nil,
         refcon: nil,
-        compressionSessionOut: &compressionSession)
+        compressionSessionOut: &compressionSession
+      )
       if status != noErr {
         print("Failed to create compression session.")
         return
       }
       VTSessionSetProperty(
-        compressionSession, key: kVTCompressionPropertyKey_RealTime,
-        value: kCFBooleanTrue)
+        compressionSession,
+        key: kVTCompressionPropertyKey_RealTime,
+        value: kCFBooleanTrue
+      )
     }
 
     // Compress the image data.
@@ -74,7 +77,9 @@ class VideoProcessor {
       frameProperties: nil,
       infoFlagsOut: nil
     ) {
-      status, _, sampleBuffer in
+      status,
+      _,
+      sampleBuffer in
 
       // Return early if compression fails.
       guard status == noErr, let sampleBuffer = sampleBuffer else {
@@ -92,7 +97,8 @@ class VideoProcessor {
       } catch {
         fatalError(
           "Failed to encode videoFrameData as JSON with error: "
-            + error.localizedDescription)
+            + error.localizedDescription
+        )
       }
     }
   }
@@ -107,7 +113,8 @@ class VideoProcessor {
       compressAndSend(
         imageBuffer: imageBuffer,
         presentationTimeStamp: CMSampleBufferGetPresentationTimeStamp(sampleBuffer),
-        sendHandler: sendHandler)
+        sendHandler: sendHandler
+      )
     }
   }
 
@@ -129,7 +136,8 @@ class VideoProcessor {
     if currentFormatDesciprion != formatDescription
       && !VTDecompressionSessionCanAcceptFormatDescription(
         decompressionSession,
-        formatDescription: formatDescription)
+        formatDescription: formatDescription
+      )
     {
       createDecompressionSession(with: formatDescription)
     }
@@ -156,7 +164,8 @@ class VideoProcessor {
       decoderSpecification: nil,
       imageBufferAttributes: nil,
       outputCallback: nil,
-      decompressionSessionOut: &decompressionSession)
+      decompressionSessionOut: &decompressionSession
+    )
 
     // Return early if unable to create the decompression session.
     if status != noErr {
@@ -165,7 +174,10 @@ class VideoProcessor {
     }
 
     VTSessionSetProperty(
-      decompressionSession, key: kVTDecompressionPropertyKey_RealTime, value: kCFBooleanTrue)
+      decompressionSession,
+      key: kVTDecompressionPropertyKey_RealTime,
+      value: kCFBooleanTrue
+    )
     currentFormatDesciprion = formatDescription
   }
 

@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import CoreGraphics
 import Foundation
 import Models
 import MultipeerClient
@@ -14,19 +15,22 @@ public struct AppCore: Reducer {
     @BindingState public var isDumpAreaCollapsed: Bool
     public var multipeerConnection: MultipeerConnection.State
     public var selectedSection: Section?
+    @BindingState public var viewPortSize: CGSize
 
     public init(
       arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesSection.State? = nil,
       isDumpAreaDisplayed: Bool = true,
       multipeerConnection: MultipeerConnection.State = .init(),
-      selectedSection: Section? = nil
+      selectedSection: Section? = nil,
+      viewPortSize: CGSize = .zero
     ) {
       self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
       self.isDumpAreaCollapsed = isDumpAreaDisplayed
       self.multipeerConnection = multipeerConnection
       self.selectedSection = selectedSection
+      self.viewPortSize = viewPortSize
     }
   }
 
@@ -36,6 +40,7 @@ public struct AppCore: Reducer {
     case entitiesSection(EntitiesSection.Action)
     case multipeerConnection(MultipeerConnection.Action)
     case selectSection(Section?)
+    case updateViewportSize(CGSize)
   }
 
   public enum Section {
@@ -103,6 +108,10 @@ public struct AppCore: Reducer {
             case .some(.entities):
               state.arViewSection?.isSelected = false
           }
+          return .none
+
+        case .updateViewportSize(let size):
+          state.viewPortSize = size
           return .none
       }
     }

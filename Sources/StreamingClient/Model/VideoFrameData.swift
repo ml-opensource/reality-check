@@ -8,10 +8,6 @@ VideoFrameData contains the essential data from a CMSampleBuffer in a form that 
 import CoreMedia
 
 public struct VideoFrameData: Codable, Equatable {
-
-  // let inverseProjectionMatrix: Matrix
-  // let inverseViewMatrix: Matrix
-
   init(
     sampleBuffer: CMSampleBuffer
   ) {
@@ -39,13 +35,6 @@ public struct VideoFrameData: Codable, Equatable {
         "Failed to get timing info from sample buffer with error: \(error.localizedDescription)"
       )
     }
-
-    // let camera = arFrame.camera
-    // let width = CVPixelBufferGetWidth(arFrame.capturedImage)
-    // let height = CVPixelBufferGetHeight(arFrame.capturedImage)
-    // let viewportSize = CGSize(width: width, height: height)
-    // inverseProjectionMatrix = Matrix(camera.projectionMatrix(for: .landscapeRight, viewportSize: viewportSize, zNear: 0.01, zFar: 1000).inverse)
-    // inverseViewMatrix = Matrix(camera.viewMatrix(for: .landscapeRight).inverse)
   }
 
   /// Explicit representation of a `CMTime` value.
