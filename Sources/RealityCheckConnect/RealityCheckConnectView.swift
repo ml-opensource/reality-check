@@ -1,9 +1,9 @@
-import Dependencies
-import Models
-import MultipeerClient
-import RealityDumpClient
+@_implementationOnly import Dependencies
+@_implementationOnly import Models
+@_implementationOnly import MultipeerClient
+@_implementationOnly import RealityDumpClient
 import RealityKit
-import StreamingClient
+@_implementationOnly import StreamingClient
 import SwiftUI
 
 final class ViewModel: ObservableObject {
