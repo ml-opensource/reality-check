@@ -39,7 +39,7 @@ public struct MultipeerClient {
   }
 
   /// The internal closure that sets up the Multipeer session.
-  var start:
+  public var start:
     (String, SessionType, String?, DiscoveryInfo?, MCEncryptionPreference) async -> AsyncStream<
       Action
     >
