@@ -9,6 +9,24 @@ import SwiftUI
 struct MainView: View {
   let store: StoreOf<AppCore>
 
+  var sessionStateSubtitle: String {
+    let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
+    switch viewStore.sessionState {
+      case .notConnected, .connecting(_):
+        return ""
+
+      case .connected(let peer):
+        if let discoveryInfo = viewStore.peers[peer],
+          let appName = discoveryInfo.appName,
+          let appVersion = discoveryInfo.appVersion
+        {
+          return appName + " (\(appVersion))"
+        } else {
+          return ""
+        }
+    }
+  }
+
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
@@ -72,6 +90,7 @@ struct MainView: View {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
         }
       }
+      .navigationSubtitle(sessionStateSubtitle)
     }
   }
 }

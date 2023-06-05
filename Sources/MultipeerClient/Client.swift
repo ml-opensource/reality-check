@@ -13,10 +13,10 @@ public struct MultipeerClient {
   }
 
   /// The connection state for the Multipeer session.
-  public enum SessionState: Int {
+  public enum SessionState: Equatable {
     case notConnected
-    case connecting
-    case connected
+    case connecting(Peer)
+    case connected(Peer)
   }
 
   public enum Action: Equatable {

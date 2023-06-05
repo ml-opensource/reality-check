@@ -212,7 +212,19 @@ extension MultipeerClient.MultipeerActor {
       peer peerID: MCPeerID,
       didChange state: MCSessionState
     ) {
-      let sessionState = MultipeerClient.SessionState(rawValue: state.rawValue)!
+      let sessionState: MultipeerClient.SessionState
+
+      switch state {
+        case .notConnected:
+          sessionState = .notConnected
+        case .connecting:
+          sessionState = .connecting(Peer.init(rawValue: peerID))
+        case .connected:
+          sessionState = .connected(Peer.init(rawValue: peerID))
+
+        @unknown default:
+          fatalError("MCSessionState: @unknown")
+      }
       continuation?.yield(.session(.stateDidChange(sessionState)))
     }
 
