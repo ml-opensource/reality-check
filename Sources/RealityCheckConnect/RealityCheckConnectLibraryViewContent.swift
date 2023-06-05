@@ -1,3 +1,4 @@
+import RealityKit
 import SwiftUI
 
 /// The `RealityCheckConnectLibraryViewContent` struct provides convenience access to the `RealityCheckConnectView` through the Xcode library panel.
@@ -9,9 +10,15 @@ public struct RealityCheckConnectLibraryViewContent: LibraryContentProvider {
   @LibraryContentBuilder
   public var views: [LibraryItem] {
     LibraryItem(
-      RealityCheckConnectView(),
-      title: "RealityCheck Connect View",
+      RealityCheckConnectView().arView(ARView()),
+      title: "RealityCheckConnect View",
       category: .control
     )
+  }
+}
+
+public struct LibraryModifierContent: LibraryContentProvider {
+  public func modifiers(base: RealityCheckConnectView) -> [LibraryItem] {
+    LibraryItem(base.arView(ARView()))
   }
 }
