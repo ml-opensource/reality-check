@@ -16,5 +16,8 @@
       <FileRef
          location = "group:Examples/Testbed/Testbed.xcodeproj">
       </FileRef>
+      <FileRef
+         location = "group:Examples/UIKitStoryboard/UIKitStoryboard.xcodeproj">
+      </FileRef>
    </Group>
 </Workspace>
