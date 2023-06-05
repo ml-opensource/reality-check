@@ -1,5 +1,5 @@
 import Foundation
-import MultipeerClient
+@_implementationOnly import MultipeerClient
 
 #if os(iOS)
   import DeviceKit
