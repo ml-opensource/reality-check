@@ -12,15 +12,15 @@ struct MainView: View {
   var sessionStateSubtitle: String {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
-      case .notConnected, .connecting(_):
+      case .notConnected, .connecting:
         return ""
 
-      case .connected(let peer):
-        if let discoveryInfo = viewStore.peers[peer],
-          let appName = discoveryInfo.appName,
-          let appVersion = discoveryInfo.appVersion
+      case .connected:
+        if let connectedPeer = viewStore.connectedPeer,
+          let appName = connectedPeer.discoveryInfo?.appName,
+          let appVersion = connectedPeer.discoveryInfo?.appVersion
         {
-          return appName + " (\(appVersion))"
+          return appName + " \(appVersion)"
         } else {
           return ""
         }
@@ -119,7 +119,7 @@ struct SessionStateButtonView: View {
   var contextualLabel: String {
     switch sessionState {
       case .notConnected:
-        return "notConnected"
+        return "not connected"
       case .connecting:
         return "connecting"
       case .connected:

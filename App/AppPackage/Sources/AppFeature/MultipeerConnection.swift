@@ -6,8 +6,8 @@ import StreamingClient
 
 public struct MultipeerConnection: Reducer {
   public struct ConnectedPeer: Equatable {
-    let peer: Peer
-    let discoveryInfo: DiscoveryInfo
+    public let peer: Peer
+    public let discoveryInfo: DiscoveryInfo?
   }
 
   public struct State: Equatable {
@@ -95,6 +95,14 @@ public struct MultipeerConnection: Reducer {
 
         case .updateSessionState(let sessionState):
           state.sessionState = sessionState
+          switch sessionState {
+            case .notConnected:
+              state.connectedPeer = nil
+            case .connecting(_):
+              break
+            case .connected(let peer):
+              state.connectedPeer = .init(peer: peer, discoveryInfo: state.peers[peer])
+          }
           return .task {
             .delegate(.didUpdateSessionState(sessionState))
           }
