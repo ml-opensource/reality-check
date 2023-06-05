@@ -5,9 +5,15 @@ import MultipeerClient
 import StreamingClient
 
 public struct MultipeerConnection: Reducer {
+  public struct ConnectedPeer: Equatable {
+    let peer: Peer
+    let discoveryInfo: DiscoveryInfo
+  }
+
   public struct State: Equatable {
     public var sessionState: MultipeerClient.SessionState
     public var peers: [Peer: DiscoveryInfo]
+    public var connectedPeer: ConnectedPeer?
 
     public init(
       sessionState: MultipeerClient.SessionState = .notConnected,
@@ -60,13 +66,6 @@ public struct MultipeerConnection: Reducer {
               serviceName: "reality-check",
               sessionType: .host
             ) {
-              let decoder = JSONDecoder()
-              decoder.nonConformingFloatDecodingStrategy = .convertFromString(
-                positiveInfinity: "INF",
-                negativeInfinity: "-INF",
-                nan: "NAN"
-              )
-
               switch action {
                 case .session(let sessionAction):
                   switch sessionAction {
@@ -75,20 +74,7 @@ public struct MultipeerConnection: Reducer {
 
                     case .didReceiveData(let data):
                       guard !data.isEmpty else { return }
-
-                      //MARK: VideoFrameData
-                      if let videoFrameData = try? decoder.decode(VideoFrameData.self, from: data) {
-                        await send(.delegate(.receivedVideoFrameData(videoFrameData)))
-
-                      }  //MARK: CodableARView
-                      else if let decodedARView = try? decoder.decode(
-                        CodableARView.self,
-                        from: data
-                      ) {
-                        await send(.delegate(.receivedDecodedARView(decodedARView)))
-                      } else {
-                        fatalError(String(data: data, encoding: .utf8)!)
-                      }
+                      await self.decodeReceivedData(data, send: send)
                   }
 
                 case .browser(let browserAction):
@@ -113,6 +99,31 @@ public struct MultipeerConnection: Reducer {
             .delegate(.didUpdateSessionState(sessionState))
           }
       }
+    }
+  }
+}
+
+extension MultipeerConnection {
+  fileprivate func decodeReceivedData(_ data: Data, send: Send<MultipeerConnection.Action>) async {
+    let decoder = JSONDecoder()
+    decoder.nonConformingFloatDecodingStrategy = .convertFromString(
+      positiveInfinity: "INF",
+      negativeInfinity: "-INF",
+      nan: "NAN"
+    )
+
+    //MARK: VideoFrameData
+    if let videoFrameData = try? decoder.decode(VideoFrameData.self, from: data) {
+      await send(.delegate(.receivedVideoFrameData(videoFrameData)))
+
+    }  //MARK: CodableARView
+    else if let decodedARView = try? decoder.decode(
+      CodableARView.self,
+      from: data
+    ) {
+      await send(.delegate(.receivedDecodedARView(decodedARView)))
+    } else {
+      fatalError(String(data: data, encoding: .utf8)!)
     }
   }
 }
