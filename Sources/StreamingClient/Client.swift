@@ -9,6 +9,9 @@ public struct StreamingClient {
 	/// - Returns: An `AsyncStream` of `Data` representing the screen capture frames.
 	public var startScreenCapture: () async -> AsyncStream<Data>
 
+    
+    public var stopScreenCapture: () -> Void
+
 	/// Prepares the screen capture data for rendering.
 	///
 	/// - Parameter frameData: The `VideoFrameData` to prepare.

@@ -7,6 +7,11 @@ extension StreamingClient: DependencyKey {
     startScreenCapture: {
       await StreamingActor.shared.startCapture()
     },
+    stopScreenCapture: {
+      Task {
+        await StreamingActor.shared.stopCapture()
+      }
+    },
     prepareForRender: { videoFrameData in
       Task {
         await StreamingActor.shared.prepareForRender(
@@ -47,6 +52,10 @@ extension StreamingClient {
           }
         )
       }
+    }
+
+    func stopCapture() {
+      screenRecorder.stopCapture()
     }
 
     func prepareForRender(videoFrameData: VideoFrameData) {
