@@ -41,7 +41,7 @@ final class ViewModel: ObservableObject {
               await MainActor.run {
                 connectionState = state
               }
-              if state == .connected {
+              if case .connected = state {
                 //MARK: 2. Send Hierarchy
                 await sendHierarchy()
               }
@@ -188,7 +188,9 @@ public struct RealityCheckConnectView: View {
       case .connecting:
         return "connecting"
       case .connected:
-        return "connected to: \(viewModel.hostName)"
+        return viewModel.isStreaming
+          ? "                "
+          : "connected to: \(viewModel.hostName)"
     }
   }
 
@@ -384,7 +386,9 @@ extension RealityCheckConnectView {
         RealityCheckConnectView(
           viewModel: withDependencies {
             $0.multipeerClient.start = { (_, _, _, _, _) in
-              AsyncStream { $0.yield(.session(.stateDidChange(.connecting))) }
+              AsyncStream {
+                $0.yield(.session(.stateDidChange(.connecting(Peer(displayName: "MOCKYPEER")))))
+              }
             }
           } operation: {
             ViewModel(

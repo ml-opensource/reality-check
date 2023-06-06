@@ -117,6 +117,7 @@
 			children = (
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40BD84CE2A16808400522CED /* RealityCheck-Info.plist */,
+				40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */,
 				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
 				40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */,
@@ -131,7 +132,6 @@
 				40E7518329F68F0B0083502A /* Debug */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
 				401215B42A2379F200D98058 /* Sidebar */,
-				40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */,
 			);
 			path = macOS;
 			sourceTree = "<group>";

@@ -4,6 +4,8 @@ import MultipeerClient
 import SwiftUI
 
 struct ConnectionSetupView: View {
+  @Environment(\.openURL) private var openURL
+
   let store: StoreOf<MultipeerConnection>
   var columns: [GridItem] {
     [
@@ -14,6 +16,7 @@ struct ConnectionSetupView: View {
   }
 
   var body: some View {
+    //TODO: scope the viewStore to only observe "Peers"
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
         ScrollView(.vertical) {
@@ -41,9 +44,16 @@ struct ConnectionSetupView: View {
 
         HStack {
           Button(
-            action: {},
+            action: {
+              openURL(
+                URL(
+                  string:
+                    "https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/gettingstarted"
+                )!
+              )
+            },
             label: {
-              Label("Integration Guide", systemImage: "questionmark.circle")
+              Label("Getting Started", systemImage: "questionmark.circle")
             }
           )
           .controlSize(.large)
