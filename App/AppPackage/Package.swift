@@ -23,7 +23,7 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       branch: "prerelease/1.0"
     ),
-    .package(path: "../RealityCheck"),
+    .package(name: "RealityCheck", path: "../.."),
     .package(url: "https://github.com/nnabeyang/swift-msgpack", from: "0.2.5"),
   ],
   targets: [
@@ -31,7 +31,7 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-//        .product(name: "MessagePack", package: "MessagePack"),
+        //TODO: .product(name: "MessagePack", package: "MessagePack"),
         .product(name: "Models", package: "RealityCheck"),
         .product(name: "MultipeerClient", package: "RealityCheck"),
         .product(name: "RealityDumpClient", package: "RealityCheck"),
@@ -43,11 +43,11 @@ let package = Package(
       dependencies: [
         .product(name: "SwiftMsgpack", package: "swift-msgpack"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        "AppFeature"
+        "AppFeature",
       ],
       resources: [
         .copy("Resources/simple_hierarchy.json"),
-        .copy("Resources/not_so_simple_hierarchy.json")
+        .copy("Resources/not_so_simple_hierarchy.json"),
       ]
     ),
   ]
