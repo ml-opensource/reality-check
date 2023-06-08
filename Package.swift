@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "RealityCheck",
+  name: "reality-check",
   platforms: [
     .macOS(.v12),
     .iOS(.v15),
