@@ -16,22 +16,16 @@ let package = Package(
   ],
   dependencies: [
     .package(
-      url: "https://github.com/Flight-School/MessagePack",
-      from: "1.2.4"
-    ),
-    .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       branch: "prerelease/1.0"
     ),
-    .package(name: "RealityCheck", path: "../.."),
-    .package(url: "https://github.com/nnabeyang/swift-msgpack", from: "0.2.5"),
+    .package(path: "../.."),
   ],
   targets: [
     .target(
       name: "AppFeature",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        //TODO: .product(name: "MessagePack", package: "MessagePack"),
         .product(name: "Models", package: "RealityCheck"),
         .product(name: "MultipeerClient", package: "RealityCheck"),
         .product(name: "RealityDumpClient", package: "RealityCheck"),
@@ -41,7 +35,6 @@ let package = Package(
     .testTarget(
       name: "AppFeatureTests",
       dependencies: [
-        .product(name: "SwiftMsgpack", package: "swift-msgpack"),
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         "AppFeature",
       ],
