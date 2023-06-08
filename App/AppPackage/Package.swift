@@ -19,17 +19,14 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       branch: "prerelease/1.0"
     ),
-    .package(path: "../.."),
+    .package(name: "reality-check", path: "../.."),
   ],
   targets: [
     .target(
       name: "AppFeature",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "Models", package: "reality-check"),
-        .product(name: "MultipeerClient", package: "reality-check"),
-        .product(name: "RealityDumpClient", package: "reality-check"),
-        .product(name: "StreamingClient", package: "reality-check"),
+        .product(name: "RealityCheck", package: "reality-check"),
       ]
     ),
     .testTarget(

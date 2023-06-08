@@ -4,31 +4,24 @@
 import PackageDescription
 
 let package = Package(
-  name: "RealityCheck",
+  name: "reality-check",
   platforms: [
     .macOS(.v12),
     .iOS(.v15),
   ],
   products: [
     .library(
-      name: "Models",
-      targets: ["Models"]
-    ),
-    .library(
-      name: "MultipeerClient",
-      targets: ["MultipeerClient"]
+      name: "RealityCheck",
+      targets: [
+        "Models",
+        "MultipeerClient",
+        "RealityDumpClient",
+        "StreamingClient",
+      ]
     ),
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    ),
-    .library(
-      name: "RealityDumpClient",
-      targets: ["RealityDumpClient"]
-    ),
-    .library(
-      name: "StreamingClient",
-      targets: ["StreamingClient"]
     ),
   ],
   dependencies: [
@@ -46,6 +39,15 @@ let package = Package(
     ),
   ],
   targets: [
+    .target(
+      name: "RealityCheck",
+      dependencies: [
+        "Models",
+        "MultipeerClient",
+        "RealityDumpClient",
+        "StreamingClient",
+      ]
+    ),
     .target(
       name: "Models",
       dependencies: [
