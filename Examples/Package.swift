@@ -5,7 +5,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "host",
+  name: "examples",
   products: [],
   targets: []
 )

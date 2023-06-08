@@ -19,15 +19,6 @@
       }
     },
     {
-      "identity" : "messagepack",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Flight-School/MessagePack",
-      "state" : {
-        "revision" : "bbc5ab6362db234f2051e73e67296ebf5c3d2042",
-        "version" : "1.2.4"
-      }
-    },
-    {
       "identity" : "swift-case-paths",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-case-paths",
@@ -88,15 +79,6 @@
       "state" : {
         "revision" : "f52eee28bdc6065aa2f8424067e6f04c74bda6e6",
         "version" : "0.7.1"
-      }
-    },
-    {
-      "identity" : "swift-msgpack",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/nnabeyang/swift-msgpack",
-      "state" : {
-        "revision" : "09dc472d8538a578a1db3b607b0c1d63d3545dba",
-        "version" : "0.2.5"
       }
     },
     {
