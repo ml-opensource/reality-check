@@ -26,10 +26,10 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "Models", package: "RealityCheck"),
-        .product(name: "MultipeerClient", package: "RealityCheck"),
-        .product(name: "RealityDumpClient", package: "RealityCheck"),
-        .product(name: "StreamingClient", package: "RealityCheck"),
+        .product(name: "Models", package: "reality-check"),
+        .product(name: "MultipeerClient", package: "reality-check"),
+        .product(name: "RealityDumpClient", package: "reality-check"),
+        .product(name: "StreamingClient", package: "reality-check"),
       ]
     ),
     .testTarget(
