@@ -1,3 +1,3 @@
 import Foundation
 
-struct _RealityCheck {}
+struct RealityCheck {}
