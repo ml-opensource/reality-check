@@ -13,7 +13,6 @@ let package = Package(
     .library(
       name: "RealityCheck",
       targets: [
-        "RealityCheck",
         "Models",
         "MultipeerClient",
         "RealityDumpClient",

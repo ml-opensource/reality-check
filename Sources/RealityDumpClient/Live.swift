@@ -7,7 +7,7 @@ extension RealityDump: DependencyKey {
     public static var liveValue: Self {
         return Self(
             raw: { (loadedEntity, printing, detail, org) in
-                dumpRealityEntity(loadedEntity, printing: printing, detail: detail, org: org)
+                dumpRealityEntity(loadedEntity, printing: printing)
             },
             identify: { (loadedEntity, detail) in
                 Parser.identify(loadedEntity)
