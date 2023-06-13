@@ -2,6 +2,12 @@
 
 Import the library, add the connect component to your view hierarchy, configure it, declare the neccessary permissions, and establish the connection (with optional streaming) to the RealityCheck macOS app.
 
+@Metadata {
+    @CallToAction(
+      purpose: download, url:"https://github.com/monstar-lab-oss/reality-check/releases/latest")
+    @PageImage(purpose: card, source: "getting_started_card", alt: "A MacBook and an iPhone running RealityCheck together")
+}
+
 ## Overview
 
 Using RealityCheck to inspect a RealityKit's ARView hierarchy involves having a reference to an ARView instance running on your iOS device. To control streaming, transmission of updated hierarchies, and visualize the connection state, a visual component overlay called ``RealityCheckConnectView`` is provided.
@@ -10,7 +16,7 @@ The ``RealityCheckConnectView`` handles the internal publishing and transmission
 
 To get started, add the RealityCheck library using Swift Package Manager (SPM) and import it into the relevant document where you want to use it. For SwiftUI-based projects, Xcode's library provides a convenient component for integration.
 
-Make sure to download the latest version of the RealityCheck macOS app from the provided source.
+Make sure to download the latest version of the RealityCheck macOS app.
 
 ![A MacBook and an iPhone running RealityCheck together](getting_started_cover)
 
@@ -21,15 +27,26 @@ Start by including the RealityCheck library in your project. You can do this by 
 You can add RealityCheck to a RealityKit project on Xcode by adding it as a package dependency.
 
 1. From the File menu, select Add Packages...
-2. Enter [https://github.com/monstar-lab-oss/reality-check](https://github.com/monstar-lab-oss/reality-check#getting-started) into the package repository URL text field
-3. Click the Add Package button to confirm
+2. Enter [https://github.com/monstar-lab-oss/reality-check](https://github.com/monstar-lab-oss/reality-check#getting-started) into the package repository URL text field and add it
+3. Select RealityCheckConnect from the Choose Package Products screen and verify that it's being added to the desired Target
 
-![The Swift Package Manager import interface in Xcode](getting_started_spm-1)
+@TabNavigator {
+    @Tab("Search") {
+        ![The Swift Package Manager import interface in Xcode](getting_started_spm-1)
+    }
+    
+    @Tab("Choose") {
+        ![The Swift Package Manager import interface in Xcode step 2, displaying the product chooser](getting_started_spm-2)
+    }
+    
+    @Tab("Add") {
+        ![The Target Frameworks, Libraries and Embedded Content Xcode interface displaying the included RealityCheckConnect library](getting_started_spm-3)    
+    }
+}
 
-4. Select RealityCheckConnect from the Choose Package Products screen and verify that it's being added to the desired Target
 
-![The Swift Package Manager import interface in Xcode step 2, displaying the product chooser](getting_started_spm-2)
-![The Target Frameworks, Libraries and Embedded Content Xcode interface displaying the included RealityCheckConnect library](getting_started_spm-3)
+
+
 
 ### Include necessary Bonjour services
 
@@ -66,11 +83,14 @@ struct ContentView: View {
 }
 ```
 
-<!--![The Library interface in Xcode displaying the RealityConnectView SwiftUI component](getting_started_component_preview)-->
-
-> Tip: A ready-to-use component is available in the Xcode library
-
-![The Library interface in Xcode displaying the RealityConnectView SwiftUI component](getting_started_library)
+@Row {
+<!--    @Column {-->
+<!--        ![The Library interface in Xcode displaying the RealityConnectView SwiftUI component](getting_started_library)-->
+<!--    }-->
+    @Column {
+        > Tip: A ready-to-use component is available in the Xcode library
+    }
+}
 
 ### Configure the component (optional)
 
@@ -91,8 +111,16 @@ struct ContentView: View {
 }
 ```
 
+![The Library interface in Xcode displaying the RealityConnectView SwiftUI component](getting_started_component_preview)
+
 ### Connect to RealityCheck macOS app
 
-Once you've reached this stage, run your application, and you'll find it displayed in the "inspectable apps" window of the RealityCheck macOS app. After establishing a connection, you can start or stop streaming at your convenience and send updated versions of your ARView whenever needed. RealityCheck will take care of displaying and inspecting the ARView for you. 🖖
-
-![The RealityCheck macOS app displaying the chooser window with an iOS app that is set up properly.](getting_started_macos_inspectable_apps_window)
+@Row {
+    @Column(size: 3)  {
+        Once you've reached this stage, run your application, and you'll find it displayed in the "inspectable apps" window of the RealityCheck macOS app. After establishing a connection, you can start or stop streaming at your convenience and send updated versions of your ARView whenever needed. RealityCheck will take care of displaying and inspecting the ARView for you. 🖖
+        }
+        
+    @Column {
+        ![The RealityCheck macOS app displaying the chooser window with an iOS app that is set up properly.](getting_started_macos_inspectable_apps_window)
+    }
+}

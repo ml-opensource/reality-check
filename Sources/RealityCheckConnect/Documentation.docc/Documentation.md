@@ -6,6 +6,11 @@ This library provides a set of components that enable the establishment of conne
 
 > Tip: A selection of examples, ranging from the simplest to the most challenging stress testing hierarchies, are provided [here](https://github.com/monstar-lab-oss/reality-check/tree/develop/Examples).
 
+### Featured
+@Links(visualStyle: detailedGrid) {
+    - <doc:GettingStarted>
+}
+
 ## Topics
 
 ### Components
