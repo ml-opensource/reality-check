@@ -39,27 +39,35 @@ struct AppInfo {
   }
 }
 
-extension AppInfo {
-  static var discoveryInfo: DiscoveryInfo {
-    var appVersion: String?
-    if let version = AppInfo.version,
-      let build = AppInfo.build
-    {
-      appVersion = "\(version) (\(build))"
-    }
+#if os(iOS)
+  extension AppInfo {
+    static var discoveryInfo: DiscoveryInfo {
+      var appVersion: String?
+      if let version = AppInfo.version,
+        let build = AppInfo.build
+      {
+        appVersion = "\(version) (\(build))"
+      }
 
-    var system: String?
-    if let systemName = Device.current.systemName,
-      let systemVersion = Device.current.systemVersion
-    {
-      system = "\(systemName) \(systemVersion)"
-    }
+      var system: String?
+      if let systemName = Device.current.systemName,
+        let systemVersion = Device.current.systemVersion
+      {
+        system = "\(systemName) \(systemVersion)"
+      }
 
-    return DiscoveryInfo(
-      appName: AppInfo.appName,
-      appVersion: appVersion,
-      device: Device.current.safeDescription,
-      system: system
-    )
+      return DiscoveryInfo(
+        appName: AppInfo.appName,
+        appVersion: appVersion,
+        device: Device.current.safeDescription,
+        system: system
+      )
+    }
   }
-}
+#else
+  extension AppInfo {
+    static var discoveryInfo: DiscoveryInfo {
+      fatalError("DiscoveryInfo is currently only supported on iOS devices")
+    }
+  }
+#endif

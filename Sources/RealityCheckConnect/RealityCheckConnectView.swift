@@ -1,9 +1,9 @@
-@_implementationOnly import Dependencies
-@_implementationOnly import Models
-@_implementationOnly import MultipeerClient
-@_implementationOnly import RealityDumpClient
+import Dependencies
+import Models
+import MultipeerClient
+import RealityDumpClient
 import RealityKit
-@_implementationOnly import StreamingClient
+import StreamingClient
 import SwiftUI
 
 final class ViewModel: ObservableObject {
@@ -99,15 +99,19 @@ final class ViewModel: ObservableObject {
         await realityDump.identify(anchor)
       )
     }
-
-    let arViewData = try! await encoder.encode(
-      CodableARView(
-        arView,
-        anchors: identifiableAnchors,
-        contentScaleFactor: arView.contentScaleFactor
+      
+    #if os(iOS)
+      let arViewData = try! await encoder.encode(
+        CodableARView(
+          arView,
+          anchors: identifiableAnchors,
+          contentScaleFactor: arView.contentScaleFactor
+        )
       )
-    )
-    multipeerClient.send(arViewData)
+      multipeerClient.send(arViewData)
+    #else
+      fatalError("`arView.contentScaleFactor` cant be found on macOS")
+    #endif
   }
 
   func startStreaming() async {

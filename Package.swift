@@ -11,17 +11,14 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "RealityCheck",
+      name: "RealityCheckConnect",
       targets: [
+        "RealityCheckConnect",
         "Models",
         "MultipeerClient",
         "RealityDumpClient",
         "StreamingClient",
       ]
-    ),
-    .library(
-      name: "RealityCheckConnect",
-      targets: ["RealityCheckConnect"]
     ),
   ],
   dependencies: [
@@ -39,15 +36,6 @@ let package = Package(
     ),
   ],
   targets: [
-    .target(
-      name: "RealityCheck",
-      dependencies: [
-        "Models",
-        "MultipeerClient",
-        "RealityDumpClient",
-        "StreamingClient",
-      ]
-    ),
     .target(
       name: "Models",
       dependencies: [
@@ -73,6 +61,7 @@ let package = Package(
           package: "DeviceKit",
           condition: .when(platforms: [.iOS])
         ),
+        "Models",
         "MultipeerClient",
         "RealityDumpClient",
         "StreamingClient",

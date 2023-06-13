@@ -26,7 +26,7 @@ let package = Package(
       name: "AppFeature",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RealityCheck", package: "reality-check"),
+        .product(name: "RealityCheckConnect", package: "reality-check"),
       ]
     ),
     .testTarget(
