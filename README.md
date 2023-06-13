@@ -1,5 +1,7 @@
 # RealityCheck
 
+![Icon](./Assets/Icon.png)
+
 > **Note**
 > RealityCheck is still in the early stages of development, and many of the planned features have not yet been implemented. We welcome contributions from the AR development community to help us improve and expand the app. Please keep this in mind when using RealityCheck in your projects, and feel free to submit issues or feature requests to our issue tracker.
 
