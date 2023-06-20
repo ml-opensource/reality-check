@@ -109,6 +109,7 @@ final class ViewModel: ObservableObject {
         )
       )
       multipeerClient.send(arViewData)
+      print(String(data: arViewData, encoding: .utf8)!)
     #else
       fatalError("`arView.contentScaleFactor` cant be found on macOS")
     #endif

@@ -1,0 +1,269 @@
+{
+  "scene" : {
+    "anchors" : [
+      {
+        "name" : "",
+        "entityType" : {
+          "anchor" : {
+
+          }
+        },
+        "state" : {
+          "isEnabled" : true,
+          "isActive" : true,
+          "isAnchored" : true,
+          "isEnabledInHierarchy" : true
+        },
+        "hierarhy" : {
+          "hasParent" : false,
+          "children" : [
+            {
+              "id" : 9697197377801296878,
+              "name" : "",
+              "entityType" : {
+                "entity" : {
+
+                }
+              },
+              "hierarhy" : {
+                "hasParent" : true,
+                "children" : [
+
+                ]
+              },
+              "isAccessibilityElement" : false,
+              "availableAnimations" : [
+
+              ],
+              "state" : {
+                "isEnabledInHierarchy" : true,
+                "isAnchored" : true,
+                "isEnabled" : true,
+                "isActive" : true
+              },
+              "components" : {
+                "components" : [
+                  {
+                    "properties" : {
+                      "model" : {
+                        "_0" : {
+                          "boundsMargin" : 0,
+                          "mesh" : {
+                            "expectedMaterialCount" : 1,
+                            "bounds" : {
+                              "min" : [
+                                -0.05,
+                                -0.05,
+                                -0.05
+                              ],
+                              "max" : [
+                                0.05,
+                                0.05,
+                                0.05
+                              ]
+                            }
+                          },
+                          "materials" : [
+                            {
+
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "componentType" : {
+                      "model" : {
+
+                      }
+                    }
+                  },
+                  {
+                    "properties" : {
+                      "synchronization" : {
+                        "_0" : {
+                          "identifier" : 16350862383864150741,
+                          "isOwner" : true,
+                          "ownershipTransferMode" : "autoAccept"
+                        }
+                      }
+                    },
+                    "componentType" : {
+                      "synchronization" : {
+
+                      }
+                    }
+                  },
+                  {
+                    "componentType" : {
+                      "transform" : {
+
+                      }
+                    },
+                    "properties" : {
+                      "transform" : {
+                        "_0" : {
+                          "rotation" : [
+                            0,
+                            0,
+                            0,
+                            1
+                          ],
+                          "translation" : [
+                            0,
+                            0,
+                            0
+                          ],
+                          "matrix" : [
+                            [
+                              1,
+                              0,
+                              0,
+                              0
+                            ],
+                            [
+                              0,
+                              1,
+                              0,
+                              0
+                            ],
+                            [
+                              0,
+                              0,
+                              1,
+                              0
+                            ],
+                            [
+                              0,
+                              0,
+                              0,
+                              1
+                            ]
+                          ],
+                          "scale" : [
+                            1,
+                            1,
+                            1
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "isAccessibilityElement" : false,
+        "components" : {
+          "components" : [
+            {
+              "componentType" : {
+                "anchoring" : {
+
+                }
+              },
+              "properties" : {
+                "anchoring" : {
+                  "_0" : {
+                    "target" : {
+                      "plane" : {
+                        "_0" : [
+                          1
+                        ],
+                        "classifications" : [
+                          18446744073709551615
+                        ],
+                        "minimumBounds" : [
+                          0.2,
+                          0.2
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "componentType" : {
+                "synchronization" : {
+
+                }
+              },
+              "properties" : {
+                "synchronization" : {
+                  "_0" : {
+                    "identifier" : 6942797887435941726,
+                    "ownershipTransferMode" : "autoAccept",
+                    "isOwner" : true
+                  }
+                }
+              }
+            },
+            {
+              "componentType" : {
+                "transform" : {
+
+                }
+              },
+              "properties" : {
+                "transform" : {
+                  "_0" : {
+                    "matrix" : [
+                      [
+                        0.98225415,
+                        0,
+                        0.18755434,
+                        0
+                      ],
+                      [
+                        -0,
+                        1,
+                        0,
+                        0
+                      ],
+                      [
+                        -0.18755434,
+                        -0,
+                        0.9822542,
+                        0
+                      ],
+                      [
+                        -0.13578013,
+                        0,
+                        0.98612756,
+                        1
+                      ]
+                    ],
+                    "scale" : [
+                      0.99999994,
+                      1,
+                      0.99999994
+                    ],
+                    "translation" : [
+                      -0.13578013,
+                      0,
+                      0.98612756
+                    ],
+                    "rotation" : [
+                      0,
+                      -0.09419601,
+                      0,
+                      0.9955537
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "id" : 15576686874826045676,
+        "anchorIdentifier" : "48262271-3290-4BA8-A089-9A4A07631B77",
+        "availableAnimations" : [
+
+        ]
+      }
+    ]
+  },
+  "debugOptionsRawValue" : 0,
+  "contentScaleFactor" : 3
+}

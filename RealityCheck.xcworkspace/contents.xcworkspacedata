@@ -11,6 +11,9 @@
       location = "container:"
       name = "Examples">
       <FileRef
+         location = "group:Examples/IntricateSetup/IntricateSetup.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Examples/Connect/Connect.xcodeproj">
       </FileRef>
       <FileRef

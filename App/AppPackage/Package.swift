@@ -38,6 +38,7 @@ let package = Package(
       resources: [
         .copy("Resources/simple_hierarchy.json"),
         .copy("Resources/not_so_simple_hierarchy.json"),
+        .copy("Resources/codable_arview.json"),
       ]
     ),
   ]
