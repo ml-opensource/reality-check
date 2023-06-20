@@ -110,7 +110,6 @@ struct PeerConnectView: View {
           }
           .font(.caption2)
         }
-
         .padding()
         .background(
           RoundedRectangle(cornerRadius: 4, style: .continuous)
