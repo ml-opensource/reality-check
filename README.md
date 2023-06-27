@@ -45,3 +45,7 @@ RealityCheck is released under the [MIT License](https://github.com/monstar-lab/
 If you have any questions or feedback about RealityCheck, please contact us at [cristian.diaz@monstar-lab.com]. We'd love to hear from you!
 
 That's just a rough example, but I hope it gives you an idea of what to include in your README. Let me know if you have any questions or need any further assistance!
+
+## References
+
+[Understanding RealityKit’s modular architecture](https://developer.apple.com/documentation/visionOS/understanding-the-realitykit-modular-architecture)
