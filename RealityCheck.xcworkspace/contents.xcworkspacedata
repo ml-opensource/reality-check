@@ -13,9 +13,6 @@
       <Group
          location = "container:"
          name = "visionOS">
-         <FileRef
-            location = "group:Examples/SpatialConnect/SpatialConnect.xcodeproj">
-         </FileRef>
       </Group>
       <Group
          location = "container:"
@@ -24,13 +21,13 @@
             location = "group:Examples/IntricateSetup/IntricateSetup.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:Examples/UIKitStoryboard/UIKitStoryboard.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Examples/Connect/Connect.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Examples/Testbed/Testbed.xcodeproj">
-         </FileRef>
-         <FileRef
-            location = "group:Examples/UIKitStoryboard/UIKitStoryboard.xcodeproj">
          </FileRef>
       </Group>
    </Group>

@@ -76,7 +76,7 @@ public struct IdentifiableComponent: Codable {
         )
 
       case .directionalLight:
-        #if !os(xrOS)
+        #if os(iOS) && !os(xrOS)
           let component = component as! DirectionalLightComponent
           self.properties = .directionalLight(
             DirectionalLightComponentProperties(
@@ -84,11 +84,13 @@ public struct IdentifiableComponent: Codable {
               isRealWorldProxy: component.isRealWorldProxy
             )
           )
+        #else
+          //FIXME: xrOS compatibility
+          fatalError()
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .directionalLightShadow:
-        #if !os(xrOS)
+        #if os(iOS) && !os(xrOS)
           let component = component as! DirectionalLightComponent.Shadow
           self.properties = .directionalLightShadow(
             DirectionalLightShadowComponentProperties(
@@ -96,8 +98,10 @@ public struct IdentifiableComponent: Codable {
               maximumDistance: component.maximumDistance
             )
           )
+        #else
+          //FIXME: xrOS compatibility
+          fatalError()
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .model:
         let component = component as! ModelComponent
@@ -153,7 +157,7 @@ public struct IdentifiableComponent: Codable {
         )
 
       case .pointLight:
-        #if !os(xrOS)
+        #if os(iOS) && !os(xrOS)
           let component = component as! PointLightComponent
           self.properties = .pointLight(
             PointLightComponentProperties(
@@ -161,11 +165,13 @@ public struct IdentifiableComponent: Codable {
               attenuationRadius: component.attenuationRadius
             )
           )
+        #else
+          //FIXME: xrOS compatibility
+          fatalError()
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLight:
-        #if !os(xrOS)
+        #if os(iOS) && !os(xrOS)
           let component = component as! SpotLightComponent
           self.properties = .spotLight(
             SpotLightComponentProperties(
@@ -175,8 +181,10 @@ public struct IdentifiableComponent: Codable {
               attenuationRadius: component.attenuationRadius
             )
           )
+        #else
+          //FIXME: xrOS compatibility
+          fatalError()
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLightShadow:
         // As of RealityKit 2.0, it was empty.

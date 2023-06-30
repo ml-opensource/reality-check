@@ -6,135 +6,136 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
-final class ViewModel: ObservableObject {
-  @Published var connectionState: MultipeerClient.SessionState
-  @Published var hostName: String
-  @Published var isStreaming = false
+#if os(xrOS)
+  final class ViewModel: ObservableObject {
+    @Published var connectionState: MultipeerClient.SessionState
+    @Published var hostName: String
+    @Published var isStreaming = false
 
-  @Dependency(\.multipeerClient) var multipeerClient
-  @Dependency(\.realityDump) var realityDump
-  @Dependency(\.streamingClient) var streamingClient
+    @Dependency(\.multipeerClient) var multipeerClient
+    @Dependency(\.realityDump) var realityDump
+    @Dependency(\.streamingClient) var streamingClient
 
-  //  fileprivate var arView: ARView?
+    //  fileprivate var arView: ARView?
 
-  init(
-    connectionState: MultipeerClient.SessionState = .notConnected,
-    hostName: String = "..."
-      //, arView: ARView? = nil
-  ) {
-    self.connectionState = connectionState
-    self.hostName = hostName
-    //    self.arView = arView
-  }
-
-  func startMultipeerSession() async {
-    //MARK: 1. Setup
-    for await action in await multipeerClient.start(
-      serviceName: "reality-check",
-      sessionType: .peer,
-      discoveryInfo: AppInfo.discoveryInfo
+    init(
+      connectionState: MultipeerClient.SessionState = .notConnected,
+      hostName: String = "..."
+        //, arView: ARView? = nil
     ) {
-      switch action {
-        case .session(let sessionAction):
-          switch sessionAction {
-            case .stateDidChange(let state):
-              await MainActor.run {
-                connectionState = state
-              }
-              if case .connected = state {
-                //MARK: 2. Send Hierarchy
-                await sendHierarchy()
-              }
+      self.connectionState = connectionState
+      self.hostName = hostName
+      //    self.arView = arView
+    }
 
-            case .didReceiveData(let data):
-              //ARView Debug Options
-              if let debugOptions = try? JSONDecoder()
-                .decode(
-                  _DebugOptions.self,
-                  from: data
-                )
-              {
-                //                await MainActor.run {
-                //                  arView?.debugOptions = ARView.DebugOptions(
-                //                    rawValue: debugOptions.rawValue
-                //                  )
-                //                }
-              }
-          }
+    func startMultipeerSession() async {
+      //MARK: 1. Setup
+      for await action in await multipeerClient.start(
+        serviceName: "reality-check",
+        sessionType: .peer,
+        discoveryInfo: AppInfo.discoveryInfo
+      ) {
+        switch action {
+          case .session(let sessionAction):
+            switch sessionAction {
+              case .stateDidChange(let state):
+                await MainActor.run {
+                  connectionState = state
+                }
+                if case .connected = state {
+                  //MARK: 2. Send Hierarchy
+                  await sendHierarchy()
+                }
 
-        case .browser(_):
-          return
+              case .didReceiveData(let data):
+                //ARView Debug Options
+                if let debugOptions = try? JSONDecoder()
+                  .decode(
+                    _DebugOptions.self,
+                    from: data
+                  )
+                {
+                  //                await MainActor.run {
+                  //                  arView?.debugOptions = ARView.DebugOptions(
+                  //                    rawValue: debugOptions.rawValue
+                  //                  )
+                  //                }
+                }
+            }
 
-        case .advertiser(let advertiserAction):
-          switch advertiserAction {
-            case .didReceiveInvitationFromPeer(let peer):
-              multipeerClient.acceptInvitation()
-              multipeerClient.stopAdvertisingPeer()
-              await MainActor.run {
-                hostName = peer.displayName
-              }
-          }
+          case .browser(_):
+            return
+
+          case .advertiser(let advertiserAction):
+            switch advertiserAction {
+              case .didReceiveInvitationFromPeer(let peer):
+                multipeerClient.acceptInvitation()
+                multipeerClient.stopAdvertisingPeer()
+                await MainActor.run {
+                  hostName = peer.displayName
+                }
+            }
+        }
       }
     }
-  }
 
-  func sendHierarchy() async {
-    //    guard let arView else {
-    //      //FIXME: make a runtime error instead
-    //      fatalError("ARView is required in order to be able to send its hierarchy")
-    //    }
+    func sendHierarchy() async {
+      //    guard let arView else {
+      //      //FIXME: make a runtime error instead
+      //      fatalError("ARView is required in order to be able to send its hierarchy")
+      //    }
 
-    let encoder = JSONEncoder()
-    encoder.nonConformingFloatEncodingStrategy = .convertToString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    encoder.outputFormatting = .prettyPrinted
+      let encoder = JSONEncoder()
+      encoder.nonConformingFloatEncodingStrategy = .convertToString(
+        positiveInfinity: "INF",
+        negativeInfinity: "-INF",
+        nan: "NAN"
+      )
+      encoder.outputFormatting = .prettyPrinted
 
-    //    let anchors = await arView.scene.anchors.compactMap { $0 }
-    //    var identifiableAnchors: [IdentifiableEntity] = []
-    //    for anchor in anchors {
-    //      identifiableAnchors.append(
-    //        await realityDump.identify(anchor)
-    //      )
-    //    }
+      //    let anchors = await arView.scene.anchors.compactMap { $0 }
+      //    var identifiableAnchors: [IdentifiableEntity] = []
+      //    for anchor in anchors {
+      //      identifiableAnchors.append(
+      //        await realityDump.identify(anchor)
+      //      )
+      //    }
 
-    //    #if os(iOS)
-    //      let arViewData = try! await encoder.encode(
-    //        CodableARView(
-    //          arView,
-    //          anchors: identifiableAnchors,
-    //          contentScaleFactor: arView.contentScaleFactor
-    //        )
-    //      )
-    //      multipeerClient.send(arViewData)
-    //      print(String(data: arViewData, encoding: .utf8)!)
-    //    #else
-    //      fatalError("`arView.contentScaleFactor` cant be found on macOS")
-    //    #endif
-  }
-
-  func startStreaming() async {
-    await MainActor.run {
-      isStreaming = true
+      //    #if os(iOS)
+      //      let arViewData = try! await encoder.encode(
+      //        CodableARView(
+      //          arView,
+      //          anchors: identifiableAnchors,
+      //          contentScaleFactor: arView.contentScaleFactor
+      //        )
+      //      )
+      //      multipeerClient.send(arViewData)
+      //      print(String(data: arViewData, encoding: .utf8)!)
+      //    #else
+      //      fatalError("`arView.contentScaleFactor` cant be found on macOS")
+      //    #endif
     }
 
-    for await frameData in await streamingClient.startScreenCapture() {
-      multipeerClient.send(frameData)
+    func startStreaming() async {
+      await MainActor.run {
+        isStreaming = true
+      }
+
+      for await frameData in await streamingClient.startScreenCapture() {
+        multipeerClient.send(frameData)
+      }
+    }
+
+    func stopStreaming() async {
+      await MainActor.run {
+        isStreaming = false
+      }
+
+      streamingClient.stopScreenCapture()
     }
   }
 
-  func stopStreaming() async {
-    await MainActor.run {
-      isStreaming = false
-    }
-
-    streamingClient.stopScreenCapture()
-  }
-}
-
-/**
+  /**
 Represents a SwiftUI view for controlling the RealityCheck connection and exchange of  the running AR experience data.
 
 Use the `RealityCheckConnectView` struct to display the state of the connection and provide a user interface for establishing a connection with **RealityCheck** macOS app. Once integrated, the GUI will allow to connect and exchange AR scene hierarchy data. It utilizes SwiftUI for rendering the user interface. and can be accessed as a `LibraryItem` from the `Library` panel.
@@ -156,212 +157,212 @@ var body: some View {
 }
 ```
  */
-public struct RealityCheckConnectView: View {
-  @ObservedObject private var viewModel: ViewModel
+  public struct RealityCheckConnectView: View {
+    @ObservedObject private var viewModel: ViewModel
 
-  public init() {
-    self.viewModel = .init()
-  }
-
-  //  public init(
-  //    _ arView: ARView
-  //  ) {
-  //    self.viewModel = .init(arView: arView)
-  //  }
-
-  fileprivate init(
-    viewModel: ViewModel
-  ) {
-    self.viewModel = viewModel
-  }
-
-  var connectionStateFill: Color {
-    switch viewModel.connectionState {
-      case .notConnected:
-        return .red
-      case .connecting:
-        return .orange
-      case .connected:
-        return .green
+    public init() {
+      self.viewModel = .init()
     }
-  }
 
-  var connectionStateMessage: String {
-    switch viewModel.connectionState {
-      case .notConnected:
-        return "not connected"
-      case .connecting:
-        return "connecting"
-      case .connected:
-        return viewModel.isStreaming
-          ? "                "
-          : "connected to: \(viewModel.hostName)"
+    //  public init(
+    //    _ arView: ARView
+    //  ) {
+    //    self.viewModel = .init(arView: arView)
+    //  }
+
+    fileprivate init(
+      viewModel: ViewModel
+    ) {
+      self.viewModel = viewModel
     }
-  }
 
-  var isConnected: Bool {
-    switch viewModel.connectionState {
-      case .notConnected, .connecting:
-        return false
-      case .connected:
-        return true
+    var connectionStateFill: Color {
+      switch viewModel.connectionState {
+        case .notConnected:
+          return .red
+        case .connecting:
+          return .orange
+        case .connected:
+          return .green
+      }
     }
-  }
 
-  @State var location: CGPoint = CGPoint(x: 88, y: 33)
-  @GestureState var startLocation: CGPoint? = nil
+    var connectionStateMessage: String {
+      switch viewModel.connectionState {
+        case .notConnected:
+          return "not connected"
+        case .connecting:
+          return "connecting"
+        case .connected:
+          return viewModel.isStreaming
+            ? "                "
+            : "connected to: \(viewModel.hostName)"
+      }
+    }
 
-  public var body: some View {
-    RoundedRectangle(cornerRadius: 32, style: .continuous)
-      .stroke(lineWidth: viewModel.isStreaming ? 0.5 : 3)
-      .fill(Material.ultraThin)
-      .animation(.default, value: viewModel.isStreaming)
-      .padding()
-      .overlay {
-        VStack {
-          Text(connectionStateMessage)
-            .font(.system(.caption, design: .rounded))
-            .padding(8)
-            .background(
-              Capsule(style: .continuous)
-                .fill(connectionStateFill)
-            )
-            .scaleEffect(viewModel.isStreaming ? 0.5 : 1)
-            .animation(.default, value: viewModel.isStreaming)
+    var isConnected: Bool {
+      switch viewModel.connectionState {
+        case .notConnected, .connecting:
+          return false
+        case .connected:
+          return true
+      }
+    }
 
-          Spacer()
+    @State var location: CGPoint = CGPoint(x: 88, y: 33)
+    @GestureState var startLocation: CGPoint? = nil
 
-          GeometryReader { geometry in
-            HStack(spacing: 24) {
-              Button(
-                action: {
-                  Task {
-                    if viewModel.isStreaming {
-                      await viewModel.stopStreaming()
-                    } else {
-                      await viewModel.startStreaming()
+    public var body: some View {
+      RoundedRectangle(cornerRadius: 32, style: .continuous)
+        .stroke(lineWidth: viewModel.isStreaming ? 0.5 : 3)
+        .fill(Material.ultraThin)
+        .animation(.default, value: viewModel.isStreaming)
+        .padding()
+        .overlay {
+          VStack {
+            Text(connectionStateMessage)
+              .font(.system(.caption, design: .rounded))
+              .padding(8)
+              .background(
+                Capsule(style: .continuous)
+                  .fill(connectionStateFill)
+              )
+              .scaleEffect(viewModel.isStreaming ? 0.5 : 1)
+              .animation(.default, value: viewModel.isStreaming)
+
+            Spacer()
+
+            GeometryReader { geometry in
+              HStack(spacing: 24) {
+                Button(
+                  action: {
+                    Task {
+                      if viewModel.isStreaming {
+                        await viewModel.stopStreaming()
+                      } else {
+                        await viewModel.startStreaming()
+                      }
+                    }
+                  },
+                  label: {
+                    ZStack {
+                      Circle().stroke(lineWidth: 3).fill(.primary)
+
+                      RoundedRectangle(
+                        cornerRadius: viewModel.isStreaming ? 4 : 20,
+                        style: .continuous
+                      )
+                      .fill(.purple)
+                      .padding(viewModel.isStreaming ? 12 : 3)
+                      .animation(.easeInOut(duration: 0.15), value: viewModel.isStreaming)
                     }
                   }
-                },
-                label: {
-                  ZStack {
-                    Circle().stroke(lineWidth: 3).fill(.primary)
+                )
+                .frame(width: 44, height: 44)
+                .buttonStyle(.plain)
 
-                    RoundedRectangle(
-                      cornerRadius: viewModel.isStreaming ? 4 : 20,
-                      style: .continuous
-                    )
-                    .fill(.purple)
-                    .padding(viewModel.isStreaming ? 12 : 3)
-                    .animation(.easeInOut(duration: 0.15), value: viewModel.isStreaming)
+                Button(
+                  action: {
+                    Task {
+                      await viewModel.sendHierarchy()
+                    }
+                  },
+                  label: {
+                    Image(systemName: "arrow.up.circle")
+                      .resizable()
+                      .aspectRatio(contentMode: .fit)
                   }
-                }
+                )
+                .frame(width: 33, height: 33)
+                .buttonStyle(.plain)
+              }
+              .padding(.vertical, 8)
+              .padding(.horizontal)
+              .background(
+                Material.ultraThin,
+                in: RoundedRectangle(cornerRadius: 16, style: .continuous)
               )
-              .frame(width: 44, height: 44)
-              .buttonStyle(.plain)
-
-              Button(
-                action: {
-                  Task {
-                    await viewModel.sendHierarchy()
+              .disabled(isConnected ? false : true)
+              .position(location)
+              .gesture(
+                DragGesture()
+                  .onChanged { value in
+                    var newLocation = startLocation ?? location
+                    newLocation.x += value.translation.width
+                    newLocation.y += value.translation.height
+                    location = newLocation
                   }
-                },
-                label: {
-                  Image(systemName: "arrow.up.circle")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                }
+                  .updating($startLocation) { value, startLocation, transaction in
+                    startLocation = startLocation ?? location
+                  }
+                  .onEnded { value in
+                    withAnimation(
+                      .interpolatingSpring(stiffness: 150, damping: 20, initialVelocity: 5)
+                    ) {
+                      location = snapToLocation(
+                        containerSize: geometry.size,
+                        predictedEndLocation: value.predictedEndLocation
+                      )
+                    }
+                  }
               )
-              .frame(width: 33, height: 33)
-              .buttonStyle(.plain)
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal)
-            .background(
-              Material.ultraThin,
-              in: RoundedRectangle(cornerRadius: 16, style: .continuous)
-            )
-            .disabled(isConnected ? false : true)
-            .position(location)
-            .gesture(
-              DragGesture()
-                .onChanged { value in
-                  var newLocation = startLocation ?? location
-                  newLocation.x += value.translation.width
-                  newLocation.y += value.translation.height
-                  location = newLocation
-                }
-                .updating($startLocation) { value, startLocation, transaction in
-                  startLocation = startLocation ?? location
-                }
-                .onEnded { value in
-                  withAnimation(
-                    .interpolatingSpring(stiffness: 150, damping: 20, initialVelocity: 5)
-                  ) {
-                    location = snapToLocation(
-                      containerSize: geometry.size,
-                      predictedEndLocation: value.predictedEndLocation
-                    )
-                  }
-                }
-            )
           }
         }
+        .animation(.default, value: viewModel.connectionState)
+        .task {
+          await viewModel.startMultipeerSession()
+        }
+    }
+
+    private func snapToLocation(
+      containerSize: CGSize,
+      predictedEndLocation: CGPoint
+    ) -> CGPoint {
+      let midWidth = containerSize.width / 2
+      let midHeight = containerSize.height / 2
+      var endLocation: CGPoint = .zero
+
+      //Top Leading
+      if predictedEndLocation.x < midWidth
+        && predictedEndLocation.y < midHeight
+      {
+        endLocation = CGPoint(
+          x: 88,
+          y: 33
+        )
       }
-      .animation(.default, value: viewModel.connectionState)
-      .task {
-        await viewModel.startMultipeerSession()
+      //Top Trailing
+      else if predictedEndLocation.x > midWidth
+        && predictedEndLocation.y < midHeight
+      {
+        endLocation = CGPoint(
+          x: containerSize.width - 88,
+          y: 33
+        )
       }
+      //Bottom Leading
+      else if predictedEndLocation.x < midWidth
+        && predictedEndLocation.y > midHeight
+      {
+        endLocation = CGPoint(
+          x: 88,
+          y: containerSize.height - 66
+        )
+      }
+      //Bottom Trailing
+      else if predictedEndLocation.x > midWidth
+        && predictedEndLocation.y > midHeight
+      {
+        endLocation = CGPoint(
+          x: containerSize.width - 88,
+          y: containerSize.height - 66
+        )
+      }
+
+      return endLocation
+    }
   }
-
-  private func snapToLocation(
-    containerSize: CGSize,
-    predictedEndLocation: CGPoint
-  ) -> CGPoint {
-    let midWidth = containerSize.width / 2
-    let midHeight = containerSize.height / 2
-    var endLocation: CGPoint = .zero
-
-    //Top Leading
-    if predictedEndLocation.x < midWidth
-      && predictedEndLocation.y < midHeight
-    {
-      endLocation = CGPoint(
-        x: 88,
-        y: 33
-      )
-    }
-    //Top Trailing
-    else if predictedEndLocation.x > midWidth
-      && predictedEndLocation.y < midHeight
-    {
-      endLocation = CGPoint(
-        x: containerSize.width - 88,
-        y: 33
-      )
-    }
-    //Bottom Leading
-    else if predictedEndLocation.x < midWidth
-      && predictedEndLocation.y > midHeight
-    {
-      endLocation = CGPoint(
-        x: 88,
-        y: containerSize.height - 66
-      )
-    }
-    //Bottom Trailing
-    else if predictedEndLocation.x > midWidth
-      && predictedEndLocation.y > midHeight
-    {
-      endLocation = CGPoint(
-        x: containerSize.width - 88,
-        y: containerSize.height - 66
-      )
-    }
-
-    return endLocation
-  }
-}
 
 // extension RealityCheckConnectView {
 //   public func arView(_ arView: ARView) -> Self {
@@ -421,3 +422,4 @@ public struct RealityCheckConnectView: View {
 //    .preferredColorScheme(.light)
 //  }
 //}
+#endif
