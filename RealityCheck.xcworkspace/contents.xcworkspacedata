@@ -12,10 +12,6 @@
       name = "Examples">
       <Group
          location = "container:"
-         name = "visionOS">
-      </Group>
-      <Group
-         location = "container:"
          name = "iOS">
          <FileRef
             location = "group:Examples/IntricateSetup/IntricateSetup.xcodeproj">
@@ -28,6 +24,13 @@
          </FileRef>
          <FileRef
             location = "group:Examples/Testbed/Testbed.xcodeproj">
+         </FileRef>
+      </Group>
+      <Group
+         location = "container:"
+         name = "visionOS">
+         <FileRef
+            location = "group:Examples/visionOS/VolumeConnect/VolumeConnect.xcodeproj">
          </FileRef>
       </Group>
    </Group>
