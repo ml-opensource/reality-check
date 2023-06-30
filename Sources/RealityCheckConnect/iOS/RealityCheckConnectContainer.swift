@@ -1,7 +1,7 @@
 import RealityKit
 import SwiftUI
 
-#if os(iOS)
+#if os(iOS) && !os(xrOS)
 
   /// As it's not possible to deallocate `ARView` properly, we make sure to use the existing instance.
   /// More info:

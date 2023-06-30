@@ -89,9 +89,11 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
     hierarhy: IdentifiableEntity.Hierarhy,
     components: IdentifiableEntity.Components
   ) {
-    if let anchor = entity as? AnchorEntity {
-      self.anchorIdentifier = anchor.anchorIdentifier
-    }
+    #if !os(xrOS)
+      if let anchor = entity as? AnchorEntity {
+        self.anchorIdentifier = anchor.anchorIdentifier
+      }
+    #endif
     self.id = entity.id
     self.isAccessibilityElement = entity.isAccessibilityElement
     self.accessibilityLabel = entity.accessibilityLabel
@@ -112,18 +114,34 @@ extension IdentifiableEntity.EntityType: RawRepresentable {
         return AnchorEntity.self
       // case .bodyTrackedEntity:
       //     return AnchorEntity.self
+
       case .directionalLight:
-        return DirectionalLight.self
+        #if !os(xrOS)
+          return DirectionalLight.self
+        #endif
+        fatalError()
+
       case .entity:
         return Entity.self
+
       case .model:
         return ModelEntity.self
+
       case .perspectiveCamera:
         return PerspectiveCamera.self
+
       case .pointLight:
-        return PointLight.self
+        #if !os(xrOS)
+          return PointLight.self
+        #endif
+        fatalError()
+
       case .spotLight:
-        return SpotLight.self
+        #if !os(xrOS)
+          return SpotLight.self
+        #endif
+        fatalError()
+
       case .triggerVolume:
         return TriggerVolume.self
     }

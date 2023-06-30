@@ -76,22 +76,28 @@ public struct IdentifiableComponent: Codable {
         )
 
       case .directionalLight:
-        let component = component as! DirectionalLightComponent
-        self.properties = .directionalLight(
-          DirectionalLightComponentProperties(
-            intensity: component.intensity,
-            isRealWorldProxy: component.isRealWorldProxy
+        #if !os(xrOS)
+          let component = component as! DirectionalLightComponent
+          self.properties = .directionalLight(
+            DirectionalLightComponentProperties(
+              intensity: component.intensity,
+              isRealWorldProxy: component.isRealWorldProxy
+            )
           )
-        )
+        #endif
+        fatalError()  //FIXME: xrOS compatibility
 
       case .directionalLightShadow:
-        let component = component as! DirectionalLightComponent.Shadow
-        self.properties = .directionalLightShadow(
-          DirectionalLightShadowComponentProperties(
-            depthBias: component.depthBias,
-            maximumDistance: component.maximumDistance
+        #if !os(xrOS)
+          let component = component as! DirectionalLightComponent.Shadow
+          self.properties = .directionalLightShadow(
+            DirectionalLightShadowComponentProperties(
+              depthBias: component.depthBias,
+              maximumDistance: component.maximumDistance
+            )
           )
-        )
+        #endif
+        fatalError()  //FIXME: xrOS compatibility
 
       case .model:
         let component = component as! ModelComponent
@@ -147,24 +153,30 @@ public struct IdentifiableComponent: Codable {
         )
 
       case .pointLight:
-        let component = component as! PointLightComponent
-        self.properties = .pointLight(
-          PointLightComponentProperties(
-            intensity: component.intensity,
-            attenuationRadius: component.attenuationRadius
+        #if !os(xrOS)
+          let component = component as! PointLightComponent
+          self.properties = .pointLight(
+            PointLightComponentProperties(
+              intensity: component.intensity,
+              attenuationRadius: component.attenuationRadius
+            )
           )
-        )
+        #endif
+        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLight:
-        let component = component as! SpotLightComponent
-        self.properties = .spotLight(
-          SpotLightComponentProperties(
-            intensity: component.intensity,
-            innerAngleInDegrees: component.innerAngleInDegrees,
-            outerAngleInDegrees: component.outerAngleInDegrees,
-            attenuationRadius: component.attenuationRadius
+        #if !os(xrOS)
+          let component = component as! SpotLightComponent
+          self.properties = .spotLight(
+            SpotLightComponentProperties(
+              intensity: component.intensity,
+              innerAngleInDegrees: component.innerAngleInDegrees,
+              outerAngleInDegrees: component.outerAngleInDegrees,
+              attenuationRadius: component.attenuationRadius
+            )
           )
-        )
+        #endif
+        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLightShadow:
         // As of RealityKit 2.0, it was empty.
@@ -227,7 +239,7 @@ extension IdentifiableComponent: CustomDumpRepresentable {
     switch self.properties {
       case .anchoring(let value):
         return value
-        
+
       case .characterController(let value):
         return value
 

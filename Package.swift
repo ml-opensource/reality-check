@@ -19,12 +19,12 @@ let package = Package(
         "RealityDumpClient",
         "StreamingClient",
       ]
-    ),
+    )
   ],
   dependencies: [
     .package(
       url: "https://github.com/pointfreeco/swift-custom-dump",
-      from: "0.10.3"
+      from: "0.11.0"
     ),
     .package(
       url: "https://github.com/pointfreeco/swift-dependencies",

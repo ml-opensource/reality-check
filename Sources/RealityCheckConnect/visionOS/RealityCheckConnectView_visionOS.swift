@@ -15,16 +15,16 @@ final class ViewModel: ObservableObject {
   @Dependency(\.realityDump) var realityDump
   @Dependency(\.streamingClient) var streamingClient
 
-  fileprivate var arView: ARView?
+  //  fileprivate var arView: ARView?
 
   init(
     connectionState: MultipeerClient.SessionState = .notConnected,
-    hostName: String = "...",
-    arView: ARView? = nil
+    hostName: String = "..."
+      //, arView: ARView? = nil
   ) {
     self.connectionState = connectionState
     self.hostName = hostName
-    self.arView = arView
+    //    self.arView = arView
   }
 
   func startMultipeerSession() async {
@@ -54,11 +54,11 @@ final class ViewModel: ObservableObject {
                   from: data
                 )
               {
-                await MainActor.run {
-                  arView?.debugOptions = ARView.DebugOptions(
-                    rawValue: debugOptions.rawValue
-                  )
-                }
+                //                await MainActor.run {
+                //                  arView?.debugOptions = ARView.DebugOptions(
+                //                    rawValue: debugOptions.rawValue
+                //                  )
+                //                }
               }
           }
 
@@ -79,10 +79,10 @@ final class ViewModel: ObservableObject {
   }
 
   func sendHierarchy() async {
-    guard let arView else {
-      //FIXME: make a runtime error instead
-      fatalError("ARView is required in order to be able to send its hierarchy")
-    }
+    //    guard let arView else {
+    //      //FIXME: make a runtime error instead
+    //      fatalError("ARView is required in order to be able to send its hierarchy")
+    //    }
 
     let encoder = JSONEncoder()
     encoder.nonConformingFloatEncodingStrategy = .convertToString(
@@ -92,27 +92,27 @@ final class ViewModel: ObservableObject {
     )
     encoder.outputFormatting = .prettyPrinted
 
-    let anchors = await arView.scene.anchors.compactMap { $0 }
-    var identifiableAnchors: [IdentifiableEntity] = []
-    for anchor in anchors {
-      identifiableAnchors.append(
-        await realityDump.identify(anchor)
-      )
-    }
-      
-    #if os(iOS)
-      let arViewData = try! await encoder.encode(
-        CodableARView(
-          arView,
-          anchors: identifiableAnchors,
-          contentScaleFactor: arView.contentScaleFactor
-        )
-      )
-      multipeerClient.send(arViewData)
-      print(String(data: arViewData, encoding: .utf8)!)
-    #else
-      fatalError("`arView.contentScaleFactor` cant be found on macOS")
-    #endif
+    //    let anchors = await arView.scene.anchors.compactMap { $0 }
+    //    var identifiableAnchors: [IdentifiableEntity] = []
+    //    for anchor in anchors {
+    //      identifiableAnchors.append(
+    //        await realityDump.identify(anchor)
+    //      )
+    //    }
+
+    //    #if os(iOS)
+    //      let arViewData = try! await encoder.encode(
+    //        CodableARView(
+    //          arView,
+    //          anchors: identifiableAnchors,
+    //          contentScaleFactor: arView.contentScaleFactor
+    //        )
+    //      )
+    //      multipeerClient.send(arViewData)
+    //      print(String(data: arViewData, encoding: .utf8)!)
+    //    #else
+    //      fatalError("`arView.contentScaleFactor` cant be found on macOS")
+    //    #endif
   }
 
   func startStreaming() async {
@@ -163,11 +163,11 @@ public struct RealityCheckConnectView: View {
     self.viewModel = .init()
   }
 
-  public init(
-    _ arView: ARView
-  ) {
-    self.viewModel = .init(arView: arView)
-  }
+  //  public init(
+  //    _ arView: ARView
+  //  ) {
+  //    self.viewModel = .init(arView: arView)
+  //  }
 
   fileprivate init(
     viewModel: ViewModel
@@ -363,63 +363,61 @@ public struct RealityCheckConnectView: View {
   }
 }
 
-extension RealityCheckConnectView {
-  public func arView(_ arView: ARView) -> Self {
-    self.viewModel.arView = arView
-    return self
-  }
-}
+// extension RealityCheckConnectView {
+//   public func arView(_ arView: ARView) -> Self {
+//     self.viewModel.arView = arView
+//     return self
+//   }
+// }
 
-#if DEBUG
-  struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-      Group {
-        RealityCheckConnectView(
-          viewModel: withDependencies {
-            $0.multipeerClient.start = { (_, _, _, _, _) in
-              AsyncStream.finished
-            }
-          } operation: {
-            ViewModel(
-              hostName: "MOCKY",
-              arView: .init(frame: .null)
-            )
-          }
-        )
-        .previewDisplayName(".notConnected")
-
-        RealityCheckConnectView(
-          viewModel: withDependencies {
-            $0.multipeerClient.start = { (_, _, _, _, _) in
-              AsyncStream {
-                $0.yield(.session(.stateDidChange(.connecting(Peer(displayName: "MOCKYPEER")))))
-              }
-            }
-          } operation: {
-            ViewModel(
-              hostName: "MOCKY",
-              arView: .init(frame: .null)
-            )
-          }
-        )
-        .previewDisplayName(".connecting")
-
-        RealityCheckConnectView(
-          viewModel: .init(
-            hostName: "MOCKY",
-            arView: .init(frame: .null)
-          )
-        )
-        .previewDisplayName(".connected")
-      }
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background {
-        Image("background_preview", bundle: .module)
-          .resizable()
-          .aspectRatio(contentMode: .fill)
-          .ignoresSafeArea()
-      }
-      .preferredColorScheme(.light)
-    }
-  }
-#endif
+//struct ContentView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    Group {
+//      RealityCheckConnectView(
+//        viewModel: withDependencies {
+//          $0.multipeerClient.start = { (_, _, _, _, _) in
+//            AsyncStream.finished
+//          }
+//        } operation: {
+//          ViewModel(
+//            hostName: "MOCKY",
+//            arView: .init(frame: .null)
+//          )
+//        }
+//      )
+//      .previewDisplayName(".notConnected")
+//
+//      RealityCheckConnectView(
+//        viewModel: withDependencies {
+//          $0.multipeerClient.start = { (_, _, _, _, _) in
+//            AsyncStream {
+//              $0.yield(.session(.stateDidChange(.connecting(Peer(displayName: "MOCKYPEER")))))
+//            }
+//          }
+//        } operation: {
+//          ViewModel(
+//            hostName: "MOCKY",
+//            arView: .init(frame: .null)
+//          )
+//        }
+//      )
+//      .previewDisplayName(".connecting")
+//
+//      RealityCheckConnectView(
+//        viewModel: .init(
+//          hostName: "MOCKY",
+//          arView: .init(frame: .null)
+//        )
+//      )
+//      .previewDisplayName(".connected")
+//    }
+//    .frame(maxWidth: .infinity, maxHeight: .infinity)
+//    .background {
+//      Image("background_preview", bundle: .module)
+//        .resizable()
+//        .aspectRatio(contentMode: .fill)
+//        .ignoresSafeArea()
+//    }
+//    .preferredColorScheme(.light)
+//  }
+//}

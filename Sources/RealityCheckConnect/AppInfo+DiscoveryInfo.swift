@@ -1,7 +1,7 @@
 import Foundation
 import MultipeerClient
 
-#if os(iOS)
+#if os(iOS) && !os(xrOS)
   import DeviceKit
 #endif
 
@@ -39,7 +39,7 @@ struct AppInfo {
   }
 }
 
-#if os(iOS)
+#if os(iOS) && !os(xrOS)
   extension AppInfo {
     static var discoveryInfo: DiscoveryInfo {
       var appVersion: String?
@@ -64,10 +64,16 @@ struct AppInfo {
       )
     }
   }
+#elseif os(xrOS)
+  extension AppInfo {
+    static var discoveryInfo: DiscoveryInfo {
+      DiscoveryInfo.init(appName: "SpatialConnect", appVersion: "1.0", device: " Vision Pro", system: "visionOS")
+    }
+  }
 #else
   extension AppInfo {
     static var discoveryInfo: DiscoveryInfo {
-      fatalError("DiscoveryInfo is currently only supported on iOS devices")
+      fatalError("DiscoveryInfo is not supported in this platform")
     }
   }
 #endif

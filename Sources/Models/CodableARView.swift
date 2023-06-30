@@ -18,31 +18,32 @@ public struct CodableScene: Codable, Equatable {
   // }
 }
 
-extension RealityKit.ARView.DebugOptions: Codable {}
+#if !os(xrOS)
+  extension RealityKit.ARView.DebugOptions: Codable {}
 
-public struct CodableARView: Codable, Equatable {
-  //MARK: Working with the Scene
-  public let scene: CodableScene
+  public struct CodableARView: Codable, Equatable {
+    //MARK: Working with the Scene
+    public let scene: CodableScene
 
-  //MARK: Debugging the Session
-  ///The current debugging options.
-  public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
+    //MARK: Debugging the Session
+    ///The current debugging options.
+    public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
 
-  /// #Managing the View
+    /// #Managing the View
 
-  // The scale factor of the content in the view.
-  public let contentScaleFactor: CGFloat
+    // The scale factor of the content in the view.
+    public let contentScaleFactor: CGFloat
 
-  public init(
-    _ arView: RealityKit.ARView,
-    anchors: [IdentifiableEntity],
-    contentScaleFactor: CGFloat
-  ) {
-    self.scene = CodableScene(anchors: anchors)
-    self.debugOptionsRawValue = arView.debugOptions.rawValue
-    self.contentScaleFactor = contentScaleFactor
+    public init(
+      _ arView: RealityKit.ARView,
+      anchors: [IdentifiableEntity],
+      contentScaleFactor: CGFloat
+    ) {
+      self.scene = CodableScene(anchors: anchors)
+      self.debugOptionsRawValue = arView.debugOptions.rawValue
+      self.contentScaleFactor = contentScaleFactor
+    }
   }
-}
 
 /*
   /// #Working with the Scene
@@ -88,3 +89,4 @@ public struct CodableARView: Codable, Equatable {
   var debugOptions: ARView.DebugOptions
   The current debugging options.
    */
+#endif
