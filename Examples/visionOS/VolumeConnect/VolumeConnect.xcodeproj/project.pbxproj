@@ -14,6 +14,7 @@
 		4035AF6E2A4EC170004ED9C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4035AF6D2A4EC170004ED9C7 /* Preview Assets.xcassets */; };
 		4035AF762A4EC22E004ED9C7 /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 4035AF752A4EC22E004ED9C7 /* reality-check */; };
 		4035AF792A4EC257004ED9C7 /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 4035AF782A4EC257004ED9C7 /* RealityCheckConnect */; };
+		403EF1DD2A6940B000726919 /* toy_robot_vintage.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 403EF1DC2A6940B000726919 /* toy_robot_vintage.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		4035AF6D2A4EC170004ED9C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4035AF6F2A4EC170004ED9C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4035AF752A4EC22E004ED9C7 /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = ../../../..; sourceTree = "<group>"; };
+		403EF1DC2A6940B000726919 /* toy_robot_vintage.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = toy_robot_vintage.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 		4035AF612A4EC16F004ED9C7 /* VolumeConnect */ = {
 			isa = PBXGroup;
 			children = (
+				403EF1DC2A6940B000726919 /* toy_robot_vintage.usdz */,
 				4035AF6F2A4EC170004ED9C7 /* Info.plist */,
 				4035AF682A4EC16F004ED9C7 /* ContentView.swift */,
 				4035AF662A4EC16F004ED9C7 /* VolumeConnectApp.swift */,
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403EF1DD2A6940B000726919 /* toy_robot_vintage.usdz in Resources */,
 				4035AF762A4EC22E004ED9C7 /* reality-check in Resources */,
 				4035AF6E2A4EC170004ED9C7 /* Preview Assets.xcassets in Resources */,
 				4035AF6B2A4EC170004ED9C7 /* Assets.xcassets in Resources */,

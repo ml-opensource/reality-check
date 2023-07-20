@@ -101,7 +101,13 @@ struct PeerConnectView: View {
 
           GroupBox {
             if let device = discoveryInfo?.device {
-              Label(device, systemImage: "iphone")
+             // Label(device, systemImage: "iphone")
+              Label {
+                Text(device)
+              } icon: {
+                Image("visionos-icon")
+              }
+
             }
 
             if let system = discoveryInfo?.system {

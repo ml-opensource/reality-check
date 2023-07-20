@@ -18,14 +18,18 @@ extension IdentifiableComponent.ComponentType: RawRepresentable {
       case .directionalLight:
         #if !os(xrOS)
           return DirectionalLightComponent.self
+        #else
+          //FIXME: xrOS compatibility
+          return AnchoringComponent.self
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .directionalLightShadow:
         #if !os(xrOS)
           return DirectionalLightComponent.Shadow.self
+        #else
+          //FIXME: xrOS compatibility
+          return AnchoringComponent.self
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .model:
         return ModelComponent.self
@@ -45,20 +49,26 @@ extension IdentifiableComponent.ComponentType: RawRepresentable {
       case .pointLight:
         #if !os(xrOS)
           return PointLightComponent.self
+        #else
+          //FIXME: xrOS compatibility
+          return AnchoringComponent.self
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLight:
         #if !os(xrOS)
           return SpotLightComponent.self
+        #else
+          //FIXME: xrOS compatibility
+          return AnchoringComponent.self
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .spotLightShadow:
         #if !os(xrOS)
           return SpotLightComponent.Shadow.self
+        #else
+          //FIXME: xrOS compatibility
+          return AnchoringComponent.self
         #endif
-        fatalError()  //FIXME: xrOS compatibility
 
       case .synchronization:
         return SynchronizationComponent.self

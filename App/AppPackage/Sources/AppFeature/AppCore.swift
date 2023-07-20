@@ -91,6 +91,10 @@ public struct AppCore: Reducer {
           state.arViewSection = .init(arView: decodedARView)
           state.entitiesSection = .init(decodedARView.scene.anchors)
           return .none
+        
+      case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
+        state.entitiesSection = .init(decodedEntities)
+        return .none
 
         case .multipeerConnection(_):
           return .none
