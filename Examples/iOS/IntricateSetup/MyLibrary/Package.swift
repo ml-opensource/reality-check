@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
       //.package(url: "https://github.com/monstar-lab-oss/reality-check", from: "0.0.1"),
-      .package(name: "reality-check", path: "../../.."),
+      .package(name: "reality-check", path: "../../../.."),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

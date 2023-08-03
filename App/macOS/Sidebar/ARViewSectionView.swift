@@ -53,7 +53,7 @@ struct ARViewSectionView: View {
             .padding(.trailing, 4)
             .help("ARView Debug Options")
             .popover(
-              isPresented: viewStore.binding(\.$isDebugOptionsDisplayed),
+              isPresented: viewStore.$isDebugOptionsDisplayed,
               arrowEdge: .trailing
             ) {
               DebugOptionsView(

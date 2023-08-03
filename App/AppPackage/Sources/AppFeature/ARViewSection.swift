@@ -47,9 +47,10 @@ public struct ARViewSection: Reducer {
           return .none
 
         case .debugOptions(.binding(_)):
-          return .task { [state] in
-            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
-          }
+          return .send(.delegate(.didUpdateDebugOptions(state.debugOptions.options)))
+//          return .task { [state] in
+//            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
+//          }
 
         case .debugOptions(_):
           return .none
@@ -59,9 +60,10 @@ public struct ARViewSection: Reducer {
 
         case .toggleSelection:
           state.isSelected.toggle()
-          return .task {
-            .delegate(.didToggleSelectSection)
-          }
+          return .send(.delegate(.didToggleSelectSection))
+//          return .task {
+//            .delegate(.didToggleSelectSection)
+//          }
       }
     }
   }

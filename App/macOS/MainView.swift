@@ -33,7 +33,7 @@ struct MainView: View {
         SidebarView(store: store)
       } content: {
         ZStack {
-          StreamingView(viewportSize: viewStore.binding(\.$viewPortSize))
+          StreamingView(viewportSize: viewStore.$viewPortSize)
             .frame(maxWidth: viewStore.viewPortSize.width, maxHeight: viewStore.viewPortSize.height)
             .aspectRatio(
               viewStore.viewPortSize.width / viewStore.viewPortSize.height,
@@ -50,14 +50,14 @@ struct MainView: View {
             SplitView(axis: .vertical) {
               Color.clear
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                  StatusBarView(proxy: proxy, collapsed: viewStore.binding(\.$isDumpAreaCollapsed))
+                  StatusBarView(proxy: proxy, collapsed: viewStore.$isDumpAreaCollapsed)
                 }
 
               TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "???"))
                 .font(.body)
                 .monospaced()
                 .collapsable()
-                .collapsed(viewStore.binding(\.$isDumpAreaCollapsed))
+                .collapsed(viewStore.$isDumpAreaCollapsed)
                 .frame(minHeight: 200, maxHeight: .infinity)
             }
             .edgesIgnoringSafeArea(.top)
@@ -159,7 +159,7 @@ struct ContentView_Previews: PreviewProvider {
           ),
           entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
         ),
-        reducer: AppCore()
+        reducer: AppCore.init
       )
     )
     .navigationSplitViewStyle(.prominentDetail)

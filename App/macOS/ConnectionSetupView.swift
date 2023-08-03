@@ -142,7 +142,7 @@ struct ConnectionSetupView_Previews: PreviewProvider {
         initialState: AppCore.State(
           multipeerConnection: .init()
         ),
-        reducer: AppCore()
+        reducer: AppCore.init
       )
       .scope(
         state: \.multipeerConnection,
@@ -164,7 +164,7 @@ struct ConnectionSetupView_Previews: PreviewProvider {
             ]
           )
         ),
-        reducer: AppCore()
+        reducer: AppCore.init
       )
       .scope(
         state: \.multipeerConnection,
@@ -210,7 +210,7 @@ struct ConnectionSetupView_Previews: PreviewProvider {
             ]
           )
         ),
-        reducer: AppCore()
+        reducer: AppCore.init
       )
       .scope(
         state: \.multipeerConnection,
