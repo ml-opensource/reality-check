@@ -22,7 +22,7 @@ import SwiftUI
         }
     }
 
-    final class ViewModel: ObservableObject {
+    final public class _ViewModel: ObservableObject {
         @Published var connectionState: MultipeerClient.SessionState
         @Published var hostName: String
         @Published var isStreaming = false
@@ -33,7 +33,7 @@ import SwiftUI
 
         var content: RealityViewContent!
 
-        init(
+        public init(
             connectionState: MultipeerClient.SessionState = .notConnected,
             hostName: String = "..."
         ) {
@@ -41,7 +41,13 @@ import SwiftUI
             self.hostName = hostName
         }
 
-        func startMultipeerSession() async {
+        public func startSession() {
+            Task {
+                await startMultipeerSession()
+            }
+        }
+
+        public func startMultipeerSession() async {
             //MARK: 1. Setup
             for await action in await multipeerClient.start(
                 serviceName: "reality-check",
@@ -57,7 +63,7 @@ import SwiftUI
                         }
                         if case .connected = state {
                             //MARK: 2. Send Hierarchy
-                            await sendHierarchy()
+//                            await sendHierarchy()
                         }
 
                     case .didReceiveData(let data):
@@ -129,10 +135,14 @@ import SwiftUI
     }
 
     public struct RealityCheckConnectView: View {
-        @ObservedObject private var viewModel: ViewModel
+        @ObservedObject private var viewModel: _ViewModel
 
         public init() {
             self.viewModel = .init()
+        }
+
+        public init(_ viewModel: _ViewModel) {
+            self.viewModel = viewModel
         }
 
         var connectionStateFill: Color {
@@ -183,9 +193,9 @@ import SwiftUI
                     // await viewModel.sendHierarchy()
                 }
             )
-            .task {
-                await viewModel.startMultipeerSession()
-            }
+            //            .task {
+            //                await viewModel.startMultipeerSession()
+            //            }
         }
     }
 

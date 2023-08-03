@@ -14,21 +14,24 @@
          location = "container:"
          name = "iOS">
          <FileRef
-            location = "group:Examples/IntricateSetup/IntricateSetup.xcodeproj">
+            location = "group:Examples/iOS/IntricateSetup/IntricateSetup.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Examples/UIKitStoryboard/UIKitStoryboard.xcodeproj">
+            location = "group:Examples/iOS/UIKitStoryboard/UIKitStoryboard.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Examples/Connect/Connect.xcodeproj">
+            location = "group:Examples/iOS/Connect/Connect.xcodeproj">
          </FileRef>
          <FileRef
-            location = "group:Examples/Testbed/Testbed.xcodeproj">
+            location = "group:Examples/iOS/Testbed/Testbed.xcodeproj">
          </FileRef>
       </Group>
       <Group
          location = "container:"
          name = "visionOS">
+         <FileRef
+            location = "group:Examples/visionOS/HelloWorld/World.xcodeproj">
+         </FileRef>
          <FileRef
             location = "group:Examples/visionOS/VolumeConnect/VolumeConnect.xcodeproj">
          </FileRef>
