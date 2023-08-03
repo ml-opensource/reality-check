@@ -6,7 +6,7 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
-#if os(iOS) && !os(xrOS)
+#if os(iOS) && !os(visionOS)
   final class ViewModel: ObservableObject {
     @Published var connectionState: MultipeerClient.SessionState
     @Published var hostName: String
