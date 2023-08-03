@@ -1,18 +1,9 @@
-import Dependencies
-import Models
-import MultipeerClient
-import RealityDumpClient
 import RealityKit
-import StreamingClient
 import SwiftUI
 
 #if os(visionOS)
   public struct RealityCheckConnectView: View {
     private var viewModel: RealityCheckConnectViewModel
-
-    public init() {
-      self.viewModel = .init()
-    }
 
     public init(
       _ viewModel: RealityCheckConnectViewModel
@@ -55,22 +46,34 @@ import SwiftUI
 
     public var body: some View {
       RealityView(
+        viewModel,
         make: { content in
           let reference = ModelEntity(mesh: .generateSphere(radius: 0.001))
           reference.name = "RealityCheckConnectViewReference"
           content.add(reference)
-
-          viewModel.content = content
         },
         update: { content in
-          //TODO: update
-          // viewModel.content = content
-          // await viewModel.sendHierarchy()
+
         }
       )
-      // .task {
-      //     await viewModel.startMultipeerSession()
-      // }
     }
+    // public var body: some View {
+    //   RealityView(
+    //     make: { content in
+    //       let reference = ModelEntity(mesh: .generateSphere(radius: 0.001))
+    //       reference.name = "RealityCheckConnectViewReference"
+    //       content.add(reference)
+    //       await viewModel.sendHierarchy(content: content)
+    //     },
+    //     update: { content in
+    //       //TODO: update
+    //       // viewModel.content = content
+    //       // await viewModel.sendHierarchy()
+    //     }
+    //   )
+    //   // .task {
+    //   //     await viewModel.sendHierarchy(content: <#T##RealityViewContent#>)
+    //   // }
+    // }
   }
 #endif

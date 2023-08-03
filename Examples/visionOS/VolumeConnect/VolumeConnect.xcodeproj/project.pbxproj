@@ -18,8 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		402137E02A7C2A88008F920D /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		4035AF5F2A4EC16F004ED9C7 /* VolumeConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VolumeConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4035AF632A4EC16F004ED9C7 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		4035AF662A4EC16F004ED9C7 /* VolumeConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeConnectApp.swift; sourceTree = "<group>"; };
 		4035AF682A4EC16F004ED9C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4035AF6A2A4EC170004ED9C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,8 +76,8 @@
 		4035AF622A4EC16F004ED9C7 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				402137E02A7C2A88008F920D /* RealityKitContent */,
 				4035AF752A4EC22E004ED9C7 /* reality-check */,
-				4035AF632A4EC16F004ED9C7 /* RealityKitContent */,
 			);
 			path = Packages;
 			sourceTree = "<group>";

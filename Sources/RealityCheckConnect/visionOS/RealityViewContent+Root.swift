@@ -2,11 +2,7 @@ import Foundation
 import RealityKit
 import SwiftUI
 
-@available(visionOS 1.0, *)
-@available(iOS, unavailable)
-@available(macOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
+#if os(visionOS)
 extension RealityViewContent {
   var root: Entity? {
     guard let firstEntity = self.entities.first else { return nil }
@@ -21,3 +17,4 @@ extension RealityViewContent {
     }
   }
 }
+#endif

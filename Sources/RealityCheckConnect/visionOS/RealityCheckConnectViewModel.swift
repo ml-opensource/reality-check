@@ -6,18 +6,14 @@ import RealityKit
 import SwiftUI
 import StreamingClient
 
-@available(visionOS 1.0, *)
-@available(iOS, unavailable)
-@available(macOS, unavailable)
-@available(tvOS, unavailable)
-@available(watchOS, unavailable)
+#if os(visionOS)
 @Observable
 final public class RealityCheckConnectViewModel {
     var connectionState: MultipeerClient.SessionState
     var hostName: String
     var isStreaming = false
     
-    var content: RealityViewContent!
+    //    var content: RealityViewContent!
     
     public init(
         connectionState: MultipeerClient.SessionState = .notConnected,
@@ -30,7 +26,7 @@ final public class RealityCheckConnectViewModel {
         }
     }
     
-    func startMultipeerSession() async {
+    private func startMultipeerSession() async {
         @Dependency(\.multipeerClient) var multipeerClient
         
         //MARK: 1. Setup
@@ -85,7 +81,7 @@ final public class RealityCheckConnectViewModel {
         }
     }
     
-    func sendHierarchy() async {
+   public func sendHierarchy(content: RealityViewContent) async {
         @Dependency(\.multipeerClient) var multipeerClient
         @Dependency(\.realityDump) var realityDump
         
@@ -127,3 +123,50 @@ final public class RealityCheckConnectViewModel {
         streamingClient.stopScreenCapture()
     }
 }
+
+//extension RealityView {
+//    func sendHierarchy() async {
+//        @Dependency(\.multipeerClient) var multipeerClient
+//        @Dependency(\.realityDump) var realityDump
+//
+//        let encoder = JSONEncoder()
+//        encoder.nonConformingFloatEncodingStrategy = .convertToString(
+//            positiveInfinity: "INF",
+//            negativeInfinity: "-INF",
+//            nan: "NAN"
+//        )
+//        encoder.outputFormatting = .prettyPrinted
+//
+//        guard let root = Content..root else { return }
+//        let identifiableEntity = await realityDump.identify(root)
+//
+//        let realityViewData = try! encoder.encode(identifiableEntity)
+//        multipeerClient.send(realityViewData)
+//    }
+//}
+
+@available(xrOS 1.0, *)
+@available(macOS, unavailable)
+@available(macCatalyst, unavailable)
+@available(iOS, unavailable)
+extension RealityView {
+    public init(
+        _ realityCheckConnectViewModel: RealityCheckConnectViewModel,
+        make: @escaping @MainActor @Sendable (inout RealityViewContent) async -> Void,
+        update: (@MainActor (inout RealityViewContent) -> Void)? = nil
+    ) where Content == RealityViewContent.Body<RealityViewDefaultPlaceholder> {
+        self.init(
+            make: { @MainActor content in
+                await make(&content)
+                await realityCheckConnectViewModel.sendHierarchy(content: content)                             
+            },
+            update: { content in
+                update?(&content)
+                Task { [content] in
+                    await realityCheckConnectViewModel.sendHierarchy(content: content)
+                }
+            }
+        )
+    }
+}
+#endif

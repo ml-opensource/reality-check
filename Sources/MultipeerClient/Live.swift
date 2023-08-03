@@ -184,10 +184,10 @@ extension MultipeerClient {
     ) {
       do {
         if peers.isEmpty {
-          guard let connectedPeers = session?.connectedPeers else {
-            fatalError(
-              "There are no connected peers and no specified peers to send to."
-            )
+          guard let connectedPeers = session?.connectedPeers else { return
+//            fatalError(
+//              "There are no connected peers and no specified peers to send to."
+//            )
           }
           try session?.send(data, toPeers: connectedPeers, with: mode)
         } else {
@@ -195,7 +195,7 @@ extension MultipeerClient {
         }
       } catch {
         //TODO: handle errors
-        fatalError("Failed to send data.")
+      //  fatalError("Failed to send data.")
       }
     }
   }

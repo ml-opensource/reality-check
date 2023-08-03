@@ -13,7 +13,8 @@ import RealityCheckConnect
 struct ContentView: View {
   
   @State var enlarge = false
-  
+  @State private var realityCheckConnectModel = RealityCheckConnectViewModel()
+
   var body: some View {
     VStack {
       Model3D(named: "toy_robot_vintage")
@@ -34,7 +35,7 @@ struct ContentView: View {
         enlarge.toggle()
       })
       
-      RealityCheckConnectView()
+      RealityCheckConnectView(realityCheckConnectModel)
       
       VStack {
         Toggle("Enlarge RealityView Content", isOn: $enlarge)

@@ -31,7 +31,7 @@ struct MainView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
         SidebarView(store: store)
-      } content: {
+      } detail: {
         ZStack {
           StreamingView(viewportSize: viewStore.$viewPortSize)
             .frame(maxWidth: viewStore.viewPortSize.width, maxHeight: viewStore.viewPortSize.height)
@@ -66,23 +66,6 @@ struct MainView: View {
         }
         .background(Color(nsColor: .lightGray))
 
-      } detail: {
-        switch viewStore.selectedSection {
-          case .none:
-            Spacer().navigationSplitViewColumnWidth(0)
-
-          case .arView:
-            if let arView = viewStore.arViewSection?.arView {
-              ARViewDetailView(arView)
-                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-            }
-
-          case .entities:
-            if let entity = viewStore.entitiesSection?.selectedEntity {
-              EntityDetailView(entity)
-                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-            }
-        }
       }
       .navigationSplitViewStyle(.balanced)
       .toolbar {
@@ -91,6 +74,44 @@ struct MainView: View {
         }
       }
       .navigationSubtitle(sessionStateSubtitle)
+      .inspector(isPresented: .constant(true)) {
+          switch viewStore.selectedSection {
+             case .none:
+               Spacer().navigationSplitViewColumnWidth(0)
+   
+             case .arView:
+               if let arView = viewStore.arViewSection?.arView {
+                 ARViewDetailView(arView)
+                   .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+               }
+   
+             case .entities:
+               if let entity = viewStore.entitiesSection?.selectedEntity {
+                 EntityDetailView(entity)
+                   .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+               }
+           }
+      }
+    
+//    detail: {
+//        switch viewStore.selectedSection {
+//          case .none:
+//            Spacer().navigationSplitViewColumnWidth(0)
+//
+//          case .arView:
+//            if let arView = viewStore.arViewSection?.arView {
+//              ARViewDetailView(arView)
+//                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+//            }
+//
+//          case .entities:
+//            if let entity = viewStore.entitiesSection?.selectedEntity {
+//              EntityDetailView(entity)
+//                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+//            }
+//        }
+//      }
+  
     }
   }
 }

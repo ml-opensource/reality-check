@@ -39,7 +39,7 @@ struct AppInfo {
   }
 }
 
-#if os(iOS) && !os(xrOS)
+#if os(iOS) || os(visionOS)
   extension AppInfo {
     static var discoveryInfo: DiscoveryInfo {
       var appVersion: String?
@@ -50,24 +50,31 @@ struct AppInfo {
       }
 
       var system: String?
-      if let systemName = Device.current.systemName,
-        let systemVersion = Device.current.systemVersion
-      {
-        system = "\(systemName) \(systemVersion)"
-      }
+
+      #if os(visionOS)
+        //FIXME: find a way to get the system version
+        system = "visionOS 1.0"
+      #elseif os(iOS)
+        if let systemName = Device.current.systemName,
+          let systemVersion = Device.current.systemVersion
+        {
+          system = "\(systemName) \(systemVersion)"
+        }
+      #endif
+
+      #if os(visionOS)
+        //FIXME: find a way to get the device name
+        let device = " Vision Pro"
+      #elseif os(iOS)
+        let device = Device.current.safeDescription
+      #endif
 
       return DiscoveryInfo(
         appName: AppInfo.appName,
         appVersion: appVersion,
-        device: Device.current.safeDescription,
+        device: device,
         system: system
       )
-    }
-  }
-#elseif os(xrOS)
-  extension AppInfo {
-    static var discoveryInfo: DiscoveryInfo {
-      DiscoveryInfo.init(appName: "SpatialConnect", appVersion: "1.0", device: " Vision Pro", system: "visionOS")
     }
   }
 #else
