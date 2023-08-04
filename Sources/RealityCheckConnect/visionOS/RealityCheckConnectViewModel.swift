@@ -160,7 +160,7 @@ extension RealityView {
                 await make(&content)
                 await realityCheckConnectViewModel.sendHierarchy(content: content)                             
             },
-            update: { content in
+            update: { @MainActor content in
                 update?(&content)
                 Task { [content] in
                     await realityCheckConnectViewModel.sendHierarchy(content: content)

@@ -21,6 +21,7 @@ struct RealityCheckApp: App {
     }
     .windowResizability(.contentSize)
     .defaultPosition(.center)
+    .windowStyle(.hiddenTitleBar)
 
     Window("RealityCheck", id: "RealityCheckWindowID") {
       MainView(store: store)

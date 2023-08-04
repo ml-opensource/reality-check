@@ -26,7 +26,7 @@ struct SidebarView: View {
           action: AppCore.Action.entitiesSection
         ),
         then: EntitiesSectionView.init(store:),
-        else: { Text("//TODO: Entities placeholder") }
+        else: { Text("No Entities Received").foregroundStyle(.secondary) }
       )
 //    }
   }

@@ -11,7 +11,6 @@ struct ConnectionSetupView: View {
     [
       .init(.flexible()),
       .init(.flexible()),
-      .init(.flexible()),
     ]
   }
 
@@ -30,7 +29,7 @@ struct ConnectionSetupView: View {
         .overlay(
           Group {
             if viewStore.peers.isEmpty {
-              Text("Inspectable apps will appear here.")
+              Text("Inspectable apps will appear here")
                 .foregroundColor(.secondary)
             }
           }
@@ -63,7 +62,7 @@ struct ConnectionSetupView: View {
         .padding()
         .background(.bar)
       }
-      .frame(width: 521, height: 521)
+      .frame(width: 521 / 1.5, height: 521 / 1.5)
     }
   }
 }

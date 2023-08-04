@@ -47,7 +47,7 @@ struct EntityDetailView: View {
 
       Divider()
 
-      Form {
+      List {
         Section("Accessibility") {
           LabeledContent(
             "isAccessibilityElement",
@@ -115,15 +115,16 @@ struct EntityDetailView: View {
         Section("Components") {
           LabeledContent("count", value: "\(entity.components.count)")
           ForEach(entity.components.components, id: \.self) { component in
-            DisclosureGroup(component.componentType.description) {
-              ComponentPropertiesView(component.properties)
-                .monospaced()
+            GroupBox {
+              DisclosureGroup(component.componentType.description) {
+                ComponentPropertiesView(component.properties)
+                  .monospaced()
+              }
+              .help(component.componentType.help)
             }
-            .help(component.componentType.help)
           }
         }
       }
-      .formStyle(.grouped)
     }
   }
 }

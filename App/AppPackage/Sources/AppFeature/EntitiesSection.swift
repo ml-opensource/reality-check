@@ -38,12 +38,15 @@ public struct EntitiesSection: Reducer {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
+    case refreshEntities([IdentifiableEntity])
     case select(entity: IdentifiableEntity?)
   }
 
   public enum DelegateAction: Equatable {
     case didToggleSelectSection
   }
+
+  @Dependency(\.continuousClock) var clock
 
   public var body: some Reducer<State, Action> {
     BindingReducer()
@@ -73,10 +76,25 @@ public struct EntitiesSection: Reducer {
           state.dumpOutput = output
           return .none
 
+        case .refreshEntities(let entities):
+          state.identifiedEntities = .init(uniqueElements: entities)
+          guard let root = entities.first, let targetID = state.selection else { return .none }
+          state.selection = root.id
+          let n = findEntity(root: root, targetID: targetID)
+          return .run { send in
+            await send(.select(entity: n))
+          }
+
         case .select(let entity):
           state.selection = entity?.id
           return .none
       }
     }
+    ._printChanges(
+      .init(printChange: { action, old, new in
+        print("old", old.selection)
+        print("new", new.selection)
+      })
+    )
   }
 }

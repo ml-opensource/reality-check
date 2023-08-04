@@ -18,7 +18,7 @@ struct ContentView: View {
   var body: some View {
     VStack {
       Model3D(named: "toy_robot_vintage")
-      RealityView { content in
+      RealityView(realityCheckConnectModel) { content in
         // Add the initial RealityKit content
         if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
           content.add(scene)
@@ -35,7 +35,7 @@ struct ContentView: View {
         enlarge.toggle()
       })
       
-      RealityCheckConnectView(realityCheckConnectModel)
+//      RealityCheckConnectView(realityCheckConnectModel)
       
       VStack {
         Toggle("Enlarge RealityView Content", isOn: $enlarge)

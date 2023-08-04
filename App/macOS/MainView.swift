@@ -31,7 +31,7 @@ struct MainView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
         SidebarView(store: store)
-      } detail: {
+      } content: {
         ZStack {
           StreamingView(viewportSize: viewStore.$viewPortSize)
             .frame(maxWidth: viewStore.viewPortSize.width, maxHeight: viewStore.viewPortSize.height)
@@ -64,36 +64,7 @@ struct MainView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
-        .background(Color(nsColor: .lightGray))
-
-      }
-      .navigationSplitViewStyle(.balanced)
-      .toolbar {
-        ToolbarItem {
-          SessionStateButtonView(viewStore.multipeerConnection.sessionState)
-        }
-      }
-      .navigationSubtitle(sessionStateSubtitle)
-      .inspector(isPresented: .constant(true)) {
-          switch viewStore.selectedSection {
-             case .none:
-               Spacer().navigationSplitViewColumnWidth(0)
-   
-             case .arView:
-               if let arView = viewStore.arViewSection?.arView {
-                 ARViewDetailView(arView)
-                   .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-               }
-   
-             case .entities:
-               if let entity = viewStore.entitiesSection?.selectedEntity {
-                 EntityDetailView(entity)
-                   .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-               }
-           }
-      }
-    
-//    detail: {
+      } detail: {
 //        switch viewStore.selectedSection {
 //          case .none:
 //            Spacer().navigationSplitViewColumnWidth(0)
@@ -105,13 +76,20 @@ struct MainView: View {
 //            }
 //
 //          case .entities:
-//            if let entity = viewStore.entitiesSection?.selectedEntity {
-//              EntityDetailView(entity)
-//                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+            if let entity = viewStore.entitiesSection?.selectedEntity {
+              EntityDetailView(entity)
+                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
 //            }
-//        }
-//      }
-  
+        }
+      }
+//      .animation(.default, value: viewStore.arViewSection)
+      .navigationSplitViewStyle(.balanced)
+      .toolbar {
+        ToolbarItem {
+          SessionStateButtonView(viewStore.multipeerConnection.sessionState)
+        }
+      }
+      .navigationSubtitle(sessionStateSubtitle)
     }
   }
 }

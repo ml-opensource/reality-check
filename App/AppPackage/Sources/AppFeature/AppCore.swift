@@ -61,15 +61,9 @@ public struct AppCore: Reducer {
       switch action {
         case .arViewSection(.delegate(.didToggleSelectSection)):
           return .send(.selectSection(state.selectedSection == .arView ? nil : .arView))
-//          return .task { [state] in
-//            .selectSection(state.selectedSection == .arView ? nil : .arView)
-//          }
 
         case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
           return .send(.multipeerConnection(.sendDebugOptions(options)))
-//          return .task {
-//            .multipeerConnection(.sendDebugOptions(options))
-//          }
 
         case .arViewSection(_):
           return .none
@@ -79,9 +73,6 @@ public struct AppCore: Reducer {
 
         case .entitiesSection(.delegate(.didToggleSelectSection)):
           return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
-//          return .task { [state] in
-//            .selectSection((state.entitiesSection?.selection == nil) ? nil : .entities)
-//          }
 
         case .entitiesSection(_):
           return .none
@@ -96,8 +87,10 @@ public struct AppCore: Reducer {
           return .none
         
       case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
-        state.entitiesSection = .init(decodedEntities)
-        return .none
+          if state.entitiesSection == nil {
+              state.entitiesSection = .init(decodedEntities)
+          }
+          return .send(.entitiesSection(.refreshEntities(decodedEntities)))
 
         case .multipeerConnection(_):
           return .none
