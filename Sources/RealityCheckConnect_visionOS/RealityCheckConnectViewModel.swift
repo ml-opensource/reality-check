@@ -12,9 +12,7 @@ final public class RealityCheckConnectViewModel {
     var connectionState: MultipeerClient.SessionState
     var hostName: String
     var isStreaming = false
-    
-    //    var content: RealityViewContent!
-    
+        
     public init(
         connectionState: MultipeerClient.SessionState = .notConnected,
         hostName: String = "..."
@@ -26,7 +24,7 @@ final public class RealityCheckConnectViewModel {
         }
     }
     
-    private func startMultipeerSession() async {
+     func startMultipeerSession() async {
         @Dependency(\.multipeerClient) var multipeerClient
         
         //MARK: 1. Setup
@@ -49,19 +47,6 @@ final public class RealityCheckConnectViewModel {
                     
                 case .didReceiveData(let data):
                     //FIXME: display debug options
-                    //ARView Debug Options
-                    // if let debugOptions = try? JSONDecoder()
-                    //   .decode(
-                    //     _DebugOptions.self,
-                    //     from: data
-                    //   )
-                    // {
-                    //    await MainActor.run {
-                    //      arView?.debugOptions = ARView.DebugOptions(
-                    //        rawValue: debugOptions.rawValue
-                    //      )
-                    //    }
-                    // }
                     return
                 }
                 
@@ -81,7 +66,7 @@ final public class RealityCheckConnectViewModel {
         }
     }
     
-   public func sendHierarchy(content: RealityViewContent) async {
+   public func sendMultipeerData(_ content: RealityViewContent) async {
         @Dependency(\.multipeerClient) var multipeerClient
         @Dependency(\.realityDump) var realityDump
         
@@ -100,7 +85,7 @@ final public class RealityCheckConnectViewModel {
         multipeerClient.send(realityViewData)
     }
     
-    func startStreaming() async {
+    func startVideoStreaming() async {
         @Dependency(\.multipeerClient) var multipeerClient
         @Dependency(\.streamingClient) var streamingClient
         
@@ -113,7 +98,7 @@ final public class RealityCheckConnectViewModel {
         }
     }
     
-    func stopStreaming() async {
+    func stopVideoStreaming() async {
         @Dependency(\.streamingClient) var streamingClient
         
         await MainActor.run {
@@ -124,27 +109,6 @@ final public class RealityCheckConnectViewModel {
     }
 }
 
-//extension RealityView {
-//    func sendHierarchy() async {
-//        @Dependency(\.multipeerClient) var multipeerClient
-//        @Dependency(\.realityDump) var realityDump
-//
-//        let encoder = JSONEncoder()
-//        encoder.nonConformingFloatEncodingStrategy = .convertToString(
-//            positiveInfinity: "INF",
-//            negativeInfinity: "-INF",
-//            nan: "NAN"
-//        )
-//        encoder.outputFormatting = .prettyPrinted
-//
-//        guard let root = Content..root else { return }
-//        let identifiableEntity = await realityDump.identify(root)
-//
-//        let realityViewData = try! encoder.encode(identifiableEntity)
-//        multipeerClient.send(realityViewData)
-//    }
-//}
-
 extension RealityView {
     public init(
         _ realityCheckConnectViewModel: RealityCheckConnectViewModel,
@@ -154,12 +118,12 @@ extension RealityView {
         self.init(
             make: { @MainActor content in
                 await make(&content)
-                await realityCheckConnectViewModel.sendHierarchy(content: content)                             
+                await realityCheckConnectViewModel.sendMultipeerData(content)
             },
             update: { @MainActor content in
                 update?(&content)
                 Task { [content] in
-                    await realityCheckConnectViewModel.sendHierarchy(content: content)
+                    await realityCheckConnectViewModel.sendMultipeerData(content)
                 }
             }
         )

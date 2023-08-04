@@ -6,7 +6,7 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
-final class ViewModel: RealityCheckConnectable, ObservableObject {
+final class ViewModel: ObservableObject {
   @Published var connectionState: MultipeerClient.SessionState
   @Published var hostName: String
   @Published var isStreaming = false
