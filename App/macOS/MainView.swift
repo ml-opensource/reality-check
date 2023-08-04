@@ -65,24 +65,24 @@ struct MainView: View {
           }
         }
       } detail: {
-//        switch viewStore.selectedSection {
-//          case .none:
-//            Spacer().navigationSplitViewColumnWidth(0)
-//
-//          case .arView:
-//            if let arView = viewStore.arViewSection?.arView {
-//              ARViewDetailView(arView)
-//                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-//            }
-//
-//          case .entities:
+        switch viewStore.selectedSection {
+          case .none:
+            Spacer().navigationSplitViewColumnWidth(0)
+
+          case .arView:
+            if let arView = viewStore.arViewSection?.arView {
+              ARViewDetailView(arView)
+                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+            }
+
+          case .entities:
             if let entity = viewStore.entitiesSection?.selectedEntity {
               EntityDetailView(entity)
                 .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-//            }
+            }
         }
       }
-//      .animation(.default, value: viewStore.arViewSection)
+      //      .animation(.default, value: viewStore.arViewSection)
       .navigationSplitViewStyle(.balanced)
       .toolbar {
         ToolbarItem {

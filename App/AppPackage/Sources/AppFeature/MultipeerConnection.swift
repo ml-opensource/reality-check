@@ -62,7 +62,7 @@ public struct MultipeerConnection: Reducer {
           return .none
 
         case .start:
-          return .run(priority: .userInitiated) { send in
+          return .run(priority: .userInitiated) { @MainActor send in
             for await action in await multipeerClient.start(
               serviceName: "reality-check",
               sessionType: .host
@@ -71,7 +71,7 @@ public struct MultipeerConnection: Reducer {
                 case .session(let sessionAction):
                   switch sessionAction {
                     case .stateDidChange(let sessionState):
-                      await send(.updateSessionState(sessionState))
+                      send(.updateSessionState(sessionState))
 
                     case .didReceiveData(let data):
                       guard !data.isEmpty else { return }
@@ -81,7 +81,7 @@ public struct MultipeerConnection: Reducer {
                 case .browser(let browserAction):
                   switch browserAction {
                     case .peersUpdated(let peers):
-                      await send(.updatePeers(peers))
+                      send(.updatePeers(peers))
                   }
 
                 case .advertiser(_):

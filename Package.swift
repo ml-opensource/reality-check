@@ -6,35 +6,24 @@ import PackageDescription
 let package = Package(
   name: "reality-check",
   platforms: [
-    .macOS(.v12),
     .iOS(.v15),
-    .visionOS(.v1)
+    .macOS(.v12),
+    .visionOS(.v1),
   ],
   products: [
     .library(
       name: "RealityCheckConnect",
-      targets: [
-        "RealityCheckConnect",
-        "Models",
-        "MultipeerClient",
-        "RealityDumpClient",
-        "StreamingClient",
-      ]
-    )
+      targets: ["RealityCheckConnect"]
+    ),
+    .library(
+      name: "RealityCheckConnect_visionOS",
+      targets: ["RealityCheckConnect_visionOS"]
+    ),
   ],
   dependencies: [
-    .package(
-      url: "https://github.com/pointfreeco/swift-custom-dump",
-      from: "1.0.0"
-    ),
-    .package(
-      url: "https://github.com/pointfreeco/swift-dependencies",
-      from: "1.0.0"
-    ),
-    .package(
-      url: "https://github.com/devicekit/DeviceKit.git",
-      from: "5.0.0"
-    ),
+    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
+    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
   ],
   targets: [
     .target(
@@ -57,11 +46,25 @@ let package = Package(
       name: "RealityCheckConnect",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
-        .product(
-          name: "DeviceKit",
-          package: "DeviceKit",
-          condition: .when(platforms: [.iOS])
-        ),
+        .target(name: "RealityCheckConnect_visionOS", condition: .when(platforms: [.visionOS])),
+        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),  //FIXME: still compiled for `visionOS`
+      ]
+    ),
+    .target(
+      name: "RealityCheckConnect_iOS",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-dependencies"),
+        .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
+        "Models",
+        "MultipeerClient",
+        "RealityDumpClient",
+        "StreamingClient",
+      ]
+    ),
+    .target(
+      name: "RealityCheckConnect_visionOS",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-dependencies"),
         "Models",
         "MultipeerClient",
         "RealityDumpClient",

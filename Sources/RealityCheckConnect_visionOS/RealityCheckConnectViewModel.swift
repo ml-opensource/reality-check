@@ -5,8 +5,8 @@ import MultipeerClient
 import RealityKit
 import SwiftUI
 import StreamingClient
+import RealityDumpClient
 
-#if os(visionOS)
 @Observable
 final public class RealityCheckConnectViewModel {
     var connectionState: MultipeerClient.SessionState
@@ -33,7 +33,7 @@ final public class RealityCheckConnectViewModel {
         for await action in await multipeerClient.start(
             serviceName: "reality-check",
             sessionType: .peer,
-            discoveryInfo: AppInfo.discoveryInfo
+            discoveryInfo: .init(rawValue: [:]) //FIXME: AppInfo.discoveryInfo
         ) {
             switch action {
             case .session(let sessionAction):
@@ -145,10 +145,6 @@ final public class RealityCheckConnectViewModel {
 //    }
 //}
 
-@available(xrOS 1.0, *)
-@available(macOS, unavailable)
-@available(macCatalyst, unavailable)
-@available(iOS, unavailable)
 extension RealityView {
     public init(
         _ realityCheckConnectViewModel: RealityCheckConnectViewModel,
@@ -169,4 +165,3 @@ extension RealityView {
         )
     }
 }
-#endif
