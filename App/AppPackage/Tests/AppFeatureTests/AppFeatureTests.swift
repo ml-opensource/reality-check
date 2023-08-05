@@ -16,23 +16,13 @@ final class RealityCheckTests: XCTestCase {
     return encoder
   }
 
-  var decoder: JSONDecoder {
-    let decoder = JSONDecoder()
-    decoder.nonConformingFloatDecodingStrategy = .convertFromString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    return decoder
-  }
-
   func testSimpleDecodable() throws {
     let url = Bundle.module.url(forResource: "simple_hierarchy", withExtension: "json")!
     let data = try Data(contentsOf: url)
-    let hierarchy = try! decoder.decode(CodableARView.self, from: data)
+    let hierarchy = try! defaultDecoder.decode(CodableARView.self, from: data)
     //Re - Encode
     let hierarchyData = try! encoder.encode(hierarchy)
-    let hierarchyReDecoded = try! decoder.decode(CodableARView.self, from: hierarchyData)
+    let hierarchyReDecoded = try! defaultDecoder.decode(CodableARView.self, from: hierarchyData)
 
     XCTAssertFalse(hierarchyReDecoded.scene.anchors.isEmpty)
     customDump(hierarchyReDecoded)
@@ -49,7 +39,7 @@ final class RealityCheckTests: XCTestCase {
   func testARViewDecodable() throws {
     let url = Bundle.module.url(forResource: "codable_arview", withExtension: "json")!
     let data = try Data(contentsOf: url, options: .mappedIfSafe)
-    let hierarchy = try! decoder.decode(CodableARView.self, from: data)
+    let hierarchy = try! defaultDecoder.decode(CodableARView.self, from: data)
     XCTAssertNotNil(hierarchy)
     customDump(hierarchy)
   }

@@ -28,6 +28,7 @@ public struct MultipeerConnection: Reducer {
     case delegate(DelegateAction)
     case invite(Peer)
     case sendDebugOptions(_DebugOptions)
+    case sendSelection(IdentifiableEntity.ID)
     case start
     case updatePeers([Peer: DiscoveryInfo])
     case updateSessionState(MultipeerClient.SessionState)
@@ -59,6 +60,16 @@ public struct MultipeerConnection: Reducer {
             multipeerClient.send(data)
           } catch {
             fatalError("Failed to encode debug options while sending them.")
+          }
+          return .none
+
+        case .sendSelection(let entityID):
+          do {
+            let entitySelection = EntitySelection(entityID)
+            let data = try JSONEncoder().encode(entitySelection)
+            multipeerClient.send(data)
+          } catch {
+            fatalError("Failed to encode selection while sending them.")
           }
           return .none
 
@@ -114,27 +125,19 @@ public struct MultipeerConnection: Reducer {
 
 extension MultipeerConnection {
   fileprivate func decodeReceivedData(_ data: Data, send: Send<MultipeerConnection.Action>) async {
-    let decoder = JSONDecoder()
-    decoder.nonConformingFloatDecodingStrategy = .convertFromString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-
     //MARK: VideoFrameData
-    if let videoFrameData = try? decoder.decode(VideoFrameData.self, from: data) {
+    if let videoFrameData = try? defaultDecoder.decode(VideoFrameData.self, from: data) {
       await send(.delegate(.receivedVideoFrameData(videoFrameData)))
     }
     //MARK: CodableARView
-    else if let decodedARView = try? decoder.decode(
+    else if let decodedARView = try? defaultDecoder.decode(
       CodableARView.self,
       from: data
     ) {
-      print(String(data: data, encoding: .utf8)!)
       await send(.delegate(.receivedDecodedARView(decodedARView)))
     }
     //MARK: RealityViewContent Root
-    else if let decodedRealityViewContent = try? decoder.decode(
+    else if let decodedRealityViewContent = try? defaultDecoder.decode(
       IdentifiableEntity.self,
       from: data
     ) {

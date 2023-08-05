@@ -47,7 +47,18 @@ final public class RealityCheckConnectViewModel {
           }
           
         case .didReceiveData(let data):
-          //FIXME: display debug options
+          //MARK: Entity selection
+           if let entitySelection = try? defaultDecoder.decode(
+            EntitySelection.self,
+            from: data
+           ) {
+             for entity in content.entities {
+               guard await entity.id == entitySelection.entityID else { return }
+               await MainActor.run {
+                 entity.scale = .init(x: 2, y: 2, z: 2)
+               }
+             }
+           }
           return
         }
         

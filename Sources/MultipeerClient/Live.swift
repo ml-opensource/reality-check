@@ -195,7 +195,7 @@ extension MultipeerClient {
         }
       } catch {
         //TODO: handle errors
-        fatalError("Failed to send data.")
+        //fatalError("Failed to send data.")
       }
     }
   }

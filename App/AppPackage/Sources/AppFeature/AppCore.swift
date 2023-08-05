@@ -77,6 +77,9 @@ public struct AppCore: Reducer {
         case .entitiesSection(.delegate(.didToggleSelectSection)):
           return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
 
+        case .entitiesSection(.delegate(.didSelectEntity(let entityID))):
+          return .send(.multipeerConnection(.sendSelection(entityID)))
+
         case .entitiesSection(_):
           return .none
 

@@ -16,6 +16,10 @@ final class RealityCheckConnectViewModel: ObservableObject {
   @Dependency(\.streamingClient) var streamingClient
 
   var arView: ARView?
+  private var selectionEntity = ModelEntity(
+    mesh: .generateSphere(radius: 0.075),
+    materials: [UnlitMaterial(color: .systemPink)]
+  )
 
   init(
     connectionState: MultipeerClient.SessionState = .notConnected,
@@ -61,6 +65,22 @@ final class RealityCheckConnectViewModel: ObservableObject {
                   arView?.debugOptions = ARView.DebugOptions(
                     rawValue: debugOptions.rawValue
                   )
+                }
+              }
+              //MARK: Entity selection
+              else if let entitySelection = try? defaultDecoder.decode(
+                EntitySelection.self,
+                from: data
+              ) {
+                if let entity = await arView?
+                  .findEntityIdentified(targetID: entitySelection.entityID)
+                {
+                  await MainActor.run {
+                    let parentBounds = entity.visualBounds(relativeTo: nil)
+                    selectionEntity.setParent(entity)
+//                    selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
+//                    selectionEntity.position.y = parentBounds.extents.y
+                  }
                 }
               } else {
                 fatalError()

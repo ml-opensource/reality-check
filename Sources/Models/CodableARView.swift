@@ -18,7 +18,7 @@ public struct CodableScene: Codable, Equatable {
   // }
 }
 
-#if !os(xrOS)
+#if !os(visionOS)
   extension RealityKit.ARView.DebugOptions: Codable {}
 
   public struct CodableARView: Codable, Equatable {
@@ -45,7 +45,7 @@ public struct CodableScene: Codable, Equatable {
     }
   }
 
-/*
+  /*
   /// #Working with the Scene
   var scene: Scene
  // The scene that the view renders and simulates.
@@ -89,4 +89,31 @@ public struct CodableScene: Codable, Equatable {
   var debugOptions: ARView.DebugOptions
   The current debugging options.
    */
+
+  extension ARView {
+    public func findEntityIdentified(targetID: UInt64) -> Entity? {
+      for anchor in self.scene.anchors {
+        if let entity = findEntity(root: anchor, targetID: targetID) {
+          return entity
+        }
+      }
+
+      return nil
+    }
+  }
+
+  public func findEntity(root: RealityKit.Entity, targetID: UInt64) -> Entity? {
+    if root.id == targetID {
+      return root
+    }
+
+    for child in root.children {
+      if let foundNode = findEntity(root: child, targetID: targetID) {
+        return foundNode
+      }
+    }
+
+    return nil
+  }
+
 #endif
