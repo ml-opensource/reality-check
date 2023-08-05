@@ -1,4 +1,3 @@
-import DeviceKit
 import Foundation
 import MultipeerClient
 
@@ -47,13 +46,11 @@ extension AppInfo {
 
     var system: String?
 
-    if let systemName = Device.current.systemName,
-      let systemVersion = Device.current.systemVersion
-    {
-      system = "\(systemName) \(systemVersion)"
-    }
+    //FIXME: find a way to get the system version
+    system = "visionOS 1.0"
 
-    let device = Device.current.safeDescription
+    //FIXME: find a way to get the device name
+    let device = " Vision Pro"
 
     return DiscoveryInfo(
       appName: AppInfo.appName,

@@ -8,7 +8,7 @@ struct RealityCheckApp: App {
     initialState: AppCore.State(),
     reducer: {
       AppCore()
-         .dependency(\.multipeerClient, .testValue)
+        // .dependency(\.multipeerClient, .testValue)
     }
   )
 

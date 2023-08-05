@@ -2,7 +2,6 @@ import Foundation
 import RealityKit
 import SwiftUI
 
-#if os(visionOS)
 extension RealityViewContent {
   var root: Entity? {
     guard let firstEntity = self.entities.first else { return nil }
@@ -17,4 +16,3 @@ extension RealityViewContent {
     }
   }
 }
-#endif
