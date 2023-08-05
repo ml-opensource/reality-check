@@ -81,6 +81,7 @@ public struct RealityCheckConnectView: View {
   @GestureState var startLocation: CGPoint? = nil
 
   public var body: some View {
+    ///inner corner radius + padding = outer corner radius
     RoundedRectangle(cornerRadius: 32, style: .continuous)
       .stroke(lineWidth: viewModel.isStreaming ? 0.5 : 3)
       .fill(Material.ultraThin)
@@ -114,7 +115,7 @@ public struct RealityCheckConnectView: View {
                 },
                 label: {
                   ZStack {
-                    Circle().stroke(lineWidth: 3).fill(.primary)
+                    Circle().stroke(lineWidth: 3)
 
                     RoundedRectangle(
                       cornerRadius: viewModel.isStreaming ? 4 : 20,
@@ -136,7 +137,7 @@ public struct RealityCheckConnectView: View {
                   }
                 },
                 label: {
-                  Image(systemName: "arrow.up.circle")
+                  Image(systemName: "arrow.triangle.2.circlepath")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 }
@@ -144,11 +145,10 @@ public struct RealityCheckConnectView: View {
               .frame(width: 33, height: 33)
               .buttonStyle(.plain)
             }
-            .padding(.vertical, 8)
-            .padding(.horizontal)
+            .padding(10)
             .background(
               Material.ultraThin,
-              in: RoundedRectangle(cornerRadius: 16, style: .continuous)
+              in: RoundedRectangle(cornerRadius: 24, style: .continuous)
             )
             .disabled(isConnected ? false : true)
             .position(location)

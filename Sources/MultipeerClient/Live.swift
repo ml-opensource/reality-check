@@ -84,8 +84,6 @@ extension MultipeerClient {
     private var serviceAdvertiser: MCNearbyServiceAdvertiser?
     private var serviceAdvertiserDelegate: ServiceAdvertiserDelegate?
 
-    private var isStarting = false
-
     func start(
       serviceName: String,
       sessionType: MultipeerClient.SessionType,
@@ -94,8 +92,6 @@ extension MultipeerClient {
       encryptionPreference: MCEncryptionPreference
     ) -> AsyncStream<Action> {
       AsyncStream { continuation in
-        defer { isStarting = true }
-        guard !isStarting else { return }
         let myPeerID = MCPeerID(displayName: peerName)
 
         setupSession()
@@ -189,7 +185,6 @@ extension MultipeerClient {
       do {
         if peers.isEmpty {
           guard let connectedPeers = session?.connectedPeers else {
-//            return
              fatalError(
                "There are no connected peers and no specified peers to send to."
              )

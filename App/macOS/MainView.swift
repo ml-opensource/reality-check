@@ -33,18 +33,28 @@ struct MainView: View {
         SidebarView(store: store)
       } content: {
         ZStack {
-          StreamingView(viewportSize: viewStore.$viewPortSize)
-            .frame(maxWidth: viewStore.viewPortSize.width, maxHeight: viewStore.viewPortSize.height)
-            .aspectRatio(
-              viewStore.viewPortSize.width / viewStore.viewPortSize.height,
-              contentMode: .fit
-            )
-            .overlay {
-              Rectangle().stroke()
-            }
-            .background(Color(nsColor: .controlBackgroundColor))
-            .padding()
-            .padding(.bottom, 32)
+          if viewStore.isStreaming {
+            MetalViewRepresentable(viewportSize: viewStore.$viewPortSize)
+              .frame(
+                maxWidth: viewStore.viewPortSize.width,
+                maxHeight: viewStore.viewPortSize.height
+              )
+              .aspectRatio(
+                viewStore.viewPortSize.width / viewStore.viewPortSize.height,
+                contentMode: .fit
+              )
+              .mask(RoundedRectangle(cornerRadius: 64, style: .continuous))
+              .overlay {
+                ///inner corner radius + padding = outer corner radius
+                RoundedRectangle(cornerRadius: 64, style: .continuous)
+                  .stroke()
+                  .foregroundStyle(.secondary)
+              }
+              .padding()
+              .padding(.bottom, 32)
+          } else {
+            PreviewPausedView()
+          }
 
           SplitViewReader { proxy in
             SplitView(axis: .vertical) {
@@ -64,6 +74,12 @@ struct MainView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
+        .background(
+          Image("stripes")
+            .resizable(resizingMode: .tile)
+            .scaleEffect(4)
+            .opacity(viewStore.isStreaming ? 0 : 1)
+        )
       } detail: {
         switch viewStore.selectedSection {
           case .none:
@@ -158,10 +174,42 @@ struct ContentView_Previews: PreviewProvider {
           ),
           entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
         ),
-        reducer: AppCore.init
+        reducer: {
+          AppCore()
+            .dependency(\.multipeerClient, .testValue)
+        }
       )
     )
     .navigationSplitViewStyle(.prominentDetail)
     .frame(width: 500, height: 900)
+  }
+}
+
+struct PreviewPausedView: View {
+  var body: some View {
+    VStack {
+      HStack {
+        Text("Screen capture paused")
+          .font(.headline)
+
+        Spacer().frame(maxWidth: 100)
+        Button.init(
+          "Help",
+          systemImage: "questionmark.circle",
+          action: {}
+        )
+        .controlSize(.large)
+        .buttonStyle(.plain)
+        .labelStyle(.iconOnly)
+      }
+      .padding()
+      .background(
+        RoundedRectangle(cornerRadius: 16, style: .continuous)
+          .fill(Color(nsColor: .controlBackgroundColor))
+          .shadow(radius: 4)
+      )
+      Spacer()
+        .frame(height: 44)
+    }
   }
 }

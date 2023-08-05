@@ -90,11 +90,5 @@ public struct EntitiesSection: Reducer {
           return .none
       }
     }
-    ._printChanges(
-      .init(printChange: { action, old, new in
-        print("old", old.selection)
-        print("new", new.selection)
-      })
-    )
   }
 }

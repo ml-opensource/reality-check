@@ -42,7 +42,6 @@ public struct MultipeerConnection: Reducer {
 
   @Dependency(\.continuousClock) var clock
   @Dependency(\.multipeerClient) var multipeerClient
-  private enum CancelID { case start }
 
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
@@ -64,36 +63,34 @@ public struct MultipeerConnection: Reducer {
           return .none
 
         case .start:
-          return
-            .run { send in
-              try await self.clock.sleep(for: .seconds(1))  //FIXME: Why a delay is needed?, perhaps try to avoid multi-calling.
-              for await action in await multipeerClient.start(
-                serviceName: "reality-check",
-                sessionType: .host
-              ) {
-                switch action {
-                  case .session(let sessionAction):
-                    switch sessionAction {
-                      case .stateDidChange(let sessionState):
-                        await send(.updateSessionState(sessionState))
+          guard state.connectedPeer == nil else { return .none }
+          return .run(priority: .userInitiated) { send in
+            for await action in await multipeerClient.start(
+              serviceName: "reality-check",
+              sessionType: .host
+            ) {
+              switch action {
+                case .session(let sessionAction):
+                  switch sessionAction {
+                    case .stateDidChange(let sessionState):
+                      await send(.updateSessionState(sessionState))
 
-                      case .didReceiveData(let data):
-                        guard !data.isEmpty else { return }
-                        await self.decodeReceivedData(data, send: send)
-                    }
+                    case .didReceiveData(let data):
+                      guard !data.isEmpty else { return }
+                      await self.decodeReceivedData(data, send: send)
+                  }
 
-                  case .browser(let browserAction):
-                    switch browserAction {
-                      case .peersUpdated(let peers):
-                        await send(.updatePeers(peers))
-                    }
+                case .browser(let browserAction):
+                  switch browserAction {
+                    case .peersUpdated(let peers):
+                      await send(.updatePeers(peers))
+                  }
 
-                  case .advertiser(_):
-                    return
-                }
+                case .advertiser(_):
+                  return
               }
             }
-            .cancellable(id: CancelID.start, cancelInFlight: true)
+          }
 
         case .updatePeers(let peers):
           state.peers = peers

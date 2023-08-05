@@ -3,7 +3,7 @@ import MetalKit
 import SwiftUI
 
 #if os(macOS)
-  public struct StreamingView: NSViewRepresentable {
+  public struct MetalViewRepresentable: NSViewRepresentable {
     @Dependency(\.streamingClient) var streamingClient
     @Binding var viewportSize: CGSize
 

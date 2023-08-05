@@ -13,6 +13,7 @@ public struct AppCore: Reducer {
     public var arViewSection: ARViewSection.State?
     public var entitiesSection: EntitiesSection.State?
     @BindingState public var isDumpAreaCollapsed: Bool
+    public var isStreaming: Bool
     public var multipeerConnection: MultipeerConnection.State
     public var selectedSection: Section?
     @BindingState public var viewPortSize: CGSize
@@ -21,6 +22,7 @@ public struct AppCore: Reducer {
       arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesSection.State? = nil,
       isDumpAreaDisplayed: Bool = true,
+      isStreaming: Bool = false,
       multipeerConnection: MultipeerConnection.State = .init(),
       selectedSection: Section? = nil,
       viewPortSize: CGSize = .zero
@@ -28,6 +30,7 @@ public struct AppCore: Reducer {
       self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
       self.isDumpAreaCollapsed = isDumpAreaDisplayed
+      self.isStreaming = isStreaming
       self.multipeerConnection = multipeerConnection
       self.selectedSection = selectedSection
       self.viewPortSize = viewPortSize
@@ -78,6 +81,7 @@ public struct AppCore: Reducer {
           return .none
 
         case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
+          state.isStreaming = true
           streamingClient.prepareForRender(videoFrameData)
           return .none
 
@@ -85,10 +89,10 @@ public struct AppCore: Reducer {
           state.arViewSection = .init(arView: decodedARView)
           state.entitiesSection = .init(decodedARView.scene.anchors)
           return .none
-        
-      case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
+
+        case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
           if state.entitiesSection == nil {
-              state.entitiesSection = .init(decodedEntities)
+            state.entitiesSection = .init(decodedEntities)
           }
           return .send(.entitiesSection(.refreshEntities(decodedEntities)))
 

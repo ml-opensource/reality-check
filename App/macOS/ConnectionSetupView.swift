@@ -117,12 +117,12 @@ struct PeerConnectView: View {
         }
         .padding()
         .background(
-          RoundedRectangle(cornerRadius: 4, style: .continuous)
+          RoundedRectangle(cornerRadius: 12, style: .continuous)
             .fill(Color(nsColor: .controlBackgroundColor))
         )
         .drawingGroup()
         .overlay(
-          RoundedRectangle(cornerRadius: 4, style: .continuous)
+          RoundedRectangle(cornerRadius: 12, style: .continuous)
             .stroke(lineWidth: 0.2)
             .foregroundColor(.secondary)
         )

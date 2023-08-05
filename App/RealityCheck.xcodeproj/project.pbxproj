@@ -55,7 +55,6 @@
 		40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewDetailView.swift; sourceTree = "<group>"; };
 		40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSetupView.swift; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
-		40BD84CE2A16808400522CED /* RealityCheck-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RealityCheck-Info.plist"; sourceTree = "<group>"; };
 		40E7517D29F68F0B0083502A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40E7517F29F68F0B0083502A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40E7518129F68F0B0083502A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
-				40BD84CE2A16808400522CED /* RealityCheck-Info.plist */,
 				40874E8E2A289B9D00DD88FD /* ARViewDetailView.swift */,
 				402D8A9F2A7E3DE8004DC8F5 /* Extensions */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
@@ -418,7 +416,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS/RealityCheck-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This application will use local networking to discover nearby devices.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -461,7 +458,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "macOS/RealityCheck-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This application will use local networking to discover nearby devices.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
