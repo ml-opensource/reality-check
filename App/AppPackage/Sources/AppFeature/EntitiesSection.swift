@@ -46,8 +46,6 @@ public struct EntitiesSection: Reducer {
     case didToggleSelectSection
   }
 
-  @Dependency(\.continuousClock) var clock
-
   public var body: some Reducer<State, Action> {
     BindingReducer()
 
