@@ -39,11 +39,11 @@ public struct EntitiesSection: Reducer {
     case delegate(DelegateAction)
     case dumpOutput(String)
     case refreshEntities([IdentifiableEntity])
-    case select(entity: IdentifiableEntity?)
   }
 
   public enum DelegateAction: Equatable {
     case didToggleSelectSection
+    case didSelectEntity(IdentifiableEntity.ID)
   }
 
   public var body: some Reducer<State, Action> {
@@ -55,7 +55,8 @@ public struct EntitiesSection: Reducer {
           if let entity = state.selectedEntity {
             return .merge(
               .send(.dumpOutput(String(customDumping: entity))),
-              .send(.delegate(.didToggleSelectSection))
+              .send(.delegate(.didToggleSelectSection)),
+              .send(.delegate(.didSelectEntity(entity.id)))
             )
           } else {
             return .merge(
@@ -76,16 +77,11 @@ public struct EntitiesSection: Reducer {
 
         case .refreshEntities(let entities):
           state.identifiedEntities = .init(uniqueElements: entities)
-          guard let root = entities.first, let targetID = state.selection else { return .none }
+          guard let previousSelection = state.selection else { return .none }
           state.selection = nil
-          return .run { @MainActor send in
-            let previousSelection = findEntity(root: root, targetID: targetID)
-            send(.select(entity: previousSelection))
+          return .run { send in
+            await send(.binding(.set(\.$selection, previousSelection)))
           }
-
-        case .select(let entity):
-          state.selection = entity?.id
-          return .none
       }
     }
   }
