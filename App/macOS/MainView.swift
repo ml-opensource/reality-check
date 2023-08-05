@@ -82,7 +82,7 @@ struct MainView: View {
             }
         }
       }
-      //      .animation(.default, value: viewStore.arViewSection)
+      // .animation(.default, value: viewStore.arViewSection)
       .navigationSplitViewStyle(.balanced)
       .toolbar {
         ToolbarItem {

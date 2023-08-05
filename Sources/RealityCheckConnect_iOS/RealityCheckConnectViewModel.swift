@@ -25,6 +25,9 @@ final class ViewModel: ObservableObject {
     self.connectionState = connectionState
     self.hostName = hostName
     self.arView = arView
+    Task {
+        await startMultipeerSession()
+    }
   }
 
   func startMultipeerSession() async {

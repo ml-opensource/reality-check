@@ -178,9 +178,6 @@ public struct RealityCheckConnectView: View {
         }
       }
       .animation(.default, value: viewModel.connectionState)
-      .task {
-        await viewModel.startMultipeerSession()
-      }
   }
 }
 
