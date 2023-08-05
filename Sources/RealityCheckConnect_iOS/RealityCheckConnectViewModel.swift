@@ -6,7 +6,7 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
-final class ViewModel: ObservableObject {
+final class RealityCheckConnectViewModel: ObservableObject {
   @Published var connectionState: MultipeerClient.SessionState
   @Published var hostName: String
   @Published var isStreaming = false
@@ -26,7 +26,7 @@ final class ViewModel: ObservableObject {
     self.hostName = hostName
     self.arView = arView
     Task {
-        await startMultipeerSession()
+      await startMultipeerSession()
     }
   }
 
@@ -62,6 +62,8 @@ final class ViewModel: ObservableObject {
                     rawValue: debugOptions.rawValue
                   )
                 }
+              } else {
+                fatalError()
               }
           }
 
@@ -112,8 +114,7 @@ final class ViewModel: ObservableObject {
         )
       )
       multipeerClient.send(arViewData)
-      print(String(data: arViewData, encoding: .utf8)!)
-    #else
+    #elseif os(macOS)
       fatalError("`arView.contentScaleFactor` cant be found on macOS")
     #endif
   }

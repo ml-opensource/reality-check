@@ -79,10 +79,10 @@ public struct EntitiesSection: Reducer {
         case .refreshEntities(let entities):
           state.identifiedEntities = .init(uniqueElements: entities)
           guard let root = entities.first, let targetID = state.selection else { return .none }
-          state.selection = root.id
-          let n = findEntity(root: root, targetID: targetID)
-          return .run { send in
-            await send(.select(entity: n))
+          state.selection = nil
+          return .run { @MainActor send in
+            let previousSelection = findEntity(root: root, targetID: targetID)
+            send(.select(entity: previousSelection))
           }
 
         case .select(let entity):

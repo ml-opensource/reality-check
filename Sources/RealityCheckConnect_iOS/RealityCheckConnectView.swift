@@ -26,7 +26,7 @@ var body: some View {
 ```
  */
 public struct RealityCheckConnectView: View {
-  @ObservedObject private var viewModel: ViewModel
+  @ObservedObject private var viewModel: RealityCheckConnectViewModel
 
   public init() {
     self.viewModel = .init()
@@ -39,7 +39,7 @@ public struct RealityCheckConnectView: View {
   }
 
   fileprivate init(
-    viewModel: ViewModel
+    viewModel: RealityCheckConnectViewModel
   ) {
     self.viewModel = viewModel
   }
@@ -197,7 +197,7 @@ struct ContentView_Previews: PreviewProvider {
             AsyncStream.finished
           }
         } operation: {
-          ViewModel(
+          RealityCheckConnectViewModel(
             hostName: "MOCKY",
             arView: .init(frame: .null)
           )
@@ -213,7 +213,7 @@ struct ContentView_Previews: PreviewProvider {
             }
           }
         } operation: {
-          ViewModel(
+          RealityCheckConnectViewModel(
             hostName: "MOCKY",
             arView: .init(frame: .null)
           )
