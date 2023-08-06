@@ -1,7 +1,7 @@
 import Models
 import SwiftUI
 
-struct ARViewDetailView: View {
+struct ARViewInspectorView: View {
   let arView: CodableARView
 
   init(

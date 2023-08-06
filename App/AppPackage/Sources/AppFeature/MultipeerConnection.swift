@@ -2,9 +2,12 @@ import ComposableArchitecture
 import Foundation
 import Models
 import MultipeerClient
+import OSLog
 import StreamingClient
 
 public struct MultipeerConnection: Reducer {
+  let logger = Logger(subsystem: "AppCore", category: "MultipeerConnection")
+
   public struct ConnectedPeer: Equatable {
     public let peer: Peer
     public let discoveryInfo: DiscoveryInfo?
@@ -134,6 +137,9 @@ extension MultipeerConnection {
       CodableARView.self,
       from: data
     ) {
+      print(String(data: data, encoding: .utf8)!)
+      //FIXME: avoid logger truncating
+      // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedARView(decodedARView)))
     }
     //MARK: RealityViewContent Root
@@ -141,6 +147,9 @@ extension MultipeerConnection {
       IdentifiableEntity.self,
       from: data
     ) {
+      print(String(data: data, encoding: .utf8)!)
+      //FIXME: avoid logger truncating
+      // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
     }
     //MARK: default

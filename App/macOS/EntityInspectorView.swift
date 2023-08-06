@@ -1,13 +1,21 @@
+import AppFeature
+import ComposableArchitecture
 import Models
 import SwiftUI
 
-struct EntityDetailView: View {
-  let entity: IdentifiableEntity
+struct EntityInspectorView: View {
+  let store: StoreOf<EntitiesSection>
+  let viewStore: ViewStoreOf<EntitiesSection>
+
+  var entity: IdentifiableEntity {
+    viewStore.selectedEntity!
+  }
 
   init(
-    _ entity: IdentifiableEntity
+    _ store: StoreOf<EntitiesSection>
   ) {
-    self.entity = entity
+    self.store = store
+    self.viewStore = .init(store, observe: { $0 })
   }
 
   var body: some View {
@@ -31,7 +39,7 @@ struct EntityDetailView: View {
               "name:",
               value: name
             )
-            .textSelection(.enabled)
+            //            .textSelection(.enabled)
           }
 
           if let anchorIdentifier = entity.anchorIdentifier {
@@ -39,7 +47,7 @@ struct EntityDetailView: View {
               "anchorIdentifier",
               value: anchorIdentifier.uuidString
             )
-            .textSelection(.enabled)
+            //            .textSelection(.enabled)
           }
         }
       }
@@ -108,7 +116,13 @@ struct EntityDetailView: View {
                 Button(
                   parentID.description,
                   systemImage: "arrow.up.forward.square.fill",
-                  action: {}
+                  action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+                )
+                .help(
+                  """
+                  Click to select the parent.
+                  ID: \(parentID.description)
+                  """
                 )
                 .padding(1)
               }
@@ -134,5 +148,7 @@ struct EntityDetailView: View {
         }
       }
     }
+    .textSelection(.enabled)
+
   }
 }

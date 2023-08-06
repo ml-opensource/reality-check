@@ -90,7 +90,7 @@ extension RealityCheckConnectViewModel {
   }
 }
 
-//MARK: Video streaming
+//MARK: - Video streaming
 //FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
   func startVideoStreaming() async {

@@ -87,15 +87,19 @@ struct MainView: View {
 
           case .arView:
             if let arView = viewStore.arViewSection?.arView {
-              ARViewDetailView(arView)
+              ARViewInspectorView(arView)
                 .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
             }
 
           case .entities:
-            if let entity = viewStore.entitiesSection?.selectedEntity {
-              EntityDetailView(entity)
-                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-            }
+            IfLetStore(
+              store.scope(
+                state: \.entitiesSection,
+                action: AppCore.Action.entitiesSection
+              ),
+              then: EntityInspectorView.init
+            )
+            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         }
       }
       // .animation(.default, value: viewStore.arViewSection)
@@ -209,7 +213,7 @@ struct PreviewPausedView: View {
           .shadow(radius: 4)
       )
       Spacer()
-        .frame(height: 44)
     }
+    .padding(.top, 32)
   }
 }

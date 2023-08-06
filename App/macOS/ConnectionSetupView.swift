@@ -9,8 +9,8 @@ struct ConnectionSetupView: View {
   let store: StoreOf<MultipeerConnection>
   var columns: [GridItem] {
     [
-      .init(.flexible()),
-      .init(.flexible()),
+      .init(.flexible(), spacing: 16),
+      .init(.flexible(), spacing: 16),
     ]
   }
 
@@ -71,6 +71,14 @@ struct PeerConnectView: View {
   @Environment(\.openWindow) private var openWindow
   let peer: Peer
   @ObservedObject var viewStore: ViewStoreOf<MultipeerConnection>
+  var appIconName: String {
+    guard let device = viewStore.peers[peer]?.device else { return "app" }
+    if device.lowercased().contains("vision") {
+      return "circle.fill"
+    } else {
+      return "app.fill"
+    }
+  }
 
   var body: some View {
     let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
@@ -81,7 +89,7 @@ struct PeerConnectView: View {
       },
       label: {
         VStack {
-          Image(systemName: "app.fill")
+          Image(systemName: appIconName)
             .resizable()
             .aspectRatio(contentMode: .fill)
             .fontWeight(.thin)
@@ -105,7 +113,7 @@ struct PeerConnectView: View {
               } icon: {
                 if device.lowercased().contains("vision") {
                   // Image(systemName: "visionpro") //FIXME: not appearing
-                  Image("visionpro") //FIXME: not appearing
+                  Image("visionpro")  //FIXME: not appearing
                 } else {
                   Image(systemName: "iphone")
                 }
@@ -133,7 +141,7 @@ struct PeerConnectView: View {
       }
     )
     .buttonStyle(.plain)
-    .shadow(radius: 8, y: 8)
+    .shadow(radius: 4, y: 2)
     .help("Insert coin to continue")
   }
 }

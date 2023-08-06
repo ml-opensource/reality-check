@@ -33,9 +33,12 @@ final class RealityCheckConnectViewModel: ObservableObject {
       await startMultipeerSession()
     }
   }
+}
 
+//MARK: - Multipeer
+extension RealityCheckConnectViewModel {
   func startMultipeerSession() async {
-    //MARK: 1. Setup
+    //MARK: Setup
     for await action in await multipeerClient.start(
       serviceName: "reality-check",
       sessionType: .peer,
@@ -49,7 +52,7 @@ final class RealityCheckConnectViewModel: ObservableObject {
                 connectionState = state
               }
               if case .connected = state {
-                //MARK: 2. Send Hierarchy
+                //MARK: Send Hierarchy
                 await sendMultipeerData()
               }
 
@@ -78,8 +81,8 @@ final class RealityCheckConnectViewModel: ObservableObject {
                   await MainActor.run {
                     let parentBounds = entity.visualBounds(relativeTo: nil)
                     selectionEntity.setParent(entity)
-//                    selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
-//                    selectionEntity.position.y = parentBounds.extents.y
+                    //                    selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
+                    //                    selectionEntity.position.y = parentBounds.extents.y
                   }
                 }
               } else {
@@ -117,19 +120,19 @@ final class RealityCheckConnectViewModel: ObservableObject {
       )
     }
 
-    #if os(iOS)
-      let arViewData = try! await defaultEncoder.encode(
-        CodableARView(
-          arView,
-          anchors: identifiableAnchors,
-          contentScaleFactor: arView.contentScaleFactor
-        )
+    let arViewData = try! await defaultEncoder.encode(
+      CodableARView(
+        arView,
+        anchors: identifiableAnchors,
+        contentScaleFactor: arView.contentScaleFactor
       )
-      multipeerClient.send(arViewData)
-    #elseif os(macOS)
-      fatalError("`arView.contentScaleFactor` cant be found on macOS")
-    #endif
+    )
+    multipeerClient.send(arViewData)
   }
+}
+
+//MARK: - Video streaming
+extension RealityCheckConnectViewModel {
 
   func startVideoStreaming() async {
     await MainActor.run {
