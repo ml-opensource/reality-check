@@ -5,23 +5,12 @@ import XCTest
 @testable import RealityCheck
 
 final class RealityCheckTests: XCTestCase {
-  var encoder: JSONEncoder {
-    let encoder = JSONEncoder()
-    encoder.nonConformingFloatEncodingStrategy = .convertToString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    encoder.outputFormatting = .prettyPrinted
-    return encoder
-  }
-
   func testSimpleDecodable() throws {
     let url = Bundle.module.url(forResource: "simple_hierarchy", withExtension: "json")!
     let data = try Data(contentsOf: url)
     let hierarchy = try! defaultDecoder.decode(CodableARView.self, from: data)
     //Re - Encode
-    let hierarchyData = try! encoder.encode(hierarchy)
+    let hierarchyData = try! defaultEncoder.encode(hierarchy)
     let hierarchyReDecoded = try! defaultDecoder.decode(CodableARView.self, from: hierarchyData)
 
     XCTAssertFalse(hierarchyReDecoded.scene.anchors.isEmpty)

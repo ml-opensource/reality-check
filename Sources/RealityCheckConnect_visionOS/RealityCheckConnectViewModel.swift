@@ -82,18 +82,10 @@ final public class RealityCheckConnectViewModel {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.realityDump) var realityDump
     
-    let encoder = JSONEncoder()
-    encoder.nonConformingFloatEncodingStrategy = .convertToString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    encoder.outputFormatting = .prettyPrinted
-    
     guard let root = content.root else { return }
     let identifiableEntity = await realityDump.identify(root)
     
-    let realityViewData = try! encoder.encode(identifiableEntity)
+    let realityViewData = try! defaultEncoder.encode(identifiableEntity)
     multipeerClient.send(realityViewData)
   }
   
@@ -118,28 +110,5 @@ final public class RealityCheckConnectViewModel {
     }
     
     streamingClient.stopScreenCapture()
-  }
-}
-
-extension RealityView {
-  public init(
-    _ realityCheckConnectViewModel: RealityCheckConnectViewModel,
-    make: @escaping @MainActor @Sendable (inout RealityViewContent) async -> Void,
-    update: (@MainActor (inout RealityViewContent) -> Void)? = nil
-  ) where Content == RealityViewContent.Body<RealityViewDefaultPlaceholder> {
-    self.init(
-      make: { @MainActor content in
-        await make(&content)
-        realityCheckConnectViewModel.content = content
-      },
-      update: { @MainActor content in
-        update?(&content)
-        if case .connected = realityCheckConnectViewModel.connectionState {
-          Task { [content] in
-            await realityCheckConnectViewModel.sendMultipeerData(content)
-          }
-        }
-      }
-    )
   }
 }

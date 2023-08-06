@@ -109,14 +109,6 @@ final class RealityCheckConnectViewModel: ObservableObject {
       fatalError("ARView is required in order to be able to send its hierarchy")
     }
 
-    let encoder = JSONEncoder()
-    encoder.nonConformingFloatEncodingStrategy = .convertToString(
-      positiveInfinity: "INF",
-      negativeInfinity: "-INF",
-      nan: "NAN"
-    )
-    encoder.outputFormatting = .prettyPrinted
-
     let anchors = await arView.scene.anchors.compactMap { $0 }
     var identifiableAnchors: [IdentifiableEntity] = []
     for anchor in anchors {
@@ -126,7 +118,7 @@ final class RealityCheckConnectViewModel: ObservableObject {
     }
 
     #if os(iOS)
-      let arViewData = try! await encoder.encode(
+      let arViewData = try! await defaultEncoder.encode(
         CodableARView(
           arView,
           anchors: identifiableAnchors,

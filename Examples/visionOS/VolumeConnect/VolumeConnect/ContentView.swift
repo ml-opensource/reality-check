@@ -18,13 +18,13 @@ struct ContentView: View {
   var body: some View {
     VStack {
       Model3D(named: "toy_robot_vintage")
-      RealityView(realityCheckConnectModel) { content in
+      RealityCheckView(realityCheckConnectModel) { content, _ in
         // Add the initial RealityKit content
         if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
           content.add(scene)
         }
 
-      } update: { content in
+      } update: { content, _ in
         // Update the RealityKit content when SwiftUI state changes
         if let scene = content.entities.first {
           let uniformScale: Float = enlarge ? 1.4 : 1.0
@@ -34,9 +34,7 @@ struct ContentView: View {
       .gesture(TapGesture().targetedToAnyEntity().onEnded { _ in
         enlarge.toggle()
       })
-      
-//      RealityCheckConnectView(realityCheckConnectModel)
-      
+            
       VStack {
         Toggle("Enlarge RealityView Content", isOn: $enlarge)
           .toggleStyle(.button)
