@@ -96,17 +96,22 @@ public struct AppCore: Reducer {
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
           state.arViewSection = .init(arView: decodedARView)
-          state.entitiesSection = .init(decodedARView.scene.anchors)
-          return .send(.entitiesSection(.dumpOutput(state.rawData))) //FIXME: temp
-
+          if state.entitiesSection == nil {
+            state.entitiesSection = .init(decodedARView.scene.anchors)
+          }
+          return .merge(
+            .send(.entitiesSection(.refreshEntities(decodedARView.scene.anchors))),
+            .send(.entitiesSection(.dumpOutput(state.rawData)))  //FIXME: temp
+          )
+        
         case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
           if state.entitiesSection == nil {
             state.entitiesSection = .init(decodedEntities)
           }
-        return .concatenate(
-//          .send(.entitiesSection(.refreshEntities(decodedEntities))),
-          .send(.entitiesSection(.dumpOutput(state.rawData))) //FIXME: temp
-        )
+          return .merge(
+            .send(.entitiesSection(.refreshEntities(decodedEntities))),
+            .send(.entitiesSection(.dumpOutput(state.rawData)))  //FIXME: temp
+          )
 
         case .multipeerConnection(_):
           return .none

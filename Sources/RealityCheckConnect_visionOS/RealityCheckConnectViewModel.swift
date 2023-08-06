@@ -81,10 +81,15 @@ extension RealityCheckConnectViewModel {
   public func sendMultipeerData(_ content: RealityViewContent) async {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.realityDump) var realityDump
-    
+    var rawDump: [String] = []
+    for entity in content.entities {
+      rawDump.append(await realityDump.raw(entity))
+    }
+    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
+    multipeerClient.send(rawData)
+
     guard let root = content.root else { return }
     let identifiableEntity = await realityDump.identify(root)
-    
     let realityViewData = try! defaultEncoder.encode(identifiableEntity)
     multipeerClient.send(realityViewData)
   }

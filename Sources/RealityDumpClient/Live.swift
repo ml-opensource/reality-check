@@ -80,7 +80,7 @@ extension RealityKit.Entity: CustomDumpReflectable {
         "isAnchored": self.isAnchored,
         /// Hierarchy
         "parentID": self.parent?.id,
-        //TODO: "children": self.children,
+        "children": self.children.map({ $0 }),
         ///Components
         "components": self.components,
         /// Synchronization
