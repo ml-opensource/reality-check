@@ -50,7 +50,7 @@ extension AppInfo {
     system = "visionOS 1.0"
 
     //FIXME: find a way to get the device name
-    let device = " Vision Pro"
+    let device = "Vision Pro"
 
     return DiscoveryInfo(
       appName: AppInfo.appName,

@@ -19,7 +19,7 @@ struct ConnectionSetupView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
         ScrollView(.vertical) {
-          LazyVGrid(columns: columns, alignment: .leading) {
+          LazyVGrid(columns: columns) {
             ForEach(Array(viewStore.peers.keys)) { peer in
               PeerConnectView(peer: peer, viewStore: viewStore)
             }
@@ -62,7 +62,7 @@ struct ConnectionSetupView: View {
         .padding()
         .background(.bar)
       }
-      .frame(width: 521 / 1.5, height: 521 / 1.5)
+      .frame(width: 521 / 1.25, height: 521 / 1.25)
     }
   }
 }
@@ -100,11 +100,15 @@ struct PeerConnectView: View {
 
           GroupBox {
             if let device = discoveryInfo?.device {
-             // Label(device, systemImage: "iphone")
               Label {
                 Text(device)
               } icon: {
-                Image("visionos-icon")
+                if device.lowercased().contains("vision") {
+                  // Image(systemName: "visionpro") //FIXME: not appearing
+                  Image("visionpro") //FIXME: not appearing
+                } else {
+                  Image(systemName: "iphone")
+                }
               }
 
             }
