@@ -32,6 +32,7 @@ public struct RealityCheckView: View {
           for entity in content.entities {
             print(">>>", selectedEntityID)
             if entity.id == selectedEntityID {
+              //FIXME: Is this relationship not reflected in the hierarchy?
               indicatorEntity.setParent(entity, preservingWorldTransform: false)
               indicatorEntity.setPosition( entity.position, relativeTo: nil)
               //indicatorEntity.look(

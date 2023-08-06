@@ -38,6 +38,8 @@ enum Parser {
     private static func identifyEntity(
         _ loadedEntity: Entity, detail: Int, nesting: Int
     ) -> IdentifiableEntity {
+   
+      
         let state = IdentifiableEntity.State(
             isEnabled: loadedEntity.isEnabled,
             isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
@@ -46,7 +48,7 @@ enum Parser {
         )
         let hierarhy = IdentifiableEntity.Hierarhy(
             children: loadedEntity.children.compactMap({ identify($0) }),
-            hasParent: !(loadedEntity.parent == nil)
+            parentID: loadedEntity.parent?.id
         )
         let components = IdentifiableEntity.Components(
             components: identifyComponents(loadedEntity.components)

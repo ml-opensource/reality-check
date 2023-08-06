@@ -278,7 +278,7 @@ extension IdentifiableEntity.Hierarhy: CustomDumpReflectable {
     .init(
       self,
       children: [
-        "hasParent": self.hasParent,
+        "parentID": self.parentID,
         "children": self.children,
       ],
       displayStyle: .dictionary

@@ -77,7 +77,6 @@ struct EntityDetailView: View {
                 .monospaced()
                 .textSelection(.enabled)
             }
-
           }
         }
 
@@ -102,10 +101,19 @@ struct EntityDetailView: View {
         }
 
         Section("Hierarhy") {
-          LabeledContent(
-            "parent",
-            value: "\(entity.hierarhy.hasParent ? "YES" : "NO")"
-          )
+          if let parentID = entity.hierarhy.parentID {
+            LabeledContent(
+              "parent",
+              content: {
+                Button(
+                  parentID.description,
+                  systemImage: "arrow.up.forward.square.fill",
+                  action: {}
+                )
+                .padding(1)
+              }
+            )
+          }
           LabeledContent(
             "children count",
             value: "\(entity.hierarhy.childrenCount)"
