@@ -59,16 +59,16 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
 
   public struct Hierarhy: Codable {
 
-    public let hasParent: Bool
+    public let parentID: UInt64?
     public var childrenCount: Int { children.count }
     public var children: [IdentifiableEntity]
 
     public init(
       children: [IdentifiableEntity],
-      hasParent: Bool
+      parentID: UInt64?
     ) {
       self.children = children
-      self.hasParent = hasParent
+      self.parentID = parentID
     }
   }
 
@@ -89,7 +89,7 @@ public struct IdentifiableEntity: Equatable, Identifiable, Hashable, Codable {
     hierarhy: IdentifiableEntity.Hierarhy,
     components: IdentifiableEntity.Components
   ) {
-    #if !os(xrOS)
+    #if !os(visionOS)
       if let anchor = entity as? AnchorEntity {
         self.anchorIdentifier = anchor.anchorIdentifier
       }
@@ -116,7 +116,7 @@ extension IdentifiableEntity.EntityType: RawRepresentable {
       //     return AnchorEntity.self
 
       case .directionalLight:
-        #if !os(xrOS)
+        #if !os(visionOS)
           return DirectionalLight.self
         #endif
         fatalError()
@@ -131,13 +131,13 @@ extension IdentifiableEntity.EntityType: RawRepresentable {
         return PerspectiveCamera.self
 
       case .pointLight:
-        #if !os(xrOS)
+        #if !os(visionOS)
           return PointLight.self
         #endif
         fatalError()
 
       case .spotLight:
-        #if !os(xrOS)
+        #if !os(visionOS)
           return SpotLight.self
         #endif
         fatalError()
