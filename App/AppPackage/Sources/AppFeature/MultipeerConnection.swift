@@ -42,6 +42,7 @@ public struct MultipeerConnection: Reducer {
     case receivedDecodedARView(CodableARView)
     case receivedDecodedEntities([IdentifiableEntity])
     case receivedVideoFrameData(VideoFrameData)
+    case receivedRawData(String)
   }
 
   @Dependency(\.continuousClock) var clock
@@ -132,27 +133,34 @@ extension MultipeerConnection {
     if let videoFrameData = try? defaultDecoder.decode(VideoFrameData.self, from: data) {
       await send(.delegate(.receivedVideoFrameData(videoFrameData)))
     }
-    //MARK: CodableARView
+    // MARK: Raw data
+    else if let rawData = try? defaultDecoder.decode(
+      String.self,
+      from: data
+    ) {
+      await send(.delegate(.receivedRawData(rawData)))
+    }
+    // MARK: CodableARView
     else if let decodedARView = try? defaultDecoder.decode(
       CodableARView.self,
       from: data
     ) {
-      print(String(data: data, encoding: .utf8)!)
-      //FIXME: avoid logger truncating
+      // FIXME: avoid logger truncating
+      // print(String(data: data, encoding: .utf8)!)
       // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedARView(decodedARView)))
     }
-    //MARK: RealityViewContent Root
+    // MARK: RealityViewContent Root
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
       IdentifiableEntity.self,
       from: data
     ) {
-      print(String(data: data, encoding: .utf8)!)
-      //FIXME: avoid logger truncating
+      // FIXME: avoid logger truncating
+      // print(String(data: data, encoding: .utf8)!)
       // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
     }
-    //MARK: default
+    // MARK: default
     else {
       fatalError(String(data: data, encoding: .utf8)!)
     }

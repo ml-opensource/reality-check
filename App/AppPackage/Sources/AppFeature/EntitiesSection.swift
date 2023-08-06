@@ -54,13 +54,13 @@ public struct EntitiesSection: Reducer {
         case .binding(\.$selection):
           if let entity = state.selectedEntity {
             return .merge(
-              .send(.dumpOutput(String(customDumping: entity))),
+              //.send(.dumpOutput(String(customDumping: entity))),
               .send(.delegate(.didToggleSelectSection)),
               .send(.delegate(.didSelectEntity(entity.id)))
             )
           } else {
             return .merge(
-              .send(.dumpOutput("...")),
+              // .send(.dumpOutput("...")),
               .send(.delegate(.didToggleSelectSection))
             )
           }

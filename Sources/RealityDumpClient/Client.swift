@@ -8,11 +8,11 @@ public struct RealityDump {
         printing: Bool = true,
         detail: Int = 1,
         org: Bool = true
-    ) async -> [String] {
+    ) async -> String {
         await self.raw(loadedEntity, printing, detail, org)
     }
 
-    var raw: (Entity, Bool, Int, Bool) async -> [String]
+    var raw: (Entity, Bool, Int, Bool) async -> String
 
     public func identify(
         _ loadedEntity: Entity,

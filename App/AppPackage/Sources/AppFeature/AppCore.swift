@@ -18,6 +18,8 @@ public struct AppCore: Reducer {
     public var selectedSection: Section?
     @BindingState public var viewPortSize: CGSize
 
+    var rawData: String = ""  //FIXME: temp
+
     public init(
       arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesSection.State? = nil,
@@ -88,16 +90,23 @@ public struct AppCore: Reducer {
           streamingClient.prepareForRender(videoFrameData)
           return .none
 
+        case .multipeerConnection(.delegate(.receivedRawData(let rawData))):
+          state.rawData = rawData
+          return .send(.entitiesSection(.dumpOutput(rawData)))
+
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
           state.arViewSection = .init(arView: decodedARView)
           state.entitiesSection = .init(decodedARView.scene.anchors)
-          return .none
+          return .send(.entitiesSection(.dumpOutput(state.rawData))) //FIXME: temp
 
         case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
           if state.entitiesSection == nil {
             state.entitiesSection = .init(decodedEntities)
           }
-          return .send(.entitiesSection(.refreshEntities(decodedEntities)))
+        return .concatenate(
+//          .send(.entitiesSection(.refreshEntities(decodedEntities))),
+          .send(.entitiesSection(.dumpOutput(state.rawData))) //FIXME: temp
+        )
 
         case .multipeerConnection(_):
           return .none

@@ -14,7 +14,7 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    ),
+    )
   ],
   dependencies: [
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
@@ -70,6 +70,7 @@ let package = Package(
     .target(
       name: "RealityDumpClient",
       dependencies: [
+        .product(name: "CustomDump", package: "swift-custom-dump"),
         .product(name: "Dependencies", package: "swift-dependencies"),
         "Models",
       ]

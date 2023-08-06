@@ -114,11 +114,14 @@ extension RealityCheckConnectViewModel {
 
     let anchors = await arView.scene.anchors.compactMap { $0 }
     var identifiableAnchors: [IdentifiableEntity] = []
+    var rawDump: [String] = []
     for anchor in anchors {
-      identifiableAnchors.append(
-        await realityDump.identify(anchor)
-      )
+      rawDump.append(await realityDump.raw(anchor))
+      identifiableAnchors.append(await realityDump.identify(anchor))
     }
+
+    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
+    multipeerClient.send(rawData)
 
     let arViewData = try! await defaultEncoder.encode(
       CodableARView(
