@@ -34,7 +34,7 @@ extension RealityCheckConnectViewModel {
   func startMultipeerSession() async {
     @Dependency(\.multipeerClient) var multipeerClient
     
-    //MARK: Setup
+    /// Setup
     for await action in await multipeerClient.start(
       serviceName: "reality-check",
       sessionType: .peer,
@@ -48,12 +48,12 @@ extension RealityCheckConnectViewModel {
             connectionState = state
           }
           if case .connected = state {
-            //MARK: Send Hierarchy
+            /// Send Hierarchy
             await sendMultipeerData(content)
           }
           
         case .didReceiveData(let data):
-          //MARK: Entity selection
+          /// Entity selection
           if let entitySelection = try? defaultDecoder.decode(
             EntitySelection.self,
             from: data

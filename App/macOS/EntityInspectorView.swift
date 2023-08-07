@@ -7,8 +7,8 @@ struct EntityInspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
 
-  var entity: IdentifiableEntity {
-    viewStore.selectedEntity!
+  var entity: IdentifiableEntity? {
+    viewStore.selectedEntity
   }
 
   init(
@@ -19,136 +19,135 @@ struct EntityInspectorView: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 0) {
-      VStack(alignment: .leading) {
-        Label(
-          entity.entityType.description,
-          systemImage: entity.entityType.symbol
-        )
-        .font(.headline)
-
-        Section {
-          LabeledContent(
-            "id:",
-            value: entity.id.description
+    if let entity {
+      VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading) {
+          Label(
+            entity.entityType.description,
+            systemImage: entity.entityType.symbol
           )
-          .textSelection(.enabled)
+          .font(.headline)
 
-          if let name = entity.name, !name.isEmpty {
+          Section {
             LabeledContent(
-              "name:",
-              value: name
+              "id:",
+              value: entity.id.description
             )
-            //            .textSelection(.enabled)
-          }
+            .textSelection(.enabled)
 
-          if let anchorIdentifier = entity.anchorIdentifier {
-            LabeledContent(
-              "anchorIdentifier",
-              value: anchorIdentifier.uuidString
-            )
-            //            .textSelection(.enabled)
-          }
-        }
-      }
-      .padding()
+            if let name = entity.name, !name.isEmpty {
+              LabeledContent(
+                "name:",
+                value: name
+              )
+            }
 
-      Divider()
-
-      List {
-        Section("Accessibility") {
-          LabeledContent(
-            "isAccessibilityElement",
-            value:
-              "\(entity.isAccessibilityElement ? "YES" : "NO")"
-          )
-          if let accessibilityLabel = entity.accessibilityLabel {
-            LabeledContent(
-              "accessibilityLabel",
-              value: accessibilityLabel
-            )
-          }
-          if let accessibilityDescription = entity
-            .accessibilityDescription
-          {
-            LabeledContent(
-              "accessibilityDescription",
-              value: accessibilityDescription
-            )
-          }
-        }
-
-        if !entity.availableAnimations.isEmpty {
-          Section("Animation") {
-            DisclosureGroup("availableAnimations") {
-              Text(String(customDumping: entity.availableAnimations))
-                .monospaced()
-                .textSelection(.enabled)
+            if let anchorIdentifier = entity.anchorIdentifier {
+              LabeledContent(
+                "anchorIdentifier",
+                value: anchorIdentifier.uuidString
+              )
             }
           }
         }
+        .padding()
 
-        Section("State") {
-          LabeledContent(
-            "isEnabled",
-            value: "\(entity.state.isEnabled ? "YES" : "NO")"
-          )
-          LabeledContent(
-            "isEnabledInHierarchy",
-            value: "\(entity.state.isActive ? "YES" : "NO")"
-          )
-          LabeledContent(
-            "isAnchored",
-            value:
-              "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")"
-          )
-          LabeledContent(
-            "isActive",
-            value: "\(entity.state.isAnchored ? "YES" : "NO")"
-          )
-        }
+        Divider()
 
-        Section("Hierarhy") {
-          if let parentID = entity.hierarhy.parentID {
+        List {
+          Section("Accessibility") {
             LabeledContent(
-              "parent",
-              content: {
-                Button(
-                  parentID.description,
-                  systemImage: "arrow.up.forward.square.fill",
-                  action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
-                )
-                .help(
-                  """
-                  Click to select the parent.
-                  ID: \(parentID.description)
-                  """
-                )
-                .padding(1)
-              }
+              "isAccessibilityElement",
+              value:
+                "\(entity.isAccessibilityElement ? "YES" : "NO")"
             )
+            if let accessibilityLabel = entity.accessibilityLabel {
+              LabeledContent(
+                "accessibilityLabel",
+                value: accessibilityLabel
+              )
+            }
+            if let accessibilityDescription = entity
+              .accessibilityDescription
+            {
+              LabeledContent(
+                "accessibilityDescription",
+                value: accessibilityDescription
+              )
+            }
           }
-          LabeledContent(
-            "children count",
-            value: "\(entity.hierarhy.childrenCount)"
-          )
-        }
 
-        Section("Components") {
-          LabeledContent("count", value: "\(entity.components.count)")
-          ForEach(entity.components.components, id: \.self) { component in
-            GroupBox {
-              DisclosureGroup(component.componentType.description) {
-                ComponentPropertiesView(component.properties)
+          if !entity.availableAnimations.isEmpty {
+            Section("Animation") {
+              DisclosureGroup("availableAnimations") {
+                Text(String(customDumping: entity.availableAnimations))
                   .monospaced()
+                  .textSelection(.enabled)
               }
-              .help(component.componentType.help)
+            }
+          }
+
+          Section("State") {
+            LabeledContent(
+              "isEnabled",
+              value: "\(entity.state.isEnabled ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isEnabledInHierarchy",
+              value: "\(entity.state.isActive ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isAnchored",
+              value:
+                "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isActive",
+              value: "\(entity.state.isAnchored ? "YES" : "NO")"
+            )
+          }
+
+          Section("Hierarhy") {
+            if let parentID = entity.hierarhy.parentID {
+              LabeledContent(
+                "parent",
+                content: {
+                  Button(
+                    parentID.description,
+                    systemImage: "arrow.up.forward.square.fill",
+                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+                  )
+                  .help(
+                    """
+                    Click to select the parent.
+                    ID: \(parentID.description)
+                    """
+                  )
+                  .padding(1)
+                }
+              )
+            }
+            LabeledContent(
+              "children count",
+              value: "\(entity.hierarhy.childrenCount)"
+            )
+          }
+
+          Section("Components") {
+            LabeledContent("count", value: "\(entity.components.count)")
+            ForEach(entity.components.components, id: \.self) { component in
+              GroupBox {
+                DisclosureGroup(component.componentType.description) {
+                  ComponentPropertiesView(component.properties)
+                    .monospaced()
+                }
+                .help(component.componentType.help)
+              }
             }
           }
         }
       }
+      .textSelection(.enabled)
     }
-    .textSelection(.enabled)
-
   }
 }

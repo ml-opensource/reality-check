@@ -26,30 +26,34 @@ public struct RealityCheckView: View {
         if let indicatorEntity = attachments.entity(for: "Indicator"),
           let selectedEntityID = realityCheckConnectModel.selectedEntityID
         {
-          indicatorEntity.name = "RealityCheck Indicator (parent: \(selectedEntityID))"
-           content.add(indicatorEntity)
+          content.add(indicatorEntity)
+          indicatorEntity.name = "RealityCheck Indicator (orig parent: \(selectedEntityID))"
 
           for entity in content.entities {
-            print(">>>", selectedEntityID)
             if entity.id == selectedEntityID {
               //FIXME: Is this relationship not reflected in the hierarchy?
               indicatorEntity.setParent(entity, preservingWorldTransform: false)
-              indicatorEntity.setPosition( entity.position, relativeTo: nil)
+              indicatorEntity.name = "RealityCheck Indicator (setParent: \(selectedEntityID))"
+              // indicatorEntity.setPosition( entity.position, relativeTo: nil)
               //indicatorEntity.look(
               //  at: .zero,
               //  from: content.root!.position,
               //  relativeTo: indicatorEntity.parent
               //)
+              let parentBounds = entity.visualBounds(relativeTo: nil)
+              indicatorEntity.setPosition(parentBounds.center, relativeTo: nil)
+              indicatorEntity.position.y = parentBounds.extents.y
             }
           }
         }
-        update?(&content, attachments)
 
         if case .connected = realityCheckConnectModel.connectionState {
           Task { [content] in
             await realityCheckConnectModel.sendMultipeerData(content)
           }
         }
+
+        update?(&content, attachments)
       },
       placeholder: {},
       attachments: {
