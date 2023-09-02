@@ -81,8 +81,8 @@ extension RealityCheckConnectViewModel {
                   await MainActor.run {
                     let parentBounds = entity.visualBounds(relativeTo: nil)
                     selectionEntity.setParent(entity)
-                    //                    selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
-                    //                    selectionEntity.position.y = parentBounds.extents.y
+                    // selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
+                    // selectionEntity.position.y = parentBounds.extents.y
                   }
                 }
               } else {

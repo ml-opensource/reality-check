@@ -2,6 +2,7 @@ import CustomDump
 import RealityKit
 import SwiftUI
 
+// MARK: iOS
 #if os(iOS) && !os(visionOS)
   // @available(iOS 17.0, *)
   let componentTypes: [Component.Type] = [
@@ -46,6 +47,7 @@ import SwiftUI
   ]
 #endif
 
+// MARK: visionOS
 #if os(visionOS)
   let componentTypes: [Component.Type] = [
     AccessibilityComponent.self,
@@ -89,6 +91,7 @@ import SwiftUI
   ]
 #endif
 
+// MARK: macOS
 #if os(macOS)
   @available(macOS 14.0, *)
   let componentTypes: [Component.Type] = [
@@ -191,7 +194,18 @@ extension Entity.ComponentSet: CustomDumpReflectable {
 #endif
 
 #if os(visionOS)
-  extension RealityKit.AdaptiveResolutionComponent: CustomDumpReflectable {
+extension RealityKit.AccessibilityComponent: CustomDumpReflectable {
+  public var customDumpMirror: Mirror {
+    .init(
+      self,
+      children: [
+        //TODO
+      ]
+    )
+  }
+}
+
+extension RealityKit.AdaptiveResolutionComponent: CustomDumpReflectable {
     public var customDumpMirror: Mirror {
       .init(
         self,

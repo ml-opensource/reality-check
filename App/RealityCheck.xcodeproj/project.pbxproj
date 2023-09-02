@@ -125,7 +125,6 @@
 			children = (
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */,
-				402D8A9F2A7E3DE8004DC8F5 /* Extensions */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
 				40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */,
 				401215A12A210AC100D98058 /* DebugOptionsView.swift */,
@@ -136,6 +135,7 @@
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				401215A32A23658A00D98058 /* CustomSplitView */,
 				40E7518329F68F0B0083502A /* Debug */,
+				402D8A9F2A7E3DE8004DC8F5 /* Extensions */,
 				40E7517E29F68F0B0083502A /* Preview Content */,
 				401215B42A2379F200D98058 /* Sidebar */,
 			);

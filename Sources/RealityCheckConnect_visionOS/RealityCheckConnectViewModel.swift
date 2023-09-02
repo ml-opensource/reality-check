@@ -31,7 +31,7 @@ final public class RealityCheckConnectViewModel {
 //MARK: - Multipeer
 //FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
-  func startMultipeerSession() async {
+  public func startMultipeerSession() async {
     @Dependency(\.multipeerClient) var multipeerClient
     
     /// Setup
@@ -47,6 +47,7 @@ extension RealityCheckConnectViewModel {
           await MainActor.run {
             connectionState = state
           }
+
           if case .connected = state {
             /// Send Hierarchy
             await sendMultipeerData(content)
@@ -59,6 +60,10 @@ extension RealityCheckConnectViewModel {
             from: data
           ) {
             self.selectedEntityID = entitySelection.entityID
+            await MainActor.run {
+              let selectedEntity = content.entities.first(where: { $0.id == entitySelection.entityID })
+              //TODO:
+            }
           }
         }
         
@@ -81,10 +86,15 @@ extension RealityCheckConnectViewModel {
   public func sendMultipeerData(_ content: RealityViewContent) async {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.realityDump) var realityDump
+    
+    self.content = content
+//    guard case let .connected(_) = connectionState else { return }
+    
     var rawDump: [String] = []
     for entity in content.entities {
       rawDump.append(await realityDump.raw(entity))
     }
+
     let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
     multipeerClient.send(rawData)
 
@@ -98,7 +108,7 @@ extension RealityCheckConnectViewModel {
 //MARK: - Video streaming
 //FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
-  func startVideoStreaming() async {
+ public func startVideoStreaming() async {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.streamingClient) var streamingClient
     

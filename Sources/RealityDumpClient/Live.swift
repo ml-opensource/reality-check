@@ -8,7 +8,6 @@ extension RealityDump: DependencyKey {
   public static var liveValue: Self {
     return Self(
       raw: { (loadedEntity, printing, detail, org) in
-        // dumpRealityEntity(loadedEntity, printing: printing)
         String(customDumping: loadedEntity)
       },
       identify: { (loadedEntity, detail) in
@@ -84,12 +83,12 @@ extension RealityKit.Entity: CustomDumpReflectable {
         ///Components
         "components": self.components,
         /// Synchronization
-        "synchronization": self.synchronization,
-        "isOwner": self.isOwner,
+//        "synchronization": self.synchronization,
+//        "isOwner": self.isOwner,
         ///Nearest Anchor
         //TODO: "anchor": self.anchor,
         ///Animations
-        "availableAnimations": self.availableAnimations,
+//        "availableAnimations": self.availableAnimations,
         ///Animating an Entity
         //TODO: "defaultAnimationClock": self.defaultAnimationClock,
         //TODO: "bindableValues": self.bindableValues,

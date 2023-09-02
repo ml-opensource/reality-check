@@ -4,66 +4,74 @@ import SwiftUI
 public struct RealityCheckView: View {
   @Environment(RealityCheckConnectViewModel.self) private var realityCheckConnectModel
 
-  let make: @MainActor @Sendable (inout RealityViewContent, RealityViewAttachments) async -> Void
-  let update: (@MainActor (inout RealityViewContent, RealityViewAttachments) -> Void)?
+  let make: @MainActor @Sendable (inout RealityViewContent) async -> Void
+  let update: (@MainActor (inout RealityViewContent) -> Void)?
 
   public init(
-    make: @escaping @MainActor @Sendable (inout RealityViewContent, RealityViewAttachments) async ->
+    make: @escaping @MainActor @Sendable (inout RealityViewContent) async ->
       Void,
-    update: (@MainActor (inout RealityViewContent, RealityViewAttachments) -> Void)? = nil
+    update: (@MainActor (inout RealityViewContent) -> Void)? = nil
   ) {
     self.make = make
     self.update = update
   }
 
   public var body: some View {
-    RealityView(
-      make: { @MainActor content, attachments in
-        await make(&content, attachments)
-        realityCheckConnectModel.content = content
-      },
-      update: { @MainActor content, attachments in
-        if let indicatorEntity = attachments.entity(for: "Indicator"),
-          let selectedEntityID = realityCheckConnectModel.selectedEntityID
-        {
-          content.add(indicatorEntity)
-          indicatorEntity.name = "RealityCheck Indicator (orig parent: \(selectedEntityID))"
-
-          for entity in content.entities {
-            if entity.id == selectedEntityID {
-              //FIXME: Is this relationship not reflected in the hierarchy?
-              indicatorEntity.setParent(entity, preservingWorldTransform: false)
-              indicatorEntity.name = "RealityCheck Indicator (setParent: \(selectedEntityID))"
-              // indicatorEntity.setPosition( entity.position, relativeTo: nil)
-              //indicatorEntity.look(
-              //  at: .zero,
-              //  from: content.root!.position,
-              //  relativeTo: indicatorEntity.parent
-              //)
-              let parentBounds = entity.visualBounds(relativeTo: nil)
-              indicatorEntity.setPosition(parentBounds.center, relativeTo: nil)
-              indicatorEntity.position.y = parentBounds.extents.y
+    RealityView { content in
+            await make(&content)
+             realityCheckConnectModel.content = content
             }
-          }
-        }
 
-        if case .connected = realityCheckConnectModel.connectionState {
-          Task { [content] in
-            await realityCheckConnectModel.sendMultipeerData(content)
-          }
-        }
+    
 
-        update?(&content, attachments)
-      },
-      placeholder: {},
-      attachments: {
-        Text("RealityCheck Indicator")
-          .font(.largeTitle)
-          .padding(100)
-          .glassBackgroundEffect()
-          .tag("Indicator")
-      }
-    )
+//    RealityView(
+//      make: { @MainActor content, attachments in
+////        await make(&content, attachments)
+////        realityCheckConnectModel.content = content
+//      },
+//      update: { @MainActor content, attachments in
+////        if let indicatorEntity = attachments.entity(for: "Indicator"),
+////          let selectedEntityID = realityCheckConnectModel.selectedEntityID
+////        {
+////          //content.add(indicatorEntity)
+////          indicatorEntity.name = "RealityCheck Indicator (orig parent: \(selectedEntityID))"
+////
+////          for entity in content.entities {
+////            if entity.id == selectedEntityID {
+////              //FIXME: Is this relationship not reflected in the hierarchy?
+////              entity.addChild(indicatorEntity)
+////              // indicatorEntity.setParent(entity, preservingWorldTransform: false)
+////              indicatorEntity.name = "RealityCheck Indicator (setParent: \(selectedEntityID))"
+////              // indicatorEntity.setPosition( entity.position, relativeTo: nil)
+////              //indicatorEntity.look(
+////              //  at: .zero,
+////              //  from: content.root!.position,
+////              //  relativeTo: indicatorEntity.parent
+////              //)
+////              let parentBounds = entity.visualBounds(relativeTo: nil)
+////              indicatorEntity.setPosition(parentBounds.center, relativeTo: nil)
+////              indicatorEntity.position.y = parentBounds.extents.y
+////            }
+////          }
+////        }
+//
+////        if case .connected = realityCheckConnectModel.connectionState {
+////          Task { [content] in
+////            await realityCheckConnectModel.sendMultipeerData(content)
+////          }
+////        }
+////
+////        update?(&content, attachments)
+//      },
+//      placeholder: {},
+//      attachments: {
+////        Text("RealityCheck Indicator")
+////          .font(.largeTitle)
+////          .padding(100)
+////          .glassBackgroundEffect()
+////          .tag("Indicator")
+//      }
+//    )
   }
 }
 
@@ -117,3 +125,5 @@ public struct RealityCheckView: View {
 //    }
 //  }
 //}
+
+

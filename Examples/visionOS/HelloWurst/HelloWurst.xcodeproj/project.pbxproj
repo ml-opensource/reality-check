@@ -1,0 +1,517 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		407220E42A936C11009BB134 /* StepByStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407220E32A936C11009BB134 /* StepByStepView.swift */; };
+		407220E82A93BD30009BB134 /* Recipe+Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407220E72A93BD30009BB134 /* Recipe+Samples.swift */; };
+		407EAD2C2A9D1DC0007C46AA /* ServingsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EAD2B2A9D1DC0007C46AA /* ServingsPicker.swift */; };
+		40B512272A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 40B512262A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz */; };
+		40B5124A2A9E51A900DC4BBB /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B512492A9E51A900DC4BBB /* ClockView.swift */; };
+		40B70D782AA3B8B400785A9C /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40B70D772AA3B8B400785A9C /* RealityCheckConnect */; };
+		40BB48332A87D61F008422AE /* AppCoreFeatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48322A87D61F008422AE /* AppCoreFeatureModel.swift */; };
+		40BB48362A87D6F1008422AE /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48352A87D6F1008422AE /* Destination.swift */; };
+		40BB48382A87E417008422AE /* GoalsSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48372A87E417008422AE /* GoalsSelector.swift */; };
+		40BB483A2A87E6EB008422AE /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48392A87E6EB008422AE /* Goal.swift */; };
+		40BB483C2A87F2EC008422AE /* Diet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB483B2A87F2EC008422AE /* Diet.swift */; };
+		40BB483E2A87F431008422AE /* DietSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB483D2A87F431008422AE /* DietSelector.swift */; };
+		40BB48402A87FFC7008422AE /* ServingsCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB483F2A87FFC7008422AE /* ServingsCounter.swift */; };
+		40BB48422A880514008422AE /* AlmostThere.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48412A880514008422AE /* AlmostThere.swift */; };
+		40BB48442A894057008422AE /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48432A894057008422AE /* MainView.swift */; };
+		40BB48462A89449E008422AE /* OnboardingFeatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48452A89449E008422AE /* OnboardingFeatureModel.swift */; };
+		40BB48842A8A6C23008422AE /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48832A8A6C23008422AE /* Preferences.swift */; };
+		40BB48872A8A8F4F008422AE /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48862A8A8F4F008422AE /* TodayView.swift */; };
+		40BB48892A8A8FBA008422AE /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48882A8A8FBA008422AE /* Recipe.swift */; };
+		40CE54A12A8BA3EE002C0FA3 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CE54A02A8BA3EE002C0FA3 /* RecipeView.swift */; };
+		40CE54A42A8BF54A002C0FA3 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CE54A32A8BF54A002C0FA3 /* StepView.swift */; };
+		40CE54A62A8BF591002C0FA3 /* StepByStepFeatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CE54A52A8BF591002C0FA3 /* StepByStepFeatureModel.swift */; };
+		40D4D81D2A9A1E0300E38ABD /* OnboardingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D4D81C2A9A1E0300E38ABD /* OnboardingStepView.swift */; };
+		40D4D81F2A9A20DF00E38ABD /* PresentationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40D4D81E2A9A20DF00E38ABD /* PresentationView.swift */; };
+		40E7521A2A8667990040E74F /* HelloWurstApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E752192A8667990040E74F /* HelloWurstApp.swift */; };
+		40E7521C2A8667990040E74F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7521B2A8667990040E74F /* ContentView.swift */; };
+		40E7521E2A86679B0040E74F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7521D2A86679B0040E74F /* Assets.xcassets */; };
+		40E752212A86679B0040E74F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E752202A86679B0040E74F /* Preview Assets.xcassets */; };
+		40E752292A8669EA0040E74F /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E752282A8669EA0040E74F /* OnboardingView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		407220E32A936C11009BB134 /* StepByStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepByStepView.swift; sourceTree = "<group>"; };
+		407220E72A93BD30009BB134 /* Recipe+Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recipe+Samples.swift"; sourceTree = "<group>"; };
+		407EAD2B2A9D1DC0007C46AA /* ServingsPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServingsPicker.swift; sourceTree = "<group>"; };
+		40B512262A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Wall_Kitchen_Clock_50s.usdz; sourceTree = "<group>"; };
+		40B512492A9E51A900DC4BBB /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		40B70D792AA3BB5200785A9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		40BB48322A87D61F008422AE /* AppCoreFeatureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoreFeatureModel.swift; sourceTree = "<group>"; };
+		40BB48352A87D6F1008422AE /* Destination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Destination.swift; sourceTree = "<group>"; };
+		40BB48372A87E417008422AE /* GoalsSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsSelector.swift; sourceTree = "<group>"; };
+		40BB48392A87E6EB008422AE /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		40BB483B2A87F2EC008422AE /* Diet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diet.swift; sourceTree = "<group>"; };
+		40BB483D2A87F431008422AE /* DietSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DietSelector.swift; sourceTree = "<group>"; };
+		40BB483F2A87FFC7008422AE /* ServingsCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServingsCounter.swift; sourceTree = "<group>"; };
+		40BB48412A880514008422AE /* AlmostThere.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlmostThere.swift; sourceTree = "<group>"; };
+		40BB48432A894057008422AE /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		40BB48452A89449E008422AE /* OnboardingFeatureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFeatureModel.swift; sourceTree = "<group>"; };
+		40BB48832A8A6C23008422AE /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
+		40BB48862A8A8F4F008422AE /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		40BB48882A8A8FBA008422AE /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		40CE54A02A8BA3EE002C0FA3 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		40CE54A32A8BF54A002C0FA3 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		40CE54A52A8BF591002C0FA3 /* StepByStepFeatureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepByStepFeatureModel.swift; sourceTree = "<group>"; };
+		40D4D81C2A9A1E0300E38ABD /* OnboardingStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepView.swift; sourceTree = "<group>"; };
+		40D4D81E2A9A20DF00E38ABD /* PresentationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationView.swift; sourceTree = "<group>"; };
+		40E752162A8667990040E74F /* HelloWurst.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloWurst.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		40E752192A8667990040E74F /* HelloWurstApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWurstApp.swift; sourceTree = "<group>"; };
+		40E7521B2A8667990040E74F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		40E7521D2A86679B0040E74F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		40E752202A86679B0040E74F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		40E752282A8669EA0040E74F /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		40E752132A8667990040E74F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B70D782AA3B8B400785A9C /* RealityCheckConnect in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		40BB48342A87D6E0008422AE /* SharedModels */ = {
+			isa = PBXGroup;
+			children = (
+				40BB483B2A87F2EC008422AE /* Diet.swift */,
+				40BB48392A87E6EB008422AE /* Goal.swift */,
+				40BB48832A8A6C23008422AE /* Preferences.swift */,
+				40BB48882A8A8FBA008422AE /* Recipe.swift */,
+				407220E72A93BD30009BB134 /* Recipe+Samples.swift */,
+			);
+			path = SharedModels;
+			sourceTree = "<group>";
+		};
+		40BB48852A8A8F1E008422AE /* TodayFeature */ = {
+			isa = PBXGroup;
+			children = (
+				40BB48862A8A8F4F008422AE /* TodayView.swift */,
+			);
+			path = TodayFeature;
+			sourceTree = "<group>";
+		};
+		40CE549F2A8BA3DC002C0FA3 /* SharedViews */ = {
+			isa = PBXGroup;
+			children = (
+				40CE54A02A8BA3EE002C0FA3 /* RecipeView.swift */,
+				407EAD2B2A9D1DC0007C46AA /* ServingsPicker.swift */,
+			);
+			path = SharedViews;
+			sourceTree = "<group>";
+		};
+		40CE54A22A8BF43A002C0FA3 /* StepByStepFeature */ = {
+			isa = PBXGroup;
+			children = (
+				40B512262A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz */,
+				40CE54A32A8BF54A002C0FA3 /* StepView.swift */,
+				40CE54A52A8BF591002C0FA3 /* StepByStepFeatureModel.swift */,
+				407220E32A936C11009BB134 /* StepByStepView.swift */,
+				40B512492A9E51A900DC4BBB /* ClockView.swift */,
+			);
+			path = StepByStepFeature;
+			sourceTree = "<group>";
+		};
+		40E7520D2A8667990040E74F = {
+			isa = PBXGroup;
+			children = (
+				40E752182A8667990040E74F /* HelloWurst */,
+				40E752172A8667990040E74F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		40E752172A8667990040E74F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40E752162A8667990040E74F /* HelloWurst.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		40E752182A8667990040E74F /* HelloWurst */ = {
+			isa = PBXGroup;
+			children = (
+				40B70D792AA3BB5200785A9C /* Info.plist */,
+				40BB48322A87D61F008422AE /* AppCoreFeatureModel.swift */,
+				40E7521B2A8667990040E74F /* ContentView.swift */,
+				40BB48352A87D6F1008422AE /* Destination.swift */,
+				40E752192A8667990040E74F /* HelloWurstApp.swift */,
+				40BB48432A894057008422AE /* MainView.swift */,
+				40E7521D2A86679B0040E74F /* Assets.xcassets */,
+				40E752272A8669D90040E74F /* OnboardingFeature */,
+				40E7521F2A86679B0040E74F /* Preview Content */,
+				40BB48342A87D6E0008422AE /* SharedModels */,
+				40CE549F2A8BA3DC002C0FA3 /* SharedViews */,
+				40CE54A22A8BF43A002C0FA3 /* StepByStepFeature */,
+				40BB48852A8A8F1E008422AE /* TodayFeature */,
+			);
+			path = HelloWurst;
+			sourceTree = "<group>";
+		};
+		40E7521F2A86679B0040E74F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				40E752202A86679B0040E74F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		40E752272A8669D90040E74F /* OnboardingFeature */ = {
+			isa = PBXGroup;
+			children = (
+				40BB48412A880514008422AE /* AlmostThere.swift */,
+				40BB483D2A87F431008422AE /* DietSelector.swift */,
+				40BB48372A87E417008422AE /* GoalsSelector.swift */,
+				40BB48452A89449E008422AE /* OnboardingFeatureModel.swift */,
+				40E752282A8669EA0040E74F /* OnboardingView.swift */,
+				40BB483F2A87FFC7008422AE /* ServingsCounter.swift */,
+				40D4D81C2A9A1E0300E38ABD /* OnboardingStepView.swift */,
+				40D4D81E2A9A20DF00E38ABD /* PresentationView.swift */,
+			);
+			path = OnboardingFeature;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		40E752152A8667990040E74F /* HelloWurst */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 40E752242A86679B0040E74F /* Build configuration list for PBXNativeTarget "HelloWurst" */;
+			buildPhases = (
+				40E752122A8667990040E74F /* Sources */,
+				40E752132A8667990040E74F /* Frameworks */,
+				40E752142A8667990040E74F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelloWurst;
+			packageProductDependencies = (
+				40B70D772AA3B8B400785A9C /* RealityCheckConnect */,
+			);
+			productName = HelloWurst;
+			productReference = 40E752162A8667990040E74F /* HelloWurst.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40E7520E2A8667990040E74F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					40E752152A8667990040E74F = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 40E752112A8667990040E74F /* Build configuration list for PBXProject "HelloWurst" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 40E7520D2A8667990040E74F;
+			packageReferences = (
+				40B70D762AA3B8B400785A9C /* XCLocalSwiftPackageReference "../../../../../../../../../nodes-projects/RealityCheck/source/reality-check" */,
+			);
+			productRefGroup = 40E752172A8667990040E74F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				40E752152A8667990040E74F /* HelloWurst */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		40E752142A8667990040E74F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40B512272A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz in Resources */,
+				40E752212A86679B0040E74F /* Preview Assets.xcassets in Resources */,
+				40E7521E2A86679B0040E74F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		40E752122A8667990040E74F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				40CE54A12A8BA3EE002C0FA3 /* RecipeView.swift in Sources */,
+				40B5124A2A9E51A900DC4BBB /* ClockView.swift in Sources */,
+				40BB48422A880514008422AE /* AlmostThere.swift in Sources */,
+				40BB48442A894057008422AE /* MainView.swift in Sources */,
+				40E752292A8669EA0040E74F /* OnboardingView.swift in Sources */,
+				407220E42A936C11009BB134 /* StepByStepView.swift in Sources */,
+				40E7521C2A8667990040E74F /* ContentView.swift in Sources */,
+				407220E82A93BD30009BB134 /* Recipe+Samples.swift in Sources */,
+				40BB48892A8A8FBA008422AE /* Recipe.swift in Sources */,
+				40D4D81D2A9A1E0300E38ABD /* OnboardingStepView.swift in Sources */,
+				40D4D81F2A9A20DF00E38ABD /* PresentationView.swift in Sources */,
+				40CE54A42A8BF54A002C0FA3 /* StepView.swift in Sources */,
+				40BB48362A87D6F1008422AE /* Destination.swift in Sources */,
+				40BB48872A8A8F4F008422AE /* TodayView.swift in Sources */,
+				40BB483C2A87F2EC008422AE /* Diet.swift in Sources */,
+				407EAD2C2A9D1DC0007C46AA /* ServingsPicker.swift in Sources */,
+				40BB48382A87E417008422AE /* GoalsSelector.swift in Sources */,
+				40BB48332A87D61F008422AE /* AppCoreFeatureModel.swift in Sources */,
+				40E7521A2A8667990040E74F /* HelloWurstApp.swift in Sources */,
+				40BB48842A8A6C23008422AE /* Preferences.swift in Sources */,
+				40CE54A62A8BF591002C0FA3 /* StepByStepFeatureModel.swift in Sources */,
+				40BB483A2A87E6EB008422AE /* Goal.swift in Sources */,
+				40BB483E2A87F431008422AE /* DietSelector.swift in Sources */,
+				40BB48402A87FFC7008422AE /* ServingsCounter.swift in Sources */,
+				40BB48462A89449E008422AE /* OnboardingFeatureModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		40E752222A86679B0040E74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		40E752232A86679B0040E74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		40E752252A86679B0040E74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HelloWurst/Preview Content\"";
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HelloWurst/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "HelloWurst (P2)";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.monstarlab.HelloWurst.P2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Debug;
+		};
+		40E752262A86679B0040E74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"HelloWurst/Preview Content\"";
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HelloWurst/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "HelloWurst (P2)";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.monstarlab.HelloWurst.P2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		40E752112A8667990040E74F /* Build configuration list for PBXProject "HelloWurst" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40E752222A86679B0040E74F /* Debug */,
+				40E752232A86679B0040E74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		40E752242A86679B0040E74F /* Build configuration list for PBXNativeTarget "HelloWurst" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40E752252A86679B0040E74F /* Debug */,
+				40E752262A86679B0040E74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		40B70D762AA3B8B400785A9C /* XCLocalSwiftPackageReference "../../../../../../../../../nodes-projects/RealityCheck/source/reality-check" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../../../../../../../nodes-projects/RealityCheck/source/reality-check";
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40B70D772AA3B8B400785A9C /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 40E7520E2A8667990040E74F /* Project object */;
+}
