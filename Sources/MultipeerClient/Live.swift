@@ -9,9 +9,9 @@ extension MultipeerClient: DependencyKey {
       if let peerName {
         name = peerName
       } else {
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || os(visionOS)
           name = await UIDevice.current.name
-        #elseif os(macOS) || os(visionOS)
+        #elseif os(macOS)
           name = Host.current().name ?? UUID().uuidString
         #endif
       }
@@ -93,7 +93,6 @@ extension MultipeerClient {
     ) -> AsyncStream<Action> {
       AsyncStream { continuation in
         let myPeerID = MCPeerID(displayName: peerName)
-
         setupSession()
 
         switch sessionType {
