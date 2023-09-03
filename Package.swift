@@ -14,6 +14,10 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
+    ),
+    .library(
+      name: "RealityDumpClient",
+      targets: ["RealityDumpClient"]
     )
   ],
   dependencies: [

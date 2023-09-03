@@ -3,30 +3,35 @@ import Models
 import RealityKit
 
 public struct RealityDump {
-    public func raw(
-        _ loadedEntity: Entity,
-        printing: Bool = true,
-        detail: Int = 1,
-        org: Bool = true
-    ) async -> String {
-        await self.raw(loadedEntity, printing, detail, org)
-    }
 
-    var raw: (Entity, Bool, Int, Bool) async -> String
+  @discardableResult
+  /// Uses PointFree `custom-dump` to represent textually an `Entity`
+  /// - Parameters:
+  ///   - entity: The entity to instrospect
+  ///   - printing: Optionally display on console
+  /// - Returns: A structured string
+  public func dump(
+    _ entity: Entity,
+    printing: Bool = true
+  ) async -> String {
+    await self.dump(entity, printing)
+  }
 
-    public func identify(
-        _ loadedEntity: Entity,
-        detail: Int = 1
-    ) async -> IdentifiableEntity {
-        await self.identify(loadedEntity, detail)
-    }
+  var dump: (Entity, Bool) async -> String
 
-    var identify: (Entity, Int) async -> IdentifiableEntity
+  public func identify(
+    _ entity: Entity,
+    detail: Int = 1
+  ) async -> IdentifiableEntity {
+    await self.identify(entity, detail)
+  }
+
+  var identify: (Entity, Int) async -> IdentifiableEntity
 }
 
 extension DependencyValues {
-    public var realityDump: RealityDump {
-        get { self[RealityDump.self] }
-        set { self[RealityDump.self] = newValue }
-    }
+  public var realityDump: RealityDump {
+    get { self[RealityDump.self] }
+    set { self[RealityDump.self] = newValue }
+  }
 }
