@@ -11,30 +11,26 @@ import RealityKitContent
 import RealityCheckConnect
 
 struct ContentView: View {
+  @State
+  private var showImmersiveSpace = false
   
-  @State private var showImmersiveSpace = false
-  @State private var immersiveSpaceIsShown = false
+  @State
+  private var immersiveSpaceIsShown = false
   
-  @Environment(\.openImmersiveSpace) var openImmersiveSpace
-  @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-  @Environment(RealityCheckConnectViewModel.self) private var realityCheckConnectModel
+  @Environment(\.openImmersiveSpace)
+  var openImmersiveSpace
   
+  @Environment(\.dismissImmersiveSpace)
+  var dismissImmersiveSpace
+
   var body: some View {
     VStack {
       Model3D(named: "Scene", bundle: realityKitContentBundle)
-      .padding(.bottom, 50)
-      .accessibilityElement()
-      .accessibilityValue("Accessible Sphere")
-      
-      RealityView { content in
-        let referenceEntity = ModelEntity(mesh: .generateBox(size: 0.15))
-        referenceEntity.name = "RealityCheck-reference"
-        referenceEntity.isAccessibilityElement = true
-        content.add(referenceEntity)
-        
-        await realityCheckConnectModel.sendMultipeerData(content)
-      }
-      
+        .padding(.bottom, 50)
+        .realityCheck()
+        .accessibilityElement()
+        .accessibilityValue("Accessible Sphere")
+                  
       Text("Hello, world!")
       
       Toggle("Show Immersive Space", isOn: $showImmersiveSpace)
@@ -59,9 +55,6 @@ struct ContentView: View {
           immersiveSpaceIsShown = false
         }
       }
-    }
-    .task {
-      await realityCheckConnectModel.startMultipeerSession()
     }
   }
 }
