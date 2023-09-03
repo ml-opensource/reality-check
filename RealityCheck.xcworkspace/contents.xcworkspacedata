@@ -30,7 +30,7 @@
          location = "container:"
          name = "visionOS">
          <FileRef
-            location = "group:Examples/visionOS/VisionConnect/VisionConnect.xcodeproj">
+            location = "group:Examples/visionOS/Connect/Connect.xcodeproj">
          </FileRef>
          <FileRef
             location = "group:Examples/visionOS/HelloWurst/HelloWurst.xcodeproj">

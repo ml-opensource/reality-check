@@ -2,6 +2,7 @@ import CustomDump
 import RealityKit
 import SwiftUI
 
+#if os(iOS) || os(visionOS)
 extension Entity.ComponentSet: CustomDumpReflectable {
   public var customDumpMirror: Mirror {
     var componentsInEntity: [any Component] {
@@ -18,6 +19,7 @@ extension Entity.ComponentSet: CustomDumpReflectable {
     return .init(reflecting: componentsInEntity)
   }
 }
+#endif
 
 #if os(iOS) || os(visionOS)
 
