@@ -25,7 +25,7 @@ public struct RealityCheckView: View {
         referenceEntity.isEnabled = false
         content.add(referenceEntity)
 
-        await realityCheckConnectModel.sendMultipeerData(content)
+        realityCheckConnectModel.content = content
         await make(&content)
       },
       update: update  //TODO: send data on update

@@ -60,14 +60,13 @@ struct MainView: View {
             SplitView(axis: .vertical) {
               Color.clear
                 .safeAreaInset(edge: .bottom, spacing: 0) {
-                  StatusBarView(proxy: proxy, collapsed: viewStore.$isDumpAreaCollapsed)
+                  StatusBarView(proxy: proxy, collapsed: viewStore.$isConsoleCollapsed)
                 }
 
-              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "???"))
-                .font(.body)
-                .monospaced()
+              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
+                .font(.system(.body, design: .monospaced))
                 .collapsable()
-                .collapsed(viewStore.$isDumpAreaCollapsed)
+                .collapsed(viewStore.$isConsoleCollapsed)
                 .frame(minHeight: 200, maxHeight: .infinity)
             }
             .edgesIgnoringSafeArea(.top)

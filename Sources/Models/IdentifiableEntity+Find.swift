@@ -11,14 +11,14 @@ import Foundation
 ///
 /// - Note: This method assumes that each node has a unique ID.
 ///
-public func findEntity(root: IdentifiableEntity, targetID: UInt64) -> IdentifiableEntity? {
+public func findIdentifiableEntity(root: IdentifiableEntity, targetID: UInt64) -> IdentifiableEntity? {
   if root.id == targetID {
     return root
   }
 
   if let children = root.children {
     for child in children {
-      if let foundNode = findEntity(root: child, targetID: targetID) {
+      if let foundNode = findIdentifiableEntity(root: child, targetID: targetID) {
         return foundNode
       }
     }

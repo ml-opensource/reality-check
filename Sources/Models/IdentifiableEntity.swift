@@ -1,4 +1,3 @@
-import CustomDump
 import Foundation
 import RealityKit
 
@@ -255,79 +254,5 @@ extension IdentifiableEntity.EntityType {
           An invisible 3D shape that detects when objects enter or exit a given region of space.
           """
     }
-  }
-}
-
-extension IdentifiableEntity.State: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "isEnabled": self.isEnabled,
-        "isEnabledInHierarchy": self.isEnabledInHierarchy,
-        "isActive": self.isActive,
-        "isAnchored": self.isAnchored,
-      ],
-      displayStyle: .dictionary
-    )
-  }
-}
-
-extension IdentifiableEntity.Hierarhy: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "parentID": self.parentID,
-        "children": self.children,
-      ],
-      displayStyle: .dictionary
-    )
-  }
-}
-
-extension IdentifiableEntity.Components: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "_items": self.components
-      ],
-      displayStyle: .collection
-    )
-  }
-}
-
-//extension IdentifiableEntity: CustomDumpStringConvertible {
-//  public var customDumpDescription: String {
-//    """
-//    Anchor(
-//      id: \(self.id),
-//      components: \(String(customDumping: self.components))
-//
-//    )
-//    """
-//  }
-//}
-
-extension IdentifiableEntity: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "id": self.id,
-        "isAccessibilityElement": self.isAccessibilityElement,
-        "accessibilityLabel": self.accessibilityLabel,
-        "accessibilityDescription": self.accessibilityDescription,
-        "anchorIdentifier": self.anchorIdentifier,
-        "availableAnimations": self.availableAnimations,
-        "name": self.name,
-        "entityType": self.entityType,
-        "state": self.state,
-        "hierarhy": self.hierarhy,
-        "components": self.components.components,
-      ],
-      displayStyle: .struct
-    )
   }
 }

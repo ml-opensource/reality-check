@@ -48,9 +48,3 @@ struct EntitiesSectionView: View {
     }
   }
 }
-
-// struct MyView_Previews: PreviewProvider {
-//   static var previews: some View {
-//       EntitiesView(store: ...)
-//   }
-// }

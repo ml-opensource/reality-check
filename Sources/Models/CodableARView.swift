@@ -93,7 +93,7 @@ public struct CodableScene: Codable, Equatable {
   extension ARView {
     public func findEntityIdentified(targetID: UInt64) -> Entity? {
       for anchor in self.scene.anchors {
-        if let entity = findEntity(root: anchor, targetID: targetID) {
+        if let entity = findIdentifiableEntity(root: anchor, targetID: targetID) {
           return entity
         }
       }
@@ -102,13 +102,13 @@ public struct CodableScene: Codable, Equatable {
     }
   }
 
-  public func findEntity(root: RealityKit.Entity, targetID: UInt64) -> Entity? {
+  public func findIdentifiableEntity(root: RealityKit.Entity, targetID: UInt64) -> Entity? {
     if root.id == targetID {
       return root
     }
 
     for child in root.children {
-      if let foundNode = findEntity(root: child, targetID: targetID) {
+      if let foundNode = findIdentifiableEntity(root: child, targetID: targetID) {
         return foundNode
       }
     }

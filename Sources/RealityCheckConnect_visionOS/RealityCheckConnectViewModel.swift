@@ -31,7 +31,7 @@ final public class RealityCheckConnectViewModel {
 //MARK: - Multipeer
 //FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
-  public func startMultipeerSession() async {
+  fileprivate func startMultipeerSession() async {
     @Dependency(\.multipeerClient) var multipeerClient
     
     /// Setup
@@ -51,8 +51,7 @@ extension RealityCheckConnectViewModel {
           if case .connected = state {
             /// Send Hierarchy
             
-            guard let content else { return }
-            await sendMultipeerData(content)
+            await sendMultipeerData()
           }
           
         case .didReceiveData(let data):
@@ -61,10 +60,10 @@ extension RealityCheckConnectViewModel {
             EntitySelection.self,
             from: data
           ) {
-            self.selectedEntityID = entitySelection.entityID
-            await MainActor.run {
-              let selectedEntity = content.entities.first(where: { $0.id == entitySelection.entityID })
-              //TODO:
+            
+            if let root = content.root,
+               let selectedEntity = findEntity(root: root, targetID: entitySelection.entityID) {
+              await sendMultipeerSelectedRawData(selectedEntity)
             }
           }
         }
@@ -85,26 +84,48 @@ extension RealityCheckConnectViewModel {
     }
   }
   
-  public func sendMultipeerData(_ _content: RealityViewContent) async {
+  fileprivate  func sendMultipeerData() async {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.realityDump) var realityDump
     
     //TODO: remove reference entity
-    self.content = _content
-    guard case .connected(_) = connectionState else { return }
+    // guard case .connected(_) = connectionState else { return }
     
     var rawDump: [String] = []
-    for entity in self.content.entities {
+    for entity in content.entities {
       rawDump.append(await realityDump.dump(entity))
     }
     
     let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
     multipeerClient.send(rawData)
     
-    guard let root = self.content.root else { return }
+    guard let root = content.root else { return }
     let identifiableEntity = await realityDump.identify(root)
     let realityViewData = try! defaultEncoder.encode(identifiableEntity)
     multipeerClient.send(realityViewData)
+  }
+  
+  //  fileprivate func sendMultipeerRawData() async {
+  //    @Dependency(\.multipeerClient) var multipeerClient
+  //    @Dependency(\.realityDump) var realityDump
+  //
+  //    var rawDump: [String] = []
+  //    for entity in content.entities {
+  //      rawDump.append(await realityDump.dump(entity))
+  //    }
+  //
+  //    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
+  //    multipeerClient.send(rawData)
+  //  }
+  
+  fileprivate func sendMultipeerSelectedRawData(_ entity: Entity) async {
+    @Dependency(\.multipeerClient) var multipeerClient
+    @Dependency(\.realityDump) var realityDump
+    
+    var rawDump: [String] = []
+    await print(realityDump.dump(entity))
+    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
+    multipeerClient.send(rawData)
   }
 }
 
