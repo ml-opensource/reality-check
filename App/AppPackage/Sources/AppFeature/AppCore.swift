@@ -74,8 +74,8 @@ public struct AppCore: Reducer {
         case .binding(_):
           return .none
 
-                case .entitiesSection(.delegate(.didToggleSelectSection)):
-                  return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
+        case .entitiesSection(.delegate(.didToggleSelectSection)):
+          return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
 
         case .entitiesSection(.delegate(.didSelectEntity(let entityID))):
           return .send(.multipeerConnection(.sendSelection(entityID)))
@@ -89,7 +89,6 @@ public struct AppCore: Reducer {
           return .none
 
         case .multipeerConnection(.delegate(.receivedRawData(let rawData))):
-          guard rawData != "" else { return .none }  //FIXME: temporal development scalfolding
           return .send(.entitiesSection(.dumpOutput(rawData)))
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):

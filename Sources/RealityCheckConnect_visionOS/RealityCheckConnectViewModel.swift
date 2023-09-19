@@ -11,7 +11,7 @@ import RealityDumpClient
 @Observable
 final public class RealityCheckConnectViewModel {
   var connectionState: MultipeerClient.SessionState
-  var content: RealityViewContent!
+  var scenes: [UInt64: RealityViewContent] = [:]
   var hostName: String
   var isStreaming = false
   var selectedEntityID: UInt64?
@@ -25,6 +25,14 @@ final public class RealityCheckConnectViewModel {
     
     Task(priority: .userInitiated) {
       await startMultipeerSession()
+    }
+  }
+  
+  func updateContent(_ content: RealityViewContent) {
+    guard let scene = content.root?.scene else { return }
+    scenes.updateValue(content, forKey: scene.id)
+    Task {
+      await sendMultipeerData()
     }
   }
 }
@@ -51,7 +59,6 @@ extension RealityCheckConnectViewModel {
           
           if case .connected = state {
             /// Send Hierarchy
-            
             await sendMultipeerData()
           }
           
@@ -61,11 +68,8 @@ extension RealityCheckConnectViewModel {
             EntitySelection.self,
             from: data
           ) {
-            
-            if let root = content.root,
-               let selectedEntity = findEntity(root: root, targetID: entitySelection.entityID) {
-              await sendMultipeerSelectedRawData(selectedEntity)
-            }
+            selectedEntityID = entitySelection.entityID
+            await sendSelectedEntityMultipeerRawData()
           }
         }
         
@@ -85,25 +89,44 @@ extension RealityCheckConnectViewModel {
     }
   }
   
-  fileprivate  func sendMultipeerData() async {
+  fileprivate func sendMultipeerData() async {
     @Dependency(\.multipeerClient) var multipeerClient
     @Dependency(\.realityDump) var realityDump
     
-    //TODO: remove reference entity
-    //TODO: improve connection state send logic
-    // guard case .connected(_) = connectionState else { return }
+    guard case .connected = connectionState else { return }
+        
+    //TODO: remove/hide reference entity
     
-    guard let root = content.root else { return }
-    let identifiableEntity = await realityDump.identify(root)
-    let realityViewData = try! defaultEncoder.encode(identifiableEntity)
+    //FIXME: improve naming, on visionOS first level children are not anchors
+    var identifiableAnchors: [IdentifiableEntity] = []
+
+    for scene in scenes.values {
+      guard let root = scene.root else { return }
+      identifiableAnchors.append(await realityDump.identify(root))
+    }
+    
+    let realityViewData = try! defaultEncoder.encode(CodableScene(anchors: identifiableAnchors))
     multipeerClient.send(realityViewData)
-    await sendMultipeerSelectedRawData(root)
+    
+    // TODO: set default selection?
+    // if selectedEntityID == nil {
+    //   await sendSelectedEntityMultipeerRawData()
+    // }
   }
   
-  fileprivate func sendMultipeerSelectedRawData(_ entity: Entity) async {
+  fileprivate func sendSelectedEntityMultipeerRawData() async {
     @Dependency(\.multipeerClient) var multipeerClient
-    let rawData = try! defaultEncoder.encode(String(customDumping: entity))
-    multipeerClient.send(rawData)
+    
+    guard let selectedEntityID else { return }
+    
+    for scene in scenes.values {
+      guard let root = scene.root else { return }
+      
+      if let selectedEntity = findEntity(root: root, targetID: selectedEntityID) {
+        let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
+        multipeerClient.send(rawData)
+      }
+    }
   }
 }
 

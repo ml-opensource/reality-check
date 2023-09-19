@@ -20,6 +20,7 @@ struct ConnectApp: App {
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
+                .environment(realityCheckConnectModel)
         }
     }
 }

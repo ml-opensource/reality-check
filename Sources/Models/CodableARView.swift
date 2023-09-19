@@ -4,18 +4,11 @@ import RealityKit
 public struct CodableScene: Codable, Equatable {
   public let anchors: [IdentifiableEntity]
 
-  init(
+  public init(
     anchors: [IdentifiableEntity]
   ) {
     self.anchors = anchors
   }
-
-  //TODO: allow anchors identification at this level
-  // init(
-  //   _ scene: RealityKit.Scene
-  // ) {
-  //   self.anchors = ???
-  // }
 }
 
 #if !os(visionOS)

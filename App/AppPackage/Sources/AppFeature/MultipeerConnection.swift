@@ -150,6 +150,13 @@ extension MultipeerConnection {
       // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedARView(decodedARView)))
     }
+    // MARK: RealityViewContent Scene
+    else if let decodedRealityViewContent = try? defaultDecoder.decode(
+      CodableScene.self,
+      from: data
+    ) {
+      await send(.delegate(.receivedDecodedEntities(decodedRealityViewContent.anchors)))
+    }
     // MARK: RealityViewContent Root
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
       IdentifiableEntity.self,

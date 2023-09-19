@@ -24,11 +24,12 @@ public struct RealityCheckView: View {
         referenceEntity.isAccessibilityElement = false
         referenceEntity.isEnabled = false
         content.add(referenceEntity)
-
-        realityCheckConnectModel.content = content
         await make(&content)
       },
-      update: update  //TODO: send data on update
+      update: { content in
+        update?(&content)
+        realityCheckConnectModel.updateContent(content)
+      }
     )
   }
 }
