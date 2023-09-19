@@ -101,7 +101,6 @@ struct MainView: View {
             .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         }
       }
-      // .animation(.default, value: viewStore.arViewSection)
       .navigationSplitViewStyle(.balanced)
       .toolbar {
         ToolbarItem {

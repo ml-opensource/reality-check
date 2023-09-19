@@ -15,10 +15,6 @@ let package = Package(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
     ),
-    .library(
-      name: "RealityCheckConnect_visionOS",
-      targets: ["RealityCheckConnect_visionOS"]
-    ),
   ],
   dependencies: [
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),

@@ -42,7 +42,7 @@ public struct EntitiesSection: Reducer {
   }
 
   public enum DelegateAction: Equatable {
-//    case didToggleSelectSection
+    case didToggleSelectSection
     case didSelectEntity(IdentifiableEntity.ID)
   }
 
@@ -54,15 +54,9 @@ public struct EntitiesSection: Reducer {
         case .binding(\.$selection):
           if let entity = state.selectedEntity {
             return .merge(
-              //.send(.dumpOutput(String(customDumping: entity))),
-//              .send(.delegate(.didToggleSelectSection)),
               .send(.delegate(.didSelectEntity(entity.id)))
             )
           } else {
-            return .none
-//            return .merge(
-//              .send(.delegate(.didToggleSelectSection))
-//            )
           }
 
         case .binding:
@@ -84,6 +78,5 @@ public struct EntitiesSection: Reducer {
           }
       }
     }
-    ._printChanges()
   }
 }
