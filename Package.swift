@@ -16,22 +16,19 @@ let package = Package(
       targets: ["RealityCheckConnect"]
     ),
     .library(
-      name: "RealityDumpClient",
-      targets: ["RealityDumpClient"]
-    )
+      name: "RealityCheckConnect_visionOS",
+      targets: ["RealityCheckConnect_visionOS"]
+    ),
   ],
   dependencies: [
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+    // .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
+    .package(path: "../../../../external/RealityDump/source/reality-dump"),
   ],
   targets: [
-    .target(
-      name: "Models",
-      dependencies: [
-        .product(name: "CustomDump", package: "swift-custom-dump")
-      ]
-    ),
+    .target(name: "Models"),
     .target(
       name: "MultipeerClient",
       dependencies: [
@@ -65,9 +62,10 @@ let package = Package(
       name: "RealityCheckConnect_visionOS",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
+        .product(name: "RealityDump", package: "reality-dump"),
         "Models",
         "MultipeerClient",
-        "RealityDumpClient",
+        "RealityDumpClient", //TODO: rename and export giving only Codable responsabilities
         "StreamingClient",
       ]
     ),

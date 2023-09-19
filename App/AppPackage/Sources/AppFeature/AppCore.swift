@@ -74,8 +74,8 @@ public struct AppCore: Reducer {
         case .binding(_):
           return .none
 
-//        case .entitiesSection(.delegate(.didToggleSelectSection)):
-//          return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
+        //        case .entitiesSection(.delegate(.didToggleSelectSection)):
+        //          return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
 
         case .entitiesSection(.delegate(.didSelectEntity(let entityID))):
           return .send(.multipeerConnection(.sendSelection(entityID)))
@@ -97,19 +97,13 @@ public struct AppCore: Reducer {
           if state.entitiesSection == nil {
             state.entitiesSection = .init(decodedARView.scene.anchors)
           }
-          return .merge(
-            .send(.entitiesSection(.refreshEntities(decodedARView.scene.anchors)))
-            // .send(.entitiesSection(.dumpOutput(state.rawData)))  //FIXME: temp
-          )
+          return .send(.entitiesSection(.refreshEntities(decodedARView.scene.anchors)))
 
         case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
           if state.entitiesSection == nil {
             state.entitiesSection = .init(decodedEntities)
           }
-          return .merge(
-            .send(.entitiesSection(.refreshEntities(decodedEntities)))
-            // .send(.entitiesSection(.dumpOutput(state.rawData)))  //FIXME: temp
-          )
+          return .send(.entitiesSection(.refreshEntities(decodedEntities)))
 
         case .multipeerConnection(_):
           return .none

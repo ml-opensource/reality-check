@@ -5,6 +5,7 @@ import MultipeerClient
 import RealityKit
 import SwiftUI
 import StreamingClient
+import RealityDump
 import RealityDumpClient
 
 @Observable
@@ -89,42 +90,19 @@ extension RealityCheckConnectViewModel {
     @Dependency(\.realityDump) var realityDump
     
     //TODO: remove reference entity
+    //TODO: improve connection state send logic
     // guard case .connected(_) = connectionState else { return }
-    
-    var rawDump: [String] = []
-    for entity in content.entities {
-      rawDump.append(await realityDump.dump(entity))
-    }
-    
-    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
-    multipeerClient.send(rawData)
     
     guard let root = content.root else { return }
     let identifiableEntity = await realityDump.identify(root)
     let realityViewData = try! defaultEncoder.encode(identifiableEntity)
     multipeerClient.send(realityViewData)
+    await sendMultipeerSelectedRawData(root)
   }
-  
-  //  fileprivate func sendMultipeerRawData() async {
-  //    @Dependency(\.multipeerClient) var multipeerClient
-  //    @Dependency(\.realityDump) var realityDump
-  //
-  //    var rawDump: [String] = []
-  //    for entity in content.entities {
-  //      rawDump.append(await realityDump.dump(entity))
-  //    }
-  //
-  //    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
-  //    multipeerClient.send(rawData)
-  //  }
   
   fileprivate func sendMultipeerSelectedRawData(_ entity: Entity) async {
     @Dependency(\.multipeerClient) var multipeerClient
-    @Dependency(\.realityDump) var realityDump
-    
-    var rawDump: [String] = []
-    await print(realityDump.dump(entity))
-    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
+    let rawData = try! defaultEncoder.encode(String(customDumping: entity))
     multipeerClient.send(rawData)
   }
 }

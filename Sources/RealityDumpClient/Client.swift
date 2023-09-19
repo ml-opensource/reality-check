@@ -4,20 +4,20 @@ import RealityKit
 
 public struct RealityDump {
 
-  @discardableResult
-  /// Uses PointFree `custom-dump` to represent textually an `Entity`
-  /// - Parameters:
-  ///   - entity: The entity to instrospect
-  ///   - printing: Optionally display on console
-  /// - Returns: A structured string
-  public func dump(
-    _ entity: Entity,
-    printing: Bool = true
-  ) async -> String {
-    await self.dump(entity, printing)
-  }
-
-  var dump: (Entity, Bool) async -> String
+//  @discardableResult
+//  /// Uses PointFree `custom-dump` to represent textually an `Entity`
+//  /// - Parameters:
+//  ///   - entity: The entity to instrospect
+//  ///   - printing: Optionally display on console
+//  /// - Returns: A structured string
+//  public func dump(
+//    _ entity: Entity,
+//    printing: Bool = true
+//  ) async -> String {
+//    await self.dump(entity, printing)
+//  }
+//
+//  var dump: (Entity, Bool) async -> String
 
   public func identify(
     _ entity: Entity,

@@ -17,11 +17,11 @@ public func findEntity(root: Entity, targetID: UInt64) -> Entity? {
     return root
   }
 
-    for child in root.children {
-      if let foundNode = findEntity(root: child, targetID: targetID) {
-        return foundNode
-      }
+  for child in root.children {
+    if let foundNode = findEntity(root: child, targetID: targetID) {
+      return foundNode
     }
+  }
 
   return nil
 }

@@ -1,4 +1,3 @@
-import CustomDump
 import Foundation
 import RealityKit
 
@@ -50,14 +49,15 @@ public enum CodableTarget: Codable {
   }
 }
 
-extension AnchoringComponentProperties: CustomDumpReflectable {
-  public var customDumpMirror: Mirror {
-    .init(
-      self,
-      children: [
-        "target": self.target
-      ],
-      displayStyle: .struct
-    )
-  }
-}
+//FIXME:
+//extension AnchoringComponentProperties: CustomDumpReflectable {
+//  public var customDumpMirror: Mirror {
+//    .init(
+//      self,
+//      children: [
+//        "target": self.target
+//      ],
+//      displayStyle: .struct
+//    )
+//  }
+//}

@@ -116,7 +116,7 @@ extension RealityCheckConnectViewModel {
     var identifiableAnchors: [IdentifiableEntity] = []
     var rawDump: [String] = []
     for anchor in anchors {
-      rawDump.append(await realityDump.dump(anchor))
+      rawDump.append(String(customDumping: anchor))
       identifiableAnchors.append(await realityDump.identify(anchor))
     }
 

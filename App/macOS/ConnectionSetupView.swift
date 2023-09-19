@@ -112,13 +112,15 @@ struct PeerConnectView: View {
                 Text(device)
               } icon: {
                 if device.lowercased().contains("vision") {
-                  // Image(systemName: "visionpro") //FIXME: not appearing
-                  Image("visionpro")  //FIXME: not appearing
+                  if #available(visionOS 1.0, *) {
+                    Image(systemName: "visionpro")
+                  } else {
+                    Image("visionpro")
+                  }
                 } else {
                   Image(systemName: "iphone")
                 }
               }
-
             }
 
             if let system = discoveryInfo?.system {

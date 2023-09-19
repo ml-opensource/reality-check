@@ -1,4 +1,3 @@
-import CustomDump
 import simd
 
 public struct CodableFloat4x4: Codable {
@@ -43,8 +42,9 @@ extension CodableFloat4x4: CustomDebugStringConvertible {
   }
 }
 
-extension CodableFloat4x4: CustomDumpStringConvertible {
-  public var customDumpDescription: String {
-    "\(self.float4x4)"
-  }
-}
+//FIXME: 
+//extension CodableFloat4x4: CustomDumpStringConvertible {
+//  public var customDumpDescription: String {
+//    "\(self.float4x4)"
+//  }
+//}

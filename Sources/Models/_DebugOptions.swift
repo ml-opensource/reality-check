@@ -1,6 +1,6 @@
 import Foundation
 
-//Needed because macOS doesn't have all the values available.
+// It's necessary because macOS doesn't have all the options available.
 public struct _DebugOptions: OptionSet, Codable, Equatable {
   public let rawValue: Int
 

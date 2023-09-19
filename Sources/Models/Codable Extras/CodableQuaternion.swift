@@ -1,4 +1,3 @@
-import CustomDump
 import simd
 
 // Wrapper struct for simd_quatf to make it Codable
@@ -41,8 +40,9 @@ extension CodableQuaternion: CustomDebugStringConvertible {
   }
 }
 
-extension CodableQuaternion: CustomDumpStringConvertible {
-  public var customDumpDescription: String {
-    "\(self.vector)"
-  }
-}
+//FIXME:
+//extension CodableQuaternion: CustomDumpStringConvertible {
+//  public var customDumpDescription: String {
+//    "\(self.vector)"
+//  }
+//}
