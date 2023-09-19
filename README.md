@@ -48,4 +48,7 @@ That's just a rough example, but I hope it gives you an idea of what to include 
 
 ## References
 
-[Understanding RealityKit’s modular architecture](https://developer.apple.com/documentation/visionOS/understanding-the-realitykit-modular-architecture)
+- [Understanding RealityKit’s modular architecture](https://developer.apple.com/documentation/visionOS/understanding-the-realitykit-modular-architecture)
+- [Immersive experiences](https://developer.apple.com/design/human-interface-guidelines/immersive-experiences)
+- [Spatial layout](https://developer.apple.com/design/human-interface-guidelines/spatial-layout)
+- [ORIGAMI FUJIMOTO CUBE (Shuzo Fujimoto)](https://www.youtube.com/watch?v=Y8ljs9s9yqI)
