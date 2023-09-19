@@ -24,8 +24,7 @@ let package = Package(
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
-    // .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
-    .package(path: "../../../../external/RealityDump/source/reality-dump"),
+    .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
   ],
   targets: [
     .target(name: "Models"),

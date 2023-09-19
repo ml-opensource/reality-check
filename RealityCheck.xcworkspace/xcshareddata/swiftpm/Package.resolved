@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "reality-dump",
+        "repositoryURL": "https://github.com/elkraneo/reality-dump",
+        "state": {
+          "branch": "main",
+          "revision": "a0fea328f3618e701bfd5f4600d16cd187c5e333",
+          "version": null
+        }
+      },
+      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
