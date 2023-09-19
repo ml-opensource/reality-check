@@ -54,9 +54,11 @@ public struct EntitiesSection: Reducer {
         case .binding(\.$selection):
           if let entity = state.selectedEntity {
             return .merge(
+              .send(.delegate(.didToggleSelectSection)),
               .send(.delegate(.didSelectEntity(entity.id)))
             )
           } else {
+            return .send(.delegate(.didToggleSelectSection))
           }
 
         case .binding:
@@ -73,9 +75,7 @@ public struct EntitiesSection: Reducer {
           state.identifiedEntities = .init(uniqueElements: entities)
           guard let previousSelection = state.selection else { return .none }
           state.selection = nil
-          return .run { send in
-            await send(.binding(.set(\.$selection, previousSelection)))
-          }
+          return .send(.binding(.set(\.$selection, previousSelection)))
       }
     }
   }
