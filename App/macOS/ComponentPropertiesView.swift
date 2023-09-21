@@ -1,5 +1,6 @@
 import Models
 import SwiftUI
+import RealityCodable
 
 struct ComponentPropertiesView: View {
   let properties: ComponentProperties

@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import Foundation
-import Models
+import RealityCodable
 
 public struct EntitiesSection: Reducer {
   public struct State: Equatable {

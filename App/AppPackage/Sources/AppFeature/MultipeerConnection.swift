@@ -3,6 +3,7 @@ import Foundation
 import Models
 import MultipeerClient
 import OSLog
+import RealityCodable
 import StreamingClient
 
 public struct MultipeerConnection: Reducer {
@@ -41,6 +42,7 @@ public struct MultipeerConnection: Reducer {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case receivedDecodedARView(CodableARView)
     case receivedDecodedEntities([IdentifiableEntity])
+    case receivedDecodedScene(CodableScene)
     case receivedVideoFrameData(VideoFrameData)
     case receivedRawData(String)
   }
@@ -140,24 +142,27 @@ extension MultipeerConnection {
     ) {
       await send(.delegate(.receivedRawData(rawData)))
     }
+
     // MARK: CodableARView
+
     else if let decodedARView = try? defaultDecoder.decode(
       CodableARView.self,
       from: data
     ) {
-      // FIXME: avoid logger truncating
-      // print(String(data: data, encoding: .utf8)!)
-      // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedARView(decodedARView)))
     }
+
     // MARK: RealityViewContent Scene
-    else if let decodedRealityViewContent = try? defaultDecoder.decode(
+
+    else if let decodedRealityViewContentScene = try? defaultDecoder.decode(
       CodableScene.self,
       from: data
     ) {
-      await send(.delegate(.receivedDecodedEntities(decodedRealityViewContent.anchors)))
+      await send(.delegate(.receivedDecodedScene(decodedRealityViewContentScene)))
     }
+
     // MARK: RealityViewContent Root
+
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
       IdentifiableEntity.self,
       from: data
@@ -167,7 +172,9 @@ extension MultipeerConnection {
       // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
     }
-    // MARK: default
+
+    // MARK: - default
+
     else {
       fatalError(String(data: data, encoding: .utf8)!)
     }

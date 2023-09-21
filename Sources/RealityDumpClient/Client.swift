@@ -1,6 +1,6 @@
 import Dependencies
-import Models
 import RealityKit
+import RealityCodable
 
 public struct RealityDump {
 

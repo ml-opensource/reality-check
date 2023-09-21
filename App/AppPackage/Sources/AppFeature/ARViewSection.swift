@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import Foundation
 import Models
+import RealityCodable
 import RealityKit
 import SwiftUI
 
@@ -48,9 +49,9 @@ public struct ARViewSection: Reducer {
 
         case .debugOptions(.binding(_)):
           return .send(.delegate(.didUpdateDebugOptions(state.debugOptions.options)))
-//          return .task { [state] in
-//            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
-//          }
+        //          return .task { [state] in
+        //            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
+        //          }
 
         case .debugOptions(_):
           return .none
@@ -61,9 +62,9 @@ public struct ARViewSection: Reducer {
         case .toggleSelection:
           state.isSelected.toggle()
           return .send(.delegate(.didToggleSelectSection))
-//          return .task {
-//            .delegate(.didToggleSelectSection)
-//          }
+      //          return .task {
+      //            .delegate(.didToggleSelectSection)
+      //          }
       }
     }
   }

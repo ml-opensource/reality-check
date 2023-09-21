@@ -1,6 +1,6 @@
 import AppFeature
 import ComposableArchitecture
-import Models
+import RealityCodable
 import SwiftUI
 
 struct EntityInspectorView: View {

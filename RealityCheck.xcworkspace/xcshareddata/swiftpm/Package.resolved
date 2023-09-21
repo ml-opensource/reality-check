@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "reality-codable",
+        "repositoryURL": "https://github.com/elkraneo/reality-codable",
+        "state": {
+          "branch": "main",
+          "revision": "c72cd91fa2f16d9bc236377155984a8e2f64ab87",
+          "version": null
+        }
+      },
+      {
         "package": "reality-dump",
         "repositoryURL": "https://github.com/elkraneo/reality-dump",
         "state": {

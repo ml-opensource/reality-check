@@ -1,16 +1,16 @@
 import CustomDump
 import Dependencies
 import Foundation
-import Models
+import RealityCodable
 import RealityKit
 
 extension RealityDump: DependencyKey {
   public static var liveValue: Self {
     return Self(
-//      dump: { (loadedEntity, printing) in
-//        //TODO: honor printing parameter
-//        String(customDumping: loadedEntity)
-//      },
+      //      dump: { (loadedEntity, printing) in
+      //        //TODO: honor printing parameter
+      //        String(customDumping: loadedEntity)
+      //      },
       identify: { (loadedEntity, detail) in
         Parser.identify(loadedEntity)
       }

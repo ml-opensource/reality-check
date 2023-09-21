@@ -20,6 +20,7 @@ let package = Package(
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+    .package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
     .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
   ],
   targets: [
@@ -57,6 +58,7 @@ let package = Package(
       name: "RealityCheckConnect_visionOS",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
+        .product(name: "RealityCodable", package: "reality-codable"),
         .product(name: "RealityDump", package: "reality-dump"),
         "Models",
         "MultipeerClient",
@@ -69,7 +71,7 @@ let package = Package(
       dependencies: [
         .product(name: "CustomDump", package: "swift-custom-dump"),
         .product(name: "Dependencies", package: "swift-dependencies"),
-        "Models",
+        .product(name: "RealityCodable", package: "reality-codable"),
       ]
     ),
     .target(

@@ -1,4 +1,4 @@
-import Models
+import RealityCodable
 import SwiftUI
 
 struct ARViewInspectorView: View {

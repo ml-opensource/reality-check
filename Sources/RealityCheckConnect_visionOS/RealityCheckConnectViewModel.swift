@@ -2,6 +2,7 @@ import Dependencies
 import Foundation
 import Models
 import MultipeerClient
+import RealityCodable
 import RealityKit
 import SwiftUI
 import StreamingClient
