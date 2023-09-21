@@ -27,14 +27,14 @@ enum Parser {
 
   private static func identifyComponents(
     _ components: Entity.ComponentSet
-  ) -> [IdentifiableComponent] {
-    var identifiableComponents: [IdentifiableComponent] = []
-    for componentType in IdentifiableComponent.ComponentType.allCases {
+  ) -> [CodableComponent] {
+    var CodableComponents: [CodableComponent] = []
+    for componentType in CodableComponent.ComponentType.allCases {
       if let component = components[componentType.rawValue] {
-        identifiableComponents.append(IdentifiableComponent(component))
+        CodableComponents.append(CodableComponent(component))
       }
     }
-    return identifiableComponents
+    return CodableComponents
   }
 
   private static func identifyEntity(
