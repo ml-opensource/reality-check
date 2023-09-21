@@ -4,15 +4,15 @@ import RealityCodable
 
 public struct EntitiesSection: Reducer {
   public struct State: Equatable {
-    public var identifiedEntities: IdentifiedArrayOf<IdentifiableEntity>
+    public var identifiedEntities: IdentifiedArrayOf<CodableEntity>
 
     @BindingState public var dumpOutput: String
-    @BindingState public var selection: IdentifiableEntity.ID?
+    @BindingState public var selection: CodableEntity.ID?
 
-    public var selectedEntity: IdentifiableEntity? {
+    public var selectedEntity: CodableEntity? {
       guard let selection = selection else { return nil }
       for rootEntity in identifiedEntities {
-        if let entity = findIdentifiableEntity(root: rootEntity, targetID: selection) {
+        if let entity = findCodableEntity(root: rootEntity, targetID: selection) {
           return entity
         }
       }
@@ -20,8 +20,8 @@ public struct EntitiesSection: Reducer {
     }
 
     public init(
-      _ identifiedEntities: [IdentifiableEntity],
-      selection: IdentifiableEntity.ID? = nil
+      _ identifiedEntities: [CodableEntity],
+      selection: CodableEntity.ID? = nil
     ) {
       self.identifiedEntities = .init(uniqueElements: identifiedEntities)
       self.selection = selection ?? self.identifiedEntities.first?.id
@@ -38,12 +38,12 @@ public struct EntitiesSection: Reducer {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
-    case refreshEntities([IdentifiableEntity])
+    case refreshEntities([CodableEntity])
   }
 
   public enum DelegateAction: Equatable {
     case didToggleSelectSection
-    case didSelectEntity(IdentifiableEntity.ID)
+    case didSelectEntity(CodableEntity.ID)
   }
 
   public var body: some Reducer<State, Action> {

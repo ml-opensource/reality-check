@@ -21,7 +21,7 @@ extension RealityDump: DependencyKey {
 // MARK: -
 
 enum Parser {
-  static func identify(_ loadedEntity: Entity, detail: Int = 1) -> IdentifiableEntity {
+  static func identify(_ loadedEntity: Entity, detail: Int = 1) -> CodableEntity {
     identifyEntity(loadedEntity, detail: detail, nesting: 1)
   }
 
@@ -41,21 +41,21 @@ enum Parser {
     _ loadedEntity: Entity,
     detail: Int,
     nesting: Int
-  ) -> IdentifiableEntity {
-    let state = IdentifiableEntity.State(
+  ) -> CodableEntity {
+    let state = CodableEntity.State(
       isEnabled: loadedEntity.isEnabled,
       isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
       isActive: loadedEntity.isActive,
       isAnchored: loadedEntity.isAnchored
     )
-    let hierarhy = IdentifiableEntity.Hierarhy(
+    let hierarhy = CodableEntity.Hierarhy(
       children: loadedEntity.children.compactMap({ identify($0) }),
       parentID: loadedEntity.parent?.id
     )
-    let components = IdentifiableEntity.Components(
+    let components = CodableEntity.Components(
       components: identifyComponents(loadedEntity.components)
     )
-    return IdentifiableEntity(
+    return CodableEntity(
       loadedEntity,
       state: state,
       hierarhy: hierarhy,

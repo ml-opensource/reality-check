@@ -7,7 +7,7 @@ struct EntityInspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
 
-  var entity: IdentifiableEntity? {
+  var entity: CodableEntity? {
     viewStore.selectedEntity
   }
 

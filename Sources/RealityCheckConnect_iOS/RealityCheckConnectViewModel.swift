@@ -113,7 +113,7 @@ extension RealityCheckConnectViewModel {
     }
 
     let anchors = await arView.scene.anchors.compactMap { $0 }
-    var identifiableAnchors: [IdentifiableEntity] = []
+    var identifiableAnchors: [CodableEntity] = []
     var rawDump: [String] = []
     for anchor in anchors {
       rawDump.append(String(customDumping: anchor))

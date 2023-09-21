@@ -17,7 +17,7 @@ extension RealityDump {
     }
 }
 
-extension IdentifiableEntity {
+extension CodableEntity {
     //FIXME: restore mock
     //    public static var mock: Self = .init(
     //        id: 7_928_071_431_998_189_885,
