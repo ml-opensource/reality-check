@@ -41,7 +41,7 @@ public struct MultipeerConnection: Reducer {
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case receivedDecodedARView(CodableARView)
-    case receivedDecodedEntities([CodableEntity])
+    case receivedDecodedEntities([_CodableEntity])
     case receivedDecodedScene(CodableScene)
     case receivedVideoFrameData(VideoFrameData)
     case receivedRawData(String)
@@ -164,7 +164,7 @@ extension MultipeerConnection {
     // MARK: RealityViewContent Root
 
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
-      CodableEntity.self,
+      _CodableEntity.self,
       from: data
     ) {
       // FIXME: avoid logger truncating

@@ -7,7 +7,7 @@ struct EntityInspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
 
-  var entity: CodableEntity? {
+  var entity: _CodableEntity? {
     viewStore.selectedEntity
   }
 
@@ -22,11 +22,12 @@ struct EntityInspectorView: View {
     if let entity {
       VStack(alignment: .leading, spacing: 0) {
         VStack(alignment: .leading) {
-          Label(
-            entity.entityType.description,
-            systemImage: entity.entityType.symbol
-          )
-          .font(.headline)
+          //FIXME:
+          // Label(
+          //   entity.entityType.description,
+          //   systemImage: entity.entityType.symbol
+          // )
+          // .font(.headline)
 
           Section {
             LabeledContent(
@@ -35,19 +36,19 @@ struct EntityInspectorView: View {
             )
             .textSelection(.enabled)
 
-            if let name = entity.name, !name.isEmpty {
+            if !entity.name.isEmpty {
               LabeledContent(
                 "name:",
-                value: name
+                value: entity.name
               )
             }
-
-            if let anchorIdentifier = entity.anchorIdentifier {
-              LabeledContent(
-                "anchorIdentifier",
-                value: anchorIdentifier.uuidString
-              )
-            }
+            //FIXME:
+            // if let anchorIdentifier = entity.anchorIdentifier {
+            //   LabeledContent(
+            //     "anchorIdentifier",
+            //     value: anchorIdentifier.uuidString
+            //   )
+            // }
           }
         }
         .padding()
@@ -90,61 +91,62 @@ struct EntityInspectorView: View {
           Section("State") {
             LabeledContent(
               "isEnabled",
-              value: "\(entity.state.isEnabled ? "YES" : "NO")"
+              value: "\(entity.isEnabled ? "YES" : "NO")"
             )
             LabeledContent(
               "isEnabledInHierarchy",
-              value: "\(entity.state.isActive ? "YES" : "NO")"
+              value: "\(entity.isActive ? "YES" : "NO")"
             )
             LabeledContent(
               "isAnchored",
               value:
-                "\(entity.state.isEnabledInHierarchy ? "YES" : "NO")"
+                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
             )
             LabeledContent(
               "isActive",
-              value: "\(entity.state.isAnchored ? "YES" : "NO")"
+              value: "\(entity.isAnchored ? "YES" : "NO")"
             )
           }
+//FIXME:
+//          Section("Hierarhy") {
+//            if let parentID = entity.hierarhy.parentID {
+//              LabeledContent(
+//                "parent",
+//                content: {
+//                  Button(
+//                    parentID.description,
+//                    systemImage: "arrow.up.forward.square.fill",
+//                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+//                  )
+//                  .help(
+//                    """
+//                    Click to select the parent.
+//                    ID: \(parentID.description)
+//                    """
+//                  )
+//                  .padding(1)
+//                }
+//              )
+//            }
+//            LabeledContent(
+//              "children count",
+//              value: "\(entity.hierarhy.childrenCount)"
+//            )
+//          }
 
-          Section("Hierarhy") {
-            if let parentID = entity.hierarhy.parentID {
-              LabeledContent(
-                "parent",
-                content: {
-                  Button(
-                    parentID.description,
-                    systemImage: "arrow.up.forward.square.fill",
-                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
-                  )
-                  .help(
-                    """
-                    Click to select the parent.
-                    ID: \(parentID.description)
-                    """
-                  )
-                  .padding(1)
-                }
-              )
-            }
-            LabeledContent(
-              "children count",
-              value: "\(entity.hierarhy.childrenCount)"
-            )
-          }
-
-          Section("Components") {
-            LabeledContent("count", value: "\(entity.components.count)")
-            ForEach(entity.components.components, id: \.self) { component in
-              GroupBox {
-                DisclosureGroup(component.componentType.description) {
-                  ComponentPropertiesView(component.properties)
-                    .monospaced()
-                }
-                .help(component.componentType.help)
-              }
-            }
-          }
+          //FIXME:
+//          Section("Components") {
+//            LabeledContent("count", value: "\(entity.components.count)")
+//            ForEach(entity.components.components, id: \.self) { component in
+//              GroupBox {
+//                DisclosureGroup(component.componentType.description) {
+//                  ComponentPropertiesView(component.properties)
+//                    .monospaced()
+//                }
+//                .help(component.componentType.help)
+//              }
+//            }
+//          }
         }
       }
       .textSelection(.enabled)

@@ -9,41 +9,43 @@ struct EntitiesSectionView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       List(
         viewStore.identifiedEntities.elements,
-        children: \.children,
+        children: \._children,
         selection: viewStore.$selection
       ) { entity in
         HStack {
-          if let name = entity.name, !name.isEmpty {
+          if !entity.name.isEmpty {
             Label(
               title: {
                 VStack(alignment: .leading) {
-                  Text(name)
-                  Text(entity.entityType.description)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+                  Text(entity.name)
+                  //FIXME:
+                  //                  Text(entity.entityType.description)
+//                    .font(.caption)
+//                    .foregroundColor(.secondary)
                 }
               },
               icon: {
-                Image(systemName: entity.entityType.symbol)
+//FIXME: Image(systemName: entity.entityType.symbol)
               }
             )
           } else {
-            Label(entity.entityType.description, systemImage: entity.entityType.symbol)
+            //FIXME:
+           // Label(entity.entityType.description, systemImage: entity.entityType.symbol)
           }
 
-          if let children = entity.children {
-            Spacer()
-            Text("\(children.count)")
-              .font(.caption2)
-              .foregroundColor(.white)
-              .padding(.vertical, 2)
-              .padding(.horizontal, 6)
-              .background(Capsule(style: .continuous).fill(Color(.controlAccentColor)))
-          }
+//          if !entity.children.isEmpty {
+//            Spacer()
+//            Text("\(entity.children.count)")
+//              .font(.caption2)
+//              .foregroundColor(.white)
+//              .padding(.vertical, 2)
+//              .padding(.horizontal, 6)
+//              .background(Capsule(style: .continuous).fill(Color(.controlAccentColor)))
+//          }
         }
-        .help(entity.entityType.help)
-        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+        //FIXME: .help(entity.entityType.help)
+//        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+//        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
       }
     }
   }

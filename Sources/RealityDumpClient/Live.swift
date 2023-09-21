@@ -21,7 +21,7 @@ extension RealityDump: DependencyKey {
 // MARK: -
 
 enum Parser {
-  static func identify(_ loadedEntity: Entity, detail: Int = 1) -> CodableEntity {
+  static func identify(_ loadedEntity: Entity, detail: Int = 1) -> _CodableEntity {
     identifyEntity(loadedEntity, detail: detail, nesting: 1)
   }
 
@@ -41,25 +41,29 @@ enum Parser {
     _ loadedEntity: Entity,
     detail: Int,
     nesting: Int
-  ) -> CodableEntity {
-    let state = CodableEntity.State(
-      isEnabled: loadedEntity.isEnabled,
-      isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
-      isActive: loadedEntity.isActive,
-      isAnchored: loadedEntity.isAnchored
-    )
-    let hierarhy = CodableEntity.Hierarhy(
-      children: loadedEntity.children.compactMap({ identify($0) }),
-      parentID: loadedEntity.parent?.id
-    )
-    let components = CodableEntity.Components(
-      components: identifyComponents(loadedEntity.components)
-    )
-    return CodableEntity(
-      loadedEntity,
-      state: state,
-      hierarhy: hierarhy,
-      components: components
+  ) -> _CodableEntity {
+//    let state = CodableEntity.State(
+//      isEnabled: loadedEntity.isEnabled,
+//      isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
+//      isActive: loadedEntity.isActive,
+//      isAnchored: loadedEntity.isAnchored
+//    )
+//    let hierarhy = CodableEntity.Hierarhy(
+//      children: loadedEntity.children.compactMap({ identify($0) }),
+//      parentID: loadedEntity.parent?.id
+//    )
+//    let components = CodableEntity.Components(
+//      components: identifyComponents(loadedEntity.components)
+//    )
+//    return CodableEntity(
+//      loadedEntity,
+//      state: state,
+//      hierarhy: hierarhy,
+//      components: components
+//    )
+    
+    return _CodableEntity(
+      loadedEntity
     )
   }
 }

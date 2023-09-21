@@ -20,7 +20,8 @@ let package = Package(
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
-    .package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
+    //.package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
+    .package(path: "../../../../external/RealityCodable/source/reality-codable"),
     .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
   ],
   targets: [
