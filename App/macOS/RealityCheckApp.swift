@@ -8,7 +8,9 @@ struct RealityCheckApp: App {
     initialState: AppCore.State(),
     reducer: {
       AppCore()
-         // .dependency(\.multipeerClient, .testValue)
+      #if MULTIPEER_ENABLE_MOCK
+        .dependency(\.multipeerClient, .testValue)
+      #endif
     }
   )
 
