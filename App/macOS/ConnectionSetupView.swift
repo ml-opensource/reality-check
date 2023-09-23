@@ -112,11 +112,12 @@ struct PeerConnectView: View {
                 Text(device)
               } icon: {
                 if device.lowercased().contains("vision") {
-                  if #available(visionOS 1.0, *) {
-                    Image(systemName: "visionpro")
-                  } else {
-                    Image("visionpro")
-                  }
+                  //FIXME: find a way to evaluate symbol existence
+                  // if #available(visionOS 1.0, *) {
+                  //    Image(systemName: "visionpro")
+                  // } else {
+                  Image("visionpro")
+                  // }
                 } else {
                   Image(systemName: "iphone")
                 }

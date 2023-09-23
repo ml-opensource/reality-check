@@ -92,6 +92,15 @@
         }
       },
       {
+        "package": "SymbolKit",
+        "repositoryURL": "https://github.com/apple/swift-docc-symbolkit.git",
+        "state": {
+          "branch": "main",
+          "revision": "1d5aba8186fc648e17b30631b34043110ca8dd19",
+          "version": null
+        }
+      },
+      {
         "package": "swift-identified-collections",
         "repositoryURL": "https://github.com/pointfreeco/swift-identified-collections",
         "state": {

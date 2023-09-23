@@ -4,6 +4,7 @@ import SwiftUI
 
 struct EntitiesSectionView: View {
   let store: StoreOf<EntitiesSection>
+  //TODO: @State private var searchText: String = ""
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
@@ -13,40 +14,25 @@ struct EntitiesSectionView: View {
         selection: viewStore.$selection
       ) { entity in
         HStack {
-          if !entity.name.isEmpty {
-            Label(
-              title: {
-                VStack(alignment: .leading) {
-                  Text(entity.name)
-                  //FIXME:
-                  //                  Text(entity.entityType.description)
-//                    .font(.caption)
-//                    .foregroundColor(.secondary)
-                }
-              },
-              icon: {
-//FIXME: Image(systemName: entity.entityType.symbol)
-              }
-            )
-          } else {
-            //FIXME:
-           // Label(entity.entityType.description, systemImage: entity.entityType.symbol)
-          }
+          Label(
+            entity.name.isEmpty ? entity.entityType.description : entity.name,
+            systemImage: entity.entityType.systemImage
+          )
 
-//          if !entity.children.isEmpty {
-//            Spacer()
-//            Text("\(entity.children.count)")
-//              .font(.caption2)
-//              .foregroundColor(.white)
-//              .padding(.vertical, 2)
-//              .padding(.horizontal, 6)
-//              .background(Capsule(style: .continuous).fill(Color(.controlAccentColor)))
-//          }
+          if !entity.children.isEmpty {
+            Spacer()
+            Text("\(entity.children.count)")
+              .font(.caption2)
+              .padding(.vertical, 2)
+              .padding(.horizontal, 6)
+              .background(Capsule(style: .continuous).fill(Color(NSColor.selectedControlColor)))
+          }
         }
-        //FIXME: .help(entity.entityType.help)
-//        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-//        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+        // FIXME: .help(entity.entityType.help)
+        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
       }
+      //TODO: .searchable(text: $searchText, placement: .sidebar)
     }
   }
 }

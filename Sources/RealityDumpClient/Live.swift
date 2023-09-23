@@ -7,11 +7,7 @@ import RealityKit
 extension RealityDump: DependencyKey {
   public static var liveValue: Self {
     return Self(
-      //      dump: { (loadedEntity, printing) in
-      //        //TODO: honor printing parameter
-      //        String(customDumping: loadedEntity)
-      //      },
-      identify: { (loadedEntity, detail) in
+      identify: { loadedEntity in
         Parser.identify(loadedEntity)
       }
     )
@@ -21,10 +17,38 @@ extension RealityDump: DependencyKey {
 // MARK: -
 
 enum Parser {
-  static func identify(_ loadedEntity: Entity, detail: Int = 1) -> _CodableEntity {
-    identifyEntity(loadedEntity, detail: detail, nesting: 1)
+  static func identify(_ entity: Entity) -> _CodableEntity {
+    identifyEntity(entity)
   }
 
+  private static func identifyEntity(
+    _ entity: Entity
+  ) -> _CodableEntity {
+    
+    //FIXME: restore components identification
+    // let state = CodableEntity.State(
+    //   isEnabled: loadedEntity.isEnabled,
+    //   isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
+    //   isActive: loadedEntity.isActive,
+    //   isAnchored: loadedEntity.isAnchored
+    // )
+    // let hierarhy = CodableEntity.Hierarhy(
+    //   children: loadedEntity.children.compactMap({ identify($0) }),
+    //   parentID: loadedEntity.parent?.id
+    // )
+    // let components = CodableEntity.Components(
+    //   components: identifyComponents(loadedEntity.components)
+    // )
+    // return CodableEntity(
+    //   loadedEntity,
+    //   state: state,
+    //   hierarhy: hierarhy,
+    //   components: components
+    // )
+    
+    return entity.encoded
+  }
+  
   private static func identifyComponents(
     _ components: Entity.ComponentSet
   ) -> [CodableComponent] {
@@ -35,35 +59,5 @@ enum Parser {
       }
     }
     return CodableComponents
-  }
-
-  private static func identifyEntity(
-    _ loadedEntity: Entity,
-    detail: Int,
-    nesting: Int
-  ) -> _CodableEntity {
-//    let state = CodableEntity.State(
-//      isEnabled: loadedEntity.isEnabled,
-//      isEnabledInHierarchy: loadedEntity.isEnabledInHierarchy,
-//      isActive: loadedEntity.isActive,
-//      isAnchored: loadedEntity.isAnchored
-//    )
-//    let hierarhy = CodableEntity.Hierarhy(
-//      children: loadedEntity.children.compactMap({ identify($0) }),
-//      parentID: loadedEntity.parent?.id
-//    )
-//    let components = CodableEntity.Components(
-//      components: identifyComponents(loadedEntity.components)
-//    )
-//    return CodableEntity(
-//      loadedEntity,
-//      state: state,
-//      hierarhy: hierarhy,
-//      components: components
-//    )
-    
-    return _CodableEntity(
-      loadedEntity
-    )
   }
 }
