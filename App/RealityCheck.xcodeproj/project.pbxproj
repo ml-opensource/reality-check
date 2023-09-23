@@ -82,6 +82,7 @@
 		401215A32A23658A00D98058 /* CustomSplitView */ = {
 			isa = PBXGroup;
 			children = (
+				401215B12A23659D00D98058 /* StatusBarView.swift */,
 				401215A42A23658A00D98058 /* SplitViewItem.swift */,
 				401215A52A23658A00D98058 /* SplitViewModifiers.swift */,
 				401215A62A23658A00D98058 /* SplitViewControllerView.swift */,
@@ -131,7 +132,6 @@
 				402EA02D29F6E43E00BB522F /* EntityInspectorView.swift */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
-				401215B12A23659D00D98058 /* StatusBarView.swift */,
 				40E7517D29F68F0B0083502A /* Assets.xcassets */,
 				401215A32A23658A00D98058 /* CustomSplitView */,
 				40E7518329F68F0B0083502A /* Debug */,

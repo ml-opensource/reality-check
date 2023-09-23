@@ -17,14 +17,14 @@ extension RealityDump: DependencyKey {
 // MARK: -
 
 enum Parser {
-  static func identify(_ entity: Entity) -> _CodableEntity {
+  static func identify(_ entity: Entity) -> CodableEntity {
     identifyEntity(entity)
   }
 
   private static func identifyEntity(
     _ entity: Entity
-  ) -> _CodableEntity {
-    
+  ) -> CodableEntity {
+
     //FIXME: restore components identification
     // let state = CodableEntity.State(
     //   isEnabled: loadedEntity.isEnabled,
@@ -45,19 +45,19 @@ enum Parser {
     //   hierarhy: hierarhy,
     //   components: components
     // )
-    
+
     return entity.encoded
   }
-  
-  private static func identifyComponents(
-    _ components: Entity.ComponentSet
-  ) -> [CodableComponent] {
-    var CodableComponents: [CodableComponent] = []
-    for componentType in CodableComponent.ComponentType.allCases {
-      if let component = components[componentType.rawValue] {
-        CodableComponents.append(CodableComponent(component))
-      }
-    }
-    return CodableComponents
-  }
+
+//  private static func identifyComponents(
+//    _ components: Entity.ComponentSet
+//  ) -> [CodableComponent] {
+//    var codableComponents: [CodableComponent] = []
+//    for componentType in ComponentType.allCases {
+//      if let component = components[componentType.type] {
+//        codableComponents.append(CodableComponent(component))
+//      }
+//    }
+//    return codableComponents
+//  }
 }

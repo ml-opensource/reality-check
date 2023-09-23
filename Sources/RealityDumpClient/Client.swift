@@ -5,11 +5,11 @@ import RealityKit
 public struct RealityDump {
   public func identify(
     _ entity: Entity
-  ) async -> _CodableEntity {
+  ) async -> CodableEntity {
     await self.identify(entity)
   }
 
-  var identify: (Entity) async -> _CodableEntity
+  var identify: (Entity) async -> CodableEntity
 }
 
 extension DependencyValues {

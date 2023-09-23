@@ -7,7 +7,7 @@ struct EntityInspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
 
-  var entity: _CodableEntity? {
+  var entity: CodableEntity? {
     viewStore.selectedEntity
   }
 
@@ -22,19 +22,17 @@ struct EntityInspectorView: View {
     if let entity {
       VStack(alignment: .leading, spacing: 0) {
         VStack(alignment: .leading) {
-          //FIXME:
-          // Label(
-          //   entity.entityType.description,
-          //   systemImage: entity.entityType.symbol
-          // )
-          // .font(.headline)
+          Label(
+            entity.entityTypeDescription,
+            systemImage: entity.entityTypeSystemImage
+          )
+          .font(.headline)
 
           Section {
             LabeledContent(
               "id:",
               value: entity.id.description
             )
-            .textSelection(.enabled)
 
             if !entity.name.isEmpty {
               LabeledContent(
@@ -42,6 +40,7 @@ struct EntityInspectorView: View {
                 value: entity.name
               )
             }
+
             //FIXME:
             // if let anchorIdentifier = entity.anchorIdentifier {
             //   LabeledContent(
@@ -50,6 +49,8 @@ struct EntityInspectorView: View {
             //   )
             // }
           }
+          .textSelection(.enabled)
+
         }
         .padding()
 
@@ -81,7 +82,7 @@ struct EntityInspectorView: View {
           if !entity.availableAnimations.isEmpty {
             Section("Animation") {
               DisclosureGroup("availableAnimations") {
-                Text(String(customDumping: entity.availableAnimations))
+                Text(String(customDumping: entity.availableAnimations)) //FIXME: move custom dumping from this level
                   .monospaced()
                   .textSelection(.enabled)
               }
@@ -89,6 +90,15 @@ struct EntityInspectorView: View {
           }
 
           Section("State") {
+            LabeledContent(
+              "isActive",
+              value: "\(entity.isAnchored ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isAnchored",
+              value:
+                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
+            )
             LabeledContent(
               "isEnabled",
               value: "\(entity.isEnabled ? "YES" : "NO")"
@@ -98,55 +108,54 @@ struct EntityInspectorView: View {
               value: "\(entity.isActive ? "YES" : "NO")"
             )
             LabeledContent(
-              "isAnchored",
-              value:
-                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
-            )
-            LabeledContent(
-              "isActive",
-              value: "\(entity.isAnchored ? "YES" : "NO")"
+              "isOwner",
+              value: "\(entity.isOwner ? "YES" : "NO")"
             )
           }
-//FIXME:
-//          Section("Hierarhy") {
-//            if let parentID = entity.hierarhy.parentID {
-//              LabeledContent(
-//                "parent",
-//                content: {
-//                  Button(
-//                    parentID.description,
-//                    systemImage: "arrow.up.forward.square.fill",
-//                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
-//                  )
-//                  .help(
-//                    """
-//                    Click to select the parent.
-//                    ID: \(parentID.description)
-//                    """
-//                  )
-//                  .padding(1)
-//                }
-//              )
-//            }
-//            LabeledContent(
-//              "children count",
-//              value: "\(entity.hierarhy.childrenCount)"
-//            )
-//          }
+          
+          Section("Hierarhy") {
+            if let parentID = entity.parentID {
+              LabeledContent(
+                "parent",
+                content: {
+                  Button(
+                    parentID.description,
+                    systemImage: "arrow.up.backward",
+                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+                  )
+                  .symbolVariant(.square.fill)
+                  .help(
+                    """
+                    Click to select the parent.
+                    ID: \(parentID.description)
+                    """
+                  )
+                  .padding(1)
+                }
+              )
+            }
+            
+            LabeledContent(
+              "children count",
+              value: "\(entity.children.count)"
+            )
+          }
 
-          //FIXME:
-//          Section("Components") {
-//            LabeledContent("count", value: "\(entity.components.count)")
-//            ForEach(entity.components.components, id: \.self) { component in
-//              GroupBox {
-//                DisclosureGroup(component.componentType.description) {
-//                  ComponentPropertiesView(component.properties)
-//                    .monospaced()
-//                }
-//                .help(component.componentType.help)
-//              }
-//            }
-//          }
+          Section("Components") {
+            VStack {
+              LabeledContent("count", value: "\(entity.components.count)")
+              //TODO: sort components
+              ForEach(Array(entity.components), id: \.self) { component in
+                GroupBox {
+                  DisclosureGroup(component.componentTypeDescription) {
+                    //   ComponentPropertiesView(component.properties)
+                    //     .monospaced()
+                  }
+                  // .help(component.componentType.help)
+                }
+              }
+            }
+          }
         }
       }
       .textSelection(.enabled)

@@ -99,7 +99,7 @@ extension RealityCheckConnectViewModel {
     //TODO: remove/hide reference entity
     
     //FIXME: improve naming, on visionOS first level children are not anchors
-    var identifiableAnchors: [_CodableEntity] = []
+    var identifiableAnchors: [CodableEntity] = []
 
     for scene in scenes.values {
       guard let root = scene.root else { return }

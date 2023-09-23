@@ -41,7 +41,7 @@ public struct MultipeerConnection: Reducer {
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case receivedDecodedARView(CodableARView)
-    case receivedDecodedEntities([_CodableEntity])
+    case receivedDecodedEntities([CodableEntity])
     case receivedDecodedScene(CodableScene)
     case receivedVideoFrameData(VideoFrameData)
     case receivedRawData(String)
@@ -131,16 +131,19 @@ public struct MultipeerConnection: Reducer {
 
 extension MultipeerConnection {
   fileprivate func decodeReceivedData(_ data: Data, send: Send<MultipeerConnection.Action>) async {
+    
     //MARK: VideoFrameData
     if let videoFrameData = try? defaultDecoder.decode(VideoFrameData.self, from: data) {
       await send(.delegate(.receivedVideoFrameData(videoFrameData)))
     }
+    
     // MARK: Raw data
-    else if let rawData = try? defaultDecoder.decode(
+    
+    else if let dumpData = try? defaultDecoder.decode(
       String.self,
       from: data
     ) {
-      await send(.delegate(.receivedRawData(rawData)))
+      await send(.delegate(.receivedRawData(dumpData)))
     }
 
     // MARK: CodableARView
@@ -164,7 +167,7 @@ extension MultipeerConnection {
     // MARK: RealityViewContent Root
 
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
-      _CodableEntity.self,
+      CodableEntity.self,
       from: data
     ) {
       // FIXME: avoid logger truncating
@@ -173,7 +176,7 @@ extension MultipeerConnection {
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
     }
 
-    // MARK: - default
+    // MARK: - Unknown
 
     else {
       fatalError(String(data: data, encoding: .utf8)!)

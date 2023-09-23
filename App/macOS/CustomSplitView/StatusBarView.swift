@@ -3,7 +3,7 @@ import SwiftUI
 struct StatusBarView: View {
   @Environment(\.controlActiveState) private var controlActive
 
-  static let height = 28.0
+  static let height = 27.0
 
   @Environment(\.colorScheme) private var colorScheme
 
@@ -44,7 +44,6 @@ struct StatusBarDivider: View {
   var body: some View {
     Divider()
       .frame(maxHeight: 12)
-    // .padding(.horizontal, 7)
   }
 }
 
@@ -73,7 +72,6 @@ struct StatusBarToggleDrawerButton: View {
 
   func togglePanel() {
     withAnimation {
-      //  model.isExpanded.toggle()
       collapsed.toggle()
     }
   }
@@ -85,7 +83,6 @@ struct StatusBarToggleDrawerButton: View {
       Image(systemName: "square.bottomthird.inset.filled")
     }
     .buttonStyle(.plain)
-    //.buttonStyle(.icon)
     .keyboardShortcut("Y", modifiers: [.command, .shift])
     .onHover { isHovering($0) }
   }

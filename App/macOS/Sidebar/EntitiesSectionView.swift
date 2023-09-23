@@ -10,13 +10,13 @@ struct EntitiesSectionView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       List(
         viewStore.identifiedEntities.elements,
-        children: \._children,
+        children: \.optionalChildren,
         selection: viewStore.$selection
       ) { entity in
         HStack {
           Label(
-            entity.name.isEmpty ? entity.entityType.description : entity.name,
-            systemImage: entity.entityType.systemImage
+            entity.name.isEmpty ? entity.entityTypeDescription : entity.name,
+            systemImage: entity.entityTypeSystemImage
           )
 
           if !entity.children.isEmpty {
