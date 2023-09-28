@@ -64,7 +64,6 @@ let package = Package(
         .product(name: "RealityDump", package: "reality-dump"),
         "Models",
         "MultipeerClient",
-        "RealityDumpClient", //TODO: rename and export giving only Codable responsabilities
         "StreamingClient",
       ]
     ),

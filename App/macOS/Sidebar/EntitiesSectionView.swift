@@ -14,11 +14,13 @@ struct EntitiesSectionView: View {
         selection: viewStore.$selection
       ) { entity in
         HStack {
-          Label(
-            entity.name.isEmpty ? entity.entityTypeDescription : entity.name,
-            systemImage: entity.entityTypeSystemImage
-          )
+          //FIXME:
+//          Label(
+//            entity.name.isEmpty ? entity.entityTypeDescription : entity.name,
+//            systemImage: entity.entityTypeSystemImage
+//          )
 
+          EmptyView()
           if !entity.children.isEmpty {
             Spacer()
             Text("\(entity.children.count)")
@@ -29,8 +31,8 @@ struct EntitiesSectionView: View {
           }
         }
         // FIXME: .help(entity.entityType.help)
-        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+//        .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+//        .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
       }
       //TODO: .searchable(text: $searchText, placement: .sidebar)
     }

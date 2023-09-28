@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/devicekit/DeviceKit.git",
         "state": {
           "branch": null,
-          "revision": "691fe8112cca20ebf0020a1709d4e0205400311c",
-          "version": "5.0.0"
+          "revision": "66837ecf1516e41fd4251bbb684dc4b1997f08ab",
+          "version": "5.1.0"
         }
       },
       {
@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/elkraneo/reality-dump",
         "state": {
           "branch": "main",
-          "revision": "a0fea328f3618e701bfd5f4600d16cd187c5e333",
+          "revision": "8c0872930a35a9a6b1082746e0d063555db01223",
           "version": null
         }
       },
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
         "state": {
           "branch": null,
-          "revision": "edd66cace818e1b1c6f1b3349bb1d8e00d6f8b01",
-          "version": "1.0.0"
+          "revision": "3efbfba0e4e56c7187cc19137ee16b7c95346b79",
+          "version": "1.1.0"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swiftui-navigation",
         "state": {
           "branch": null,
-          "revision": "f5bcdac5b6bb3f826916b14705f37a3937c2fd34",
-          "version": "1.0.0"
+          "revision": "6eb293c49505d86e9e24232cb6af6be7fff93bd5",
+          "version": "1.0.2"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
         "state": {
           "branch": null,
-          "revision": "302891700c7fa3b92ebde9fe7b42933f8349f3c7",
-          "version": "1.0.0"
+          "revision": "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
+          "version": "1.0.2"
         }
       }
     ]

@@ -22,11 +22,12 @@ struct EntityInspectorView: View {
     if let entity {
       VStack(alignment: .leading, spacing: 0) {
         VStack(alignment: .leading) {
-          Label(
-            entity.entityTypeDescription,
-            systemImage: entity.entityTypeSystemImage
-          )
-          .font(.headline)
+          //FIXME:
+//          Label(
+//            entity.entityTypeDescription,
+//            systemImage: entity.entityTypeSystemImage
+//          )
+//          .font(.headline)
 
           Section {
             LabeledContent(
@@ -58,17 +59,18 @@ struct EntityInspectorView: View {
 
         List {
           Section("Accessibility") {
-            LabeledContent(
-              "isAccessibilityElement",
-              value:
-                "\(entity.isAccessibilityElement ? "YES" : "NO")"
-            )
-            if let accessibilityLabel = entity.accessibilityLabel {
-              LabeledContent(
-                "accessibilityLabel",
-                value: accessibilityLabel
-              )
-            }
+            //FIXME:
+//            LabeledContent(
+//              "isAccessibilityElement",
+//              value:
+//                "\(entity.isAccessibilityElement ? "YES" : "NO")"
+//            )
+//            if let accessibilityLabel = entity.accessibilityLabel {
+//              LabeledContent(
+//                "accessibilityLabel",
+//                value: accessibilityLabel
+//              )
+//            }
             if let accessibilityDescription = entity
               .accessibilityDescription
             {
@@ -79,42 +81,44 @@ struct EntityInspectorView: View {
             }
           }
 
-          if !entity.availableAnimations.isEmpty {
-            Section("Animation") {
-              DisclosureGroup("availableAnimations") {
-                Text(String(customDumping: entity.availableAnimations)) //FIXME: move custom dumping from this level
-                  .monospaced()
-                  .textSelection(.enabled)
-              }
-            }
-          }
+          //FIXME:
+//          if !entity.availableAnimations.isEmpty {
+//            Section("Animation") {
+//              DisclosureGroup("availableAnimations") {
+//                Text(String(customDumping: entity.availableAnimations)) //FIXME: move custom dumping from this level
+//                  .monospaced()
+//                  .textSelection(.enabled)
+//              }
+//            }
+//          }
 
           Section("State") {
-            LabeledContent(
-              "isActive",
-              value: "\(entity.isAnchored ? "YES" : "NO")"
-            )
-            LabeledContent(
-              "isAnchored",
-              value:
-                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
-            )
-            LabeledContent(
-              "isEnabled",
-              value: "\(entity.isEnabled ? "YES" : "NO")"
-            )
-            LabeledContent(
-              "isEnabledInHierarchy",
-              value: "\(entity.isActive ? "YES" : "NO")"
-            )
-            LabeledContent(
-              "isOwner",
-              value: "\(entity.isOwner ? "YES" : "NO")"
-            )
+            //FIXME:
+//            LabeledContent(
+//              "isActive",
+//              value: "\(entity.isAnchored ? "YES" : "NO")"
+//            )
+//            LabeledContent(
+//              "isAnchored",
+//              value:
+//                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
+//            )
+//            LabeledContent(
+//              "isEnabled",
+//              value: "\(entity.isEnabled ? "YES" : "NO")"
+//            )
+//            LabeledContent(
+//              "isEnabledInHierarchy",
+//              value: "\(entity.isActive ? "YES" : "NO")"
+//            )
+//            LabeledContent(
+//              "isOwner",
+//              value: "\(entity.isOwner ? "YES" : "NO")"
+//            )
           }
           
           Section("Hierarhy") {
-            if let parentID = entity.parentID {
+            if let parentID = entity.parent?.id {
               LabeledContent(
                 "parent",
                 content: {
@@ -143,17 +147,18 @@ struct EntityInspectorView: View {
 
           Section("Components") {
             VStack {
-              LabeledContent("count", value: "\(entity.components.count)")
+              //FIXME:
+              //LabeledContent("count", value: "\(entity.components.count)")
               //TODO: sort components
-              ForEach(Array(entity.components), id: \.self) { component in
-                GroupBox {
-                  DisclosureGroup(component.componentTypeDescription) {
-                    //   ComponentPropertiesView(component.properties)
-                    //     .monospaced()
-                  }
-                  // .help(component.componentType.help)
-                }
-              }
+//              ForEach(Array(entity.components), id: \.self) { component in
+//                GroupBox {
+//                  DisclosureGroup(component.componentTypeDescription) {
+//                    //   ComponentPropertiesView(component.properties)
+//                    //     .monospaced()
+//                  }
+//                  // .help(component.componentType.help)
+//                }
+//              }
             }
           }
         }
