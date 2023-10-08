@@ -48,7 +48,6 @@ struct ConnectionSetupView: View {
 
         HStack {
           Spacer()
-
           if #available(macOS 14.0, *) {
             HelpLink(destination: helpURL)
           } else {

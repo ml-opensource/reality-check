@@ -26,14 +26,20 @@ struct RealityCheckApp: App {
     .windowResizability(.contentSize)
     .defaultPosition(.center)
     .windowStyle(.hiddenTitleBar)
-//    .commands {
-//      CommandHelp("Help") {
-//        
-//      }
-//    }
 
     Window("RealityCheck", id: "RealityCheckWindowID") {
       MainView(store: store)
+    }
+    .commands {
+      CommandGroup(replacing: .help) {
+        let helpURL = URL(
+          string:
+            "https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/gettingstarted"
+        )!
+        
+        // Default: "RealityCheck Help"
+        Link("Getting Started", destination: helpURL)
+      }
     }
   }
 }
