@@ -1,0 +1,28 @@
+{
+  "anchors" : [
+    {
+      "isAccessibilityElement" : false,
+      "isEnabledInHierarchy" : true,
+      "isEnabled" : true,
+      "id" : 17802053186852264504,
+      "scale" : [
+        1,
+        1,
+        1
+      ],
+      "hashValue" : -9195416686281134899,
+      "isActive" : true,
+      "children" : [
+
+      ],
+      "name" : "Window Context Entity, <UIWindow: 0x102a2fec0>",
+      "isOwner" : true,
+      "position" : [
+        0,
+        0,
+        0
+      ],
+      "isAnchored" : false
+    }
+  ]
+}

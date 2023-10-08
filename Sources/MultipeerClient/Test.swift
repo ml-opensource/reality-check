@@ -15,7 +15,12 @@ extension MultipeerClient {
         continuation.yield(.browser(.peersUpdated([mocky: mockyDiscoveryInfo])))
         continuation.yield(.session(.stateDidChange(.connected(mocky))))
 
-        let url = Bundle.module.url(forResource: "scene_xrOS", withExtension: "json")!
+        let url = Bundle.module.url(
+          forResource: "basic_visionOS",
+          withExtension: "json",
+          subdirectory: "Mock"
+        )!
+        
         let data = try! Data(contentsOf: url)
         continuation.yield(.session(.didReceiveData(data)))
       }

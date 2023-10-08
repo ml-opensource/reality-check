@@ -163,6 +163,10 @@ extension MultipeerConnection {
       CodableScene.self,
       from: data
     ) {
+      guard let decodedHierarchy = String(data: data, encoding: .utf8) else {
+        fatalError("The received data cannot be decoded.")
+      }
+      print(decodedHierarchy)
       await send(.delegate(.receivedDecodedScene(decodedRealityViewContentScene)))
     }
 
