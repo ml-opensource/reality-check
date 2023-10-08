@@ -147,7 +147,7 @@ struct SessionStateButtonView: View {
   var body: some View {
     Button(
       action: {
-        openWindow(id: "ConnectionWindowID")
+        openWindow(id: WindowID.connection.rawValue)
       },
       label: {
         Text(contextualLabel)

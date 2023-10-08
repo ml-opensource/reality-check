@@ -86,7 +86,7 @@ struct PeerConnectView: View {
     Button(
       action: {
         viewStore.send(.invite(peer))
-        openWindow(id: "RealityCheckWindowID")
+        openWindow(id: WindowID.main.rawValue)
       },
       label: {
         VStack {
