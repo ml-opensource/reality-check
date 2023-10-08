@@ -20,8 +20,7 @@ let package = Package(
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
-    //.package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
-    .package(path: "../../../../external/RealityCodable/source/reality-codable"),
+    .package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
     .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
   ],
   targets: [
@@ -42,7 +41,7 @@ let package = Package(
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
         .target(name: "RealityCheckConnect_visionOS", condition: .when(platforms: [.visionOS])),
-        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),  //FIXME: still compiled for `visionOS`
+        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),  //FIXME: verify still compiled for `visionOS` on beta 4
       ]
     ),
     .target(

@@ -2,7 +2,7 @@
 //  ConnectApp.swift
 //  Connect
 //
-//  Created by Cristian Díaz on 03.09.23.
+//  Created by Cristian Díaz on 08.10.23.
 //
 
 import RealityCheckConnect
@@ -20,7 +20,6 @@ struct ConnectApp: App {
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
-                .environment(realityCheckConnectModel)
         }
     }
 }

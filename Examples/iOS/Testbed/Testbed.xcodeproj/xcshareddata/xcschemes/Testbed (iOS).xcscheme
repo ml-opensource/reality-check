@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1510"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "40B70D822AA3C4AE00785A9C"
-               BuildableName = "VisionConnect.app"
-               BlueprintName = "VisionConnect"
-               ReferencedContainer = "container:VisionConnect.xcodeproj">
+               BlueprintIdentifier = "409B765B2A177129001B28E1"
+               BuildableName = "Testbed.app"
+               BlueprintName = "Testbed"
+               ReferencedContainer = "container:Testbed.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -43,10 +43,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40B70D822AA3C4AE00785A9C"
-            BuildableName = "VisionConnect.app"
-            BlueprintName = "VisionConnect"
-            ReferencedContainer = "container:VisionConnect.xcodeproj">
+            BlueprintIdentifier = "409B765B2A177129001B28E1"
+            BuildableName = "Testbed.app"
+            BlueprintName = "Testbed"
+            ReferencedContainer = "container:Testbed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -60,10 +60,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "40B70D822AA3C4AE00785A9C"
-            BuildableName = "VisionConnect.app"
-            BlueprintName = "VisionConnect"
-            ReferencedContainer = "container:VisionConnect.xcodeproj">
+            BlueprintIdentifier = "409B765B2A177129001B28E1"
+            BuildableName = "Testbed.app"
+            BlueprintName = "Testbed"
+            ReferencedContainer = "container:Testbed.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

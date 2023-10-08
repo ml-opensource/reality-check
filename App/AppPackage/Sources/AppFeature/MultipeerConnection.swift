@@ -170,7 +170,7 @@ extension MultipeerConnection {
       CodableEntity.self,
       from: data
     ) {
-      // FIXME: avoid logger truncating
+      // FIXME: avoid logger truncation
       // print(String(data: data, encoding: .utf8)!)
       // logger.debug("\(String(data: data, encoding: .utf8)!, privacy: .public)")
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))

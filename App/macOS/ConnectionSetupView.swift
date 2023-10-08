@@ -14,6 +14,11 @@ struct ConnectionSetupView: View {
     ]
   }
 
+  let helpURL = URL(
+    string:
+      "https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/gettingstarted"
+  )!
+
   var body: some View {
     //TODO: scope the viewStore to only observe "Peers"
     WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -42,22 +47,19 @@ struct ConnectionSetupView: View {
         Divider()
 
         HStack {
-          Button(
-            action: {
-              openURL(
-                URL(
-                  string:
-                    "https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/gettingstarted"
-                )!
-              )
-            },
-            label: {
-              Label("Getting Started", systemImage: "questionmark.circle")
-            }
-          )
-          .controlSize(.large)
-
           Spacer()
+
+          if #available(macOS 14.0, *) {
+            HelpLink(destination: helpURL)
+          } else {
+            Button(
+              action: { openURL(helpURL) },
+              label: {
+                Label("Getting Started", systemImage: "questionmark.circle")
+              }
+            )
+            .controlSize(.large)
+          }
         }
         .padding()
         .background(.bar)

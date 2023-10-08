@@ -8,7 +8,7 @@ struct RealityCheckApp: App {
     initialState: AppCore.State(),
     reducer: {
       AppCore()
-      #if MULTIPEER_ENABLE_MOCK
+      #if MULTIPEER_MOCK
         .dependency(\.multipeerClient, .testValue)
       #endif
     }
@@ -26,6 +26,11 @@ struct RealityCheckApp: App {
     .windowResizability(.contentSize)
     .defaultPosition(.center)
     .windowStyle(.hiddenTitleBar)
+//    .commands {
+//      CommandHelp("Help") {
+//        
+//      }
+//    }
 
     Window("RealityCheck", id: "RealityCheckWindowID") {
       MainView(store: store)

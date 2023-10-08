@@ -2,7 +2,7 @@
 //  ImmersiveView.swift
 //  Connect
 //
-//  Created by Cristian Díaz on 03.09.23.
+//  Created by Cristian Díaz on 08.10.23.
 //
 
 import SwiftUI
@@ -17,7 +17,6 @@ struct ImmersiveView: View {
                 content.add(scene)
             }
         }
-        .realityCheck()
     }
 }
 

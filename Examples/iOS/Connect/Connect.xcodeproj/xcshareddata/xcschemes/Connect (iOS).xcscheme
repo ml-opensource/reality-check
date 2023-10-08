@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AEA103082AD2D22000DB4542"
+               BlueprintIdentifier = "40FDE7542A16CF08006BFD32"
                BuildableName = "Connect.app"
                BlueprintName = "Connect"
                ReferencedContainer = "container:Connect.xcodeproj">
@@ -43,7 +43,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEA103082AD2D22000DB4542"
+            BlueprintIdentifier = "40FDE7542A16CF08006BFD32"
             BuildableName = "Connect.app"
             BlueprintName = "Connect"
             ReferencedContainer = "container:Connect.xcodeproj">
@@ -60,7 +60,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AEA103082AD2D22000DB4542"
+            BlueprintIdentifier = "40FDE7542A16CF08006BFD32"
             BuildableName = "Connect.app"
             BlueprintName = "Connect"
             ReferencedContainer = "container:Connect.xcodeproj">
