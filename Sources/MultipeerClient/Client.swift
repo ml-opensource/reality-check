@@ -75,14 +75,14 @@ public struct MultipeerClient {
 
   This function starts advertising the local device as a peer and returns an `AsyncStream` that emits `Peer` objects when a remote peer sends an invitation to connect.
   */
-  public var startAdvertisingPeer: () -> Void
+  public var startAdvertisingPeer: () async -> Void
 
   /**
   Stops advertising the local device as a peer.
 
   This function stops advertising the local device as a peer and disconnects from all peers.
   */
-  public var stopAdvertisingPeer: () -> Void
+  public var stopAdvertisingPeer: () async -> Void
 
   /**
   Returns an `AsyncStream` that emits an array of `Peer` objects when a new peer is found or lost.
@@ -91,14 +91,14 @@ public struct MultipeerClient {
 
   This function starts browsing for remote peers and returns an `AsyncStream` that emits an array of `Peer` objects when a new peer is found or lost.
   */
-  public var startBrowsingForPeers: () -> Void
+  public var startBrowsingForPeers: () async -> Void
 
   /**
   Stops browsing for remote peers.
 
   This function stops browsing for remote peers and disconnects from all peers.
   */
-  public var stopBrowsingForPeers: () -> Void
+  public var stopBrowsingForPeers: () async -> Void
 
   /**
   Invites a remote peer to connect.
@@ -108,7 +108,7 @@ public struct MultipeerClient {
 
   This function invites the specified remote peer to connect to the local device.
   */
-  public var invitePeer: (Peer) -> Void
+  public var invitePeer: (Peer) async -> Void
 
   // FIXME: consider throwing for those not so ideal cases
   /**
@@ -118,7 +118,7 @@ public struct MultipeerClient {
 
   This function accepts an invitation from a remote peer to connect to the local device.
   */
-  public var acceptInvitation: () -> Void
+  public var acceptInvitation: () async -> Void
 
   // FIXME: consider throwing for those not so ideal cases
   /**
@@ -128,7 +128,7 @@ public struct MultipeerClient {
 
   This function rejects an invitation from a remote peer to connect to the local device.
   */
-  public var rejectInvitation: () -> Void
+  public var rejectInvitation: () async -> Void
 
   /// The internal closure that sends data to a list of peers.
   var send: (Data, [Peer], MCSessionSendDataMode) -> Void

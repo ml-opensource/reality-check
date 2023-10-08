@@ -80,11 +80,9 @@ extension RealityCheckConnectViewModel {
       case .advertiser(let advertiserAction):
         switch advertiserAction {
         case .didReceiveInvitationFromPeer(let peer):
-          multipeerClient.acceptInvitation()
-          multipeerClient.stopAdvertisingPeer()
-          await MainActor.run {
-            hostName = peer.displayName
-          }
+          await multipeerClient.acceptInvitation()
+          await multipeerClient.stopAdvertisingPeer()
+          hostName = peer.displayName
         }
       }
     }

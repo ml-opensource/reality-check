@@ -57,8 +57,9 @@ public struct MultipeerConnection: Reducer {
           return .none
 
         case .invite(let peer):
-          multipeerClient.invitePeer(peer)
-          return .none
+        return .run { _ in
+          await multipeerClient.invitePeer(peer)
+        }
 
         case .sendDebugOptions(let options):
           do {

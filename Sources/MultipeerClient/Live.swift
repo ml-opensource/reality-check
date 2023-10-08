@@ -25,39 +25,25 @@ extension MultipeerClient: DependencyKey {
       )
     },
     startAdvertisingPeer: {
-      Task {
-        await MultipeerActor.shared.startAdvertisingPeer()
-      }
+      await MultipeerActor.shared.startAdvertisingPeer()
     },
     stopAdvertisingPeer: {
-      Task {
-        await MultipeerActor.shared.stopAdvertisingPeer()
-      }
+      await MultipeerActor.shared.stopAdvertisingPeer()
     },
     startBrowsingForPeers: {
-      Task {
-        await MultipeerActor.shared.startBrowsingForPeers()
-      }
+      await MultipeerActor.shared.startBrowsingForPeers()
     },
     stopBrowsingForPeers: {
-      Task {
-        await MultipeerActor.shared.stopBrowsingForPeers()
-      }
+      await MultipeerActor.shared.stopBrowsingForPeers()
     },
     invitePeer: { peer in
-      Task {
-        await MultipeerActor.shared.invitePeer(peer.rawValue)
-      }
+      await MultipeerActor.shared.invitePeer(peer.rawValue)
     },
     acceptInvitation: {
-      Task {
-        await MultipeerActor.shared.acceptInvitation()
-      }
+      await MultipeerActor.shared.acceptInvitation()
     },
     rejectInvitation: {
-      Task {
-        await MultipeerActor.shared.rejectInvitation()
-      }
+      await MultipeerActor.shared.rejectInvitation()
     },
     send: { (data, peers, mode) in
       Task {
@@ -96,15 +82,15 @@ extension MultipeerClient {
         setupSession()
 
         switch sessionType {
-          case .host:
-            setupServiceBrowser()
+        case .host:
+          setupServiceBrowser()
 
-          case .peer:
-            setupServiceAdvertiser()
+        case .peer:
+          setupServiceAdvertiser()
 
-          case .both:
-            setupServiceBrowser()
-            setupServiceAdvertiser()
+        case .both:
+          setupServiceBrowser()
+          setupServiceAdvertiser()
         }
 
         func setupSession() {
@@ -215,15 +201,15 @@ extension MultipeerClient.MultipeerActor {
       let sessionState: MultipeerClient.SessionState
 
       switch state {
-        case .notConnected:
-          sessionState = .notConnected
-        case .connecting:
-          sessionState = .connecting(Peer.init(rawValue: peerID))
-        case .connected:
-          sessionState = .connected(Peer.init(rawValue: peerID))
+      case .notConnected:
+        sessionState = .notConnected
+      case .connecting:
+        sessionState = .connecting(Peer.init(rawValue: peerID))
+      case .connected:
+        sessionState = .connected(Peer.init(rawValue: peerID))
 
-        @unknown default:
-          fatalError("MCSessionState: @unknown")
+      @unknown default:
+        fatalError("MCSessionState: @unknown")
       }
       continuation?.yield(.session(.stateDidChange(sessionState)))
     }

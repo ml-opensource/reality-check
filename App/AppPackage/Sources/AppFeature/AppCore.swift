@@ -139,5 +139,6 @@ public struct AppCore: Reducer {
     .ifLet(\.entitiesSection, action: /Action.entitiesSection) {
       EntitiesSection()
     }
+    ._printChanges()
   }
 }

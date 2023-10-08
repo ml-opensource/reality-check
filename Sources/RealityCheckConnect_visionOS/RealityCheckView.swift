@@ -27,8 +27,9 @@ public struct RealityCheckView: View {
         await make(&content)
       },
       update: { content in
-        update?(&content)
-        realityCheckConnectModel.updateContent(content)
+        //FIXME: seems to enter in a loop
+        // update?(&content)
+        // realityCheckConnectModel.updateContent(content)
       }
     )
   }
