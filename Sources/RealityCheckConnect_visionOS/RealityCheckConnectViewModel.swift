@@ -12,7 +12,7 @@ import RealityDumpClient
 @Observable
 final public class RealityCheckConnectViewModel {
   var connectionState: MultipeerClient.SessionState
-  var scenes: [UInt64: RealityViewContent] = [:]
+ private var scenes: [UInt64: RealityViewContent] = [:]
   var hostName: String
   var isStreaming = false
   var selectedEntityID: UInt64?
@@ -31,7 +31,9 @@ final public class RealityCheckConnectViewModel {
   
   func updateContent(_ content: RealityViewContent) {
     guard let scene = content.root?.scene else { return }
-    scenes.updateValue(content, forKey: scene.id)
+    _scenes.updateValue(content, forKey: scene.id)
+   
+    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
     Task {
       await sendMultipeerData()
     }
@@ -81,8 +83,10 @@ extension RealityCheckConnectViewModel {
         switch advertiserAction {
         case .didReceiveInvitationFromPeer(let peer):
           await multipeerClient.acceptInvitation()
-          await multipeerClient.stopAdvertisingPeer()
           hostName = peer.displayName
+          
+          //TODO: Is stopping advertising after connection a desired behavior, or should it be optional?
+          await multipeerClient.stopAdvertisingPeer()
         }
       }
     }
