@@ -17,12 +17,21 @@ struct ContentView: View {
 
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
+  
+    @Environment(RealityCheckConnectViewModel.self)
+    var realityCheckConnectModel
+  
     var body: some View {
         VStack {
             Model3D(named: "Scene", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
                 .realityCheck()
+          
+          Button("Start Window video stream") {
+            Task {
+              await realityCheckConnectModel.startVideoStreaming()
+            }
+          }
 
             Text("Hello, world!")
 
