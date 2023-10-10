@@ -72,7 +72,8 @@ extension RealityCheckConnectViewModel {
             from: data
           ) {
             selectedEntityID = entitySelection.entityID
-            await sendSelectedEntityMultipeerRawData()
+            //FIXME: disabled temporaly
+            // await sendSelectedEntityMultipeerRawData()
           }
         }
         
