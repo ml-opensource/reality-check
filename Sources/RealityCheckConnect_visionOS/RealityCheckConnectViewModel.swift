@@ -7,7 +7,6 @@ import RealityKit
 import SwiftUI
 import StreamingClient
 import RealityDump
-import RealityDumpClient
 
 @Observable
 final public class RealityCheckConnectViewModel {
@@ -95,21 +94,19 @@ extension RealityCheckConnectViewModel {
   
   fileprivate func sendMultipeerData() async {
     @Dependency(\.multipeerClient) var multipeerClient
-    @Dependency(\.realityDump) var realityDump
     
     guard case .connected = connectionState else { return }
         
     //TODO: remove/hide reference entity
     
-    //FIXME: improve naming, on visionOS first level children are not anchors
-    var identifiableAnchors: [CodableEntity] = []
+    var identifiableEntities: [RealityPlatform.visionOS.Entity] = []
 
     for scene in scenes.values {
       guard let root = scene.root else { return }
-      identifiableAnchors.append(await realityDump.identify(root))
+      identifiableEntities.append(await root.encoded)
     }
     
-    let realityViewData = try! defaultEncoder.encode(CodableScene(anchors: identifiableAnchors))
+    let realityViewData = try! defaultEncoder.encode(RealityPlatform.visionOS.Scene(children: identifiableEntities))
     multipeerClient.send(realityViewData)
     
     // TODO: set default selection?
@@ -126,6 +123,7 @@ extension RealityCheckConnectViewModel {
     for scene in scenes.values {
       guard let root = scene.root else { return }
       
+      //FIXME: seems to be a new find by ID method in visionOS
       if let selectedEntity = findEntity(root: root, targetID: selectedEntityID) {
         let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
         multipeerClient.send(rawData)
