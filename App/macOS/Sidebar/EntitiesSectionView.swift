@@ -14,19 +14,13 @@ struct EntitiesSectionView: View {
         selection: viewStore.$selection
       ) { entity in
         HStack {
-          //FIXME:
-          // Label(
-          //   entity.name.isEmpty ? entity.entityTypeDescription : entity.name,
-          //   systemImage: entity.entityTypeSystemImage
-          // )
-
-           Label(
-            entity.name ?? "entity.entityTypeDescription",
-             systemImage: "entity.entityTypeSystemImage"
-           )
+          Label(
+            entity.computedName,
+            systemImage: entity.systemImage
+          )
 
           EmptyView()
-          
+
           if let children = entity.children, !children.isEmpty {
             Spacer()
             Text("\(children.count)")

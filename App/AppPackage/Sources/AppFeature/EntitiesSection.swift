@@ -2,7 +2,35 @@ import ComposableArchitecture
 import Foundation
 import RealityCodable
 
-//TODO: rename to `EntitiesInspector`
+extension RealityPlatform.visionOS.Entity {
+  public var computedName: String {
+    if let name = self.name, !name.isEmpty {
+      return name
+    } else {
+      return "\(type(of: self))"
+    }
+  }
+}
+
+extension RealityPlatform.visionOS.Entity {
+  public var systemImage: String {
+    switch "\(type(of: self))" {
+    case "AnchorEntity":
+      return "arrow.down.to.line"
+    case "Entity":
+      return "move.3d"
+    case "ModelEntity":
+      return "cube"
+    case "PerspectiveCamera":
+      return "camera"
+    case "TriggerVolume":
+      return "cube.transparent"
+    default:
+      return "move.3d"
+    }
+  }
+}
+
 public struct EntitiesSection: Reducer {
   public struct State: Equatable {
     public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
@@ -53,16 +81,14 @@ public struct EntitiesSection: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
       case .binding(\.$selection):
-        //FIXME:
-        return .none
-      // if let entity = state.selectedEntity {
-      //   return .merge(
-      //     .send(.delegate(.didToggleSelectSection)),
-      //     .send(.delegate(.didSelectEntity(entity.id)))
-      //   )
-      // } else {
-      //   return .send(.delegate(.didToggleSelectSection))
-      // }
+        if let entity = state.selectedEntity {
+          return .merge(
+            .send(.delegate(.didToggleSelectSection)),
+            .send(.delegate(.didSelectEntity(entity.id)))
+          )
+        } else {
+          return .send(.delegate(.didToggleSelectSection))
+        }
 
       case .binding:
         return .none

@@ -3,46 +3,40 @@ import ComposableArchitecture
 import RealityCodable
 import SwiftUI
 
+//TODO: rename to `EntitiesInspector_visionOS`
+
 struct EntityInspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
-
+  
   var entity: RealityPlatform.visionOS.Entity? {
     viewStore.selectedEntity
   }
-
+  
   init(
     _ store: StoreOf<EntitiesSection>
   ) {
     self.store = store
     self.viewStore = .init(store, observe: { $0 })
   }
-
+  
   var body: some View {
     if let entity {
       VStack(alignment: .leading, spacing: 0) {
         VStack(alignment: .leading) {
           //FIXME:
-          // Label(
-          //   entity.entityTypeDescription,
-          //   systemImage: entity.entityTypeSystemImage
-          // )
-          // .font(.headline)
-
+          Label(
+            entity.computedName,
+            systemImage: entity.systemImage
+          )
+          .font(.headline)
+          
           Section {
             LabeledContent(
               "id:",
               value: entity.id.description
             )
-
-            //FIXME:
-            // if !entity.name.isEmpty {
-            //   LabeledContent(
-            //     "name:",
-            //     value: entity.name
-            //   )
-            // }
-
+            
             //FIXME:
             // if let anchorIdentifier = entity.anchorIdentifier {
             //   LabeledContent(
@@ -52,12 +46,12 @@ struct EntityInspectorView: View {
             // }
           }
           .textSelection(.enabled)
-
+          
         }
         .padding()
-
+        
         Divider()
-
+        
         List {
           Section("Accessibility") {
             //FIXME:
@@ -79,7 +73,7 @@ struct EntityInspectorView: View {
               )
             }
           }
-
+          
           //FIXME:
           //          if !entity.availableAnimations.isEmpty {
           //            Section("Animation") {
@@ -90,7 +84,7 @@ struct EntityInspectorView: View {
           //              }
           //            }
           //          }
-
+          
           Section("State") {
             //FIXME:
             //            LabeledContent(
@@ -115,9 +109,9 @@ struct EntityInspectorView: View {
             //              value: "\(entity.isOwner ? "YES" : "NO")"
             //            )
           }
-
+          
           Section("Hierarhy") {
-            if let parentID = entity.parent?.id {
+            if let parentID = entity.parentID {
               LabeledContent(
                 "parent",
                 content: {
@@ -137,7 +131,7 @@ struct EntityInspectorView: View {
                 }
               )
             }
-
+            
             if let children = entity.children {
               LabeledContent(
                 "children count",
@@ -145,7 +139,7 @@ struct EntityInspectorView: View {
               )
             }
           }
-
+          
           Section("Components") {
             VStack {
               //FIXME:
