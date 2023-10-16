@@ -1,28 +1,103 @@
 {
-  "anchors" : [
+  "children" : [
     {
-      "isAccessibilityElement" : false,
-      "isEnabledInHierarchy" : true,
-      "isEnabled" : true,
-      "id" : 17802053186852264504,
-      "scale" : [
-        1,
-        1,
-        1
-      ],
-      "hashValue" : -9195416686281134899,
-      "isActive" : true,
       "children" : [
+        {
+          "name" : "<UIWindow: 0x105f0e760>",
+          "children" : [
+            {
+              "children" : [
+                {
+                  "id" : 8568479391525944351,
+                  "name" : "CALayerEntity (unnamed)",
+                  "children" : [
+                    {
+                      "children" : [
+                        {
+                          "id" : 10083142881990680757,
+                          "children" : [
+                            {
+                              "children" : [
+                                {
+                                  "children" : [
 
+                                  ],
+                                  "name" : "__realityCheck",
+                                  "id" : 10817583984707128267
+                                }
+                              ],
+                              "name" : "",
+                              "id" : 9094213068853484260
+                            }
+                          ],
+                          "name" : ""
+                        }
+                      ],
+                      "id" : 1980788269712373062,
+                      "name" : "CALayerEntity (unnamed)"
+                    },
+                    {
+                      "children" : [
+                        {
+                          "name" : "",
+                          "children" : [
+                            {
+                              "id" : 13465996844196193654,
+                              "children" : [
+                                {
+                                  "name" : "",
+                                  "children" : [
+                                    {
+                                      "id" : 1459101395905642483,
+                                      "children" : [
+                                        {
+                                          "id" : 14855897251014116173,
+                                          "children" : [
+                                            {
+                                              "id" : 7296674772886938863,
+                                              "name" : "GridMaterial",
+                                              "children" : [
+
+                                              ]
+                                            },
+                                            {
+                                              "children" : [
+
+                                              ],
+                                              "id" : 8202337837100566662,
+                                              "name" : "Sphere"
+                                            }
+                                          ],
+                                          "name" : "Root"
+                                        }
+                                      ],
+                                      "name" : "Root"
+                                    }
+                                  ],
+                                  "id" : 10501094550463679
+                                }
+                              ],
+                              "name" : ""
+                            }
+                          ],
+                          "id" : 16252525799231233496
+                        }
+                      ],
+                      "id" : 10337103211301966976,
+                      "name" : "CALayerEntity (unnamed)"
+                    }
+                  ]
+                }
+              ],
+              "id" : 5256844582942828570,
+              "name" : "CALayerEntity (unnamed)"
+            }
+          ],
+          "id" : 8989651004204748485
+        }
       ],
-      "name" : "Window Context Entity, <UIWindow: 0x102a2fec0>",
-      "isOwner" : true,
-      "position" : [
-        0,
-        0,
-        0
-      ],
-      "isAnchored" : false
+      "id" : 8895411854400916895,
+      "name" : "Window Context Entity, <UIWindow: 0x105f0e760>"
     }
   ]
 }

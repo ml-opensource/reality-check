@@ -32,7 +32,7 @@ public struct MultipeerConnection: Reducer {
     case delegate(DelegateAction)
     case invite(Peer)
     case sendDebugOptions(_DebugOptions)
-    case sendSelection(CodableEntity.ID)
+    // case sendSelection(CodableEntity.ID)
     case start
     case updatePeers([Peer: DiscoveryInfo])
     case updateSessionState(MultipeerClient.SessionState)
@@ -40,9 +40,9 @@ public struct MultipeerConnection: Reducer {
 
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
-    case receivedDecodedARView(CodableARView)
-    case receivedDecodedEntities([CodableEntity])
-    case receivedDecodedScene(CodableScene)
+    // case receivedDecodedARView(CodableARView)
+    case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
+    case receivedDecodedScene(RealityPlatform.visionOS.Scene)
     case receivedVideoFrameData(VideoFrameData)
     case receivedRawData(String)
   }
@@ -70,15 +70,15 @@ public struct MultipeerConnection: Reducer {
         }
         return .none
 
-      case .sendSelection(let entityID):
-        do {
-          let entitySelection = EntitySelection(entityID)
-          let data = try JSONEncoder().encode(entitySelection)
-          multipeerClient.send(data)
-        } catch {
-          fatalError("Failed to encode selection while sending them.")
-        }
-        return .none
+      // case .sendSelection(let entityID):
+      //   do {
+      //     let entitySelection = EntitySelection(entityID)
+      //     let data = try JSONEncoder().encode(entitySelection)
+      //     multipeerClient.send(data)
+      //   } catch {
+      //     fatalError("Failed to encode selection while sending them.")
+      //   }
+      //   return .none
 
       case .start:
         guard state.connectedPeer == nil else { return .none }
@@ -150,17 +150,17 @@ extension MultipeerConnection {
 
     // MARK: CodableARView
 
-    else if let decodedARView = try? defaultDecoder.decode(
-      CodableARView.self,
-      from: data
-    ) {
-      await send(.delegate(.receivedDecodedARView(decodedARView)))
-    }
+    // else if let decodedARView = try? defaultDecoder.decode(
+    //   CodableARView.self,
+    //   from: data
+    // ) {
+    //   await send(.delegate(.receivedDecodedARView(decodedARView)))
+    // }
 
     // MARK: RealityViewContent Scene
 
     else if let decodedRealityViewContentScene = try? defaultDecoder.decode(
-      CodableScene.self,
+      RealityPlatform.visionOS.Scene.self,
       from: data
     ) {
       guard let decodedHierarchy = String(data: data, encoding: .utf8) else {
@@ -173,7 +173,7 @@ extension MultipeerConnection {
     // MARK: RealityViewContent Root
 
     else if let decodedRealityViewContent = try? defaultDecoder.decode(
-      CodableEntity.self,
+      RealityPlatform.visionOS.Entity.self,
       from: data
     ) {
       await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))

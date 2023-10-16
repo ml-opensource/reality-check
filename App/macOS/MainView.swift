@@ -12,18 +12,18 @@ struct MainView: View {
   var sessionStateSubtitle: String {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
-      case .notConnected, .connecting:
-        return ""
+    case .notConnected, .connecting:
+      return ""
 
-      case .connected:
-        if let connectedPeer = viewStore.connectedPeer,
-          let appName = connectedPeer.discoveryInfo?.appName,
-          let appVersion = connectedPeer.discoveryInfo?.appVersion
-        {
-          return appName + " \(appVersion)"
-        } else {
-          return ""
-        }
+    case .connected:
+      if let connectedPeer = viewStore.connectedPeer,
+        let appName = connectedPeer.discoveryInfo?.appName,
+        let appVersion = connectedPeer.discoveryInfo?.appVersion
+      {
+        return appName + " \(appVersion)"
+      } else {
+        return ""
+      }
     }
   }
 
@@ -81,24 +81,26 @@ struct MainView: View {
         )
       } detail: {
         switch viewStore.selectedSection {
-          case .none:
-            Spacer().navigationSplitViewColumnWidth(0)
+        case .none:
+          Spacer().navigationSplitViewColumnWidth(0)
 
-          case .arView:
-            if let arView = viewStore.arViewSection?.arView {
-              ARViewInspectorView(arView)
-                .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-            }
+        case .arView:
+          //FIXME:
+          EmptyView()
+        //   if let arView = viewStore.arViewSection?.arView {
+        //     ARViewInspectorView(arView)
+        //       .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+        //   }
 
-          case .entities:
-            IfLetStore(
-              store.scope(
-                state: \.entitiesSection,
-                action: AppCore.Action.entitiesSection
-              ),
-              then: EntityInspectorView.init
-            )
-            .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+        case .entities:
+          IfLetStore(
+            store.scope(
+              state: \.entitiesSection,
+              action: AppCore.Action.entitiesSection
+            ),
+            then: EntityInspectorView.init
+          )
+          .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
         }
       }
       .navigationSplitViewStyle(.balanced)
@@ -124,23 +126,23 @@ struct SessionStateButtonView: View {
 
   var contextualBackground: Color {
     switch sessionState {
-      case .notConnected:
-        return .red
-      case .connecting:
-        return .orange
-      case .connected:
-        return .green
+    case .notConnected:
+      return .red
+    case .connecting:
+      return .orange
+    case .connected:
+      return .green
     }
   }
 
   var contextualLabel: String {
     switch sessionState {
-      case .notConnected:
-        return "not connected"
-      case .connecting:
-        return "connecting"
-      case .connected:
-        return "connected"
+    case .notConnected:
+      return "not connected"
+    case .connecting:
+      return "connecting"
+    case .connected:
+      return "connected"
     }
   }
 
@@ -161,31 +163,32 @@ struct SessionStateButtonView: View {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    MainView(
-      store: .init(
-        initialState: AppCore.State(
-          //FIXME: avoid constructor cleaning mock return
-          arViewSection: ARViewSection.State.init(
-            arView: .init(
-              .init(frame: .zero),
-              anchors: [],
-              contentScaleFactor: 1
-            )
-          ),
-          entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
-        ),
-        reducer: {
-          AppCore()
-            .dependency(\.multipeerClient, .testValue)
-        }
-      )
-    )
-    .navigationSplitViewStyle(.prominentDetail)
-    .frame(width: 500, height: 900)
-  }
-}
+//FIXME: restore
+//struct ContentView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    MainView(
+//      store: .init(
+//        initialState: AppCore.State(
+//          //FIXME: avoid constructor cleaning mock return
+//          arViewSection: ARViewSection.State.init(
+//            arView: .init(
+//              .init(frame: .zero),
+//              anchors: [],
+//              contentScaleFactor: 1
+//            )
+//          ),
+//          entitiesSection: .init([], selection: 14_973_088_022_893_562_172)
+//        ),
+//        reducer: {
+//          AppCore()
+//            .dependency(\.multipeerClient, .testValue)
+//        }
+//      )
+//    )
+//    .navigationSplitViewStyle(.prominentDetail)
+//    .frame(width: 500, height: 900)
+//  }
+//}
 
 struct PreviewPausedView: View {
   var body: some View {

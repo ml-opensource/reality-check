@@ -2,17 +2,18 @@ import ComposableArchitecture
 import Foundation
 import RealityCodable
 
+//TODO: rename to `EntitiesInspector`
 public struct EntitiesSection: Reducer {
   public struct State: Equatable {
-    public var identifiedEntities: IdentifiedArrayOf<CodableEntity>
+    public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
 
     @BindingState public var dumpOutput: String
-    @BindingState public var selection: CodableEntity.ID?
+    @BindingState public var selection: RealityPlatform.visionOS.Entity.ID?
 
-    public var selectedEntity: CodableEntity? {
-      guard let selection = selection else { return nil }
-      for rootEntity in identifiedEntities {
-        if let entity = findCodableEntity(root: rootEntity, targetID: selection) {
+    public var selectedEntity: RealityPlatform.visionOS.Entity? {
+      guard let selection else { return nil }
+      for rootEntity in entities {
+        if let entity = RealityPlatform.visionOS.Scene.findEntity(id: selection, root: rootEntity) {
           return entity
         }
       }
@@ -20,11 +21,11 @@ public struct EntitiesSection: Reducer {
     }
 
     public init(
-      _ identifiedEntities: [CodableEntity],
-      selection: CodableEntity.ID? = nil
+      _ entities: [RealityPlatform.visionOS.Entity],
+      selection: RealityPlatform.visionOS.Entity.ID? = nil
     ) {
-      self.identifiedEntities = .init(uniqueElements: identifiedEntities)
-      self.selection = selection ?? self.identifiedEntities.first?.id
+      self.entities = .init(uniqueElements: entities)
+      self.selection = selection ?? self.entities.first?.id
       self.dumpOutput = """
         Biscuit dessert tart gummi bears pie biscuit.
         Pastry oat cake fruitcake chocolate cake marzipan shortbread pie toffee muffin.
@@ -38,12 +39,12 @@ public struct EntitiesSection: Reducer {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
-    case refreshEntities([CodableEntity])
+    case refreshEntities([RealityPlatform.visionOS.Entity])
   }
 
   public enum DelegateAction: Equatable {
     case didToggleSelectSection
-    case didSelectEntity(CodableEntity.ID)
+    case didSelectEntity(RealityPlatform.visionOS.Entity.ID)
   }
 
   public var body: some Reducer<State, Action> {
@@ -51,31 +52,33 @@ public struct EntitiesSection: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
-        case .binding(\.$selection):
-          if let entity = state.selectedEntity {
-            return .merge(
-              .send(.delegate(.didToggleSelectSection)),
-              .send(.delegate(.didSelectEntity(entity.id)))
-            )
-          } else {
-            return .send(.delegate(.didToggleSelectSection))
-          }
+      case .binding(\.$selection):
+        //FIXME:
+        return .none
+      // if let entity = state.selectedEntity {
+      //   return .merge(
+      //     .send(.delegate(.didToggleSelectSection)),
+      //     .send(.delegate(.didSelectEntity(entity.id)))
+      //   )
+      // } else {
+      //   return .send(.delegate(.didToggleSelectSection))
+      // }
 
-        case .binding:
-          return .none
+      case .binding:
+        return .none
 
-        case .delegate(_):
-          return .none
+      case .delegate(_):
+        return .none
 
-        case .dumpOutput(let output):
-          state.dumpOutput = output
-          return .none
+      case .dumpOutput(let output):
+        state.dumpOutput = output
+        return .none
 
-        case .refreshEntities(let entities):
-          state.identifiedEntities = .init(uniqueElements: entities)
-          guard let previousSelection = state.selection else { return .none }
-          state.selection = nil
-          return .send(.binding(.set(\.$selection, previousSelection)))
+      case .refreshEntities(let entities):
+        state.entities = .init(uniqueElements: entities)
+        guard let previousSelection = state.selection else { return .none }
+        state.selection = nil
+        return .send(.binding(.set(\.$selection, previousSelection)))
       }
     }
   }

@@ -1,6 +1,7 @@
 import RealityCodable
 import SwiftUI
 
+/*
 struct ARViewInspectorView: View {
   let arView: CodableARView
 
@@ -19,3 +20,4 @@ struct ARViewInspectorView: View {
     .formStyle(.grouped)
   }
 }
+*/

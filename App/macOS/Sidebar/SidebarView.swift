@@ -10,13 +10,14 @@ struct SidebarView: View {
     VStack {
       //MARK: ARView & Scenes
 
-      IfLetStore(
-        self.store.scope(
-          state: \.arViewSection,
-          action: AppCore.Action.arViewSection
-        ),
-        then: ARViewSectionView.init(store:)
-      )
+      //FIXME: restore
+      // IfLetStore(
+      //   self.store.scope(
+      //     state: \.arViewSection,
+      //     action: AppCore.Action.arViewSection
+      //   ),
+      //   then: ARViewSectionView.init(store:)
+      // )
 
       //MARK: Entities
 
