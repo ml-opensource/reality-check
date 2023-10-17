@@ -32,7 +32,7 @@ public struct MultipeerConnection: Reducer {
     case delegate(DelegateAction)
     case invite(Peer)
     case sendDebugOptions(_DebugOptions)
-    // case sendSelection(CodableEntity.ID)
+    case sendSelection(RealityPlatform.visionOS.Entity.ID)
     case start
     case updatePeers([Peer: DiscoveryInfo])
     case updateSessionState(MultipeerClient.SessionState)
@@ -70,15 +70,15 @@ public struct MultipeerConnection: Reducer {
         }
         return .none
 
-      // case .sendSelection(let entityID):
-      //   do {
-      //     let entitySelection = EntitySelection(entityID)
-      //     let data = try JSONEncoder().encode(entitySelection)
-      //     multipeerClient.send(data)
-      //   } catch {
-      //     fatalError("Failed to encode selection while sending them.")
-      //   }
-      //   return .none
+      case .sendSelection(let entityID):
+        do {
+          let entitySelection = EntitySelection(entityID)
+          let data = try JSONEncoder().encode(entitySelection)
+          multipeerClient.send(data)
+        } catch {
+          fatalError("Failed to encode selection while sending them.")
+        }
+        return .none
 
       case .start:
         guard state.connectedPeer == nil else { return .none }
