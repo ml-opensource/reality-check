@@ -20,24 +20,6 @@
         }
       },
       {
-        "package": "reality-dump",
-        "repositoryURL": "https://github.com/elkraneo/reality-dump",
-        "state": {
-          "branch": "main",
-          "revision": "8c0872930a35a9a6b1082746e0d063555db01223",
-          "version": null
-        }
-      },
-      {
-        "package": "reality-symbols",
-        "repositoryURL": "https://github.com/elkraneo/reality-symbols",
-        "state": {
-          "branch": "main",
-          "revision": "f70af21af3764058617f5c4f3eb2dde08a264b47",
-          "version": null
-        }
-      },
-      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {

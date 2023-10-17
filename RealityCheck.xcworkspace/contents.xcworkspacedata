@@ -2,10 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../../../RealityCodable/source/reality-codable">
+      location = "group:">
    </FileRef>
    <FileRef
-      location = "group:">
+      location = "group:../../../../external/RealityCodable/source/reality-codable">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../external/RealityDump/source/reality-dump">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../external/RealitySymbols/source/reality-symbols">
    </FileRef>
    <FileRef
       location = "group:App/RealityCheck.xcodeproj">
