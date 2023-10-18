@@ -19,8 +19,6 @@ struct EntitiesSectionView: View {
             systemImage: entity.systemImage
           )
 
-          EmptyView()
-
           if let children = entity.childrenOptional {
             Spacer()
             Text("\(children.count)")

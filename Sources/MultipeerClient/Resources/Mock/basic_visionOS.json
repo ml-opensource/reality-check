@@ -1,50 +1,36 @@
 {
   "children" : [
     {
-      "id" : 9605950661894074154,
-      "name" : "Window Context Entity, <UIWindow: 0x106c0a7a0>",
       "children" : [
         {
-          "components" : [
-            {
-              "synchronizationComponent" : {
-                "_0" : {
-
-                }
-              }
-            },
-            {
-              "transform" : {
-                "_0" : {
-
-                }
-              }
-            }
-          ],
-          "name" : "<UIWindow: 0x106c0a7a0>",
-          "parentID" : 9605950661894074154,
+          "id" : 11387543890963766969,
+          "parentID" : 9837148738749316519,
           "children" : [
             {
-              "components" : [
-                {
-                  "synchronizationComponent" : {
-                    "_0" : {
-
-                    }
-                  }
-                },
-                {
-                  "transform" : {
-                    "_0" : {
-
-                    }
-                  }
-                }
-              ],
+              "name" : "CALayerEntity (unnamed)",
               "children" : [
                 {
+                  "components" : [
+                    {
+                      "synchronizationComponent" : {
+                        "_0" : {
+
+                        }
+                      }
+                    },
+                    {
+                      "transform" : {
+                        "_0" : {
+
+                        }
+                      }
+                    }
+                  ],
+                  "id" : 2549275091193542372,
                   "children" : [
                     {
+                      "parentID" : 2549275091193542372,
+                      "name" : "CALayerEntity (unnamed)",
                       "components" : [
                         {
                           "synchronizationComponent" : {
@@ -61,36 +47,17 @@
                           }
                         }
                       ],
-                      "parentID" : 15998746282897373972,
                       "children" : [
                         {
-                          "components" : [
-                            {
-                              "synchronizationComponent" : {
-                                "_0" : {
-
-                                }
-                              }
-                            },
-                            {
-                              "transform" : {
-                                "_0" : {
-
-                                }
-                              }
-                            }
-                          ],
-                          "name" : "",
+                          "parentID" : 9767046470957289294,
+                          "id" : 9850701973717851900,
                           "children" : [
                             {
-                              "name" : "",
-                              "id" : 6363685665549325740,
-                              "parentID" : 9349075124771356926,
+                              "id" : 8787227055322512618,
                               "children" : [
                                 {
-                                  "parentID" : 6363685665549325740,
-                                  "id" : 11024321329216317798,
                                   "name" : "__realityCheck",
+                                  "parentID" : 8787227055322512618,
                                   "components" : [
                                     {
                                       "accessibilityComponent" : {
@@ -113,6 +80,10 @@
                                         }
                                       }
                                     }
+                                  ],
+                                  "id" : 328248977744820177,
+                                  "children" : [
+
                                   ]
                                 }
                               ],
@@ -131,22 +102,41 @@
                                     }
                                   }
                                 }
-                              ]
+                              ],
+                              "name" : "",
+                              "parentID" : 9850701973717851900
                             }
                           ],
-                          "id" : 9349075124771356926,
-                          "parentID" : 16827220236837573459
+                          "components" : [
+                            {
+                              "synchronizationComponent" : {
+                                "_0" : {
+
+                                }
+                              }
+                            },
+                            {
+                              "transform" : {
+                                "_0" : {
+
+                                }
+                              }
+                            }
+                          ],
+                          "name" : ""
                         }
                       ],
-                      "id" : 16827220236837573459,
-                      "name" : "CALayerEntity (unnamed)"
+                      "id" : 9767046470957289294
                     },
                     {
                       "name" : "CALayerEntity (unnamed)",
                       "children" : [
                         {
+                          "parentID" : 8001266861240297649,
                           "children" : [
                             {
+                              "id" : 6833992474173452709,
+                              "parentID" : 7589868299841262239,
                               "components" : [
                                 {
                                   "synchronizationComponent" : {
@@ -163,46 +153,52 @@
                                   }
                                 }
                               ],
-                              "id" : 18219378472800091291,
-                              "name" : "",
-                              "parentID" : 6941439265675099957,
                               "children" : [
                                 {
-                                  "parentID" : 18219378472800091291,
+                                  "name" : "",
+                                  "components" : [
+                                    {
+                                      "synchronizationComponent" : {
+                                        "_0" : {
+
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "transform" : {
+                                        "_0" : {
+
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "id" : 1060410145838836934,
+                                  "parentID" : 6833992474173452709,
                                   "children" : [
                                     {
-                                      "parentID" : 3189296040841633364,
-                                      "components" : [
-                                        {
-                                          "inputTargetComponent" : {
-                                            "_0" : {
-
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "synchronizationComponent" : {
-                                            "_0" : {
-
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "transform" : {
-                                            "_0" : {
-
-                                            }
-                                          }
-                                        }
-                                      ],
+                                      "parentID" : 1060410145838836934,
+                                      "id" : 5237173520391617175,
                                       "children" : [
                                         {
-                                          "parentID" : 13871024370284733717,
+                                          "components" : [
+                                            {
+                                              "synchronizationComponent" : {
+                                                "_0" : {
+
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "transform" : {
+                                                "_0" : {
+
+                                                }
+                                              }
+                                            }
+                                          ],
+                                          "id" : 15640529603726582264,
                                           "children" : [
                                             {
-                                              "name" : "GridMaterial",
-                                              "id" : 15734538738415386619,
-                                              "parentID" : 4190195085767394236,
                                               "components" : [
                                                 {
                                                   "synchronizationComponent" : {
@@ -218,10 +214,20 @@
                                                     }
                                                   }
                                                 }
-                                              ]
+                                              ],
+                                              "parentID" : 15640529603726582264,
+                                              "children" : [
+
+                                              ],
+                                              "name" : "GridMaterial",
+                                              "id" : 17643790753076329437
                                             },
                                             {
-                                              "parentID" : 4190195085767394236,
+                                              "children" : [
+
+                                              ],
+                                              "name" : "Sphere",
+                                              "id" : 7348487022171432978,
                                               "components" : [
                                                 {
                                                   "collisionComponent" : {
@@ -259,56 +265,45 @@
                                                   }
                                                 }
                                               ],
-                                              "name" : "Sphere",
-                                              "id" : 14452126740235655683
+                                              "parentID" : 15640529603726582264
                                             }
                                           ],
-                                          "name" : "Root",
-                                          "components" : [
-                                            {
-                                              "synchronizationComponent" : {
-                                                "_0" : {
-
-                                                }
-                                              }
-                                            },
-                                            {
-                                              "transform" : {
-                                                "_0" : {
-
-                                                }
-                                              }
-                                            }
-                                          ],
-                                          "id" : 4190195085767394236
+                                          "parentID" : 5237173520391617175,
+                                          "name" : "Root"
                                         }
                                       ],
-                                      "id" : 13871024370284733717,
-                                      "name" : "Root"
-                                    }
-                                  ],
-                                  "name" : "",
-                                  "components" : [
-                                    {
-                                      "synchronizationComponent" : {
-                                        "_0" : {
+                                      "name" : "Root",
+                                      "components" : [
+                                        {
+                                          "inputTargetComponent" : {
+                                            "_0" : {
 
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "transform" : {
-                                        "_0" : {
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "synchronizationComponent" : {
+                                            "_0" : {
 
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "transform" : {
+                                            "_0" : {
+
+                                            }
+                                          }
                                         }
-                                      }
+                                      ]
                                     }
-                                  ],
-                                  "id" : 3189296040841633364
+                                  ]
                                 }
-                              ]
+                              ],
+                              "name" : ""
                             }
                           ],
+                          "name" : "",
                           "components" : [
                             {
                               "synchronizationComponent" : {
@@ -325,13 +320,10 @@
                               }
                             }
                           ],
-                          "parentID" : 7161977149648253453,
-                          "name" : "",
-                          "id" : 6941439265675099957
+                          "id" : 7589868299841262239
                         }
                       ],
-                      "id" : 7161977149648253453,
-                      "parentID" : 15998746282897373972,
+                      "id" : 8001266861240297649,
                       "components" : [
                         {
                           "synchronizationComponent" : {
@@ -347,36 +339,51 @@
                             }
                           }
                         }
-                      ]
+                      ],
+                      "parentID" : 2549275091193542372
                     }
                   ],
-                  "id" : 15998746282897373972,
-                  "parentID" : 3459756830789970717,
-                  "components" : [
-                    {
-                      "synchronizationComponent" : {
-                        "_0" : {
-
-                        }
-                      }
-                    },
-                    {
-                      "transform" : {
-                        "_0" : {
-
-                        }
-                      }
-                    }
-                  ],
-                  "name" : "CALayerEntity (unnamed)"
+                  "name" : "CALayerEntity (unnamed)",
+                  "parentID" : 6549716179147479843
                 }
               ],
-              "parentID" : 16468078136598115157,
-              "id" : 3459756830789970717,
-              "name" : "CALayerEntity (unnamed)"
+              "id" : 6549716179147479843,
+              "components" : [
+                {
+                  "synchronizationComponent" : {
+                    "_0" : {
+
+                    }
+                  }
+                },
+                {
+                  "transform" : {
+                    "_0" : {
+
+                    }
+                  }
+                }
+              ],
+              "parentID" : 11387543890963766969
             }
           ],
-          "id" : 16468078136598115157
+          "name" : "<UIWindow: 0x105b17860>",
+          "components" : [
+            {
+              "synchronizationComponent" : {
+                "_0" : {
+
+                }
+              }
+            },
+            {
+              "transform" : {
+                "_0" : {
+
+                }
+              }
+            }
+          ]
         }
       ],
       "components" : [
@@ -394,8 +401,9 @@
             }
           }
         }
-      ]
+      ],
+      "id" : 9837148738749316519,
+      "name" : "Window Context Entity, <UIWindow: 0x105b17860>"
     }
   ]
 }
-Type: stdio
