@@ -131,7 +131,7 @@ struct EntityInspectorView: View {
               )
             }
 
-            if let children = entity.children {
+            if let children = entity.childrenOptional {
               LabeledContent(
                 "children count",
                 value: "\(children.count)"

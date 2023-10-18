@@ -10,7 +10,7 @@ struct EntitiesSectionView: View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       List(
         viewStore.entities.elements,
-        children: \.children,
+        children: \.childrenOptional,
         selection: viewStore.$selection
       ) { entity in
         HStack {
@@ -21,7 +21,7 @@ struct EntitiesSectionView: View {
 
           EmptyView()
 
-          if let children = entity.children, !children.isEmpty {
+          if let children = entity.childrenOptional {
             Spacer()
             Text("\(children.count)")
               .font(.caption2)
