@@ -100,7 +100,7 @@ public struct AppCore: Reducer {
         //   return .send(.entitiesSection(.refreshEntities(decodedARView.scene.anchors)))
 
         case .multipeerConnection(.delegate(.receivedDecodedScene(let decodedScene))):
-          let entities = decodedScene.children
+          let entities = decodedScene.children.map(\.value)
           if state.entitiesSection == nil {
             state.entitiesSection = .init(entities)
           }

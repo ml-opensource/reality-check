@@ -3,6 +3,7 @@ import Foundation
 import RealityCodable
 
 extension RealityPlatform.visionOS.Entity {
+  //FIXME: remove and use reality-codable existent properties
   public var computedName: String {
     if let name = self.name, !name.isEmpty {
       return name

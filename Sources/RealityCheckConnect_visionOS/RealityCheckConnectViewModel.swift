@@ -98,7 +98,7 @@ extension RealityCheckConnectViewModel {
 
     //TODO: remove/hide reference entity
 
-    var entities: [RealityPlatform.visionOS.Entity] = []
+    var entities: [RealityPlatform.visionOS.EntityType] = []
 
     for content in scenes.values {
       guard let root = content.root else { return }
