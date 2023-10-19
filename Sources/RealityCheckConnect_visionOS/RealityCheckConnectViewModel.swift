@@ -98,15 +98,15 @@ extension RealityCheckConnectViewModel {
 
     //TODO: remove/hide reference entity
 
-    var identifiableEntities: [RealityPlatform.visionOS.Entity] = []
+    var entities: [RealityPlatform.visionOS.Entity] = []
 
-    for scene in scenes.values {
-      guard let root = scene.root else { return }
-      identifiableEntities.append(await root.encoded)
+    for content in scenes.values {
+      guard let root = content.root else { return }
+      entities.append(await root.encoded)
     }
 
     let realityViewData = try! defaultEncoder.encode(
-      RealityPlatform.visionOS.Scene(children: identifiableEntities))
+      RealityPlatform.visionOS.Scene(children: entities))
     multipeerClient.send(realityViewData)
 
     // TODO: set default selection?

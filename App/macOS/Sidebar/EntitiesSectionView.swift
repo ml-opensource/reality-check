@@ -1,6 +1,7 @@
 import AppFeature
 import ComposableArchitecture
 import SwiftUI
+import RealityCodable
 
 struct EntitiesSectionView: View {
   let store: StoreOf<EntitiesSection>

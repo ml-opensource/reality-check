@@ -163,10 +163,7 @@ extension MultipeerConnection {
       RealityPlatform.visionOS.Scene.self,
       from: data
     ) {
-      guard let decodedHierarchy = String(data: data, encoding: .utf8) else {
-        fatalError("The received data cannot be decoded.")
-      }
-      print(decodedHierarchy)
+      print(String(data: data, encoding: .utf8)!)
       await send(.delegate(.receivedDecodedScene(decodedRealityViewContentScene)))
     }
 
