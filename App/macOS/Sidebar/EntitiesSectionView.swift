@@ -3,6 +3,12 @@ import ComposableArchitecture
 import SwiftUI
 import RealityCodable
 
+extension RealityPlatform.visionOS.Entity {
+  public var childrenOptional: [RealityPlatform.visionOS.Entity]? {
+    children.isEmpty ? nil : children.map(\.value)
+  }
+}
+
 struct EntitiesSectionView: View {
   let store: StoreOf<EntitiesSection>
   //TODO: @State private var searchText: String = ""

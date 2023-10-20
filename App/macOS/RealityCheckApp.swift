@@ -8,6 +8,7 @@ enum WindowID: String {
 }
 
 @main
+@available(macOS 14.0, *)
 struct RealityCheckApp: App {
   let store: StoreOf<AppCore> = .init(
     initialState: AppCore.State(),

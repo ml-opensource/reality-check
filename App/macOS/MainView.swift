@@ -6,24 +6,26 @@ import MultipeerClient
 import StreamingClient
 import SwiftUI
 
+//FIXME: Relax the requirements, this is only required because the .inspector
+@available(macOS 14.0, *)
 struct MainView: View {
   let store: StoreOf<AppCore>
 
   var sessionStateSubtitle: String {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
-    case .notConnected, .connecting:
-      return ""
-
-    case .connected:
-      if let connectedPeer = viewStore.connectedPeer,
-        let appName = connectedPeer.discoveryInfo?.appName,
-        let appVersion = connectedPeer.discoveryInfo?.appVersion
-      {
-        return appName + " \(appVersion)"
-      } else {
+      case .notConnected, .connecting:
         return ""
-      }
+
+      case .connected:
+        if let connectedPeer = viewStore.connectedPeer,
+          let appName = connectedPeer.discoveryInfo?.appName,
+          let appVersion = connectedPeer.discoveryInfo?.appVersion
+        {
+          return appName + " \(appVersion)"
+        } else {
+          return ""
+        }
     }
   }
 
@@ -31,7 +33,8 @@ struct MainView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
         SidebarView(store: store)
-      } content: {
+          .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+      } detail: {
         ZStack {
           if viewStore.isStreaming {
             MetalViewRepresentable(viewportSize: viewStore.$viewPortSize)
@@ -50,8 +53,6 @@ struct MainView: View {
                   .stroke()
                   .foregroundStyle(.secondary)
               }
-              .padding()
-              .padding(.bottom, 32)
           } else {
             PreviewPausedView()
           }
@@ -69,8 +70,6 @@ struct MainView: View {
                 .collapsed(viewStore.$isConsoleCollapsed)
                 .frame(minHeight: 200, maxHeight: .infinity)
             }
-            .edgesIgnoringSafeArea(.top)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
         .background(
@@ -79,37 +78,39 @@ struct MainView: View {
             .scaleEffect(4)
             .opacity(viewStore.isStreaming ? 0 : 1)
         )
-      } detail: {
-        switch viewStore.selectedSection {
-        case .none:
-          Spacer().navigationSplitViewColumnWidth(0)
-
-        case .arView:
-          //FIXME:
-          EmptyView()
-        //   if let arView = viewStore.arViewSection?.arView {
-        //     ARViewInspectorView(arView)
-        //       .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-        //   }
-
-        case .entities:
-          IfLetStore(
-            store.scope(
-              state: \.entitiesSection,
-              action: AppCore.Action.entitiesSection
-            ),
-            then: EntityInspectorView.init
-          )
-          .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-        }
       }
-      .navigationSplitViewStyle(.balanced)
       .toolbar {
         ToolbarItem {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
         }
       }
       .navigationSubtitle(sessionStateSubtitle)
+      .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+        switch viewStore.selectedSection {
+          case .none:
+            Spacer().navigationSplitViewColumnWidth(0)
+
+          case .arView:
+            //FIXME:
+            EmptyView()
+          // if let arView = viewStore.arViewSection?.arView {
+          //   ARViewInspectorView(arView)
+          //     .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+          // }
+
+          case .entities:
+            IfLetStore(
+              store.scope(
+                state: \.entitiesSection,
+                action: AppCore.Action.entitiesSection
+              ),
+              then: EntityInspectorView.init
+            )
+        }
+      }
+      //FIXME: Properties doesnt seem to work at all
+      // .inspectorColumnWidth(min: 270, ideal: 405, max: 810)
+      // .interactiveDismissDisabled()
     }
   }
 }
@@ -126,23 +127,23 @@ struct SessionStateButtonView: View {
 
   var contextualBackground: Color {
     switch sessionState {
-    case .notConnected:
-      return .red
-    case .connecting:
-      return .orange
-    case .connected:
-      return .green
+      case .notConnected:
+        return .red
+      case .connecting:
+        return .orange
+      case .connected:
+        return .green
     }
   }
 
   var contextualLabel: String {
     switch sessionState {
-    case .notConnected:
-      return "not connected"
-    case .connecting:
-      return "connecting"
-    case .connected:
-      return "connected"
+      case .notConnected:
+        return "not connected"
+      case .connecting:
+        return "connecting"
+      case .connected:
+        return "connected"
     }
   }
 

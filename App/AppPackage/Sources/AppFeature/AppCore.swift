@@ -14,6 +14,7 @@ public struct AppCore: Reducer {
     // public var arViewSection: ARViewSection.State?
     public var entitiesSection: EntitiesSection.State?
     @BindingState public var isConsoleCollapsed: Bool
+    @BindingState public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
     public var multipeerConnection: MultipeerConnection.State
     public var selectedSection: Section?
@@ -23,6 +24,7 @@ public struct AppCore: Reducer {
       // arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesSection.State? = nil,
       displayConsole: Bool = true,
+      isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
       multipeerConnection: MultipeerConnection.State = .init(),
       selectedSection: Section? = nil,
@@ -31,6 +33,7 @@ public struct AppCore: Reducer {
       // self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
       self.isConsoleCollapsed = !displayConsole
+      self.isInspectorDisplayed = isInspectorDisplayed
       self.isStreaming = isStreaming
       self.multipeerConnection = multipeerConnection
       self.selectedSection = selectedSection
@@ -76,6 +79,7 @@ public struct AppCore: Reducer {
           return .none
 
         case .entitiesSection(.delegate(.didToggleSelectSection)):
+          state.isInspectorDisplayed = (state.entitiesSection?.selection != nil)
           return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
 
         case .entitiesSection(.delegate(.didSelectEntity(let entityID))):

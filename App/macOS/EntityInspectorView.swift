@@ -53,18 +53,17 @@ struct EntityInspectorView: View {
 
         List {
           Section("Accessibility") {
-            //FIXME:
-            // LabeledContent(
-            //   "isAccessibilityElement",
-            //   value:
-            //     "\(entity.isAccessibilityElement ? "YES" : "NO")"
-            // )
-            // if let accessibilityLabel = entity.accessibilityLabel {
-            //   LabeledContent(
-            //     "accessibilityLabel",
-            //     value: accessibilityLabel
-            //   )
-            // }
+            LabeledContent(
+              "isAccessibilityElement",
+              value:
+                "\(entity.isAccessibilityElement ? "YES" : "NO")"
+            )
+            if let accessibilityLabel = entity.accessibilityLabel {
+              LabeledContent(
+                "accessibilityLabel",
+                value: accessibilityLabel
+              )
+            }
             if let accessibilityDescription = entity.accessibilityDescription {
               LabeledContent(
                 "accessibilityDescription",
