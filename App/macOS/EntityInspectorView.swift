@@ -84,28 +84,27 @@ struct EntityInspectorView: View {
           // }
 
           Section("State") {
-            //FIXME:
-            // LabeledContent(
-            //   "isActive",
-            //   value: "\(entity.isAnchored ? "YES" : "NO")"
-            // )
-            // LabeledContent(
-            //   "isAnchored",
-            //   value:
-            //     "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
-            // )
-            // LabeledContent(
-            //   "isEnabled",
-            //   value: "\(entity.isEnabled ? "YES" : "NO")"
-            // )
-            // LabeledContent(
-            //   "isEnabledInHierarchy",
-            //   value: "\(entity.isActive ? "YES" : "NO")"
-            // )
-            // LabeledContent(
-            //   "isOwner",
-            //   value: "\(entity.isOwner ? "YES" : "NO")"
-            // )
+            LabeledContent(
+              "isActive",
+              value: "\(entity.isAnchored ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isAnchored",
+              value:
+                "\(entity.isEnabledInHierarchy ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isEnabled",
+              value: "\(entity.isEnabled ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isEnabledInHierarchy",
+              value: "\(entity.isActive ? "YES" : "NO")"
+            )
+            LabeledContent(
+              "isOwner",
+              value: "\(entity.isOwner ? "YES" : "NO")"
+            )
           }
 
           Section("Hierarhy") {
