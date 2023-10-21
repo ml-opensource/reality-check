@@ -146,8 +146,8 @@ struct EntityInspectorView: View {
                     //FIXME:
                     // ComponentPropertiesView(component.properties).monospaced()
                   }
-                  // .help(component.componentType.help)
                 }
+                .help(component.comment ?? "")
               }
             }
           }

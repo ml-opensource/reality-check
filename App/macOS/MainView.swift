@@ -70,6 +70,8 @@ struct MainView: View {
                 .collapsed(viewStore.$isConsoleCollapsed)
                 .frame(minHeight: 200, maxHeight: .infinity)
             }
+            .edgesIgnoringSafeArea(.top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
           }
         }
         .background(
