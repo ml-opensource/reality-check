@@ -11,7 +11,7 @@ import SwiftUI
 struct MainView: View {
   let store: StoreOf<AppCore>
 
-  var sessionStateSubtitle: String {
+  var sessionDescription: String {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
       case .notConnected, .connecting:
@@ -22,7 +22,7 @@ struct MainView: View {
           let appName = connectedPeer.discoveryInfo?.appName,
           let appVersion = connectedPeer.discoveryInfo?.appVersion
         {
-          return appName + " \(appVersion)"
+          return "􁎖 " + appName + " \(appVersion)"
         } else {
           return ""
         }
@@ -54,7 +54,7 @@ struct MainView: View {
                   .foregroundStyle(.secondary)
               }
           } else {
-            PreviewPausedView()
+            VideoPreviewPaused()
           }
 
           SplitViewReader { proxy in
@@ -85,8 +85,30 @@ struct MainView: View {
         ToolbarItem {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
         }
+        ToolbarItem {
+          Button(action: {}) {
+            Label("Record Progress", systemImage: "book.circle")
+          }
+          .popover(
+            isPresented: .constant(true),
+            content: {
+              ConnectionSetupView(
+                store: store.scope(
+                  state: \.multipeerConnection,
+                  action: AppCore.Action.multipeerConnection
+                )
+              )
+            }
+          )
+        }
+        ToolbarItem {
+          Menu("Test") {
+            Text("Something")
+            Rectangle().fill(.purple).frame(width: 100, height: 100)
+          }
+        }
       }
-      .navigationSubtitle(sessionStateSubtitle)
+      .navigationTitle(sessionDescription)
       .inspector(isPresented: viewStore.$isInspectorDisplayed) {
         switch viewStore.selectedSection {
           case .arView:
@@ -101,7 +123,7 @@ struct MainView: View {
             IfLetStore(
               store.scope(
                 state: \.entitiesSection,
-                action: AppCore.Action.entitiesSection
+                action: AppCore.Action.entitiesNavigator
               )
             ) {
               InspectorView($0)
@@ -190,7 +212,7 @@ struct SessionStateButtonView: View {
 //  }
 //}
 
-struct PreviewPausedView: View {
+struct VideoPreviewPaused: View {
   var body: some View {
     VStack {
       HStack {

@@ -24,7 +24,7 @@ struct NavigatorView: View {
       IfLetStore(
         self.store.scope(
           state: \.entitiesSection,
-          action: AppCore.Action.entitiesSection
+          action: AppCore.Action.entitiesNavigator
         ),
         then: EntitiesSectionView.init(store:),
         else: { Text("No Entities").foregroundStyle(.secondary) }

@@ -32,7 +32,7 @@ extension RealityPlatform.visionOS.Entity {
   }
 }
 
-public struct EntitiesSection: Reducer {
+public struct EntitiesNavigator_visionOS: Reducer {
   public struct State: Equatable {
     public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
 

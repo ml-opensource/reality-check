@@ -6,15 +6,15 @@ import SwiftUI
 //TODO: rename to `EntitiesInspector_visionOS`
 
 struct InspectorView: View {
-  let store: StoreOf<EntitiesSection>
-  let viewStore: ViewStoreOf<EntitiesSection>
+  let store: StoreOf<EntitiesNavigator_visionOS>
+  let viewStore: ViewStoreOf<EntitiesNavigator_visionOS>
 
   var entity: RealityPlatform.visionOS.Entity? {
     viewStore.selectedEntity
   }
 
   init(
-    _ store: StoreOf<EntitiesSection>
+    _ store: StoreOf<EntitiesNavigator_visionOS>
   ) {
     self.store = store
     self.viewStore = .init(store, observe: { $0 })

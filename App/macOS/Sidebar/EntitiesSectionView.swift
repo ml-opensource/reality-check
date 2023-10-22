@@ -10,7 +10,7 @@ extension RealityPlatform.visionOS.Entity {
 }
 
 struct EntitiesSectionView: View {
-  let store: StoreOf<EntitiesSection>
+  let store: StoreOf<EntitiesNavigator_visionOS>
   //TODO: @State private var searchText: String = ""
 
   var body: some View {
