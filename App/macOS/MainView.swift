@@ -32,7 +32,7 @@ struct MainView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
-        SidebarView(store: store)
+        NavigatorView(store: store)
           .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
       } detail: {
         ZStack {
@@ -104,7 +104,7 @@ struct MainView: View {
                 action: AppCore.Action.entitiesSection
               )
             ) {
-              EntityInspectorView($0)
+              InspectorView($0)
                 .inspectorColumnWidth(min: 367, ideal: 569, max: 811)
                 .interactiveDismissDisabled()
             }

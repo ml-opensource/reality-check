@@ -3,7 +3,7 @@ import ComposableArchitecture
 import Models
 import SwiftUI
 
-struct SidebarView: View {
+struct NavigatorView: View {
   let store: StoreOf<AppCore>
 
   var body: some View {

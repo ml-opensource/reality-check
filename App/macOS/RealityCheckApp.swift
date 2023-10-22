@@ -14,9 +14,9 @@ struct RealityCheckApp: App {
     initialState: AppCore.State(),
     reducer: {
       AppCore()
-      #if MULTIPEER_MOCK
-        .dependency(\.multipeerClient, .testValue)
-      #endif
+        #if MULTIPEER_MOCK
+          .dependency(\.multipeerClient, .testValue)
+        #endif
     }
   )
 
@@ -46,6 +46,9 @@ struct RealityCheckApp: App {
         // Default: "RealityCheck Help"
         Link("Getting Started", destination: helpURL)
       }
+    }
+    .commands {
+      InspectorCommands()
     }
   }
 }

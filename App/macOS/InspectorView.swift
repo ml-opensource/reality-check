@@ -5,7 +5,7 @@ import SwiftUI
 
 //TODO: rename to `EntitiesInspector_visionOS`
 
-struct EntityInspectorView: View {
+struct InspectorView: View {
   let store: StoreOf<EntitiesSection>
   let viewStore: ViewStoreOf<EntitiesSection>
 
