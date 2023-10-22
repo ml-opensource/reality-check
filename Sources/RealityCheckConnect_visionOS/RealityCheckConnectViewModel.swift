@@ -85,7 +85,7 @@ extension RealityCheckConnectViewModel {
           hostName = peer.displayName
 
           //TODO: Is stopping advertising after connection a desired behavior, or should it be optional?
-          await multipeerClient.stopAdvertisingPeer()
+//          await multipeerClient.stopAdvertisingPeer()
         }
       }
     }

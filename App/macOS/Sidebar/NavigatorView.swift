@@ -26,7 +26,7 @@ struct NavigatorView: View {
           state: \.entitiesSection,
           action: AppCore.Action.entitiesNavigator
         ),
-        then: EntitiesSectionView.init(store:),
+        then: EntitiesNavigatorView.init(store:),
         else: { Text("No Entities").foregroundStyle(.secondary) }
       )
     }

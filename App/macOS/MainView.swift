@@ -11,7 +11,7 @@ import SwiftUI
 struct MainView: View {
   let store: StoreOf<AppCore>
 
-  var sessionDescription: String {
+  var sessionTitle: String {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
       case .notConnected, .connecting:
@@ -19,10 +19,26 @@ struct MainView: View {
 
       case .connected:
         if let connectedPeer = viewStore.connectedPeer,
-          let appName = connectedPeer.discoveryInfo?.appName,
+          let appName = connectedPeer.discoveryInfo?.appName
+        {
+          return appName
+        } else {
+          return "RealityCheck"
+        }
+    }
+  }
+
+  var sessionSubtitle: String {
+    let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
+    switch viewStore.sessionState {
+      case .notConnected, .connecting:
+        return ""
+
+      case .connected:
+        if let connectedPeer = viewStore.connectedPeer,
           let appVersion = connectedPeer.discoveryInfo?.appVersion
         {
-          return "􁎖 " + appName + " \(appVersion)"
+          return "􁎖 " + " \(appVersion)"
         } else {
           return ""
         }
@@ -33,64 +49,68 @@ struct MainView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
         NavigatorView(store: store)
-          .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
       } detail: {
-        ZStack {
-          if viewStore.isStreaming {
-            MetalViewRepresentable(viewportSize: viewStore.$viewPortSize)
-              .frame(
-                maxWidth: viewStore.viewPortSize.width,
-                maxHeight: viewStore.viewPortSize.height
-              )
-              .aspectRatio(
-                viewStore.viewPortSize.width / viewStore.viewPortSize.height,
-                contentMode: .fit
-              )
-              .mask(RoundedRectangle(cornerRadius: 64, style: .continuous))
-              .overlay {
-                ///inner corner radius + padding = outer corner radius
-                RoundedRectangle(cornerRadius: 64, style: .continuous)
-                  .stroke()
-                  .foregroundStyle(.secondary)
-              }
-          } else {
-            VideoPreviewPaused()
-          }
-
-          SplitViewReader { proxy in
-            SplitView(axis: .vertical) {
+        SplitViewReader { proxy in
+          SplitView(axis: .vertical) {
+            ZStack {
               Color.clear
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                  StatusBarView(proxy: proxy, collapsed: viewStore.$isConsoleCollapsed)
-                }
+                .background(
+                  Image(.stripes)
+                    .resizable(resizingMode: .tile)
+                    .opacity(viewStore.isStreaming ? 0 : 1)
+                )
 
-              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
-                .font(.system(.body, design: .monospaced))
-                .collapsable()
-                .collapsed(viewStore.$isConsoleCollapsed)
-                .frame(minHeight: 200, maxHeight: .infinity)
+              if viewStore.isStreaming {
+                MetalViewRepresentable(viewportSize: viewStore.$viewPortSize)
+                  .frame(
+                    maxWidth: viewStore.viewPortSize.width,
+                    maxHeight: viewStore.viewPortSize.height
+                  )
+                  .aspectRatio(
+                    viewStore.viewPortSize.width / viewStore.viewPortSize.height,
+                    contentMode: .fit
+                  )
+              } else {
+                VideoPreviewPaused().padding()
+              }
             }
-            .edgesIgnoringSafeArea(.top)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+              StatusBarView(
+                proxy: proxy,
+                collapsed: viewStore.binding(
+                  get: { !$0.isConsolePresented },
+                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+                )
+              )
+            }
+
+            TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
+              .font(.system(.body, design: .monospaced))
+              .collapsable()
+              .collapsed(
+                viewStore.binding(
+                  get: { !$0.isConsolePresented },
+                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+                )
+              )
+              .frame(minHeight: 200, maxHeight: .infinity)
           }
+          .edgesIgnoringSafeArea(.top)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .background(
-          Image("stripes")
-            .resizable(resizingMode: .tile)
-            .scaleEffect(4)
-            .opacity(viewStore.isStreaming ? 0 : 1)
-        )
+        .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
       }
-      .toolbar {
-        ToolbarItem {
+      .navigationSplitViewStyle(.balanced)
+      .toolbar(id: "Main") {
+        ToolbarItem(id: "SessionState") {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
         }
-        ToolbarItem {
-          Button(action: {}) {
-            Label("Record Progress", systemImage: "book.circle")
+        ToolbarItem(id: "ConnectionSetup") {
+          Button("Connection Setup", systemImage: "dot.radiowaves.left.and.right") {
+            viewStore.send(.binding(.set(\.$isConnectionSetupPresented, true)))
           }
           .popover(
-            isPresented: .constant(true),
+            isPresented: viewStore.$isConnectionSetupPresented,
             content: {
               ConnectionSetupView(
                 store: store.scope(
@@ -101,14 +121,14 @@ struct MainView: View {
             }
           )
         }
-        ToolbarItem {
-          Menu("Test") {
-            Text("Something")
-            Rectangle().fill(.purple).frame(width: 100, height: 100)
-          }
+        ToolbarItem(id: "Console") {
+          Toggle(
+            isOn: viewStore.$isConsolePresented,
+            label: { Label("Console", systemImage: "doc.plaintext") }
+          )
+          .keyboardShortcut("C", modifiers: [.command, .option])
         }
       }
-      .navigationTitle(sessionDescription)
       .inspector(isPresented: viewStore.$isInspectorDisplayed) {
         switch viewStore.selectedSection {
           case .arView:
@@ -127,11 +147,13 @@ struct MainView: View {
               )
             ) {
               InspectorView($0)
-                .inspectorColumnWidth(min: 367, ideal: 569, max: 811)
+                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
                 .interactiveDismissDisabled()
             }
         }
       }
+      .navigationTitle(sessionTitle)
+      .navigationSubtitle(sessionSubtitle)
     }
   }
 }
@@ -214,29 +236,25 @@ struct SessionStateButtonView: View {
 
 struct VideoPreviewPaused: View {
   var body: some View {
-    VStack {
-      HStack {
-        Text("Screen capture paused")
-          .font(.headline)
+    HStack {
+      Text("Screen capture paused")
+        .font(.headline)
 
-        Spacer().frame(maxWidth: 100)
-        Button.init(
-          "Help",
-          systemImage: "questionmark.circle",
-          action: {}
-        )
-        .controlSize(.large)
-        .buttonStyle(.plain)
-        .labelStyle(.iconOnly)
-      }
-      .padding()
-      .background(
-        RoundedRectangle(cornerRadius: 16, style: .continuous)
-          .fill(Color(nsColor: .controlBackgroundColor))
-          .shadow(radius: 4)
+      Spacer().frame(maxWidth: 100)
+      Button.init(
+        "Help",
+        systemImage: "questionmark.circle",
+        action: {}
       )
-      Spacer()
+      .controlSize(.large)
+      .buttonStyle(.plain)
+      .labelStyle(.iconOnly)
     }
-    .padding(.top, 32)
+    .padding()
+    .background(
+      RoundedRectangle(cornerRadius: 16, style: .continuous)
+        .fill(Color(nsColor: .controlBackgroundColor))
+        .shadow(radius: 1)
+    )
   }
 }

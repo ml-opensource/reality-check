@@ -13,7 +13,8 @@ public struct AppCore: Reducer {
   public struct State: Equatable {
     // public var arViewSection: ARViewSection.State?
     public var entitiesSection: EntitiesNavigator_visionOS.State?
-    @BindingState public var isConsoleCollapsed: Bool
+    @BindingState public var isConnectionSetupPresented: Bool
+    @BindingState public var isConsolePresented: Bool
     @BindingState public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
     public var multipeerConnection: MultipeerConnection.State
@@ -23,7 +24,8 @@ public struct AppCore: Reducer {
     public init(
       // arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesNavigator_visionOS.State? = nil,
-      displayConsole: Bool = true,
+      isConnectionSetupPresented: Bool = false,
+      isConsolePresented: Bool = false,
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
       multipeerConnection: MultipeerConnection.State = .init(),
@@ -32,7 +34,8 @@ public struct AppCore: Reducer {
     ) {
       // self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
-      self.isConsoleCollapsed = !displayConsole
+      self.isConnectionSetupPresented = isConnectionSetupPresented
+      self.isConsolePresented = isConsolePresented
       self.isInspectorDisplayed = isInspectorDisplayed
       self.isStreaming = isStreaming
       self.multipeerConnection = multipeerConnection
@@ -142,5 +145,6 @@ public struct AppCore: Reducer {
     .ifLet(\.entitiesSection, action: /Action.entitiesNavigator) {
       EntitiesNavigator_visionOS()
     }
+    ._printChanges()
   }
 }

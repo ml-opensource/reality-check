@@ -24,9 +24,11 @@ struct RealityCheckApp: App {
     Window("RealityCheck", id: WindowID.main.rawValue) {
       MainView(store: store)
     }
+    .windowResizability(.automatic)
     .commands {
-      SidebarCommands()
       InspectorCommands()
+      SidebarCommands()
+      ToolbarCommands()      
       CommandGroup(replacing: .help) {
         let helpURL = URL(
           string:
@@ -35,6 +37,5 @@ struct RealityCheckApp: App {
         Link("Getting Started", destination: helpURL)
       }
     }
-    .windowToolbarStyle(.automatic)
   }
 }

@@ -90,6 +90,7 @@ struct PeerConnectView: View {
       },
       label: {
         VStack {
+          Text(viewStore.connectedPeer?.peer == peer ? "Connected" : "NOT Connected")
           Image(systemName: appIconName)
             .resizable()
             .aspectRatio(contentMode: .fill)

@@ -74,6 +74,7 @@ struct StatusBarToggleDrawerButton: View {
     withAnimation {
       collapsed.toggle()
     }
+    
   }
 
   internal var body: some View {
@@ -83,7 +84,6 @@ struct StatusBarToggleDrawerButton: View {
       Image(systemName: "square.bottomthird.inset.filled")
     }
     .buttonStyle(.plain)
-    .keyboardShortcut("Y", modifiers: [.command, .shift])
     .onHover { isHovering($0) }
   }
 }
