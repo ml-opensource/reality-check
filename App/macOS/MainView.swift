@@ -89,9 +89,6 @@ struct MainView: View {
       .navigationSubtitle(sessionStateSubtitle)
       .inspector(isPresented: viewStore.$isInspectorDisplayed) {
         switch viewStore.selectedSection {
-          case .none:
-            Spacer().navigationSplitViewColumnWidth(0)
-
           case .arView:
             //FIXME:
             EmptyView()
@@ -105,14 +102,14 @@ struct MainView: View {
               store.scope(
                 state: \.entitiesSection,
                 action: AppCore.Action.entitiesSection
-              ),
-              then: EntityInspectorView.init
-            )
+              )
+            ) {
+              EntityInspectorView($0)
+                .inspectorColumnWidth(min: 367, ideal: 569, max: 811)
+                .interactiveDismissDisabled()
+            }
         }
       }
-      //FIXME: Properties doesnt seem to work at all
-      // .inspectorColumnWidth(min: 270, ideal: 405, max: 810)
-      // .interactiveDismissDisabled()
     }
   }
 }

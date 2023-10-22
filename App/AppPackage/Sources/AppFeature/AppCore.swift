@@ -17,7 +17,7 @@ public struct AppCore: Reducer {
     @BindingState public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
     public var multipeerConnection: MultipeerConnection.State
-    public var selectedSection: Section?
+    public var selectedSection: Section
     @BindingState public var viewPortSize: CGSize
 
     public init(
@@ -27,7 +27,7 @@ public struct AppCore: Reducer {
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
       multipeerConnection: MultipeerConnection.State = .init(),
-      selectedSection: Section? = nil,
+      selectedSection: Section = .entities,
       viewPortSize: CGSize = .zero
     ) {
       // self.arViewSection = arViewSection
@@ -46,7 +46,7 @@ public struct AppCore: Reducer {
     // case arViewSection(ARViewSection.Action)
     case entitiesSection(EntitiesSection.Action)
     case multipeerConnection(MultipeerConnection.Action)
-    case selectSection(Section?)
+    case selectSection(Section)
     case updateViewportSize(CGSize)
   }
 
@@ -80,7 +80,7 @@ public struct AppCore: Reducer {
 
         case .entitiesSection(.delegate(.didToggleSelectSection)):
           state.isInspectorDisplayed = (state.entitiesSection?.selection != nil)
-          return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
+          return .send(.selectSection(.entities))
 
         case .entitiesSection(.delegate(.didSelectEntity(let entityID))):
           return .send(.multipeerConnection(.sendSelection(entityID)))
@@ -122,14 +122,10 @@ public struct AppCore: Reducer {
         case .selectSection(let section):
           state.selectedSection = section
           switch section {
-            case .none:
-              state.entitiesSection?.selection = nil
-            // state.arViewSection?.isSelected = false
-
-            case .some(.arView):
+            case .arView:
               state.entitiesSection?.selection = nil
 
-            case .some(.entities):
+            case .entities:
               // state.arViewSection?.isSelected = false
               return .none
           }

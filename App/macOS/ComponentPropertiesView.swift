@@ -1,67 +1,140 @@
 import Models
-import SwiftUI
 import RealityCodable
+import SwiftUI
 
 struct ComponentPropertiesView: View {
-  let properties: ComponentProperties
+  let component: RealityPlatform.visionOS.Component
 
   init(
-    _ properties: ComponentProperties
+    _ component: RealityPlatform.visionOS.Component
   ) {
-    self.properties = properties
+    self.component = component
   }
 
   var body: some View {
-    switch properties {
-      case .anchoring(let properties):
-        AnchoringComponentPropertiesView(properties)
-
-      case .characterController(let properties):
-        CharacterControllerComponentPropertiesView(properties)
-
-      case .characterControllerState(let properties):
-        CharacterControllerStateComponentPropertiesView(properties)
-
-      case .collision(let properties):
-        CollisionComponentPropertiesView(properties)
-
-      case .directionalLight(let properties):
-        DirectionalLightComponentPropertiesView(properties)
-
-      case .directionalLightShadow(let properties):
-        DirectionalLightShadowComponentPropertiesView(properties)
-
-      case .model(let properties):
-        ModelComponentPropertiesView(properties)
-
-      case .modelDebugOptions(let properties):
-        ModelDebugOptionsComponentPropertiesView(properties)
-
-      case .perspectiveCamera(let properties):
-        PerspectiveCameraComponentPropertiesView(properties)
-
-      case .physicsBody(let properties):
-        PhysicsBodyComponentPropertiesView(properties)
-
-      case .physicsMotion(let properties):
-        PhysicsMotionComponentPropertiesView(properties)
-
-      case .pointLight(let properties):
-        PointLightComponentPropertiesView(properties)
-
-      case .spotLight(let properties):
-        SpotLightComponentPropertiesView(properties)
-
-      case .spotLightShadow(let properties):
-        SpotLightShadowComponentPropertiesView(properties)
-
-      case .synchronization(let properties):
-        SynchronizationComponentPropertiesView(properties)
-
-      case .transform(let properties):
-        TransformComponentPropertiesView(properties)
+    switch component {
+      case .accessibilityComponent(let value):
+        EmptyView()
+      case .adaptiveResolutionComponent(let value):
+        EmptyView()
+      case .ambientAudioComponent(let value):
+        EmptyView()
+      case .anchoringComponent(let value):
+        EmptyView()
+      case .audioMixGroupsComponent(let value):
+        EmptyView()
+      case .channelAudioComponent(let value):
+        EmptyView()
+      case .characterControllerComponent(let value):
+        EmptyView()
+      case .characterControllerStateComponent(let value):
+        EmptyView()
+      case .collisionComponent(let value):
+        EmptyView()
+      case .groundingShadowComponent(let value):
+        EmptyView()
+      case .hoverEffectComponent(let value):
+        EmptyView()
+      case .imageBasedLightComponent(let value):
+        EmptyView()
+      case .imageBasedLightReceiverComponent(let value):
+        EmptyView()
+      case .inputTargetComponent(let value):
+        EmptyView()
+      case .modelComponent(let value):
+        EmptyView()
+      case .modelDebugOptionsComponent(let value):
+        EmptyView()
+      case .modelSortGroupComponent(let value):
+        EmptyView()
+      case .opacityComponent(let value):
+        EmptyView()
+      case .particleEmitterComponent(let value):
+        EmptyView()
+      case .perspectiveCameraComponent(let value):
+        EmptyView()
+      case .physicsBodyComponent(let value):
+        EmptyView()
+      case .physicsMotionComponent(let value):
+        EmptyView()
+      case .physicsSimulationComponent(let value):
+        EmptyView()
+      case .portalComponent(let value):
+        EmptyView()
+      case .sceneUnderstandingComponent(let value):
+        EmptyView()
+      case .spatialAudioComponent(let value):
+        EmptyView()
+      case .synchronizationComponent(let value):
+        EmptyView()
+      case .textComponent(let value):
+        EmptyView()
+      case .transform(let value):
+        VStack {
+         // LabeledContent("matrix", value: value.matrix.debugDescription)
+         // LabeledContent("rotation", value: value.rotation.debugDescription)
+          LabeledContent("scale", value: value.scale.debugDescription)
+          LabeledContent("translation", value: value.translation.debugDescription)
+        }
+        
+      case .videoPlayerComponent(let value):
+        EmptyView()
+      case .worldComponent(let value):
+        EmptyView()
     }
   }
+
+  //  var body: some View {
+  //    switch component {
+  //      case .anchoring(let properties):
+  //        AnchoringComponentPropertiesView(properties)
+  //
+  //      case .characterController(let properties):
+  //        CharacterControllerComponentPropertiesView(properties)
+  //
+  //      case .characterControllerState(let properties):
+  //        CharacterControllerStateComponentPropertiesView(properties)
+  //
+  //      case .collision(let properties):
+  //        CollisionComponentPropertiesView(properties)
+  //
+  //      case .directionalLight(let properties):
+  //        DirectionalLightComponentPropertiesView(properties)
+  //
+  //      case .directionalLightShadow(let properties):
+  //        DirectionalLightShadowComponentPropertiesView(properties)
+  //
+  //      case .model(let properties):
+  //        ModelComponentPropertiesView(properties)
+  //
+  //      case .modelDebugOptions(let properties):
+  //        ModelDebugOptionsComponentPropertiesView(properties)
+  //
+  //      case .perspectiveCamera(let properties):
+  //        PerspectiveCameraComponentPropertiesView(properties)
+  //
+  //      case .physicsBody(let properties):
+  //        PhysicsBodyComponentPropertiesView(properties)
+  //
+  //      case .physicsMotion(let properties):
+  //        PhysicsMotionComponentPropertiesView(properties)
+  //
+  //      case .pointLight(let properties):
+  //        PointLightComponentPropertiesView(properties)
+  //
+  //      case .spotLight(let properties):
+  //        SpotLightComponentPropertiesView(properties)
+  //
+  //      case .spotLightShadow(let properties):
+  //        SpotLightShadowComponentPropertiesView(properties)
+  //
+  //      case .synchronization(let properties):
+  //        SynchronizationComponentPropertiesView(properties)
+  //
+  //      case .transform(let properties):
+  //        TransformComponentPropertiesView(properties)
+  //    }
+  //  }
 }
 
 struct AnchoringComponentPropertiesView: View {
@@ -173,11 +246,13 @@ struct CollisionComponentPropertiesView: View {
       LabeledContent(
         "group",
         value: "\(properties.filter.group.collisionGroup.rawValue)"
-      ).padding([.leading, .trailing, .top], 8)
+      )
+      .padding([.leading, .trailing, .top], 8)
       LabeledContent(
         "mask",
         value: "\(properties.filter.mask.collisionGroup.rawValue)"
-      ).padding([.leading, .trailing, .bottom], 8)
+      )
+      .padding([.leading, .trailing, .bottom], 8)
     }
   }
 }

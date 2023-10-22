@@ -138,13 +138,15 @@ struct EntityInspectorView: View {
           }
 
           Section("Components") {
-            VStack {
-              LabeledContent("count", value: "\(entity.components.count)")
+            VStack(alignment: .leading) {
+              
+              //TODO: Check if it makes sense to show it.
+              // LabeledContent("count", value: "\(entity.components.count)")
+              
               ForEach(Array(entity.components), id: \.self) { component in
                 GroupBox {
                   DisclosureGroup(component.description) {
-                    //FIXME:
-                    // ComponentPropertiesView(component.properties).monospaced()
+                    ComponentPropertiesView(component).monospaced()
                   }
                 }
                 .help(component.comment ?? "")
