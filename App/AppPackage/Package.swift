@@ -17,7 +17,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      branch: "prerelease/1.0"
+      from: "1.2.0"
     ),
     .package(name: "reality-check", path: "../.."),
   ],

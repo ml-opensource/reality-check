@@ -131,85 +131,91 @@ struct PeerConnectView: View {
 
 struct ConnectionSetupView_Previews: PreviewProvider {
   static var previews: some View {
-    ConnectionSetupView(
-      store: Store(
-        initialState: AppCore.State(
-          multipeerConnection: .init()
-        ),
-        reducer: AppCore()
-      )
-      .scope(
-        state: \.multipeerConnection,
-        action: AppCore.Action.multipeerConnection
-      )
+    let previewStore1 = Store(
+      initialState: AppCore.State(
+        multipeerConnection: .init()
+      ),
+      reducer: { AppCore() }
+    )
+    .scope(
+      state: \.multipeerConnection,
+      action: AppCore.Action.multipeerConnection
     )
 
     ConnectionSetupView(
-      store: Store(
-        initialState: AppCore.State(
-          multipeerConnection: .init(
-            peers: [
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
-              )
-            ]
-          )
-        ),
-        reducer: AppCore()
-      )
-      .scope(
-        state: \.multipeerConnection,
-        action: AppCore.Action.multipeerConnection
-      )
+      store: previewStore1
+    )
+    
+    //MARK: -
+
+    let previewStore2 = Store(
+      initialState: AppCore.State(
+        multipeerConnection: .init(
+          peers: [
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "MyAugmentedApp",
+              appVersion: "5.3 (127)",
+              device: "iPhone 12 Pro",
+              system: "iOS 15.1"
+            )
+          ]
+        )
+      ),
+      reducer: { AppCore() }
+    )
+    .scope(
+      state: \.multipeerConnection,
+      action: AppCore.Action.multipeerConnection
     )
 
-    ConnectionSetupView(
-      store: Store(
-        initialState: AppCore.State(
-          multipeerConnection: .init(
-            peers: [
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyAugmentedApp",
-                appVersion: "5.3 (127)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
-              ),
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "TheAugmentedApp",
-                appVersion: "0.3 (17)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
-              ),
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "MyRealAR",
-                appVersion: "1.5.1 (12)",
-                device: "iPhone 12 Pro",
-                system: "iOS 15.1"
-              ),
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "SomethingInTheAR",
-                appVersion: "5.3 (99)",
-                device: "iPhone 11",
-                system: "iOS 12.5"
-              ),
-              Peer(displayName: "Manolo"): DiscoveryInfo(
-                appName: "Appgmented",
-                appVersion: "15.0 (2)",
-                device: "iPhone X",
-                system: "iOS 16.5"
-              ),
-            ]
-          )
-        ),
-        reducer: AppCore()
-      )
-      .scope(
-        state: \.multipeerConnection,
-        action: AppCore.Action.multipeerConnection
-      )
+    ConnectionSetupView(store: previewStore2)
+
+    //MARK: -
+
+    let previewStore3 = Store(
+      initialState: AppCore.State(
+        multipeerConnection: .init(
+          peers: [
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "MyAugmentedApp",
+              appVersion: "5.3 (127)",
+              device: "iPhone 12 Pro",
+              system: "iOS 15.1"
+            ),
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "TheAugmentedApp",
+              appVersion: "0.3 (17)",
+              device: "iPhone 12 Pro",
+              system: "iOS 15.1"
+            ),
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "MyRealAR",
+              appVersion: "1.5.1 (12)",
+              device: "iPhone 12 Pro",
+              system: "iOS 15.1"
+            ),
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "SomethingInTheAR",
+              appVersion: "5.3 (99)",
+              device: "iPhone 11",
+              system: "iOS 12.5"
+            ),
+            Peer(displayName: "Manolo"): DiscoveryInfo(
+              appName: "Appgmented",
+              appVersion: "15.0 (2)",
+              device: "iPhone X",
+              system: "iOS 16.5"
+            ),
+          ]
+        )
+      ),
+      reducer: { AppCore() }
     )
+    .scope(
+      state: \.multipeerConnection,
+      action: AppCore.Action.multipeerConnection
+    )
+
+    ConnectionSetupView(store: previewStore3)
   }
 }

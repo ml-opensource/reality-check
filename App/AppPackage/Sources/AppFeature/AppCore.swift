@@ -60,14 +60,10 @@ public struct AppCore: Reducer {
     Reduce<State, Action> { state, action in
       switch action {
         case .arViewSection(.delegate(.didToggleSelectSection)):
-          return .task { [state] in
-            .selectSection(state.selectedSection == .arView ? nil : .arView)
-          }
+          return .send(.selectSection(state.selectedSection == .arView ? nil : .arView))
 
         case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
-          return .task {
-            .multipeerConnection(.sendDebugOptions(options))
-          }
+          return .send(.multipeerConnection(.sendDebugOptions(options)))
 
         case .arViewSection(_):
           return .none
@@ -76,9 +72,7 @@ public struct AppCore: Reducer {
           return .none
 
         case .entitiesSection(.delegate(.didToggleSelectSection)):
-          return .task { [state] in
-            .selectSection((state.entitiesSection?.selection == nil) ? nil : .entities)
-          }
+          return .send(.selectSection((state.entitiesSection?.selection == nil) ? nil : .entities))
 
         case .entitiesSection(_):
           return .none

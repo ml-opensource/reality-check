@@ -7,7 +7,7 @@ struct EntitiesSectionView: View {
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
-      List(selection: viewStore.binding(\.$selection)) {
+      List(selection: viewStore.$selection) {
         Section("Entities") {
           OutlineGroup(
             viewStore.identifiedEntities.elements,
@@ -51,9 +51,3 @@ struct EntitiesSectionView: View {
     }
   }
 }
-
-// struct MyView_Previews: PreviewProvider {
-//   static var previews: some View {
-//       EntitiesView(store: ...)
-//   }
-// }

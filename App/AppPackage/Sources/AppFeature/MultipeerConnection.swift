@@ -103,9 +103,7 @@ public struct MultipeerConnection: Reducer {
             case .connected(let peer):
               state.connectedPeer = .init(peer: peer, discoveryInfo: state.peers[peer])
           }
-          return .task {
-            .delegate(.didUpdateSessionState(sessionState))
-          }
+          return .send(.delegate(.didUpdateSessionState(sessionState)))
       }
     }
   }
