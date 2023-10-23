@@ -22,56 +22,76 @@ struct ConnectionSetupView: View {
   var body: some View {
     //TODO: scope the viewStore to only observe "Peers"
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      VStack(spacing: 0) {
-        ScrollView(.vertical) {
-          LazyVGrid(columns: columns) {
-            ForEach(Array(viewStore.peers.keys)) { peer in
-              PeerConnectView(peer: peer, viewStore: viewStore)
-            }
-          }
-          .padding()
+      List(Array(viewStore.peers.keys)) { peer in
+        Section("Inspectable apps") {
+          PeerConnectView(peer: peer, viewStore: viewStore)
         }
-        .overlay(
-          Group {
-            if viewStore.peers.isEmpty {
-              Text("Inspectable apps will appear here")
-                .foregroundColor(.secondary)
-            }
-          }
-        )
-        .animation(.easeInOut, value: viewStore.peers)
-        .task {
-          viewStore.send(.start)
-        }
-
-        Divider()
-
-        HStack {
-          Spacer()
-          if #available(macOS 14.0, *) {
-            HelpLink(destination: helpURL)
-          } else {
-            Button(
-              action: { openURL(helpURL) },
-              label: {
-                Label("Getting Started", systemImage: "questionmark.circle")
-              }
-            )
-            .controlSize(.large)
-          }
-        }
-        .padding()
-        .background(.bar)
       }
-      .frame(width: 521 / 1.25, height: 521 / 1.25)
+      .overlay(
+        ZStack {
+          if viewStore.peers.isEmpty {
+            Text("Inspectable apps will appear here")
+              .foregroundColor(.secondary)
+
+            VStack {
+              Spacer()
+              HStack {
+                Spacer()
+                if #available(macOS 14.0, *) {
+                  HelpLink(destination: helpURL)
+                } else {
+                  Button(
+                    action: { openURL(helpURL) },
+                    label: {
+                      Label("Getting Started", systemImage: "questionmark.circle")
+                    }
+                  )
+                  .controlSize(.large)
+                }
+              }
+            }
+            .padding()
+          }
+        }
+      )
+      .animation(.easeInOut, value: viewStore.peers)
+      .task {
+        viewStore.send(.start)
+      }
+
+      //      Divider()
+      //
+      //      HStack {
+      //        Spacer()
+      //        if #available(macOS 14.0, *) {
+      //          HelpLink(destination: helpURL)
+      //        } else {
+      //          Button(
+      //            action: { openURL(helpURL) },
+      //            label: {
+      //              Label("Getting Started", systemImage: "questionmark.circle")
+      //            }
+      //          )
+      //          .controlSize(.large)
+      //        }
+      //      }
+      //      .padding()
+      //      .background(.bar)
     }
+    .frame(width: 521 / 1.25, height: 521 / 2.5)
   }
 }
 
 struct PeerConnectView: View {
-  @Environment(\.openWindow) private var openWindow
+
+  @Environment(\.openWindow)
+  private var openWindow
+
   let peer: Peer
-  @ObservedObject var viewStore: ViewStoreOf<MultipeerConnection>
+
+  @ObservedObject
+  var viewStore: ViewStoreOf<MultipeerConnection>
+
   var appIconName: String {
     guard let device = viewStore.peers[peer]?.device else { return "app" }
     if device.lowercased().contains("vision") {
@@ -84,29 +104,29 @@ struct PeerConnectView: View {
   var body: some View {
     let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
     Button(
-      action: {
-        viewStore.send(.invite(peer))
-        openWindow(id: WindowID.main.rawValue)
-      },
+      action: { viewStore.send(.invite(peer)) },
       label: {
-        VStack {
-          Text(viewStore.connectedPeer?.peer == peer ? "Connected" : "NOT Connected")
+        HStack {
           Image(systemName: appIconName)
             .resizable()
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
             .fontWeight(.thin)
             .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
 
-          if let appName = discoveryInfo?.appName {
-            Text(appName)
-              .font(.headline)
+          VStack(alignment: .leading) {
+            if let appName = discoveryInfo?.appName {
+              Text(appName)
+                .font(.headline)
+            }
+
+            if let appVersion = discoveryInfo?.appVersion {
+              Text(appVersion)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+            }
           }
 
-          if let appVersion = discoveryInfo?.appVersion {
-            Text(appVersion)
-              .font(.caption2)
-              .foregroundColor(.secondary)
-          }
+          Divider()
 
           GroupBox {
             if let device = discoveryInfo?.device {
@@ -127,23 +147,28 @@ struct PeerConnectView: View {
             }
           }
           .font(.caption2)
+
+          Spacer()
+
         }
-        .padding()
-        .background(
-          RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .fill(Color(nsColor: .controlBackgroundColor))
-        )
-        .drawingGroup()
-        .overlay(
-          RoundedRectangle(cornerRadius: 12, style: .continuous)
-            .stroke(lineWidth: 0.2)
-            .foregroundColor(.secondary)
-        )
+        .padding(4)
+
+        //        .padding()
+        //        .background(
+        //          RoundedRectangle(cornerRadius: 12, style: .continuous)
+        //            .fill(Color(nsColor: .controlBackgroundColor))
+        //        )
+        //        .drawingGroup()
+        //        .overlay(
+        //          RoundedRectangle(cornerRadius: 12, style: .continuous)
+        //            .stroke(lineWidth: 0.2)
+        //            .foregroundColor(.secondary)
+        //        )
       }
     )
-    .buttonStyle(.plain)
-    .shadow(radius: 4, y: 2)
-    .help("Insert coin to continue")
+    //    .buttonStyle(.plain)
+    //    .shadow(radius: 4, y: 2)
+    //    .help("Insert coin to continue")
   }
 }
 

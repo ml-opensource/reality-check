@@ -21,10 +21,15 @@ struct EntitiesNavigatorView: View {
             viewStore.entities.elements,
             children: \.childrenOptional
           ) { entity in
+            let isUnnamed = entity.name?.isEmpty ?? true
+
             Label(
               entity.computedName,
-              systemImage: entity.parentID == nil ? "uiwindow.split.2x1" : entity.systemImage
+              systemImage: entity.parentID == nil
+                ? "uiwindow.split.2x1"
+                : entity.systemImage
             )
+            .italic(isUnnamed)
 
             // FIXME: .help(entity.entityType.help)
             // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
@@ -33,7 +38,7 @@ struct EntitiesNavigatorView: View {
         }
         .collapsible(false)
       }
-      .searchable(text: $searchText, placement: .sidebar)
+      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }
 }

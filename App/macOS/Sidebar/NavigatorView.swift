@@ -27,7 +27,17 @@ struct NavigatorView: View {
           action: AppCore.Action.entitiesNavigator
         ),
         then: EntitiesNavigatorView.init(store:),
-        else: { Text("No Entities").foregroundStyle(.secondary) }
+        else: {
+          if #available(macOS 14.0, *) {
+            ContentUnavailableView(
+              "No Entities",
+              systemImage: "move.3d",
+              description: Text("Connect to an inspectable app to examine its hierarchy")
+            )
+          } else {
+            Text("No Entities").foregroundStyle(.secondary)
+          }
+        }
       )
     }
   }

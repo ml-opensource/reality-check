@@ -29,7 +29,7 @@ struct InspectorView: View {
             systemImage: entity.systemImage
           )
           .font(.headline)
-
+          
           Section {
             LabeledContent(
               "id:",
@@ -44,15 +44,13 @@ struct InspectorView: View {
             //   )
             // }
           }
-          .textSelection(.enabled)
-
         }
         .padding()
 
         Divider()
 
         List {
-          Section("Accessibility") {
+          Section("􀕾 Accessibility") {
             LabeledContent(
               "isAccessibilityElement",
               value:
@@ -83,7 +81,10 @@ struct InspectorView: View {
           //   }
           // }
 
-          Section("State") {
+          Section("􀊞 State") {
+           
+            
+            LabeledContent("isActive", content: {  Toggle("isActive", isOn: .constant(entity.isAnchored)) })
             LabeledContent(
               "isActive",
               value: "\(entity.isAnchored ? "YES" : "NO")"
@@ -107,7 +108,7 @@ struct InspectorView: View {
             )
           }
 
-          Section("Hierarhy") {
+          Section("􁀘 Hierarhy") {
             if let parentID = entity.parentID {
               LabeledContent(
                 "parent",
@@ -137,12 +138,12 @@ struct InspectorView: View {
             }
           }
 
-          Section("Components") {
+          Section("􁏮 Components") {
             VStack(alignment: .leading) {
-              
+
               //TODO: Check if it makes sense to show it.
               // LabeledContent("count", value: "\(entity.components.count)")
-              
+
               ForEach(Array(entity.components), id: \.self) { component in
                 GroupBox {
                   DisclosureGroup(component.description) {

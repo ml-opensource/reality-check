@@ -15,7 +15,7 @@ struct MainView: View {
     let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
       case .notConnected, .connecting:
-        return ""
+        return "RealityCheck"
 
       case .connected:
         if let connectedPeer = viewStore.connectedPeer,
@@ -102,13 +102,22 @@ struct MainView: View {
       }
       .navigationSplitViewStyle(.balanced)
       .toolbar(id: "Main") {
-        ToolbarItem(id: "SessionState") {
+        ToolbarItem(id: "SessionState", placement: .status) {
           SessionStateButtonView(viewStore.multipeerConnection.sessionState)
+            .labelStyle(.titleAndIcon)
         }
+
+        
+        ToolbarItem(id: "Spacer") {
+          Spacer()
+        }
+        
         ToolbarItem(id: "ConnectionSetup") {
-          Button("Connection Setup", systemImage: "dot.radiowaves.left.and.right") {
+          Button("Connection Setup", systemImage: "bonjour") {
             viewStore.send(.binding(.set(\.$isConnectionSetupPresented, true)))
           }
+          .help("Connection Setup")
+          .symbolRenderingMode(.multicolor)
           .popover(
             isPresented: viewStore.$isConnectionSetupPresented,
             content: {
@@ -121,11 +130,13 @@ struct MainView: View {
             }
           )
         }
+        
         ToolbarItem(id: "Console") {
           Toggle(
             isOn: viewStore.$isConsolePresented,
             label: { Label("Console", systemImage: "doc.plaintext") }
           )
+          .help(viewStore.isConsolePresented ? "Hide Console" : "Show Console")
           .keyboardShortcut("C", modifiers: [.command, .option])
         }
       }
@@ -168,7 +179,7 @@ struct SessionStateButtonView: View {
     self.sessionState = sessionState
   }
 
-  var contextualBackground: Color {
+  var contextualColor: Color {
     switch sessionState {
       case .notConnected:
         return .red
@@ -182,28 +193,29 @@ struct SessionStateButtonView: View {
   var contextualLabel: String {
     switch sessionState {
       case .notConnected:
-        return "not connected"
+        return "Disconnected"
       case .connecting:
-        return "connecting"
+        return "Connecting"
       case .connected:
-        return "connected"
+        return "Connected"
     }
   }
 
+  var contextualImage: String {
+    switch sessionState {
+      case .notConnected:
+        return "nosign"
+      case .connecting:
+        return "bolt"
+      case .connected:
+        return "checkmark.seal.fill"
+    }
+  }
+
+  
   var body: some View {
-    Button(
-      action: {
-        openWindow(id: WindowID.connection.rawValue)
-      },
-      label: {
-        Text(contextualLabel)
-          .foregroundColor(.white)
-          .font(.caption)
-          .padding(8)
-          .background(Capsule(style: .continuous).fill(contextualBackground))
-      }
-    )
-    .buttonStyle(.plain)
+    Label(contextualLabel, systemImage: contextualImage)
+      .foregroundStyle(contextualColor)
   }
 }
 
@@ -252,7 +264,7 @@ struct VideoPreviewPaused: View {
     }
     .padding()
     .background(
-      RoundedRectangle(cornerRadius: 16, style: .continuous)
+      RoundedRectangle(cornerRadius: 8)
         .fill(Color(nsColor: .controlBackgroundColor))
         .shadow(radius: 1)
     )
