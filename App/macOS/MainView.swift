@@ -47,8 +47,132 @@ struct MainView: View {
 
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
+      NavigationStack {
+        switch viewStore.layout {
+          case .double:
+            NavigatorView(store: store).listStyle(.sidebar)
+              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+                switch viewStore.selectedSection {
+                  case .arView:
+                    EmptyView()
+                  //FIXME:
+                  // if let arView = viewStore.arViewSection?.arView {
+                  //   ARViewInspectorView(arView)
+                  //     .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+                  // }
+
+                  case .entities:
+                    IfLetStore(
+                      store.scope(
+                        state: \.entitiesSection,
+                        action: AppCore.Action.entitiesNavigator
+                      )
+                    ) {
+                      InspectorView($0)
+                        .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                        .interactiveDismissDisabled()
+                    }
+                }
+              }
+
+          case .triple:
+            TripleLayoutView(store: store)
+              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+                switch viewStore.selectedSection {
+                  case .arView:
+                    EmptyView()
+                  //FIXME:
+                  // if let arView = viewStore.arViewSection?.arView {
+                  //   ARViewInspectorView(arView)
+                  //     .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
+                  // }
+
+                  case .entities:
+                    IfLetStore(
+                      store.scope(
+                        state: \.entitiesSection,
+                        action: AppCore.Action.entitiesNavigator
+                      )
+                    ) {
+                      InspectorView($0)
+                        .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                        .interactiveDismissDisabled()
+                    }
+                }
+              }
+
+        }
+      }
+      .navigationTitle(sessionTitle)
+      .navigationSubtitle(sessionSubtitle)
+      .toolbar(id: "Main") {
+        ToolbarItem(id: "SessionState", placement: .status) {
+          SessionStateButtonView(viewStore.multipeerConnection.sessionState)
+            .labelStyle(.titleAndIcon)
+        }
+
+        ToolbarItem(id: "Spacer") {
+          Spacer()
+        }
+
+        ToolbarItem(id: "ConnectionSetup") {
+          Button("Connection Setup", systemImage: "bonjour") {
+            viewStore.send(.binding(.set(\.$isConnectionSetupPresented, true)))
+          }
+          .help("Connection Setup")
+          .symbolRenderingMode(.multicolor)
+          .popover(
+            isPresented: viewStore.$isConnectionSetupPresented,
+            content: {
+              ConnectionSetupView(
+                store: store.scope(
+                  state: \.multipeerConnection,
+                  action: AppCore.Action.multipeerConnection
+                )
+              )
+            }
+          )
+        }
+
+        ToolbarItem(id: "Layout") {
+          Picker("Layout", selection: viewStore.$layout) {
+            Button("Double", systemImage: "rectangle.split.2x1") {
+              viewStore.send(.binding(.set(\.$layout, .double)))
+            }
+            .tag(Layout.double)
+            .help("Two Columns")
+
+            Button("Triple", systemImage: "rectangle.split.3x1") {
+              viewStore.send(.binding(.set(\.$layout, .triple)))
+            }
+            .tag(Layout.triple)
+            .help("Three Columns")
+          }
+          .pickerStyle(.segmented)
+          .help("Panel Layout")
+        }
+
+        ToolbarItem(id: "Console") {
+          Toggle(
+            isOn: viewStore.$isConsolePresented,
+            label: { Label("Console", systemImage: "doc.plaintext") }
+          )
+          .help(viewStore.isConsolePresented ? "Hide Console" : "Show Console")
+          .keyboardShortcut("C", modifiers: [.command, .option])
+        }
+      }
+    }
+  }
+}
+
+@available(macOS 14.0, *)
+struct TripleLayoutView: View {
+  let store: StoreOf<AppCore>
+
+  var body: some View {
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
-        NavigatorView(store: store)
+        NavigatorView(store: store).listStyle(.sidebar)
       } detail: {
         SplitViewReader { proxy in
           SplitView(axis: .vertical) {
@@ -101,70 +225,6 @@ struct MainView: View {
         .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
       }
       .navigationSplitViewStyle(.balanced)
-      .toolbar(id: "Main") {
-        ToolbarItem(id: "SessionState", placement: .status) {
-          SessionStateButtonView(viewStore.multipeerConnection.sessionState)
-            .labelStyle(.titleAndIcon)
-        }
-
-        
-        ToolbarItem(id: "Spacer") {
-          Spacer()
-        }
-        
-        ToolbarItem(id: "ConnectionSetup") {
-          Button("Connection Setup", systemImage: "bonjour") {
-            viewStore.send(.binding(.set(\.$isConnectionSetupPresented, true)))
-          }
-          .help("Connection Setup")
-          .symbolRenderingMode(.multicolor)
-          .popover(
-            isPresented: viewStore.$isConnectionSetupPresented,
-            content: {
-              ConnectionSetupView(
-                store: store.scope(
-                  state: \.multipeerConnection,
-                  action: AppCore.Action.multipeerConnection
-                )
-              )
-            }
-          )
-        }
-        
-        ToolbarItem(id: "Console") {
-          Toggle(
-            isOn: viewStore.$isConsolePresented,
-            label: { Label("Console", systemImage: "doc.plaintext") }
-          )
-          .help(viewStore.isConsolePresented ? "Hide Console" : "Show Console")
-          .keyboardShortcut("C", modifiers: [.command, .option])
-        }
-      }
-      .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-        switch viewStore.selectedSection {
-          case .arView:
-            //FIXME:
-            EmptyView()
-          // if let arView = viewStore.arViewSection?.arView {
-          //   ARViewInspectorView(arView)
-          //     .navigationSplitViewColumnWidth(min: 270, ideal: 405, max: 810)
-          // }
-
-          case .entities:
-            IfLetStore(
-              store.scope(
-                state: \.entitiesSection,
-                action: AppCore.Action.entitiesNavigator
-              )
-            ) {
-              InspectorView($0)
-                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                .interactiveDismissDisabled()
-            }
-        }
-      }
-      .navigationTitle(sessionTitle)
-      .navigationSubtitle(sessionSubtitle)
     }
   }
 }
@@ -212,7 +272,6 @@ struct SessionStateButtonView: View {
     }
   }
 
-  
   var body: some View {
     Label(contextualLabel, systemImage: contextualImage)
       .foregroundStyle(contextualColor)

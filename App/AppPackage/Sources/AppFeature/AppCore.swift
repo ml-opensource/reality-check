@@ -7,6 +7,11 @@ import RealityKit
 import RealitySymbols
 import StreamingClient
 
+public enum Layout {
+  case double
+  case triple
+}
+
 public struct AppCore: Reducer {
   public init() {}
 
@@ -17,6 +22,7 @@ public struct AppCore: Reducer {
     @BindingState public var isConsolePresented: Bool
     @BindingState public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
+    @BindingState public var layout: Layout
     public var multipeerConnection: MultipeerConnection.State
     public var selectedSection: Section
     @BindingState public var viewPortSize: CGSize
@@ -28,6 +34,7 @@ public struct AppCore: Reducer {
       isConsolePresented: Bool = false,
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
+      layout: Layout = .triple,
       multipeerConnection: MultipeerConnection.State = .init(),
       selectedSection: Section = .entities,
       viewPortSize: CGSize = .zero
@@ -38,6 +45,7 @@ public struct AppCore: Reducer {
       self.isConsolePresented = isConsolePresented
       self.isInspectorDisplayed = isInspectorDisplayed
       self.isStreaming = isStreaming
+      self.layout = layout
       self.multipeerConnection = multipeerConnection
       self.selectedSection = selectedSection
       self.viewPortSize = viewPortSize

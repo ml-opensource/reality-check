@@ -4,6 +4,7 @@ import SwiftUI
 
 enum WindowID: String {
   case connection
+  case console
   case main
 }
 
@@ -35,6 +36,13 @@ struct RealityCheckApp: App {
             "https://monstar-lab-oss.github.io/reality-check/documentation/realitycheckconnect/gettingstarted"
         )!
         Link("Getting Started", destination: helpURL)
+      }
+    }
+    
+    Window("Console", id: WindowID.console.rawValue) {
+      WithViewStore(store, observe: { $0 }) { viewStore in
+        TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
+          .font(.system(.body, design: .monospaced))
       }
     }
   }
