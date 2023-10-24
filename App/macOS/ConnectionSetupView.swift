@@ -27,6 +27,7 @@ struct ConnectionSetupView: View {
           PeerConnectView(peer: peer, viewStore: viewStore)
         }
       }
+      .listStyle(.plain)
       .overlay(
         ZStack {
           if viewStore.peers.isEmpty {
@@ -126,49 +127,41 @@ struct PeerConnectView: View {
             }
           }
 
-          Divider()
-
-          GroupBox {
-            if let device = discoveryInfo?.device {
-              Label {
-                Text(device)
-              } icon: {
-                if device.lowercased().contains("vision") {
-                  //FIXME: find a way to evaluate symbol existence
-                  Image(systemName: "visionpro")
-                } else {
-                  Image(systemName: "iphone")
-                }
-              }
-            }
-
-            if let system = discoveryInfo?.system {
-              Text(system)
-            }
-          }
-          .font(.caption2)
-
           Spacer()
 
-        }
-        .padding(4)
+          GroupBox {
+            HStack {
+              if let device = discoveryInfo?.device {
+                Label.init(
+                  device,
+                  systemImage: device.lowercased().contains("vision")
+                  ? "visionpro"
+                  : "iphone"
+                )
+              }
+              
+              if let system = discoveryInfo?.system {
+                Text(system).font(.caption2)
+              }
+            }
+          }
+          .foregroundColor(.primary)
+          
+          Divider()
 
-        //        .padding()
-        //        .background(
-        //          RoundedRectangle(cornerRadius: 12, style: .continuous)
-        //            .fill(Color(nsColor: .controlBackgroundColor))
-        //        )
-        //        .drawingGroup()
-        //        .overlay(
-        //          RoundedRectangle(cornerRadius: 12, style: .continuous)
-        //            .stroke(lineWidth: 0.2)
-        //            .foregroundColor(.secondary)
-        //        )
+          Toggle(
+            "isConnected",
+            isOn: .constant(viewStore.connectedPeer?.peer == peer)
+          )
+          .toggleStyle(.switch)
+          .labelsHidden()
+        }
+        .padding()
+
+       
       }
     )
-    //    .buttonStyle(.plain)
-    //    .shadow(radius: 4, y: 2)
-    //    .help("Insert coin to continue")
+    // .help("Insert coin to continue")
   }
 }
 

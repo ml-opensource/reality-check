@@ -14,7 +14,11 @@ struct ComponentPropertiesView: View {
   var body: some View {
     switch component {
       case .accessibilityComponent(let value):
-        EmptyView()
+        VStack {
+          LabeledContent("Label", value: value.label ?? "...")
+          LabeledContent("Value", value: value.value ?? "...")
+          LabeledContent("CustomActions", value: value.customActions.debugDescription)
+        }
       case .adaptiveResolutionComponent(let value):
         EmptyView()
       case .ambientAudioComponent(let value):
@@ -71,8 +75,8 @@ struct ComponentPropertiesView: View {
         EmptyView()
       case .transform(let value):
         VStack {
-         // LabeledContent("matrix", value: value.matrix.debugDescription)
-         // LabeledContent("rotation", value: value.rotation.debugDescription)
+          LabeledContent("matrix", value: value.matrix.debugDescription)
+          LabeledContent("rotation", value: value.rotation.debugDescription)
           LabeledContent("scale", value: value.scale.debugDescription)
           LabeledContent("translation", value: value.translation.debugDescription)
         }
