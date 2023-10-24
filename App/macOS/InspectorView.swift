@@ -53,9 +53,13 @@ struct InspectorView: View {
           Section("􀕾 Accessibility") {
             LabeledContent(
               "isAccessibilityElement",
-              content: { Toggle("isAccessibilityElement", isOn: .constant(entity.isAccessibilityElement)).labelsHidden() }
+              content: {
+                Toggle("isAccessibilityElement", isOn: .constant(entity.isAccessibilityElement))
+                  .labelsHidden()
+                  .disabled(true)
+              }
             )
-            
+
             if let accessibilityLabel = entity.accessibilityLabel {
               LabeledContent(
                 "accessibilityLabel",
@@ -84,23 +88,26 @@ struct InspectorView: View {
           Section("􀊞 State") {
             LabeledContent(
               "isActive",
-              content: { Toggle("isActive", isOn: .constant(entity.isAnchored)).labelsHidden() }
+              content: { Toggle("isActive", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true) }
             )
             LabeledContent(
               "isAnchored",
-              content: { Toggle("isAnchored", isOn: .constant(entity.isAnchored)).labelsHidden() }
+              content: { Toggle("isAnchored", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true) }
             )
             LabeledContent(
               "isEnabled",
-              content: { Toggle("isEnabled", isOn: .constant(entity.isEnabled)).labelsHidden() }
+              content: { Toggle("isEnabled", isOn: .constant(entity.isEnabled)).labelsHidden().disabled(true) }
             )
             LabeledContent(
               "isEnabledInHierarchy",
-              content: { Toggle("isEnabledInHierarchy", isOn: .constant(entity.isEnabledInHierarchy)).labelsHidden() }
+              content: {
+                Toggle("isEnabledInHierarchy", isOn: .constant(entity.isEnabledInHierarchy))
+                  .labelsHidden().disabled(true)
+              }
             )
             LabeledContent(
               "isOwner",
-              content: { Toggle("isOwner", isOn: .constant(entity.isOwner)).labelsHidden() }
+              content: { Toggle("isOwner", isOn: .constant(entity.isOwner)).labelsHidden().disabled(true) }
             )
           }
 

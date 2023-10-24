@@ -22,12 +22,12 @@ struct ConnectionSetupView: View {
   var body: some View {
     //TODO: scope the viewStore to only observe "Peers"
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      List(Array(viewStore.peers.keys)) { peer in
-        Section("Inspectable apps") {
+      Section("Inspectable apps") {
+        List(Array(viewStore.peers.keys)) { peer in
           PeerConnectView(peer: peer, viewStore: viewStore)
         }
       }
-      .listStyle(.plain)
+      //.listStyle(.plain)
       .overlay(
         ZStack {
           if viewStore.peers.isEmpty {
@@ -135,18 +135,18 @@ struct PeerConnectView: View {
                 Label.init(
                   device,
                   systemImage: device.lowercased().contains("vision")
-                  ? "visionpro"
-                  : "iphone"
+                    ? "visionpro"
+                    : "iphone"
                 )
               }
-              
+
               if let system = discoveryInfo?.system {
                 Text(system).font(.caption2)
               }
             }
           }
           .foregroundColor(.primary)
-          
+
           Divider()
 
           Toggle(
@@ -158,7 +158,6 @@ struct PeerConnectView: View {
         }
         .padding()
 
-       
       }
     )
     // .help("Insert coin to continue")
