@@ -17,7 +17,7 @@ let package = Package(
     )
   ],
   dependencies: [
-    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
+    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
     .package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
     .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
@@ -36,8 +36,14 @@ let package = Package(
     .target(
       name: "RealityCheckConnect",
       dependencies: [
-        .target(name: "RealityCheckConnect_visionOS", condition: .when(platforms: [.visionOS])),
-        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),
+        .target(
+          name: "RealityCheckConnect_visionOS",
+          condition: .when(platforms: [.visionOS])
+        ),
+        .target(
+          name: "RealityCheckConnect_iOS",
+          condition: .when(platforms: [.iOS])
+        ),
       ]
     ),
     .target(
