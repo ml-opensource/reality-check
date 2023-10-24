@@ -14,7 +14,7 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    ),
+    )
   ],
   dependencies: [
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.0.0"),
@@ -37,7 +37,7 @@ let package = Package(
       name: "RealityCheckConnect",
       dependencies: [
         .target(name: "RealityCheckConnect_visionOS", condition: .when(platforms: [.visionOS])),
-        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),  //FIXME: verify still compiled for `visionOS` on beta 4
+        .target(name: "RealityCheckConnect_iOS", condition: .when(platforms: [.iOS])),
       ]
     ),
     .target(
