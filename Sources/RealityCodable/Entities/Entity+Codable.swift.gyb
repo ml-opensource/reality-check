@@ -1,0 +1,220 @@
+% warning = "This file was automatically generated and should not be edited."
+// ${warning}
+
+import Foundation
+import RealityKit
+% import json
+% symbols_path = "../../../../../../RealitySymbols/source/reality-symbols/Sources/RealitySymbols/Extracted"
+
+//MARK: - iOS
+
+% with open(f'{symbols_path}/iOS/Processed/Entities.json') as file:
+% data = json.load(file)
+% for entity in data:
+
+
+//MARK: ${entity["name"]}
+
+%if entity["name"] == "Entity":
+extension RealityPlatform.iOS {
+  public class Entity: Codable, Identifiable {
+    private(set) public var accessibilityDescription: String?
+    private(set) public var accessibilityLabel: String?
+    private(set) public var children: [RealityPlatform.iOS.EntityType] = []
+    private(set) public var components: [RealityPlatform.iOS.Component] = []
+    public let id: UInt64
+    public let isAccessibilityElement: Bool
+    public let isActive: Bool
+    public let isAnchored: Bool
+    public let isEnabled: Bool
+    public let isEnabledInHierarchy: Bool
+    public let isOwner: Bool
+    private(set) public var name: String?
+    private(set) public var parentID: UInt64?
+    
+    #if os(iOS)
+    init(
+    _ entity: RealityKit.Entity
+    ) {
+      self.accessibilityDescription = entity.accessibilityDescription
+      self.accessibilityLabel = entity.accessibilityLabel
+      self.children = entity.children.map(\.encoded)
+      self.components = entity.components.encoded
+      self.id = entity.id
+      self.isAccessibilityElement = entity.isAccessibilityElement
+      self.isActive = entity.isActive
+      self.isAnchored = entity.isAnchored
+      self.isEnabled = entity.isEnabled
+      self.isEnabledInHierarchy = entity.isEnabledInHierarchy
+      self.isOwner = entity.isOwner
+      self.name = entity.name
+      self.parentID = entity.parent?.id
+    }
+    #endif
+  }
+}
+
+extension RealityPlatform.iOS.Entity: Equatable {
+  public static func == (lhs: RealityPlatform.iOS.Entity, rhs: RealityPlatform.iOS.Entity) -> Bool {
+    lhs.id == rhs.id
+  }
+}
+%else:
+extension RealityPlatform.iOS {
+  public class ${entity["name"]}: RealityPlatform.iOS.Entity {
+    
+    #if os(iOS)
+    init(rawValue entity: RealityKit.Entity) {
+      super.init(entity)
+    }
+    #endif
+    
+    required init(from decoder: Decoder) throws {
+      try super.init(from: decoder)
+    }
+  }
+}
+%end
+%end
+
+//MARK: - macOS
+
+% with open(f'{symbols_path}/macOS/Processed/Entities.json') as file:
+% data = json.load(file)
+% for entity in data:
+
+
+//MARK: ${entity["name"]}
+
+%if entity["name"] == "Entity":
+extension RealityPlatform.macOS {
+  public class Entity: Codable, Identifiable {
+    private(set) public var accessibilityDescription: String?
+    private(set) public var accessibilityLabel: String?
+    private(set) public var children: [RealityPlatform.macOS.EntityType] = []
+    private(set) public var components: [RealityPlatform.macOS.Component] = []
+    public let id: UInt64
+    public let isAccessibilityElement: Bool
+    public let isActive: Bool
+    public let isAnchored: Bool
+    public let isEnabled: Bool
+    public let isEnabledInHierarchy: Bool
+    public let isOwner: Bool
+    private(set) public var name: String?
+    private(set) public var parentID: UInt64?
+    
+    #if os(macOS)
+    init(
+    _ entity: RealityKit.Entity
+    ) {
+      self.accessibilityDescription = entity.accessibilityDescription
+      self.accessibilityLabel = entity.accessibilityLabel
+      self.children = entity.children.map(\.encoded)
+      self.components = entity.components.encoded
+      self.id = entity.id
+      self.isAccessibilityElement = entity.isAccessibilityElement
+      self.isActive = entity.isActive
+      self.isAnchored = entity.isAnchored
+      self.isEnabled = entity.isEnabled
+      self.isEnabledInHierarchy = entity.isEnabledInHierarchy
+      self.isOwner = entity.isOwner
+      self.name = entity.name
+      self.parentID = entity.parent?.id
+    }
+    #endif
+  }
+}
+
+extension RealityPlatform.macOS.Entity: Equatable {
+  public static func == (lhs: RealityPlatform.macOS.Entity, rhs: RealityPlatform.macOS.Entity) -> Bool {
+    lhs.id == rhs.id
+  }
+}
+%else:
+extension RealityPlatform.macOS {
+  public class ${entity["name"]}: RealityPlatform.macOS.Entity {
+    
+    #if os(macOS)
+    init(rawValue entity: RealityKit.Entity) {
+      super.init(entity)
+    }
+    #endif
+    
+    required init(from decoder: Decoder) throws {
+      try super.init(from: decoder)
+    }
+  }
+}
+%end
+%end
+
+//MARK: - visionOS
+
+% with open(f'{symbols_path}/visionOS/Processed/Entities.json') as file:
+% data = json.load(file)
+% for entity in data:
+
+
+//MARK: ${entity["name"]}
+
+%if entity["name"] == "Entity":
+extension RealityPlatform.visionOS {
+  public class Entity: Codable, Identifiable {
+    private(set) public var accessibilityDescription: String?
+    private(set) public var accessibilityLabel: String?
+    private(set) public var children: [RealityPlatform.visionOS.EntityType] = []
+    private(set) public var components: [RealityPlatform.visionOS.Component] = []
+    public let id: UInt64
+    public let isAccessibilityElement: Bool
+    public let isActive: Bool
+    public let isAnchored: Bool
+    public let isEnabled: Bool
+    public let isEnabledInHierarchy: Bool
+    public let isOwner: Bool
+    private(set) public var name: String?
+    private(set) public var parentID: UInt64?
+    
+    #if os(visionOS)
+    init(
+    _ entity: RealityKit.Entity
+    ) {
+      self.accessibilityDescription = entity.accessibilityDescription
+      self.accessibilityLabel = entity.accessibilityLabel
+      self.children = entity.children.map(\.encoded)
+      self.components = entity.components.encoded
+      self.id = entity.id
+      self.isAccessibilityElement = entity.isAccessibilityElement
+      self.isActive = entity.isActive
+      self.isAnchored = entity.isAnchored
+      self.isEnabled = entity.isEnabled
+      self.isEnabledInHierarchy = entity.isEnabledInHierarchy
+      self.isOwner = entity.isOwner
+      self.name = entity.name
+      self.parentID = entity.parent?.id
+    }
+    #endif
+  }
+}
+
+extension RealityPlatform.visionOS.Entity: Equatable {
+  public static func == (lhs: RealityPlatform.visionOS.Entity, rhs: RealityPlatform.visionOS.Entity) -> Bool {
+    lhs.id == rhs.id
+  }
+}
+%else:
+extension RealityPlatform.visionOS {
+  public class ${entity["name"]}: RealityPlatform.visionOS.Entity {
+    
+    #if os(visionOS)
+    init(rawValue entity: RealityKit.Entity) {
+      super.init(entity)
+    }
+    #endif
+    
+    required init(from decoder: Decoder) throws {
+      try super.init(from: decoder)
+    }
+  }
+}
+%end
+%end

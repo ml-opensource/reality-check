@@ -1,0 +1,85 @@
+% warning = "This file was automatically generated and should not be edited."
+// ${warning}
+
+import Foundation
+import RealityKit
+% import json
+% symbols_path = "../../../../../../RealitySymbols/source/reality-symbols/Sources/RealitySymbols/Extracted"
+
+//MARK: - iOS
+
+% with open(f'{symbols_path}/iOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+#if os(iOS)
+extension RealityKit.Entity {
+  public var encoded: RealityPlatform.iOS.EntityType {
+    switch "\(type(of: self))" {
+      % for entity in data:
+      %if entity["name"] == "Entity":
+      case "Entity":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(self))
+      %else:
+      case "${entity["name"]}":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(rawValue: self))
+      %end
+      %end
+      default:
+        return .entity(.init(self))
+    }
+  }
+}
+#endif
+%end
+
+//MARK: - macOS
+
+% with open(f'{symbols_path}/macOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+#if os(macOS)
+extension RealityKit.Entity {
+  public var encoded: RealityPlatform.macOS.EntityType {
+    switch "\(type(of: self))" {
+      % for entity in data:
+      %if entity["name"] == "Entity":
+      case "Entity":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(self))
+      %else:
+      case "${entity["name"]}":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(rawValue: self))
+      %end
+      %end
+      default:
+        return .entity(.init(self))
+    }
+  }
+}
+#endif
+%end
+
+//MARK: - visionOS
+
+% with open(f'{symbols_path}/visionOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+#if os(visionOS)
+extension RealityKit.Entity {
+  public var encoded: RealityPlatform.visionOS.EntityType {
+    switch "\(type(of: self))" {
+      % for entity in data:
+      %if entity["name"] == "Entity":
+      case "Entity":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(self))
+      %else:
+      case "${entity["name"]}":
+        return .${entity["name"][0].lower() + entity["name"][1:]}(.init(rawValue: self))
+      %end
+      %end
+      default:
+        return .entity(.init(self))
+    }
+  }
+}
+#endif
+%end

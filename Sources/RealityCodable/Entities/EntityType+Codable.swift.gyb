@@ -1,0 +1,196 @@
+% warning = "This file was automatically generated and should not be edited."
+// ${warning}
+
+import Foundation
+import RealityKit
+% import json
+% symbols_path = "../../../../../../RealitySymbols/source/reality-symbols/Sources/RealitySymbols/Extracted"
+
+//MARK: - iOS
+
+% with open(f'{symbols_path}/iOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+extension RealityPlatform.iOS {
+  public enum EntityType: Equatable {
+    % for entity in data:
+    case ${entity["name"][0].lower() + entity["name"][1:]}(${entity["name"]})
+    %end
+  }
+}
+
+extension RealityPlatform.iOS.EntityType: Codable {
+  public var caseKey: String {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}: return "${entity["name"]}"
+      %end
+    }
+  }
+  
+  public var value: RealityPlatform.iOS.Entity {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value): return value
+      %end
+    }
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case caseKey
+    case value
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let caseKey = try values.decode(String.self, forKey: .caseKey)
+    
+    switch caseKey {
+      % for entity in data:
+      case "${entity["name"]}":
+        let value = try values.decode(RealityPlatform.iOS.${entity["name"]}.self, forKey: .value)
+        self = .${entity["name"][0].lower() + entity["name"][1:]}(value)
+      %end
+      default:
+        fatalError("Unknown iOS Entity type.")
+    }
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(caseKey, forKey: .caseKey)
+
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value):
+        try container.encode(value, forKey: .value)
+      %end
+    }
+  }
+}
+
+//MARK: - macOS
+
+% with open(f'{symbols_path}/macOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+extension RealityPlatform.macOS {
+  public enum EntityType: Equatable {
+    % for entity in data:
+    case ${entity["name"][0].lower() + entity["name"][1:]}(${entity["name"]})
+    %end
+  }
+}
+
+extension RealityPlatform.macOS.EntityType: Codable {
+  public var caseKey: String {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}: return "${entity["name"]}"
+      %end
+    }
+  }
+  
+  public var value: RealityPlatform.macOS.Entity {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value): return value
+      %end
+    }
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case caseKey
+    case value
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let caseKey = try values.decode(String.self, forKey: .caseKey)
+    
+    switch caseKey {
+      % for entity in data:
+      case "${entity["name"]}":
+        let value = try values.decode(RealityPlatform.macOS.${entity["name"]}.self, forKey: .value)
+        self = .${entity["name"][0].lower() + entity["name"][1:]}(value)
+      %end
+      default:
+        fatalError("Unknown macOS Entity type.")
+    }
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(caseKey, forKey: .caseKey)
+
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value):
+        try container.encode(value, forKey: .value)
+      %end
+    }
+  }
+}
+
+//MARK: - visionOS
+
+% with open(f'{symbols_path}/visionOS/Processed/Entities.json') as file:
+% data = json.load(file)
+
+extension RealityPlatform.visionOS {
+  public enum EntityType: Equatable {
+    % for entity in data:
+    case ${entity["name"][0].lower() + entity["name"][1:]}(${entity["name"]})
+    %end
+  }
+}
+
+extension RealityPlatform.visionOS.EntityType: Codable {
+  public var caseKey: String {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}: return "${entity["name"]}"
+      %end
+    }
+  }
+  
+  public var value: RealityPlatform.visionOS.Entity {
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value): return value
+      %end
+    }
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case caseKey
+    case value
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    let caseKey = try values.decode(String.self, forKey: .caseKey)
+    
+    switch caseKey {
+      % for entity in data:
+      case "${entity["name"]}":
+        let value = try values.decode(RealityPlatform.visionOS.${entity["name"]}.self, forKey: .value)
+        self = .${entity["name"][0].lower() + entity["name"][1:]}(value)
+      %end
+      default:
+        fatalError("Unknown visionOS Entity type.")
+    }
+  }
+  
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+    try container.encode(caseKey, forKey: .caseKey)
+
+    switch self {
+      % for entity in data:
+      case .${entity["name"][0].lower() + entity["name"][1:]}(let value):
+        try container.encode(value, forKey: .value)
+      %end
+    }
+  }
+}

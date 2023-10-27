@@ -17,9 +17,9 @@ let package = Package(
     )
   ],
   dependencies: [
+    .package(url: "https://github.com/apple/swift-docc-symbolkit.git", branch: "main"),
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
-    .package(url: "https://github.com/elkraneo/reality-codable", branch: "main"),
-    .package(url: "https://github.com/elkraneo/reality-dump", branch: "main"),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
   ],
   targets: [
@@ -60,12 +60,45 @@ let package = Package(
       name: "RealityCheckConnect_visionOS",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
-        .product(name: "RealityCodable", package: "reality-codable"),
-        .product(name: "RealityDump", package: "reality-dump"),
+        "RealityCodable",
+        "RealityDump",
         "Models",
         "MultipeerClient",
         "StreamingClient",
       ]
+    ),
+    .target(name: "RealityCodable"),
+    .testTarget(
+      name: "RealityCodableTests",
+      dependencies: [
+        "RealityCodable"
+      ]
+    ),
+    .target(
+      name: "RealityDump",
+      dependencies: [
+        .product(name: "CustomDump", package: "swift-custom-dump"),
+        "RealitySymbols",
+      ]
+    ),
+    .testTarget(
+      name: "RealityDumpTests",
+      dependencies: [
+        "RealityDump"
+      ]
+    ),
+    .target(
+      name: "RealitySymbols",
+      dependencies: [
+        .product(name: "SymbolKit", package: "swift-docc-symbolkit")
+      ],
+      resources: [
+        .copy("Extracted")
+      ]
+    ),
+    .testTarget(
+      name: "RealitySymbolsTests",
+      dependencies: ["RealitySymbols"]
     ),
     .target(
       name: "StreamingClient",
