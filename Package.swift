@@ -67,7 +67,13 @@ let package = Package(
         "StreamingClient",
       ]
     ),
-    .target(name: "RealityCodable"),
+    .target(
+      name: "RealityCodable",
+      dependencies: [
+        "RealityDump",
+        "Models",
+      ]
+    ),
     .testTarget(
       name: "RealityCodableTests",
       dependencies: [
@@ -78,7 +84,7 @@ let package = Package(
       name: "RealityDump",
       dependencies: [
         .product(name: "CustomDump", package: "swift-custom-dump"),
-        "RealitySymbols",
+        "Models",
       ]
     ),
     .testTarget(

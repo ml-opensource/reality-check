@@ -1,5 +1,6 @@
 import Foundation
 
+//TODO: convert to command. i.e. .send(entitySelection(UInt64))
 public struct EntitySelection: Codable {
   public let entityID: UInt64
   

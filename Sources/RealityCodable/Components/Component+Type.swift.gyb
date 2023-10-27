@@ -2,9 +2,10 @@
 // ${warning}
 
 import Foundation
+import Models
 import RealityKit
 % import json
-% symbols_path = "../../../../../../RealitySymbols/source/reality-symbols/Sources/RealitySymbols/Extracted"
+% symbols_path = "../../RealitySymbols/Extracted"
 
 //MARK: - iOS
 

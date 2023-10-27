@@ -1,10 +1,10 @@
 // This file was automatically generated and should not be edited.
 
 import Foundation
+import Models
 import RealityKit
 
 //MARK: - iOS
-
 
 extension RealityPlatform.iOS {
   public enum EntityType: Equatable {
@@ -34,7 +34,7 @@ extension RealityPlatform.iOS.EntityType: Codable {
       case .triggerVolume: return "TriggerVolume"
     }
   }
-  
+
   public var value: RealityPlatform.iOS.Entity {
     switch self {
       case .anchorEntity(let value): return value
@@ -57,7 +57,7 @@ extension RealityPlatform.iOS.EntityType: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     let caseKey = try values.decode(String.self, forKey: .caseKey)
-    
+
     switch caseKey {
       case "AnchorEntity":
         let value = try values.decode(RealityPlatform.iOS.AnchorEntity.self, forKey: .value)
@@ -90,7 +90,7 @@ extension RealityPlatform.iOS.EntityType: Codable {
         fatalError("Unknown iOS Entity type.")
     }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(caseKey, forKey: .caseKey)
@@ -120,7 +120,6 @@ extension RealityPlatform.iOS.EntityType: Codable {
 
 //MARK: - macOS
 
-
 extension RealityPlatform.macOS {
   public enum EntityType: Equatable {
     case anchorEntity(AnchorEntity)
@@ -147,7 +146,7 @@ extension RealityPlatform.macOS.EntityType: Codable {
       case .triggerVolume: return "TriggerVolume"
     }
   }
-  
+
   public var value: RealityPlatform.macOS.Entity {
     switch self {
       case .anchorEntity(let value): return value
@@ -169,7 +168,7 @@ extension RealityPlatform.macOS.EntityType: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     let caseKey = try values.decode(String.self, forKey: .caseKey)
-    
+
     switch caseKey {
       case "AnchorEntity":
         let value = try values.decode(RealityPlatform.macOS.AnchorEntity.self, forKey: .value)
@@ -199,7 +198,7 @@ extension RealityPlatform.macOS.EntityType: Codable {
         fatalError("Unknown macOS Entity type.")
     }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(caseKey, forKey: .caseKey)
@@ -227,7 +226,6 @@ extension RealityPlatform.macOS.EntityType: Codable {
 
 //MARK: - visionOS
 
-
 extension RealityPlatform.visionOS {
   public enum EntityType: Equatable {
     case anchorEntity(AnchorEntity)
@@ -248,7 +246,7 @@ extension RealityPlatform.visionOS.EntityType: Codable {
       case .triggerVolume: return "TriggerVolume"
     }
   }
-  
+
   public var value: RealityPlatform.visionOS.Entity {
     switch self {
       case .anchorEntity(let value): return value
@@ -267,7 +265,7 @@ extension RealityPlatform.visionOS.EntityType: Codable {
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     let caseKey = try values.decode(String.self, forKey: .caseKey)
-    
+
     switch caseKey {
       case "AnchorEntity":
         let value = try values.decode(RealityPlatform.visionOS.AnchorEntity.self, forKey: .value)
@@ -279,7 +277,10 @@ extension RealityPlatform.visionOS.EntityType: Codable {
         let value = try values.decode(RealityPlatform.visionOS.ModelEntity.self, forKey: .value)
         self = .modelEntity(value)
       case "PerspectiveCamera":
-        let value = try values.decode(RealityPlatform.visionOS.PerspectiveCamera.self, forKey: .value)
+        let value = try values.decode(
+          RealityPlatform.visionOS.PerspectiveCamera.self,
+          forKey: .value
+        )
         self = .perspectiveCamera(value)
       case "TriggerVolume":
         let value = try values.decode(RealityPlatform.visionOS.TriggerVolume.self, forKey: .value)
@@ -288,7 +289,7 @@ extension RealityPlatform.visionOS.EntityType: Codable {
         fatalError("Unknown visionOS Entity type.")
     }
   }
-  
+
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
     try container.encode(caseKey, forKey: .caseKey)
