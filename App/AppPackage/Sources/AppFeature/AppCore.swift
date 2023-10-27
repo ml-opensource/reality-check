@@ -4,7 +4,6 @@ import Foundation
 import Models
 import MultipeerClient
 import RealityKit
-import RealitySymbols
 import StreamingClient
 
 public enum Layout {

@@ -17,13 +17,13 @@ import RealityKit
 
     public var customDumpMirror: Mirror {
       .init(self, unlabeledChildren: components, displayStyle: .set)
-      //      .init(
-      //        self,
-      //        children: [
-      //          "components": components
-      //        ],
-      //        displayStyle: .set
-      //      )
+      // .init(
+      //   self,
+      //   children: [
+      //     "components": components
+      //   ],
+      //   displayStyle: .set
+      // )
 
     }
   }

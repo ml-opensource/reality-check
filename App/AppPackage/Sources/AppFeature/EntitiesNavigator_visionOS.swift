@@ -1,5 +1,6 @@
 import ComposableArchitecture
 import Foundation
+import Models
 import RealityCodable
 
 extension RealityPlatform.visionOS.Entity {
@@ -16,18 +17,18 @@ extension RealityPlatform.visionOS.Entity {
 extension RealityPlatform.visionOS.Entity {
   public var systemImage: String {
     switch "\(type(of: self))" {
-    case "AnchorEntity":
-      return "arrow.down.to.line"
-    case "Entity":
-      return "move.3d"
-    case "ModelEntity":
-      return "cube"
-    case "PerspectiveCamera":
-      return "camera"
-    case "TriggerVolume":
-      return "cube.transparent"
-    default:
-      return "move.3d"
+      case "AnchorEntity":
+        return "arrow.down.to.line"
+      case "Entity":
+        return "move.3d"
+      case "ModelEntity":
+        return "cube"
+      case "PerspectiveCamera":
+        return "camera"
+      case "TriggerVolume":
+        return "cube.transparent"
+      default:
+        return "move.3d"
     }
   }
 }
@@ -81,31 +82,31 @@ public struct EntitiesNavigator_visionOS: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
-      case .binding(\.$selection):
-        if let entity = state.selectedEntity {
-          return .merge(
-            .send(.delegate(.didToggleSelectSection)),
-            .send(.delegate(.didSelectEntity(entity.id)))
-          )
-        } else {
-          return .send(.delegate(.didToggleSelectSection))
-        }
+        case .binding(\.$selection):
+          if let entity = state.selectedEntity {
+            return .merge(
+              .send(.delegate(.didToggleSelectSection)),
+              .send(.delegate(.didSelectEntity(entity.id)))
+            )
+          } else {
+            return .send(.delegate(.didToggleSelectSection))
+          }
 
-      case .binding:
-        return .none
+        case .binding:
+          return .none
 
-      case .delegate(_):
-        return .none
+        case .delegate(_):
+          return .none
 
-      case .dumpOutput(let output):
-        state.dumpOutput = output
-        return .none
+        case .dumpOutput(let output):
+          state.dumpOutput = output
+          return .none
 
-      case .refreshEntities(let entities):
-        state.entities = .init(uniqueElements: entities)
-        guard let previousSelection = state.selection else { return .none }
-        state.selection = nil
-        return .send(.binding(.set(\.$selection, previousSelection)))
+        case .refreshEntities(let entities):
+          state.entities = .init(uniqueElements: entities)
+          guard let previousSelection = state.selection else { return .none }
+          state.selection = nil
+          return .send(.binding(.set(\.$selection, previousSelection)))
       }
     }
   }

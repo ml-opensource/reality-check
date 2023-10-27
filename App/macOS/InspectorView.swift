@@ -1,6 +1,6 @@
 import AppFeature
 import ComposableArchitecture
-import RealityCodable
+import Models
 import SwiftUI
 
 //TODO: rename to `EntitiesInspector_visionOS`
@@ -88,15 +88,22 @@ struct InspectorView: View {
           Section("􀊞 State") {
             LabeledContent(
               "isActive",
-              content: { Toggle("isActive", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true) }
+              content: {
+                Toggle("isActive", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true)
+              }
             )
             LabeledContent(
               "isAnchored",
-              content: { Toggle("isAnchored", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true) }
+              content: {
+                Toggle("isAnchored", isOn: .constant(entity.isAnchored)).labelsHidden()
+                  .disabled(true)
+              }
             )
             LabeledContent(
               "isEnabled",
-              content: { Toggle("isEnabled", isOn: .constant(entity.isEnabled)).labelsHidden().disabled(true) }
+              content: {
+                Toggle("isEnabled", isOn: .constant(entity.isEnabled)).labelsHidden().disabled(true)
+              }
             )
             LabeledContent(
               "isEnabledInHierarchy",
@@ -107,7 +114,9 @@ struct InspectorView: View {
             )
             LabeledContent(
               "isOwner",
-              content: { Toggle("isOwner", isOn: .constant(entity.isOwner)).labelsHidden().disabled(true) }
+              content: {
+                Toggle("isOwner", isOn: .constant(entity.isOwner)).labelsHidden().disabled(true)
+              }
             )
           }
 
