@@ -1,7 +1,6 @@
 // This file was automatically generated and should not be edited.
 
 import Foundation
-import Models
 import RealityKit
 
 //MARK: - iOS
