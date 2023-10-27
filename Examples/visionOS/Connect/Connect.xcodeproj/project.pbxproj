@@ -7,16 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40A3D37C2AEC3BCB0044095B /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 40A3D37B2AEC3BCB0044095B /* reality-check */; };
+		40A3D37E2AEC3BD80044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D37D2AEC3BD80044095B /* RealityCheckConnect */; };
+		40A3D3812AEC3C0A0044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D3802AEC3C0A0044095B /* RealityCheckConnect */; };
 		AEA1030F2AD2D22000DB4542 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = AEA1030E2AD2D22000DB4542 /* RealityKitContent */; };
 		AEA103112AD2D22000DB4542 /* ConnectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA103102AD2D22000DB4542 /* ConnectApp.swift */; };
 		AEA103132AD2D22000DB4542 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA103122AD2D22000DB4542 /* ContentView.swift */; };
 		AEA103152AD2D22000DB4542 /* ImmersiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA103142AD2D22000DB4542 /* ImmersiveView.swift */; };
 		AEA103172AD2D22300DB4542 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA103162AD2D22300DB4542 /* Assets.xcassets */; };
 		AEA1031A2AD2D22300DB4542 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AEA103192AD2D22300DB4542 /* Preview Assets.xcassets */; };
-		AEA103252AD2D37A00DB4542 /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = AEA103242AD2D37A00DB4542 /* RealityCheckConnect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		40A3D37B2AEC3BCB0044095B /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = ../../../..; sourceTree = "<group>"; };
 		AEA103092AD2D22000DB4542 /* Connect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Connect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA1030D2AD2D22000DB4542 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		AEA103102AD2D22000DB4542 /* ConnectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectApp.swift; sourceTree = "<group>"; };
@@ -25,7 +28,6 @@
 		AEA103162AD2D22300DB4542 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AEA103192AD2D22300DB4542 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AEA1031B2AD2D22300DB4542 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEA103222AD2D31C00DB4542 /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = "../../../Developer/monstarlab/RealityCheck/source/reality-check"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +36,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEA1030F2AD2D22000DB4542 /* RealityKitContent in Frameworks */,
-				AEA103252AD2D37A00DB4542 /* RealityCheckConnect in Frameworks */,
+				40A3D3812AEC3C0A0044095B /* RealityCheckConnect in Frameworks */,
+				40A3D37E2AEC3BD80044095B /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +78,7 @@
 		AEA1030C2AD2D22000DB4542 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				AEA103222AD2D31C00DB4542 /* reality-check */,
+				40A3D37B2AEC3BCB0044095B /* reality-check */,
 				AEA1030D2AD2D22000DB4542 /* RealityKitContent */,
 			);
 			path = Packages;
@@ -114,7 +117,8 @@
 			name = Connect;
 			packageProductDependencies = (
 				AEA1030E2AD2D22000DB4542 /* RealityKitContent */,
-				AEA103242AD2D37A00DB4542 /* RealityCheckConnect */,
+				40A3D37D2AEC3BD80044095B /* RealityCheckConnect */,
+				40A3D3802AEC3C0A0044095B /* RealityCheckConnect */,
 			);
 			productName = Connect;
 			productReference = AEA103092AD2D22000DB4542 /* Connect.app */;
@@ -144,6 +148,9 @@
 				Base,
 			);
 			mainGroup = AEA103002AD2D22000DB4542;
+			packageReferences = (
+				40A3D37F2AEC3C0A0044095B /* XCRemoteSwiftPackageReference "reality-check" */,
+			);
 			productRefGroup = AEA1030A2AD2D22000DB4542 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -158,6 +165,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A3D37C2AEC3BCB0044095B /* reality-check in Resources */,
 				AEA1031A2AD2D22300DB4542 /* Preview Assets.xcassets in Resources */,
 				AEA103172AD2D22300DB4542 /* Assets.xcassets in Resources */,
 			);
@@ -306,10 +314,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Connect/Preview Content\"";
-				DEVELOPMENT_TEAM = 73R4GPW85H;
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Connect Example";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,10 +341,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Connect/Preview Content\"";
-				DEVELOPMENT_TEAM = 73R4GPW85H;
+				DEVELOPMENT_TEAM = M92A6H7EPZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(TARGET_NAME)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Connect Example";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -373,14 +383,30 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		40A3D37F2AEC3C0A0044095B /* XCRemoteSwiftPackageReference "reality-check" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/monstar-lab-oss/reality-check/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		40A3D37D2AEC3BD80044095B /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
+		40A3D3802AEC3C0A0044095B /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 40A3D37F2AEC3C0A0044095B /* XCRemoteSwiftPackageReference "reality-check" */;
+			productName = RealityCheckConnect;
+		};
 		AEA1030E2AD2D22000DB4542 /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;
-		};
-		AEA103242AD2D37A00DB4542 /* RealityCheckConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityCheckConnect;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

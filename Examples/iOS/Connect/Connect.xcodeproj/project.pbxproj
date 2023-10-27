@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40A39A572A16D160004771EC /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A39A562A16D160004771EC /* RealityCheckConnect */; };
 		40FDE7592A16CF08006BFD32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FDE7582A16CF08006BFD32 /* AppDelegate.swift */; };
 		40FDE75B2A16CF08006BFD32 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40FDE75A2A16CF08006BFD32 /* ContentView.swift */; };
 		40FDE75D2A16CF08006BFD32 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 40FDE75C2A16CF08006BFD32 /* Experience.rcproject */; };
@@ -31,7 +30,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40A39A572A16D160004771EC /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +107,6 @@
 			);
 			name = Connect;
 			packageProductDependencies = (
-				40A39A562A16D160004771EC /* RealityCheckConnect */,
 			);
 			productName = Connect;
 			productReference = 40FDE7552A16CF08006BFD32 /* Connect.app */;
@@ -376,13 +373,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		40A39A562A16D160004771EC /* RealityCheckConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityCheckConnect;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 40FDE74D2A16CF08006BFD32 /* Project object */;
 }

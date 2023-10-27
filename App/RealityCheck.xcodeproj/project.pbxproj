@@ -24,6 +24,8 @@
 		4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4076368A2A1EBB23008378B6 /* Color+Hash.swift */; };
 		40874E8F2A289B9D00DD88FD /* ARViewInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */; };
 		40876A542A1E0F4A00C96893 /* ConnectionSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */; };
+		40A3D3782AEC3B770044095B /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 40A3D3772AEC3B770044095B /* reality-check */; };
+		40A3D37A2AEC3BA60044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D3792AEC3BA60044095B /* RealityCheckConnect */; };
 		40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517D29F68F0B0083502A /* Assets.xcassets */; };
 		40E7518C29F68F0B0083502A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517F29F68F0B0083502A /* Preview Assets.xcassets */; };
 		40E7518D29F68F0B0083502A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7518129F68F0B0083502A /* MainView.swift */; };
@@ -55,6 +57,7 @@
 		40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewInspectorView.swift; sourceTree = "<group>"; };
 		40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSetupView.swift; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
+		40A3D3772AEC3B770044095B /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = ..; sourceTree = "<group>"; };
 		40E7517D29F68F0B0083502A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40E7517F29F68F0B0083502A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40E7518129F68F0B0083502A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -64,7 +67,6 @@
 		40E7518829F68F0B0083502A /* Entity+HasCollision.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Entity+HasCollision.swift"; sourceTree = "<group>"; };
 		40E7518929F68F0B0083502A /* Matrix+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Matrix+Utils.swift"; sourceTree = "<group>"; };
 		40FA063C29F66A8500DD5306 /* RealityCheck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RealityCheck.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		40FDE74B2A16CBC7006BFD32 /* RealityCheck */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RealityCheck; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40FDE7492A16C94E006BFD32 /* AppFeature in Frameworks */,
+				40A3D37A2AEC3BA60044095B /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +118,7 @@
 		409B76522A16D2D1001B28E1 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				40FDE74B2A16CBC7006BFD32 /* RealityCheck */,
+				40A3D3772AEC3B770044095B /* reality-check */,
 				4086EDAC2A16C326001CFF27 /* AppPackage */,
 			);
 			name = Packages;
@@ -204,6 +207,7 @@
 			name = RealityCheck;
 			packageProductDependencies = (
 				40FDE7482A16C94E006BFD32 /* AppFeature */,
+				40A3D3792AEC3BA60044095B /* RealityCheckConnect */,
 			);
 			productName = RealityCheck;
 			productReference = 40FA063C29F66A8500DD5306 /* RealityCheck.app */;
@@ -247,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40A3D3782AEC3B770044095B /* reality-check in Resources */,
 				40E7518C29F68F0B0083502A /* Preview Assets.xcassets in Resources */,
 				40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */,
 			);
@@ -618,6 +623,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		40A3D3792AEC3BA60044095B /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
 		40FDE7482A16C94E006BFD32 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;

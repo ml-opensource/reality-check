@@ -19,7 +19,10 @@ let package = Package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
       from: "1.3.0"
     ),
-    .package(name: "reality-check", path: "../.."),
+    .package(
+      url: "https://github.com/monstar-lab-oss/reality-check",
+      from: "0.0.2"
+    ),
   ],
   targets: [
     .target(

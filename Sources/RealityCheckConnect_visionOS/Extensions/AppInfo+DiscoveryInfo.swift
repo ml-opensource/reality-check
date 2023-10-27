@@ -5,6 +5,10 @@ struct AppInfo {
   static var appName: String? {
     readFromInfoPlist(withKey: "CFBundleName")
   }
+  
+  static var appDisplayName: String? {
+    readFromInfoPlist(withKey: "CFBundleDisplayName")
+  }
 
   static var version: String? {
     readFromInfoPlist(withKey: "CFBundleShortVersionString")
@@ -53,7 +57,7 @@ extension AppInfo {
     let device = "Vision Pro"
 
     return DiscoveryInfo(
-      appName: AppInfo.appName,
+      appName: AppInfo.appDisplayName,
       appVersion: appVersion,
       device: device,
       system: system

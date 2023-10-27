@@ -12,7 +12,6 @@
 		407EAD2C2A9D1DC0007C46AA /* ServingsPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407EAD2B2A9D1DC0007C46AA /* ServingsPicker.swift */; };
 		40B512272A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 40B512262A9E510F00DC4BBB /* Wall_Kitchen_Clock_50s.usdz */; };
 		40B5124A2A9E51A900DC4BBB /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B512492A9E51A900DC4BBB /* ClockView.swift */; };
-		40B70D782AA3B8B400785A9C /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40B70D772AA3B8B400785A9C /* RealityCheckConnect */; };
 		40BB48332A87D61F008422AE /* AppCoreFeatureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48322A87D61F008422AE /* AppCoreFeatureModel.swift */; };
 		40BB48362A87D6F1008422AE /* Destination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48352A87D6F1008422AE /* Destination.swift */; };
 		40BB48382A87E417008422AE /* GoalsSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40BB48372A87E417008422AE /* GoalsSelector.swift */; };
@@ -76,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40B70D782AA3B8B400785A9C /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +198,6 @@
 			);
 			name = HelloWurst;
 			packageProductDependencies = (
-				40B70D772AA3B8B400785A9C /* RealityCheckConnect */,
 			);
 			productName = HelloWurst;
 			productReference = 40E752162A8667990040E74F /* HelloWurst.app */;
@@ -505,13 +502,6 @@
 			relativePath = "../../../../../../../../../nodes-projects/RealityCheck/source/reality-check";
 		};
 /* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		40B70D772AA3B8B400785A9C /* RealityCheckConnect */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RealityCheckConnect;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 40E7520E2A8667990040E74F /* Project object */;
 }
