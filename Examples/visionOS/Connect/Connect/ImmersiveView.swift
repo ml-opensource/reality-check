@@ -17,6 +17,7 @@ struct ImmersiveView: View {
                 content.add(scene)
             }
         }
+        .realityCheck()
     }
 }
 
