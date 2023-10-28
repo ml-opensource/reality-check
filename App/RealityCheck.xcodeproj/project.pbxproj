@@ -21,9 +21,7 @@
 		4025FC752A0BF68100A8191F /* NavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4025FC742A0BF68100A8191F /* NavigatorView.swift */; };
 		402EA02E29F6E43E00BB522F /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* InspectorView.swift */; };
 		4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */; };
-		4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4076368A2A1EBB23008378B6 /* Color+Hash.swift */; };
 		40874E8F2A289B9D00DD88FD /* ARViewInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */; };
-		40876A542A1E0F4A00C96893 /* ConnectionSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */; };
 		40A3D3782AEC3B770044095B /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 40A3D3772AEC3B770044095B /* reality-check */; };
 		40A3D37A2AEC3BA60044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D3792AEC3BA60044095B /* RealityCheckConnect */; };
 		40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517D29F68F0B0083502A /* Assets.xcassets */; };
@@ -52,10 +50,8 @@
 		4025FC742A0BF68100A8191F /* NavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorView.swift; sourceTree = "<group>"; };
 		402EA02D29F6E43E00BB522F /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentPropertiesView.swift; sourceTree = "<group>"; };
-		4076368A2A1EBB23008378B6 /* Color+Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hash.swift"; sourceTree = "<group>"; };
 		4086EDAC2A16C326001CFF27 /* AppPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppPackage; sourceTree = "<group>"; };
 		40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewInspectorView.swift; sourceTree = "<group>"; };
-		40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionSetupView.swift; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
 		40A3D3772AEC3B770044095B /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = ..; sourceTree = "<group>"; };
 		40E7517D29F68F0B0083502A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,7 +105,6 @@
 		402D8A9F2A7E3DE8004DC8F5 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				4076368A2A1EBB23008378B6 /* Color+Hash.swift */,
 				401215B02A23659D00D98058 /* View+isHovering.swift */,
 			);
 			path = Extensions;
@@ -130,7 +125,6 @@
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */,
 				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
-				40876A532A1E0F4A00C96893 /* ConnectionSetupView.swift */,
 				401215A12A210AC100D98058 /* DebugOptionsView.swift */,
 				402EA02D29F6E43E00BB522F /* InspectorView.swift */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
@@ -264,7 +258,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4076368B2A1EBB23008378B6 /* Color+Hash.swift in Sources */,
 				401215AD2A23658A00D98058 /* SplitView.swift in Sources */,
 				401215A22A210AC100D98058 /* DebugOptionsView.swift in Sources */,
 				4025FC752A0BF68100A8191F /* NavigatorView.swift in Sources */,
@@ -279,7 +272,6 @@
 				40E7518D29F68F0B0083502A /* MainView.swift in Sources */,
 				4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */,
 				40E7518E29F68F0B0083502A /* RealityCheckApp.swift in Sources */,
-				40876A542A1E0F4A00C96893 /* ConnectionSetupView.swift in Sources */,
 				401215AE2A23658A00D98058 /* Variadic.swift in Sources */,
 				401215B22A23659D00D98058 /* View+isHovering.swift in Sources */,
 				402EA02E29F6E43E00BB522F /* InspectorView.swift in Sources */,
