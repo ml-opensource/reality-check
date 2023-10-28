@@ -27,7 +27,7 @@ extension RealityCheckConnectViewModel {
               }
 
               if case .connected = state {
-                /// Send Hierarchy
+                /// Send Hierarchy on connect
                 await sendMultipeerData()
               }
 
@@ -58,19 +58,17 @@ extension RealityCheckConnectViewModel {
   func sendMultipeerData() async {
     @Dependency(\.multipeerClient) var multipeerClient
 
+    print(scenes.map(\.key))
     guard case .connected = connectionState else { return }
-
-    //TODO: remove/hide reference entity
-
-    var entities: [RealityPlatform.visionOS.EntityType] = []
+    var rootEntities: [RealityPlatform.visionOS.EntityType] = []
 
     for content in scenes.values {
       guard let root = content.root else { return }
-      entities.append(await root.encoded)
+      rootEntities.append(await root.encoded)
     }
 
     let realityViewData = try! defaultEncoder.encode(
-      RealityPlatform.visionOS.Scene(children: entities)
+      RealityPlatform.visionOS.Scene(children: rootEntities)
     )
     multipeerClient.send(realityViewData)
 

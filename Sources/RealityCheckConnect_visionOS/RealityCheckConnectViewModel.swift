@@ -14,7 +14,7 @@ final public class RealityCheckConnectViewModel {
 
   public init(
     connectionState: MultipeerClient.SessionState = .notConnected,
-    hostName: String = "..."
+    hostName: String = "[REDACTED]"
   ) {
     self.connectionState = connectionState
     self.hostName = hostName
@@ -33,4 +33,25 @@ final public class RealityCheckConnectViewModel {
       await sendMultipeerData()
     }
   }
+
+  func addScene(_ content: RealityViewContent) {
+    guard let scene = content.root?.scene else { return }
+    _scenes.updateValue(content, forKey: scene.id)
+
+    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
+    Task {
+      await sendMultipeerData()
+    }
+  }
+  
+  func removeScene(_ content: RealityViewContent) {
+    guard let scene = content.root?.scene else { return }
+    _scenes.removeValue(forKey: scene.id)
+
+    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
+    Task {
+      await sendMultipeerData()
+    }
+  }
+
 }

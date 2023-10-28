@@ -165,7 +165,7 @@ extension MultipeerConnection {
       RealityPlatform.visionOS.Scene.self,
       from: data
     ) {
-      print(String(data: data, encoding: .utf8)!)
+      // print(String(data: data, encoding: .utf8)!)
       await send(.delegate(.receivedDecodedScene(decodedRealityViewContentScene)))
     }
 

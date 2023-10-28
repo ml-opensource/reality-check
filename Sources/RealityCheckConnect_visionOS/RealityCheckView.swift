@@ -2,8 +2,9 @@ import RealityKit
 import SwiftUI
 
 public struct RealityCheckView: View {
-  @Environment(RealityCheckConnectViewModel.self)
-  var realityCheckConnectModel
+
+  @Environment(RealityCheckConnectViewModel.self) var realityCheckConnectModel
+  @State private var subscription: EventSubscription?
 
   let make: @MainActor @Sendable (inout RealityViewContent) async -> Void
   var update: ((inout RealityViewContent) -> Void)?
@@ -21,13 +22,21 @@ public struct RealityCheckView: View {
       make: { content in
         let referenceEntity = Entity()
         referenceEntity.name = "__realityCheck"
-        referenceEntity.isAccessibilityElement = false
-        referenceEntity.isEnabled = false
         content.add(referenceEntity)
+
+        subscription = content.subscribe(to: SceneEvents.DidAddEntity.self) { [content] event in
+          realityCheckConnectModel.addScene(content)
+        }
+
+        subscription = content.subscribe(to: SceneEvents.WillRemoveEntity.self) { [content] event in
+          realityCheckConnectModel.removeScene(content)
+        }
+
         await make(&content)
       },
       update: { content in
         realityCheckConnectModel.updateContent(content)
+        update?(&content)
       }
     )
   }
@@ -35,7 +44,8 @@ public struct RealityCheckView: View {
 
 extension View {
   public func realityCheck() -> some View {
-    self
+    return
+      self
       .background {
         RealityCheckView { _ in }
       }
