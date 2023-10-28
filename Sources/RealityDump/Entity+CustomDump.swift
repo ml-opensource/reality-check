@@ -26,14 +26,14 @@ extension RealityKit.Entity: CustomDumpReflectable {
         "components": self.components,
 
         /// Synchronization
-        //TODO: "synchronization": self.synchronization,
-        //TODO: "isOwner": self.isOwner,
+        "synchronization": self.synchronization,
+        "isOwner": self.isOwner,
 
         ///Nearest Anchor
         //TODO: "anchor": self.anchor,
 
         ///Animations
-        // "availableAnimations": self.availableAnimations,
+         "availableAnimations": self.availableAnimations,
 
         ///Animating an Entity
         //TODO: "defaultAnimationClock": self.defaultAnimationClock,

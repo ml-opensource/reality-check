@@ -75,10 +75,10 @@ struct ComponentPropertiesView: View {
         EmptyView()
       case .transform(let value):
         VStack {
-          LabeledContent("matrix", value: value.matrix.debugDescription)
-          LabeledContent("rotation", value: value.rotation.debugDescription)
-          LabeledContent("scale", value: value.scale.debugDescription)
-          LabeledContent("translation", value: value.translation.debugDescription)
+          LabeledContent("matrix", value: value.matrix)
+          LabeledContent("rotation", value: value.rotation)
+          LabeledContent("scale", value: value.scale)
+          LabeledContent("translation", value: value.translation)
         }
         
       case .videoPlayerComponent(let value):
