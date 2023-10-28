@@ -91,6 +91,7 @@ struct MainView: View {
 
 @available(macOS 14.0, *)
 struct TripleLayoutView: View {
+  @Environment(\.openWindow) var openWindow
   let store: StoreOf<AppCore>
 
   var body: some View {
@@ -123,25 +124,35 @@ struct TripleLayoutView: View {
               }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-              StatusBarView(
-                proxy: proxy,
-                collapsed: viewStore.binding(
-                  get: { !$0.isConsolePresented },
-                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+              if !viewStore.isConsoleDetached {
+                StatusBarView(
+                  proxy: proxy,
+                  collapsed: viewStore.binding(
+                    get: { !$0.isConsolePresented },
+                    send: { .binding(.set(\.$isConsolePresented, !$0)) }
+                  ),
+                  detached: viewStore.$isConsoleDetached
                 )
-              )
+              }
             }
 
-            TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
-              .font(.system(.body, design: .monospaced))
-              .collapsable()
-              .collapsed(
-                viewStore.binding(
-                  get: { !$0.isConsolePresented },
-                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+            if !viewStore.isConsoleDetached {
+              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."))
+                .font(.system(.body, design: .monospaced))
+                .collapsable()
+                .collapsed(
+                  viewStore.binding(
+                    get: { !$0.isConsolePresented },
+                    send: { .binding(.set(\.$isConsolePresented, !$0)) }
+                  )
                 )
-              )
-              .frame(minHeight: 200, maxHeight: .infinity)
+                .frame(minHeight: 200, maxHeight: .infinity)
+            }
+          }
+          .onChange(of: viewStore.isConsoleDetached) { oldValue, newValue in
+            if newValue == true {
+              openWindow(id: WindowID.console.rawValue)
+            }
           }
           .edgesIgnoringSafeArea(.top)
           .frame(maxWidth: .infinity, maxHeight: .infinity)

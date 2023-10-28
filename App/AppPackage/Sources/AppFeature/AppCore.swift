@@ -18,6 +18,7 @@ public struct AppCore: Reducer {
     // public var arViewSection: ARViewSection.State?
     public var entitiesSection: EntitiesNavigator_visionOS.State?
     @BindingState public var isConnectionSetupPresented: Bool
+    @BindingState public var isConsoleDetached: Bool
     @BindingState public var isConsolePresented: Bool
     @BindingState public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
@@ -30,6 +31,7 @@ public struct AppCore: Reducer {
       // arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesNavigator_visionOS.State? = nil,
       isConnectionSetupPresented: Bool = true,
+      isConsoleDetached: Bool = false,
       isConsolePresented: Bool = false,
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
@@ -41,6 +43,7 @@ public struct AppCore: Reducer {
       // self.arViewSection = arViewSection
       self.entitiesSection = entitiesSection
       self.isConnectionSetupPresented = isConnectionSetupPresented
+      self.isConsoleDetached = isConsoleDetached
       self.isConsolePresented = isConsolePresented
       self.isInspectorDisplayed = isInspectorDisplayed
       self.isStreaming = isStreaming

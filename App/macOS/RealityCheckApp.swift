@@ -29,7 +29,7 @@ struct RealityCheckApp: App {
     .commands {
       InspectorCommands()
       SidebarCommands()
-      ToolbarCommands()      
+      ToolbarCommands()
       CommandGroup(replacing: .help) {
         let helpURL = URL(
           string:
@@ -38,12 +38,28 @@ struct RealityCheckApp: App {
         Link("Getting Started", destination: helpURL)
       }
     }
-    
+
     Window("Console", id: WindowID.console.rawValue) {
+      @Environment(\.dismissWindow) var dismissWindow
+
       WithViewStore(store, observe: { $0 }) { viewStore in
         TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
           .font(.system(.body, design: .monospaced))
+          .toolbar {
+            ToolbarItem {
+              Button(
+                "Attach Console",
+                systemImage: "square.bottomthird.inset.filled",
+                action: {
+                  viewStore.send(.binding(.set(\.$isConsoleDetached, false)))
+                  dismissWindow(id: WindowID.console.rawValue)
+                }
+              )
+              .help("Attach the console to the main window")
+            }
+          }
       }
     }
+    .windowToolbarStyle(.unifiedCompact)
   }
 }

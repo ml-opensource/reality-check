@@ -56,12 +56,7 @@ public struct EntitiesNavigator_visionOS: Reducer {
     ) {
       self.entities = .init(uniqueElements: entities)
       self.selection = selection ?? self.entities.first?.id
-      self.dumpOutput = """
-        Biscuit dessert tart gummi bears pie biscuit.
-        Pastry oat cake fruitcake chocolate cake marzipan shortbread pie toffee muffin.
-        Marshmallow biscuit muffin sesame snaps chocolate cake candy tart.
-        Tart biscuit croissant tiramisu powder chocolate cake chocolate bar candy canes.
-        """
+      self.dumpOutput = "⚠️ This is only visible if the dump output is not received correctly."
     }
   }
 

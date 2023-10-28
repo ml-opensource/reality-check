@@ -10,12 +10,14 @@ struct StatusBarView: View {
   let proxy: SplitViewProxy
 
   @Binding var collapsed: Bool
+  @Binding var detached: Bool
 
   /// The actual status bar
   var body: some View {
     HStack(alignment: .center, spacing: 10) {
       Spacer()
-      // StatusBarDivider()
+      DetachConsoleButton(detached: $detached)
+      StatusBarDivider()
       StatusBarToggleDrawerButton(collapsed: $collapsed)
     }
     .padding(.horizontal, 10)
@@ -59,7 +61,7 @@ extension View {
   }
 }
 
-//MARK: -
+//MARK: - Toggle Drawer Button
 
 struct StatusBarToggleDrawerButton: View {
 
@@ -74,7 +76,7 @@ struct StatusBarToggleDrawerButton: View {
     withAnimation {
       collapsed.toggle()
     }
-    
+
   }
 
   internal var body: some View {
@@ -85,5 +87,32 @@ struct StatusBarToggleDrawerButton: View {
     }
     .buttonStyle(.plain)
     .onHover { isHovering($0) }
+  }
+}
+
+struct DetachConsoleButton: View {
+
+  @Binding
+  var detached: Bool
+
+  init(detached: Binding<Bool>) {
+    self._detached = detached
+  }
+
+  func detachPanel() {
+    withAnimation {
+      detached.toggle()
+    }
+  }
+
+  internal var body: some View {
+    Button {
+      detachPanel()
+    } label: {
+      Image(systemName: "square.on.square")
+    }
+    .buttonStyle(.plain)
+    .onHover { isHovering($0) }
+    .help("Detach into separate window")
   }
 }
