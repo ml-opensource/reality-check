@@ -40,6 +40,7 @@ public struct MultipeerConnection: Reducer {
 
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
+    case peersUpdated
     // case receivedDecodedARView(CodableARView)
     case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
     case receivedDecodedScene(RealityPlatform.visionOS.Scene)
@@ -102,6 +103,7 @@ public struct MultipeerConnection: Reducer {
               switch browserAction {
               case .peersUpdated(let peers):
                 await send(.updatePeers(peers))
+                await send(.delegate(.peersUpdated))
               }
 
             case .advertiser(_):

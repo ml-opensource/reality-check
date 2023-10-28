@@ -22,11 +22,13 @@ public struct MainToolbar: CustomizableToolbarContent {
     }
 
     ToolbarItem(id: "ConnectionSetup") {
-      Button("Connection Setup", systemImage: "bonjour") {
-        viewStore.send(.binding(.set(\.$isConnectionSetupPresented, true)))
-      }
-      .help("Connection Setup")
+      Toggle(
+        isOn: viewStore.$isConnectionSetupPresented,
+        label: { Label("Connection Setup", systemImage: "bonjour") }
+      )
       .symbolRenderingMode(.multicolor)
+      .help("Connection Setup")
+      .keyboardShortcut("S", modifiers: [.command, .option])
       .popover(
         isPresented: viewStore.$isConnectionSetupPresented,
         content: {

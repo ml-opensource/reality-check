@@ -18,7 +18,8 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-docc-symbolkit.git", branch: "main"),
-    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
+    // TODO: remove completely
+    // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
   ],
@@ -50,7 +51,7 @@ let package = Package(
       name: "RealityCheckConnect_iOS",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
-        .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
+        // .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
         "Models",
         "MultipeerClient",
         "StreamingClient",

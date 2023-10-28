@@ -29,7 +29,7 @@ public struct AppCore: Reducer {
     public init(
       // arViewSection: ARViewSection.State? = nil,
       entitiesSection: EntitiesNavigator_visionOS.State? = nil,
-      isConnectionSetupPresented: Bool = false,
+      isConnectionSetupPresented: Bool = true,
       isConsolePresented: Bool = false,
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
@@ -126,6 +126,15 @@ public struct AppCore: Reducer {
           }
           return .send(.entitiesNavigator(.refreshEntities(decodedEntities)))
 
+        case .multipeerConnection(.delegate(.peersUpdated)):
+          /// Display Connection Setup dialog when not connected to any peer but theres at least one available
+          if !state.multipeerConnection.peers.isEmpty,
+            state.multipeerConnection.sessionState == .notConnected
+          {
+            state.isConnectionSetupPresented = true
+          }
+          return .none
+
         case .multipeerConnection(_):
           return .none
 
@@ -152,6 +161,5 @@ public struct AppCore: Reducer {
     .ifLet(\.entitiesSection, action: /Action.entitiesNavigator) {
       EntitiesNavigator_visionOS()
     }
-    ._printChanges()
   }
 }

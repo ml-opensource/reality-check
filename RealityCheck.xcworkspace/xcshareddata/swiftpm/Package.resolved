@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "DeviceKit",
-        "repositoryURL": "https://github.com/devicekit/DeviceKit.git",
-        "state": {
-          "branch": null,
-          "revision": "66837ecf1516e41fd4251bbb684dc4b1997f08ab",
-          "version": "5.1.0"
-        }
-      },
-      {
         "package": "swift-case-paths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
