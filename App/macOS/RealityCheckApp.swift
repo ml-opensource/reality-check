@@ -43,7 +43,9 @@ struct RealityCheckApp: App {
       @Environment(\.dismissWindow) var dismissWindow
 
       WithViewStore(store, observe: { $0 }) { viewStore in
-        TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "..."))
+        let output = viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."
+
+        TextEditor(text: .constant(output))
           .font(.system(.body, design: .monospaced))
           .toolbar {
             ToolbarItem {
@@ -56,6 +58,10 @@ struct RealityCheckApp: App {
                 }
               )
               .help("Attach the console to the main window")
+            }
+
+            ToolbarItem {
+              ShareLink(item: output)
             }
           }
       }
