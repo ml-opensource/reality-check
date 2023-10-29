@@ -24,6 +24,20 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
   ],
   targets: [
+    .plugin(
+      name: "ExtractSymbols",
+      capability: .command(
+        intent: .custom(
+          verb: "extract-symbols",
+          description: "Extracts iOS/macOS/visionOS SDK symbolgraph"
+        ),
+        permissions: [
+          .writeToPackageDirectory(
+            reason: "This command write the new extracted JSON files to the extracted directory inside RealitySymbols."
+          )
+        ]
+      )
+    ),
     .target(name: "Models"),
     .target(
       name: "MultipeerClient",
