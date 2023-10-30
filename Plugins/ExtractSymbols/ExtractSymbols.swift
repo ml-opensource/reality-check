@@ -23,11 +23,11 @@ struct ExtractSymbols: CommandPlugin {
     var outputDirectory: String {
       switch self {
         case .iOS:
-          return "Sources/RealitySymbols/Extracted/iOS/Symbols"
+          return "Sources/RealitySymbols/Extracted/iOS"
         case .macOS:
-          return "Sources/RealitySymbols/Extracted/macOS/Symbols"
+          return "Sources/RealitySymbols/Extracted/macOS"
         case .visionOS:
-          return "Sources/RealitySymbols/Extracted/visionOS/Symbols"
+          return "Sources/RealitySymbols/Extracted/visionOS"
       }
     }
 

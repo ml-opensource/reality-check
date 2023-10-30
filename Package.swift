@@ -115,7 +115,7 @@ let package = Package(
         .product(name: "SymbolKit", package: "swift-docc-symbolkit")
       ],
       resources: [
-        .copy("Extracted")
+        .copy("Processed")
       ]
     ),
     .testTarget(
