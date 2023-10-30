@@ -33,7 +33,8 @@ let package = Package(
         ),
         permissions: [
           .writeToPackageDirectory(
-            reason: "This command write the new extracted JSON files to the extracted directory inside RealitySymbols."
+            reason:
+              "This command write the new extracted JSON files to the extracted directory inside RealitySymbols."
           )
         ]
       )

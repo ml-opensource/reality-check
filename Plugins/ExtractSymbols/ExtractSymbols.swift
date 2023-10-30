@@ -3,6 +3,46 @@ import PackagePlugin
 
 @main
 struct ExtractSymbols: CommandPlugin {
+
+  enum _Platform: CaseIterable {
+    case iOS
+    case macOS
+    case visionOS
+
+    var target: String {
+      switch self {
+        case .iOS:
+          return "arm64-apple-ios"
+        case .macOS:
+          return "arm64-apple-macos"
+        case .visionOS:
+          return "arm64-apple-xros"
+      }
+    }
+
+    var outputDirectory: String {
+      switch self {
+        case .iOS:
+          return "Sources/RealitySymbols/Extracted/iOS/Symbols"
+        case .macOS:
+          return "Sources/RealitySymbols/Extracted/macOS/Symbols"
+        case .visionOS:
+          return "Sources/RealitySymbols/Extracted/visionOS/Symbols"
+      }
+    }
+
+    var sdk: String {
+      switch self {
+        case .iOS:
+          return "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk"
+        case .macOS:
+          return "Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+        case .visionOS:
+          return "Platforms/XROS.platform/Developer/SDKs/XROS.sdk"
+      }
+    }
+  }
+
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
     let xcodeSelect = Process()
     let pipe = Pipe()
@@ -13,37 +53,32 @@ struct ExtractSymbols: CommandPlugin {
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     let xcodePath = String(data: data, encoding: .utf8)?
       .trimmingCharacters(in: .whitespacesAndNewlines)
+    xcodeSelect.waitUntilExit()
 
-    let symbolgraphExtract = Process()
-    symbolgraphExtract.executableURL = URL(fileURLWithPath: "/usr/bin/swift")
-    symbolgraphExtract.arguments = [
-      "symbolgraph-extract",
-      "-module-name",
-      "RealityFoundation",
-      "-target",
-      "arm64-apple-ios",
-      "-output-dir",
-      "\(symbolgraphExtract.currentDirectoryURL!.path(percentEncoded: false))Sources/RealitySymbols/Bla",
-      "-sdk",
-      "\(xcodePath!)/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk",
-    ]
-    try symbolgraphExtract.run()
-
-    print(
-      symbolgraphExtract.executableURL!.path,
-      symbolgraphExtract.arguments!.joined(separator: " ")
-    )
-
-
-    // process.waitUntilExit()
-
-    // let outputData = outputPipe.fileHandleForReading.readDataToEndOfFile()
-    // let output = String(decoding: outputData, as: UTF8.self)
-    // print(output)
-
-    // let contributors = Set(output.components(separatedBy: CharacterSet.newlines)).sorted()
-    //   .filter { !$0.isEmpty }
-    // try contributors.joined(separator: "\n")
-    //   .write(toFile: "Sources/RealitySymbols/CONTRIBUTORS.txt", atomically: true, encoding: .utf8)
+    for platform in _Platform.allCases {
+      let symbolgraphExtract = Process()
+      symbolgraphExtract.launchPath = "/usr/bin/env"
+      // TODO: verify use case of `launchPath` vs `executableURL`
+      // symbolgraphExtract.executableURL = URL(fileURLWithPath: "/usr/bin/swift")
+      symbolgraphExtract.arguments = [
+        "swift",
+        "symbolgraph-extract",
+        "-module-name",
+        "RealityFoundation",
+        "-target",
+        "\(platform.target)",
+        "-output-dir",
+        "\(symbolgraphExtract.currentDirectoryURL!.path() + platform.outputDirectory)",
+        "-sdk",
+        "\(xcodePath!)/\(platform.sdk)",
+      ]
+      try symbolgraphExtract.run()
+      symbolgraphExtract.waitUntilExit()
+      
+      print(
+        symbolgraphExtract.launchPath!,
+        symbolgraphExtract.arguments!.joined(separator: " ")
+      )
+    }
   }
 }
