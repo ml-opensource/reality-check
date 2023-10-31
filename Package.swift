@@ -39,6 +39,7 @@ let package = Package(
         ]
       )
     ),
+    // .plugin(name: "ProcessSymbols", capability: .buildTool()),
     .target(name: "Models"),
     .target(
       name: "MultipeerClient",

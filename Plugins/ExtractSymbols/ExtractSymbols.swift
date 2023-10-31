@@ -51,30 +51,26 @@ struct ExtractSymbols: CommandPlugin {
     xcodeSelect.standardOutput = pipe
     try xcodeSelect.run()
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let xcodePath = String(data: data, encoding: .utf8)?
+    let xcodePathString = String(data: data, encoding: .utf8)!
       .trimmingCharacters(in: .whitespacesAndNewlines)
+    let xcodePath = Path(xcodePathString)
     xcodeSelect.waitUntilExit()
 
     for platform in _Platform.allCases {
       let symbolgraphExtract = Process()
-      symbolgraphExtract.launchPath = "/usr/bin/env"
-      // TODO: verify use case of `launchPath` vs `executableURL`
-      // symbolgraphExtract.executableURL = URL(fileURLWithPath: "/usr/bin/swift")
+      let swiftTool = try context.tool(named: "swift")
+      symbolgraphExtract.executableURL = URL(fileURLWithPath: swiftTool.path.string)
       symbolgraphExtract.arguments = [
-        "swift",
         "symbolgraph-extract",
-        "-module-name",
-        "RealityFoundation",
-        "-target",
-        "\(platform.target)",
+        "-module-name", "RealityFoundation",
+        "-target", platform.target,
         "-output-dir",
-        "\(symbolgraphExtract.currentDirectoryURL!.path() + platform.outputDirectory)",
-        "-sdk",
-        "\(xcodePath!)/\(platform.sdk)",
+        context.package.directory.appending(platform.outputDirectory).string,
+        "-sdk", xcodePath.appending(platform.sdk).string,
       ]
       try symbolgraphExtract.run()
       symbolgraphExtract.waitUntilExit()
-      
+
       print(
         symbolgraphExtract.launchPath!,
         symbolgraphExtract.arguments!.joined(separator: " ")
