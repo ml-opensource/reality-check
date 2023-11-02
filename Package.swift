@@ -47,13 +47,6 @@ let package = Package(
         "ProcessSymbolsExecutable"
       ]
     ),
-    // .plugin(
-    //   name: "ProcessSymbols",
-    //   capability: .buildTool(),
-    //   dependencies: [
-    //     "ProcessSymbolsExecutable"
-    //   ]
-    // ),
     .target(name: "Models"),
     .target(
       name: "MultipeerClient",

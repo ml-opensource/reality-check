@@ -68,8 +68,8 @@ struct ExtractSymbols: CommandPlugin {
     let xcodePath = Path(xcodePathString)
     xcodeSelect.waitUntilExit()
 
+    //MARK: Extract SDKs from Xcode
     for platform in _Platform.allCases {
-      //MARK: Extract SDKs from Xcode
       let symbolgraphExtract = Process()
       let swiftTool = try context.tool(named: "swift").path
       symbolgraphExtract.executableURL = URL(fileURLWithPath: swiftTool.string)
@@ -82,49 +82,20 @@ struct ExtractSymbols: CommandPlugin {
       ]
       try symbolgraphExtract.run()
       symbolgraphExtract.waitUntilExit()
+    }
 
-      print(
-        symbolgraphExtract.launchPath!,
-        symbolgraphExtract.arguments!.joined(separator: " ")
-      )
-
-      //MARK: Process Symbols
+    //MARK: Process Symbols
+    for platform in _Platform.allCases {
       let processSymbols = Process()
       let processSymbolsTool = try context.tool(named: "ProcessSymbolsExecutable").path
       processSymbols.executableURL = URL(fileURLWithPath: processSymbolsTool.string)
-      print("-----------ProcessSymbolsExecutable")
 
       processSymbols.arguments = [
         "\(context.package.directory.appending(platform.extractedDirectory))",
         "\(context.package.directory.appending(platform.processedDirectory))",
       ]
       try processSymbols.run()
-// processSymbols.waitUntilExit()
+      processSymbols.waitUntilExit()
     }
-
-    //MARK: Process Symbols
-    //    for platform in _Platform.allCases {
-    //      let processSymbols = Process()
-    //      let processSymbolsTool = try context.tool(named: "ProcessSymbolsExecutable").path
-    //      processSymbols.executableURL = URL(fileURLWithPath: processSymbolsTool.string)
-    //      processSymbols.arguments = [
-    //        "\(context.package.directory.appending(platform.extractedDirectory))",
-    //        "\(context.package.directory.appending(platform.processedDirectory))",
-    //      ]
-    //      try processSymbols.run()
-    //      processSymbols.waitUntilExit()
-    //    }
-
-    // let pipe = Pipe()
-    // processSymbols.launchPath = "/usr/bin/env"
-    // processSymbols.arguments = ["xcode-select", "-p"]
-    // processSymbols.standardOutput = pipe
-    // try processSymbols.run()
-    // let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    // let xcodePathString = String(data: data, encoding: .utf8)!
-    //   .trimmingCharacters(in: .whitespacesAndNewlines)
-    // let xcodePath = Path(xcodePathString)
-    // processSymbols.waitUntilExit()
-
   }
 }
