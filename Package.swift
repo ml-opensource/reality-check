@@ -42,15 +42,18 @@ let package = Package(
               "This command write the new extracted JSON files to the extracted directory inside RealitySymbols."
           )
         ]
-      )
-    ),
-    .plugin(
-      name: "ProcessSymbols",
-      capability: .buildTool(),
+      ),
       dependencies: [
         "ProcessSymbolsExecutable"
       ]
     ),
+    // .plugin(
+    //   name: "ProcessSymbols",
+    //   capability: .buildTool(),
+    //   dependencies: [
+    //     "ProcessSymbolsExecutable"
+    //   ]
+    // ),
     .target(name: "Models"),
     .target(
       name: "MultipeerClient",
@@ -125,16 +128,13 @@ let package = Package(
       name: "RealitySymbols",
       resources: [
         .copy("Processed")
-      ],
-      plugins: [
-        .plugin(name: "ProcessSymbols")
       ]
     ),
     .executableTarget(
       name: "ProcessSymbolsExecutable",
       dependencies: [
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
-        .product(name: "SymbolKit", package: "swift-docc-symbolkit")
+        .product(name: "SymbolKit", package: "swift-docc-symbolkit"),
       ]
     ),
     .target(

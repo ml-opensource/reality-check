@@ -18,14 +18,13 @@ struct RealitySymbolsExecutable: ParsableCommand {
 
   mutating func run() throws {
     if #available(macOS 13.0, *) {
-      let url = URL(string: "file://\(input)")!
+      let url = URL(string: "file://\(input)/RealityFoundation.symbols.json")!
       let data = try Data(contentsOf: url)
       let symbolGraph = try! JSONDecoder().decode(SymbolGraph.self, from: data)
 
       print("____:", output)
       createEntitiesFile(from: symbolGraph, at: output)
-
-      //}
+      createComponentsFile(from: symbolGraph, at: output)
     } else {
       // Fallback on earlier versions
     }

@@ -20,7 +20,7 @@ struct ExtractSymbols: CommandPlugin {
       }
     }
 
-    var outputDirectory: String {
+    var extractedDirectory: String {
       switch self {
         case .iOS:
           return "Sources/RealitySymbols/Extracted/iOS"
@@ -28,6 +28,17 @@ struct ExtractSymbols: CommandPlugin {
           return "Sources/RealitySymbols/Extracted/macOS"
         case .visionOS:
           return "Sources/RealitySymbols/Extracted/visionOS"
+      }
+    }
+
+    var processedDirectory: String {
+      switch self {
+        case .iOS:
+          return "Sources/RealitySymbols/Processed/iOS"
+        case .macOS:
+          return "Sources/RealitySymbols/Processed/macOS"
+        case .visionOS:
+          return "Sources/RealitySymbols/Processed/visionOS"
       }
     }
 
@@ -44,6 +55,7 @@ struct ExtractSymbols: CommandPlugin {
   }
 
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
+    //MARK: Find Xcode path
     let xcodeSelect = Process()
     let pipe = Pipe()
     xcodeSelect.launchPath = "/usr/bin/env"
@@ -57,14 +69,15 @@ struct ExtractSymbols: CommandPlugin {
     xcodeSelect.waitUntilExit()
 
     for platform in _Platform.allCases {
+      //MARK: Extract SDKs from Xcode
       let symbolgraphExtract = Process()
-      let swiftTool = try context.tool(named: "swift")
-      symbolgraphExtract.executableURL = URL(fileURLWithPath: swiftTool.path.string)
+      let swiftTool = try context.tool(named: "swift").path
+      symbolgraphExtract.executableURL = URL(fileURLWithPath: swiftTool.string)
       symbolgraphExtract.arguments = [
         "symbolgraph-extract",
         "-module-name", "RealityFoundation",
         "-target", platform.target,
-        "-output-dir", "\(context.package.directory.appending(platform.outputDirectory))",
+        "-output-dir", "\(context.package.directory.appending(platform.extractedDirectory))",
         "-sdk", "\(xcodePath.appending(platform.sdk))",
       ]
       try symbolgraphExtract.run()
@@ -74,6 +87,44 @@ struct ExtractSymbols: CommandPlugin {
         symbolgraphExtract.launchPath!,
         symbolgraphExtract.arguments!.joined(separator: " ")
       )
+
+      //MARK: Process Symbols
+      let processSymbols = Process()
+      let processSymbolsTool = try context.tool(named: "ProcessSymbolsExecutable").path
+      processSymbols.executableURL = URL(fileURLWithPath: processSymbolsTool.string)
+      print("-----------ProcessSymbolsExecutable")
+
+      processSymbols.arguments = [
+        "\(context.package.directory.appending(platform.extractedDirectory))",
+        "\(context.package.directory.appending(platform.processedDirectory))",
+      ]
+      try processSymbols.run()
+// processSymbols.waitUntilExit()
     }
+
+    //MARK: Process Symbols
+    //    for platform in _Platform.allCases {
+    //      let processSymbols = Process()
+    //      let processSymbolsTool = try context.tool(named: "ProcessSymbolsExecutable").path
+    //      processSymbols.executableURL = URL(fileURLWithPath: processSymbolsTool.string)
+    //      processSymbols.arguments = [
+    //        "\(context.package.directory.appending(platform.extractedDirectory))",
+    //        "\(context.package.directory.appending(platform.processedDirectory))",
+    //      ]
+    //      try processSymbols.run()
+    //      processSymbols.waitUntilExit()
+    //    }
+
+    // let pipe = Pipe()
+    // processSymbols.launchPath = "/usr/bin/env"
+    // processSymbols.arguments = ["xcode-select", "-p"]
+    // processSymbols.standardOutput = pipe
+    // try processSymbols.run()
+    // let data = pipe.fileHandleForReading.readDataToEndOfFile()
+    // let xcodePathString = String(data: data, encoding: .utf8)!
+    //   .trimmingCharacters(in: .whitespacesAndNewlines)
+    // let xcodePath = Path(xcodePathString)
+    // processSymbols.waitUntilExit()
+
   }
 }
