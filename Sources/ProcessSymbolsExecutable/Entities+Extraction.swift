@@ -60,6 +60,9 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
   print("encoded:", encoded)
   print("path:", path)
   FileManager.default.createFile(atPath: path, contents: encoded)
+
+//  let url = URL(string: "file://\(path)")!
+//  try! encoded.write(to: url)
 }
 
 func createEntitiesFile(from symbolGraphs: [SymbolGraph], at path: String) {

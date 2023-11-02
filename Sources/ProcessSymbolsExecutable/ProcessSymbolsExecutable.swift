@@ -25,7 +25,7 @@ struct RealitySymbolsExecutable: ParsableCommand {
 
       print("____:", output)
 
-      createEntitiesFile(from: symbolGraph, at: "file://\(output)")
+      createEntitiesFile(from: symbolGraph, at: output)
 
       //}
     } else {

@@ -20,7 +20,7 @@ struct ProcessSymbols: BuildToolPlugin {
         executable: executablePath,
         arguments: [
           input.appending("iOS/RealityFoundation.symbols.json").string,
-          output.string,
+          output.appending("iOS/Entities.json").string,
         ],
         inputFiles: [input],
         outputFiles: [output]
