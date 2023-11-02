@@ -18,13 +18,11 @@ struct RealitySymbolsExecutable: ParsableCommand {
 
   mutating func run() throws {
     if #available(macOS 13.0, *) {
-      let url_iOS = URL(string: "file://\(input)")!
-      print("____:", url_iOS)
-      let data = try Data(contentsOf: url_iOS)
+      let url = URL(string: "file://\(input)")!
+      let data = try Data(contentsOf: url)
       let symbolGraph = try! JSONDecoder().decode(SymbolGraph.self, from: data)
 
       print("____:", output)
-
       createEntitiesFile(from: symbolGraph, at: output)
 
       //}
