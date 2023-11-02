@@ -1,4 +1,4 @@
-import CustomDump
+import RealityDump
 import RealityKit
 
 extension RealityKit.AnimationResource: CustomDumpReflectable {

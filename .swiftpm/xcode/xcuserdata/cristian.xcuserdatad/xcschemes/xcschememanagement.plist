@@ -66,6 +66,11 @@
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
+		<key>ProcessSymbolsExecutable.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>22</integer>
+		</dict>
 		<key>RealityCheck-Package.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -96,10 +101,15 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>RealityCodable.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>19</integer>
+		</dict>
 		<key>RealityCodableTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>16</integer>
+			<integer>15</integer>
 		</dict>
 		<key>RealityDumpClient.xcscheme_^#shared#^_</key>
 		<dict>
@@ -109,17 +119,22 @@
 		<key>RealityDumpTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>13</integer>
 		</dict>
 		<key>RealitySymbols.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>15</integer>
+			<integer>20</integer>
+		</dict>
+		<key>RealitySymbolsExecutable.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>21</integer>
 		</dict>
 		<key>RealitySymbolsTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>16</integer>
 		</dict>
 		<key>StreamingClient.xcscheme_^#shared#^_</key>
 		<dict>
@@ -134,7 +149,7 @@
 		<key>reality-check-Package.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>

@@ -64,9 +64,8 @@ struct ExtractSymbols: CommandPlugin {
         "symbolgraph-extract",
         "-module-name", "RealityFoundation",
         "-target", platform.target,
-        "-output-dir",
-        context.package.directory.appending(platform.outputDirectory).string,
-        "-sdk", xcodePath.appending(platform.sdk).string,
+        "-output-dir", "\(context.package.directory.appending(platform.outputDirectory))",
+        "-sdk", "\(xcodePath.appending(platform.sdk))",
       ]
       try symbolgraphExtract.run()
       symbolgraphExtract.waitUntilExit()

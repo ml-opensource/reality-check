@@ -14,10 +14,15 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    )
+    ),
+    .library(
+      name: "RealitySymbols",
+      targets: ["RealitySymbols"]
+    ),
   ],
   dependencies: [
-    .package(url: "https://github.com/apple/swift-docc-symbolkit.git", branch: "main"),
+    .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
+    .package(url: "https://github.com/apple/swift-docc-symbolkit", branch: "main"),
     // TODO: remove completely
     // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.0"),
@@ -29,7 +34,7 @@ let package = Package(
       capability: .command(
         intent: .custom(
           verb: "extract-symbols",
-          description: "Extracts iOS/macOS/visionOS SDK symbolgraph"
+          description: "Extracts iOS/macOS/visionOS SDK symbolgraphs"
         ),
         permissions: [
           .writeToPackageDirectory(
@@ -39,7 +44,13 @@ let package = Package(
         ]
       )
     ),
-    // .plugin(name: "ProcessSymbols", capability: .buildTool()),
+    .plugin(
+      name: "ProcessSymbols",
+      capability: .buildTool(),
+      dependencies: [
+        "ProcessSymbolsExecutable"
+      ]
+    ),
     .target(name: "Models"),
     .target(
       name: "MultipeerClient",
@@ -112,16 +123,23 @@ let package = Package(
     ),
     .target(
       name: "RealitySymbols",
-      dependencies: [
-        .product(name: "SymbolKit", package: "swift-docc-symbolkit")
-      ],
       resources: [
         .copy("Processed")
+      ],
+      plugins: [
+        .plugin(name: "ProcessSymbols")
       ]
     ),
     .testTarget(
       name: "RealitySymbolsTests",
       dependencies: ["RealitySymbols"]
+    ),
+    .executableTarget(
+      name: "ProcessSymbolsExecutable",
+      dependencies: [
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "SymbolKit", package: "swift-docc-symbolkit")
+      ]
     ),
     .target(
       name: "StreamingClient",
