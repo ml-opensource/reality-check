@@ -1,5 +1,6 @@
 import ArgumentParser
 import Foundation
+import SymbolKit
 
 @main
 struct RealitySymbolsExecutable: ParsableCommand {
@@ -9,20 +10,26 @@ struct RealitySymbolsExecutable: ParsableCommand {
   //  @Option(name: .shortAndLong, help: "The number of times to repeat 'phrase'.")
   //  var count: Int? = nil
 
-  @Argument(help: "The phrase to repeat.")
-  var phrase: String
+  @Argument(help: "Input file path.")
+  var input: String
 
-//  @Argument(help: "The input file.")
-//  var inputFiles: String
+  @Argument(help: "Output file path.")
+  var output: String
 
   mutating func run() throws {
-    print(CommandLine.arguments)
-    print("something .... EEVEN \(phrase)")
+    if #available(macOS 13.0, *) {
+      let url_iOS = URL(string: "file://\(input)")!
+      print("____:", url_iOS)
+      let data = try Data(contentsOf: url_iOS)
+      let symbolGraph = try! JSONDecoder().decode(SymbolGraph.self, from: data)
+
+      print("____:", output)
+
+      createEntitiesFile(from: symbolGraph, at: "file://\(output)")
+
+      //}
+    } else {
+      // Fallback on earlier versions
+    }
   }
 }
-
-//  static func main() {
-//    let inputFile = ProcessInfo.processInfo.environment
-//    print("something .... EEVEN")
-//    dump(inputFile)
-//  }

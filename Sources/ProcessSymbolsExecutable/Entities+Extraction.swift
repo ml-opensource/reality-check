@@ -57,6 +57,8 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
   }
 
   let encoded = try! JSONEncoder().encode(_entities.sorted(by: { $0.name < $1.name }))
+  print("encoded:", encoded)
+  print("path:", path)
   FileManager.default.createFile(atPath: path, contents: encoded)
 }
 

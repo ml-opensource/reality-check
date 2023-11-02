@@ -130,10 +130,6 @@ let package = Package(
         .plugin(name: "ProcessSymbols")
       ]
     ),
-    .testTarget(
-      name: "RealitySymbolsTests",
-      dependencies: ["RealitySymbols"]
-    ),
     .executableTarget(
       name: "ProcessSymbolsExecutable",
       dependencies: [

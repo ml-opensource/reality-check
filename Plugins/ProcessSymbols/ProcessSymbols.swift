@@ -7,24 +7,23 @@ struct ProcessSymbols: BuildToolPlugin {
     context: PackagePlugin.PluginContext,
     target: PackagePlugin.Target
   ) async throws -> [PackagePlugin.Command] {
-
-    dump(context.pluginWorkDirectory)
-
     let executablePath = try context.tool(named: "ProcessSymbolsExecutable").path
-   // let myCommand = try MyCommand.parse([inputFile])
-    print("context.package.directory:", context.package.directory)
-    print("context.pluginWorkDirectory:", context.pluginWorkDirectory)
-    print("target.directory:", target.directory)
+    
+    print(context.pluginWorkDirectory)
+        
+    let input = target.directory.appending("Extracted")
+    let output = target.directory.appending("Processed")
 
     return [
       .buildCommand(
-        displayName: "Generating from",
+        displayName: "Process Symbols",
         executable: executablePath,
         arguments: [
-          "HELLO"
+          input.appending("iOS/RealityFoundation.symbols.json").string,
+          output.string,
         ],
-        inputFiles: [context.pluginWorkDirectory],
-        outputFiles: []
+        inputFiles: [input],
+        outputFiles: [output]
       )
     ]
   }
