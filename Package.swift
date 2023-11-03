@@ -23,10 +23,12 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-docc-symbolkit", branch: "main"),
-    // TODO: remove completely
-    // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
+    .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+    // TODO: remove completely
+    // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
+
   ],
   targets: [
     .plugin(
