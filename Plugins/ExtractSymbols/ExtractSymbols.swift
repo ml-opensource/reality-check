@@ -6,6 +6,15 @@ struct ExtractSymbols: CommandPlugin {
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
     try extractSymbolGraph(from: xcodePath(), context: context)
     try processSymbols(context: context)
+
+    let generateCodable = Process()
+    let generateCodableTool = try context.tool(named: "GenerateCodable").path
+    generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
+    generateCodable.arguments = []
+    try generateCodable.run()
+    generateCodable.waitUntilExit()
+
+    print(">>>>>: GenerateCodable")
   }
 }
 
@@ -54,7 +63,7 @@ extension ExtractSymbols {
   func processSymbols(context: PackagePlugin.PluginContext) throws {
     for platform in _Platform.allCases {
       let processSymbols = Process()
-      let processSymbolsTool = try context.tool(named: "ProcessSymbolsExecutable").path
+      let processSymbolsTool = try context.tool(named: "ProcessSymbols").path
       processSymbols.executableURL = URL(fileURLWithPath: processSymbolsTool.string)
 
       processSymbols.arguments = [

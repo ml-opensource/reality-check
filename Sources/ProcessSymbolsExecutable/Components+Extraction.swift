@@ -35,8 +35,12 @@ func createComponentsFile(from symbolGraph: SymbolGraph, at path: String) {
   for p in properties {
     _components.append(p)
   }
+  
+  let encoder = JSONEncoder()
+  encoder.outputFormatting.insert(.sortedKeys)
+  // encoder.outputFormatting.insert(.prettyPrinted)
 
-  let encoded = try! JSONEncoder().encode(_components.sorted(by: { $0.name < $1.name }))
+  let encoded = try! encoder.encode(_components.sorted(by: { $0.name < $1.name }))
   FileManager.default.createFile(atPath: path.appending("/Components.json"), contents: encoded)
 }
 

@@ -46,7 +46,16 @@ let package = Package(
         ]
       ),
       dependencies: [
-        "ProcessSymbolsExecutable"
+        "GenerateCodableExecutable",
+        "ProcessSymbolsExecutable",
+      ]
+    ),
+    .executableTarget(
+      name: "GenerateCodableExecutable",
+      dependencies: [
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "SwiftSyntax", package: "swift-syntax"),
+        .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
       ]
     ),
     .target(name: "Models"),
@@ -57,6 +66,13 @@ let package = Package(
       ],
       resources: [
         .copy("Resources/Mock")
+      ]
+    ),
+    .executableTarget(
+      name: "ProcessSymbolsExecutable",
+      dependencies: [
+        .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "SymbolKit", package: "swift-docc-symbolkit"),
       ]
     ),
     .target(
@@ -123,13 +139,6 @@ let package = Package(
       name: "RealitySymbols",
       resources: [
         .copy("Processed")
-      ]
-    ),
-    .executableTarget(
-      name: "ProcessSymbolsExecutable",
-      dependencies: [
-        .product(name: "ArgumentParser", package: "swift-argument-parser"),
-        .product(name: "SymbolKit", package: "swift-docc-symbolkit"),
       ]
     ),
     .target(
