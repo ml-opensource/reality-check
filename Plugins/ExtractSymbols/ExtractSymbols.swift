@@ -68,7 +68,7 @@ extension ExtractSymbols {
   }
 }
 
-//MARK: - Generate Codables
+//MARK: - Generate Models
 
 extension ExtractSymbols {
   func generateModels(context: PackagePlugin.PluginContext) throws {
@@ -77,7 +77,8 @@ extension ExtractSymbols {
       let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
       generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
       generateCodable.arguments = [
-        "\(context.package.directory.appending(platform.processedDirectory))"
+        "\(context.package.directory.appending(platform.processedDirectory))",
+        "\(context.package.directory.appending(platform.modelsDirectory))",
       ]
       try generateCodable.run()
       generateCodable.waitUntilExit()

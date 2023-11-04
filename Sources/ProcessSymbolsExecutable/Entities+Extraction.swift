@@ -65,22 +65,22 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
   FileManager.default.createFile(atPath: path.appending("/Entities.json"), contents: encoded)
 }
 
-func createEntitiesFile(from symbolGraphs: [SymbolGraph], at path: String) {
-  var _entities: Set<_Symbol> = []
-
-  for symbolGraph in symbolGraphs {
-    let symbols = extractEntitiesSymbols(from: symbolGraph)
-    let properties = extractProperties(from: symbols, in: symbolGraph)
-
-    for p in properties {
-      _entities.insert(p)
-    }
-  }
-
-  let encoder = JSONEncoder()
-  encoder.outputFormatting.insert(.sortedKeys)
-  encoder.outputFormatting.insert(.prettyPrinted)
-
-  let encoded = try! encoder.encode(_entities.sorted(by: { $0.name < $1.name }))
-  FileManager.default.createFile(atPath: path, contents: encoded)
-}
+// func createEntitiesFile(from symbolGraphs: [SymbolGraph], at path: String) {
+//   var _entities: Set<_Symbol> = []
+//
+//   for symbolGraph in symbolGraphs {
+//     let symbols = extractEntitiesSymbols(from: symbolGraph)
+//     let properties = extractProperties(from: symbols, in: symbolGraph)
+//
+//     for p in properties {
+//       _entities.insert(p)
+//     }
+//   }
+//
+//   let encoder = JSONEncoder()
+//   encoder.outputFormatting.insert(.sortedKeys)
+//   encoder.outputFormatting.insert(.prettyPrinted)
+//
+//   let encoded = try! encoder.encode(_entities.sorted(by: { $0.name < $1.name }))
+//   FileManager.default.createFile(atPath: path, contents: encoded)
+// }
