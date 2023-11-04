@@ -1,4 +1,5 @@
 import Foundation
+import Models
 import SymbolKit
 
 // MARK: - Extract
@@ -35,10 +36,10 @@ func createComponentsFile(from symbolGraph: SymbolGraph, at path: String) {
   for p in properties {
     _components.append(p)
   }
-  
+
   let encoder = JSONEncoder()
   encoder.outputFormatting.insert(.sortedKeys)
-  // encoder.outputFormatting.insert(.prettyPrinted)
+  encoder.outputFormatting.insert(.prettyPrinted)
 
   let encoded = try! encoder.encode(_components.sorted(by: { $0.name < $1.name }))
   FileManager.default.createFile(atPath: path.appending("/Components.json"), contents: encoded)
@@ -58,7 +59,7 @@ func createComponentsFile(from symbolGraphs: [SymbolGraph], at path: String) {
 
   let encoder = JSONEncoder()
   encoder.outputFormatting.insert(.sortedKeys)
-  // encoder.outputFormatting.insert(.prettyPrinted)
+  encoder.outputFormatting.insert(.prettyPrinted)
 
   let encoded = try! encoder.encode(_components.sorted(by: { $0.name < $1.name }))
   FileManager.default.createFile(atPath: path, contents: encoded)

@@ -1,4 +1,5 @@
 import Foundation
+import Models
 import SymbolKit
 
 //TODO: consider moving to an extension of SymbolGraph

@@ -1,4 +1,5 @@
 import Foundation
+import Models
 import SymbolKit
 
 // MARK: - Extract
@@ -56,7 +57,11 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
     _entities.append(p)
   }
 
-  let encoded = try! JSONEncoder().encode(_entities.sorted(by: { $0.name < $1.name }))
+  let encoder = JSONEncoder()
+  encoder.outputFormatting.insert(.sortedKeys)
+  encoder.outputFormatting.insert(.prettyPrinted)
+
+  let encoded = try! encoder.encode(_entities.sorted(by: { $0.name < $1.name }))
   FileManager.default.createFile(atPath: path.appending("/Entities.json"), contents: encoded)
 }
 
@@ -74,7 +79,7 @@ func createEntitiesFile(from symbolGraphs: [SymbolGraph], at path: String) {
 
   let encoder = JSONEncoder()
   encoder.outputFormatting.insert(.sortedKeys)
-  // encoder.outputFormatting.insert(.prettyPrinted)
+  encoder.outputFormatting.insert(.prettyPrinted)
 
   let encoded = try! encoder.encode(_entities.sorted(by: { $0.name < $1.name }))
   FileManager.default.createFile(atPath: path, contents: encoded)
