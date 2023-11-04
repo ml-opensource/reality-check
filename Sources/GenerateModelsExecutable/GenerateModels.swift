@@ -21,7 +21,7 @@ struct GenerateModels: ParsableCommand {
   mutating func run() throws {
     let source = URL(string: "file://\(input)")!
     let destination = URL(string: "file://\(output)")!
-//    try generateComponentTypeModels(source: source, at: destination)
+    //    try generateComponentTypeModels(source: source, at: destination)
 
     let destination2 = URL(string: "file://\(output2)")!
     try generateMirrorModels(source: source, at: destination2)
@@ -102,9 +102,7 @@ extension GenerateModels {
       )
     }
 
-    let fileURL = path.appendingPathComponent(
-      "/ComponentType_\(source.lastPathComponent).swift"
-    )
+    let fileURL = path.appending(path: "ComponentType_\(source.lastPathComponent).swift")
     try file.formatted().description.write(to: fileURL, atomically: true, encoding: .utf8)
   }
 }
@@ -155,9 +153,7 @@ extension GenerateModels {
       )
     }
 
-    let fileURL = path.appendingPathComponent(
-      "/Component_\(source.lastPathComponent)+Mirror.swift"
-    )
+    let fileURL = path.appending(path: "Component_\(source.lastPathComponent)+Mirror.swift")
     try file.formatted().description.write(to: fileURL, atomically: true, encoding: .utf8)
   }
 }
