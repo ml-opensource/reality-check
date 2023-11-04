@@ -24,7 +24,7 @@ struct GenerateModels: ParsableCommand {
     let data = try Data(contentsOf: source.appending(path: "Components.json"))
     let _symbols: [_Symbol] = try JSONDecoder().decode([_Symbol].self, from: data)
 
-    let file = SourceFileSyntax(
+    let file = try SourceFileSyntax(
       leadingTrivia: "// This file was automatically generated and should not be edited."
         + .newlines(2)
     ) {
@@ -34,11 +34,11 @@ struct GenerateModels: ParsableCommand {
         import RealityKit
         """
       )
-      .with(\.trailingTrivia, .newlines(2))
+      .with(\.trailingTrivia, .newline)
 
-      try! ExtensionDeclSyntax(
+      try ExtensionDeclSyntax(
         """
-        //MARK: - \(raw: source.lastPathComponent)
+        //MARK: \(raw: source.lastPathComponent)
 
         extension RealityPlatform.\(raw: source.lastPathComponent)
         """
@@ -48,25 +48,53 @@ struct GenerateModels: ParsableCommand {
           public enum ComponentType: CaseIterable
           """
         ) {
-          for _symbol in _symbols {
+          for symbol in _symbols {
             try EnumCaseDeclSyntax(
               """
-              case \(raw: _symbol.name.withFirstLetterLowercased())
+              case \(raw: symbol.name.withFirstLetterLowercased())
               """
             )
-            .with(\.leadingTrivia, Trivia(pieces: [.newlines(1), .spaces(4)]))
-            .with(\.trailingTrivia, .carriageReturn)
           }
         }
-        .with(\.leadingTrivia, Trivia(pieces: [.newlines(1), .spaces(2)]))
-        .with(\.trailingTrivia, .newline)
       }
+
+      DeclSyntax(
+        """
+        #if os(\(raw: source.lastPathComponent))
+        """
+      )
+
+      try ExtensionDeclSyntax(
+        """
+        extension RealityPlatform.\(raw: source.lastPathComponent).ComponentType
+        """
+      ) {
+        try VariableDeclSyntax("public var rawType: RealityKit.Component.Type") {
+          try SwitchExprSyntax("switch self") {
+            for symbol in _symbols {
+              SwitchCaseSyntax(
+                """
+                case .\(raw: symbol.name.withFirstLetterLowercased()):
+                  return \(raw: symbol.name).self
+                """
+              )
+            }
+          }
+        }
+      }
+      .with(\.trailingTrivia, .newline)
+
+      DeclSyntax(
+        """
+        #endif
+        """
+      )
     }
 
     let fileURL = path.appendingPathComponent(
       "/ComponentType_\(source.lastPathComponent).swift"
     )
-    try file.description.write(to: fileURL, atomically: true, encoding: .utf8)
+    try file.formatted().description.write(to: fileURL, atomically: true, encoding: .utf8)
   }
 }
 
@@ -89,26 +117,3 @@ extension String {
     }
   }
 }
-
-//try! ExtensionDeclSyntax(
-//  """
-//  extension Keyword
-//  """
-//) {
-//  try! VariableDeclSyntax(
-//    """
-//    /// Whether the token kind is switched from being an identifier to being a keyword in the lexer.
-//    /// This is true for keywords that used to be considered non-contextual.
-//    var isLexerClassified: Bool
-//    """
-//  ) {
-//    try! SwitchExprSyntax("switch self") {
-//      for keyword in Keyword.allCases {
-//        if keyword.spec.isLexerClassified {
-//          SwitchCaseSyntax("case .\(keyword.spec.varOrCaseName): return true")
-//        }
-//      }
-//      SwitchCaseSyntax("default: return false")
-//    }
-//  }
-//}
