@@ -1,71 +1,76 @@
 import ArgumentParser
+import Foundation
+import Models
 import SwiftSyntax
 import SwiftSyntaxBuilder
 
 @main
+@available(macOS 13.0, *)
 struct GenerateModels: ParsableCommand {
   @Argument(help: "Input file path.")
   var input: String
-  
+
   mutating func run() throws {
-    let properties = [
-      "firstName": "String",
-      "lastName": "String",
-      "age": "Int",
-    ]
+    let url = URL(string: "file://\(input)")!.appending(path: "Components.json")
+    let data = try Data(contentsOf: url)
+    let _symbols: [_Symbol] = try JSONDecoder().decode([_Symbol].self, from: data)
 
-    let source = SourceFileSyntax {
-      StructDeclSyntax(name: "Person") {
-        for (propertyName, propertyType) in properties {
-          DeclSyntax("var \(raw: propertyName): \(raw: propertyType)")
+    let file = SourceFileSyntax(
+      leadingTrivia: "// This file was automatically generated and should not be edited."
+    ) {
+      DeclSyntax(
+        """
 
-          DeclSyntax(
-            """
-            func with\(raw: propertyName.withFirstLetterUppercased())(_ \(raw: propertyName): \(raw: propertyType)) -> Person {
-              var result = self
-              result.\(raw: propertyName) = \(raw: propertyName)
-              return result
-            }
-            """
-          )
-        }
+        import Foundation
+        import RealityKit
+
+        """
+      )
+
+      DeclSyntax(
+        """
+        //MARK: - iOS
+
+        extension RealityPlatform.iOS {
+          public enum ComponentType: CaseIterable {
+        """
+      )
+
+      for _symbol in _symbols {
+        DeclSyntax(
+          """
+              case \(raw: _symbol.name.withFirstLetterLowercased())
+          """
+        )
       }
+
+      DeclSyntax(
+        """
+
+          }
+        }
+        """
+      )
     }
 
-    print(source.formatted().description)
+    print(file.formatted().description)
   }
 }
-
-/// This example will print the following code:
-///
-/// ```
-/// struct Person {
-///     var lastName: String
-///     func withLastName(_ lastName: String) -> Person {
-///         var result = self
-///         result.lastName = lastName
-///         return result
-///     }
-///     var firstName: String
-///     func withFirstName(_ firstName: String) -> Person {
-///         var result = self
-///         result.firstName = firstName
-///         return result
-///     }
-///     var age: Int
-///     func withAge(_ age: Int) -> Person {
-///         var result = self
-///         result.age = age
-///         return result
-///     }
-/// }
-/// ```
-///
 
 extension String {
   func withFirstLetterUppercased() -> String {
     if let firstLetter = self.first {
       return firstLetter.uppercased() + self.dropFirst()
+    } else {
+      return self
+    }
+  }
+}
+
+extension String {
+  func withFirstLetterLowercased() -> String {
+    if let firstLetter = self.first {
+      return firstLetter.lowercased() + self.dropFirst()
     } else {
       return self
     }
