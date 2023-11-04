@@ -46,12 +46,12 @@ let package = Package(
         ]
       ),
       dependencies: [
-        "GenerateCodableExecutable",
+        "GenerateCodablesExecutable",
         "ProcessSymbolsExecutable",
       ]
     ),
     .executableTarget(
-      name: "GenerateCodableExecutable",
+      name: "GenerateCodablesExecutable",
       dependencies: [
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
         .product(name: "SwiftSyntax", package: "swift-syntax"),

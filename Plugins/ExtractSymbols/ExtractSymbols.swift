@@ -7,10 +7,10 @@ struct ExtractSymbols: CommandPlugin {
     try extractSymbolGraph(from: xcodePath(), context: context)
     try processSymbols(context: context)
 
-    print(">>>>>: GenerateCodable")
+    print(">>>>>: GenerateCodables")
 
     let generateCodable = Process()
-    let generateCodableTool = try context.tool(named: "GenerateCodableExecutable").path
+    let generateCodableTool = try context.tool(named: "GenerateCodablesExecutable").path
     generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
     generateCodable.arguments = []
     try generateCodable.run()

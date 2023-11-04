@@ -59,7 +59,12 @@
 		<key>GenerateCodableExecutable.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>16</integer>
+		</dict>
+		<key>GenerateCodablesExecutable.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
 		</dict>
 		<key>Models.xcscheme_^#shared#^_</key>
 		<dict>
@@ -74,7 +79,7 @@
 		<key>ProcessSymbolsExecutable.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>10</integer>
+			<integer>9</integer>
 		</dict>
 		<key>RealityCheck-Package.xcscheme_^#shared#^_</key>
 		<dict>
@@ -94,7 +99,7 @@
 		<key>RealityCheckConnect.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>12</integer>
+			<integer>11</integer>
 		</dict>
 		<key>RealityCheckConnect_visionOS.xcscheme_^#shared#^_</key>
 		<dict>
@@ -114,7 +119,7 @@
 		<key>RealityCodableTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>11</integer>
+			<integer>13</integer>
 		</dict>
 		<key>RealityDumpClient.xcscheme_^#shared#^_</key>
 		<dict>
@@ -124,12 +129,12 @@
 		<key>RealityDumpTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>10</integer>
 		</dict>
 		<key>RealitySymbols.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>12</integer>
 		</dict>
 		<key>RealitySymbolsExecutable.xcscheme_^#shared#^_</key>
 		<dict>
@@ -154,7 +159,7 @@
 		<key>reality-check-Package.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
