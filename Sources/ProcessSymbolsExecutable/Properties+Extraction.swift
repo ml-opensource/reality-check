@@ -1,35 +1,13 @@
 import Foundation
 import SymbolKit
 
-struct _Property: Codable, Hashable {
-  let name: String
-  let type: String?
-  let complete: String?
-  let comment: String?
-}
-
-struct _Properties: Codable, Hashable {
-  let name: String
-  let properties: [_Property]
-  let comment: String?
-
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(name)
-    hasher.combine(properties)
-  }
-
-  static func == (lhs: _Properties, rhs: _Properties) -> Bool {
-    lhs.name == rhs.name
-  }
-}
-
 //TODO: consider moving to an extension of SymbolGraph
 func extractProperties(
   from symbols: [SymbolGraph.Symbol],
   in symbolGraph: SymbolGraph
-) -> [_Properties] {
+) -> [_Symbol] {
 
-  var _properties: [_Properties] = []
+  var _symbols: [_Symbol] = []
   for symbol in symbols {
 
     var symbol_properties: [_Property] = []
@@ -55,7 +33,7 @@ func extractProperties(
       )
     }
 
-    _properties.append(
+    _symbols.append(
       .init(
         name: symbol.names.title,
         properties: symbol_properties,
@@ -64,7 +42,7 @@ func extractProperties(
     )
   }
 
-  return _properties
+  return _symbols
 }
 
 extension SymbolGraph.Symbol.Names {

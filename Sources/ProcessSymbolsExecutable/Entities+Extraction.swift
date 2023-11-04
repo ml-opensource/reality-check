@@ -50,7 +50,7 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
   let symbols = extractEntitiesSymbols(from: symbolGraph)
   let properties = extractProperties(from: symbols, in: symbolGraph)
 
-  var _entities: [_Properties] = []
+  var _entities: [_Symbol] = []
 
   for p in properties {
     _entities.append(p)
@@ -61,7 +61,7 @@ func createEntitiesFile(from symbolGraph: SymbolGraph, at path: String) {
 }
 
 func createEntitiesFile(from symbolGraphs: [SymbolGraph], at path: String) {
-  var _entities: Set<_Properties> = []
+  var _entities: Set<_Symbol> = []
 
   for symbolGraph in symbolGraphs {
     let symbols = extractEntitiesSymbols(from: symbolGraph)

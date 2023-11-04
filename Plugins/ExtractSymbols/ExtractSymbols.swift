@@ -6,15 +6,7 @@ struct ExtractSymbols: CommandPlugin {
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
     try extractSymbolGraph(from: xcodePath(), context: context)
     try processSymbols(context: context)
-
-    print(">>>>>: GenerateCodables")
-
-    let generateCodable = Process()
-    let generateCodableTool = try context.tool(named: "GenerateCodablesExecutable").path
-    generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
-    generateCodable.arguments = []
-    try generateCodable.run()
-    generateCodable.waitUntilExit()
+    try generateModels(context: context)
   }
 }
 
@@ -36,7 +28,7 @@ extension ExtractSymbols {
   }
 }
 
-//MARK: - Extract SDKs from Xcode
+//MARK: - Extract SDK
 
 extension ExtractSymbols {
   func extractSymbolGraph(from xcodePath: Path, context: PackagePlugin.PluginContext) throws {
@@ -72,6 +64,23 @@ extension ExtractSymbols {
       ]
       try processSymbols.run()
       processSymbols.waitUntilExit()
+    }
+  }
+}
+
+//MARK: - Generate Codables
+
+extension ExtractSymbols {
+  func generateModels(context: PackagePlugin.PluginContext) throws {
+    for platform in _Platform.allCases {
+      let generateCodable = Process()
+      let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
+      generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
+      generateCodable.arguments = [
+        "\(context.package.directory.appending(platform.processedDirectory))"
+      ]
+      try generateCodable.run()
+      generateCodable.waitUntilExit()
     }
   }
 }

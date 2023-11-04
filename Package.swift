@@ -46,16 +46,17 @@ let package = Package(
         ]
       ),
       dependencies: [
-        "GenerateCodablesExecutable",
+        "GenerateModelsExecutable",
         "ProcessSymbolsExecutable",
       ]
     ),
     .executableTarget(
-      name: "GenerateCodablesExecutable",
+      name: "GenerateModelsExecutable",
       dependencies: [
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
+        "Models",
       ]
     ),
     .target(name: "Models"),
@@ -73,6 +74,7 @@ let package = Package(
       dependencies: [
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
         .product(name: "SymbolKit", package: "swift-docc-symbolkit"),
+        "Models",
       ]
     ),
     .target(
@@ -127,12 +129,6 @@ let package = Package(
       dependencies: [
         .product(name: "CustomDump", package: "swift-custom-dump"),
         "Models",
-      ]
-    ),
-    .testTarget(
-      name: "RealityDumpTests",
-      dependencies: [
-        "RealityDump"
       ]
     ),
     .target(

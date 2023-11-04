@@ -30,7 +30,7 @@ func createComponentsFile(from symbolGraph: SymbolGraph, at path: String) {
   let componentsSymbols = extractComponents(from: symbolGraph)
   let properties = extractProperties(from: componentsSymbols, in: symbolGraph)
 
-  var _components: [_Properties] = []
+  var _components: [_Symbol] = []
 
   for p in properties {
     _components.append(p)
@@ -45,7 +45,7 @@ func createComponentsFile(from symbolGraph: SymbolGraph, at path: String) {
 }
 
 func createComponentsFile(from symbolGraphs: [SymbolGraph], at path: String) {
-  var _components: Set<_Properties> = []
+  var _components: Set<_Symbol> = []
 
   for symbolGraph in symbolGraphs {
     let symbols = extractComponents(from: symbolGraph)
