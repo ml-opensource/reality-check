@@ -7,6 +7,7 @@ struct ExtractSymbols: CommandPlugin {
     // try extractSymbolGraph(from: xcodePath(), context: context)
     // try processSymbols(context: context)
     try generateModels(context: context)
+    try generateMirrors(context: context)
   }
 }
 
@@ -77,9 +78,9 @@ extension ExtractSymbols {
       let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
       generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
       generateCodable.arguments = [
+        "component-type",
         "\(context.package.directory.appending(platform.processedDirectory))",
         "\(context.package.directory.appending(platform.modelsDirectory))",
-        "\(context.package.directory.appending(platform.realityDumpDirectory))", //FIXME:
       ]
       try generateCodable.run()
       generateCodable.waitUntilExit()
@@ -90,17 +91,18 @@ extension ExtractSymbols {
 //MARK: - Generate CustomDump
 
 extension ExtractSymbols {
-  func generateMirror(context: PackagePlugin.PluginContext) throws {
-// for platform in _Platform.allCases {
-//   let generateCodable = Process()
-//   let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
-//   generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
-//   generateCodable.arguments = [
-//     "\(context.package.directory.appending(platform.processedDirectory))",
-//     "\(context.package.directory.appending(platform.modelsDirectory))",
-//   ]
-//   try generateCodable.run()
-//   generateCodable.waitUntilExit()
-// }
+  func generateMirrors(context: PackagePlugin.PluginContext) throws {
+    for platform in _Platform.allCases {
+      let generateCodable = Process()
+      let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
+      generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
+      generateCodable.arguments = [
+        "mirrors",
+        "\(context.package.directory.appending(platform.processedDirectory))",
+        "\(context.package.directory.appending(platform.realityDumpDirectory))",
+      ]
+      try generateCodable.run()
+      generateCodable.waitUntilExit()
+    }
   }
 }
