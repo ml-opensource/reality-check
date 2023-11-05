@@ -24,7 +24,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-docc-symbolkit", branch: "main"),
     .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
-    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.0"),
+    .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.1"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
     // TODO: remove completely
     // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
@@ -41,7 +41,7 @@ let package = Package(
         permissions: [
           .writeToPackageDirectory(
             reason:
-              "This command write the new extracted JSON files to the extracted directory inside RealitySymbols."
+              "This command is the launching pad for sub-commands that turn symbols into JSON and Swift files faster than you can say 'JSON and Swift files'!"
           )
         ]
       ),
@@ -57,6 +57,7 @@ let package = Package(
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
         "Models",
+        "RealityDump",
       ]
     ),
     .target(name: "Models"),

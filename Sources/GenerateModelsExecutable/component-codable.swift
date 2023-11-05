@@ -1,4 +1,5 @@
 import ArgumentParser
+import CustomDump
 import Foundation
 import Models
 import SwiftSyntax
@@ -29,6 +30,7 @@ struct GenerateComponentCodable: ParsableCommand {
       leadingTrivia: "// This file was automatically generated and should not be edited."
         + .newlines(2)
     ) {
+      try ImportDeclSyntax("import CustomDump")
       try ImportDeclSyntax("import Foundation")
       try ImportDeclSyntax("import Models")
       try ImportDeclSyntax("import RealityKit")
@@ -77,7 +79,7 @@ struct GenerateComponentCodable: ParsableCommand {
         }
       }
 
-      //MARK: -
+      //MARK: - Comment
 
       try ExtensionDeclSyntax(
         """
@@ -98,7 +100,28 @@ struct GenerateComponentCodable: ParsableCommand {
         }
       }
 
-      //MARK: -
+      //MARK: - Reflected Description
+
+      try ExtensionDeclSyntax(
+        """
+        extension RealityPlatform.\(raw: source.lastPathComponent).Component
+        """
+      ) {
+        try VariableDeclSyntax("public var reflectedDescription: String?") {
+          try SwitchExprSyntax("switch self") {
+            for symbol in _symbols {
+              SwitchCaseSyntax(
+                """
+                case .\(raw: symbol.name.withFirstLetterLowercased())(let value):
+                  return value.reflectedDescription
+                """
+              )
+            }
+          }
+        }
+      }
+
+      //MARK: - Init
 
       try ExtensionDeclSyntax(
         """
@@ -110,6 +133,7 @@ struct GenerateComponentCodable: ParsableCommand {
         for symbol in _symbols {
           try StructDeclSyntax("public struct \(raw: symbol.name): Codable, Hashable") {
             try VariableDeclSyntax("public var comment: String?")
+            try VariableDeclSyntax("public var reflectedDescription: String")
 
             DeclSyntax("#if os(\(raw: source.lastPathComponent))")
 
@@ -133,6 +157,12 @@ struct GenerateComponentCodable: ParsableCommand {
                     """
                 )
               }
+              DeclReferenceExprSyntax(
+                baseName:
+                  """
+                  self.reflectedDescription = String(customDumping: component)
+                  """
+              )
             }
             .with(\.trailingTrivia, .newline)
 

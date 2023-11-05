@@ -14,79 +14,67 @@ struct ComponentPropertiesView: View {
   var body: some View {
     switch component {
       case .accessibilityComponent(let value):
-        VStack {
-          // LabeledContent("Label", value: value.label ?? "...")
-          // LabeledContent("Value", value: value.value ?? "...")
-          // LabeledContent("CustomActions", value: value.customActions.debugDescription)
-        }
+        Text(value.reflectedDescription)
       case .adaptiveResolutionComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .ambientAudioComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .anchoringComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .audioMixGroupsComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .channelAudioComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .characterControllerComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .characterControllerStateComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .collisionComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .groundingShadowComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .hoverEffectComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .imageBasedLightComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .imageBasedLightReceiverComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .inputTargetComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .modelComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .modelDebugOptionsComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .modelSortGroupComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .opacityComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .particleEmitterComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .perspectiveCameraComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .physicsBodyComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .physicsMotionComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .physicsSimulationComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .portalComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .sceneUnderstandingComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .spatialAudioComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .synchronizationComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .textComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .transform(let value):
-        EmptyView()
-
-      // VStack {
-      //   LabeledContent("matrix", value: value.matrix)
-      //   LabeledContent("rotation", value: value.rotation)
-      //   LabeledContent("scale", value: value.scale)
-      //   LabeledContent("translation", value: value.translation)
-      // }
-
+        Text(value.reflectedDescription)
       case .videoPlayerComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
       case .worldComponent(let value):
-        EmptyView()
+        Text(value.reflectedDescription)
     }
   }
 
