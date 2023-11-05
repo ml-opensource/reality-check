@@ -6,8 +6,9 @@ struct ExtractSymbols: CommandPlugin {
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
     // try extractSymbolGraph(from: xcodePath(), context: context)
     // try processSymbols(context: context)
-    try generateModels(context: context)
-    try generateMirrors(context: context)
+    // try generateModels(context: context)
+    // try generateMirrors(context: context)
+    try generateCodable(context: context)
   }
 }
 
@@ -81,6 +82,25 @@ extension ExtractSymbols {
         "component-type",
         "\(context.package.directory.appending(platform.processedDirectory))",
         "\(context.package.directory.appending(platform.modelsDirectory))",
+      ]
+      try generateCodable.run()
+      generateCodable.waitUntilExit()
+    }
+  }
+}
+
+//MARK: - Generate Codable
+
+extension ExtractSymbols {
+  func generateCodable(context: PackagePlugin.PluginContext) throws {
+    for platform in _Platform.allCases {
+      let generateCodable = Process()
+      let generateCodableTool = try context.tool(named: "GenerateModelsExecutable").path
+      generateCodable.executableURL = URL(fileURLWithPath: generateCodableTool.string)
+      generateCodable.arguments = [
+        "component-codable",
+        "\(context.package.directory.appending(platform.processedDirectory))",
+        "\(context.package.directory.appending(platform.codableDirectory))",
       ]
       try generateCodable.run()
       generateCodable.waitUntilExit()

@@ -11,6 +11,7 @@ struct GenerateModels: ParsableCommand {
     subcommands: [
       GenerateComponentType.self,
       GenerateMirrors.self,
+      GenerateComponentCodable.self,
     ]
   )
 }

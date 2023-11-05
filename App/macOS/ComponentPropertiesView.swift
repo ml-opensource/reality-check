@@ -15,9 +15,9 @@ struct ComponentPropertiesView: View {
     switch component {
       case .accessibilityComponent(let value):
         VStack {
-          LabeledContent("Label", value: value.label ?? "...")
-          LabeledContent("Value", value: value.value ?? "...")
-          LabeledContent("CustomActions", value: value.customActions.debugDescription)
+          // LabeledContent("Label", value: value.label ?? "...")
+          // LabeledContent("Value", value: value.value ?? "...")
+          // LabeledContent("CustomActions", value: value.customActions.debugDescription)
         }
       case .adaptiveResolutionComponent(let value):
         EmptyView()
@@ -74,13 +74,15 @@ struct ComponentPropertiesView: View {
       case .textComponent(let value):
         EmptyView()
       case .transform(let value):
-        VStack {
-          LabeledContent("matrix", value: value.matrix)
-          LabeledContent("rotation", value: value.rotation)
-          LabeledContent("scale", value: value.scale)
-          LabeledContent("translation", value: value.translation)
-        }
-        
+        EmptyView()
+
+      // VStack {
+      //   LabeledContent("matrix", value: value.matrix)
+      //   LabeledContent("rotation", value: value.rotation)
+      //   LabeledContent("scale", value: value.scale)
+      //   LabeledContent("translation", value: value.translation)
+      // }
+
       case .videoPlayerComponent(let value):
         EmptyView()
       case .worldComponent(let value):
