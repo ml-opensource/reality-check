@@ -43,8 +43,8 @@ struct RealityCheckApp: App {
       @Environment(\.dismissWindow) var dismissWindow
 
       WithViewStore(store, observe: { $0 }) { viewStore in
-        let output = viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."
-
+        //FIXME: let output = viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."
+        let output = "No dump output received..."
         TextEditor(text: .constant(output))
           .font(.system(.body, design: .monospaced))
           .toolbar {

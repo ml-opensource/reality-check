@@ -38,6 +38,7 @@ struct MainView: View {
         if let connectedPeer = viewStore.connectedPeer,
           let appVersion = connectedPeer.discoveryInfo?.appVersion
         {
+          //FIXME: dont harcode this!
           return "􁎖 " + " \(appVersion)"
         } else {
           return ""
@@ -51,33 +52,35 @@ struct MainView: View {
         switch viewStore.layout {
           case .double:
             NavigatorView(store: store).listStyle(.sidebar)
-              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-                IfLetStore(
-                  store.scope(
-                    state: \.entitiesSection,
-                    action: AppCore.Action.entitiesNavigator
-                  )
-                ) {
-                  Inspector_visionOS($0)
-                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                    .interactiveDismissDisabled()
-                }
-              }
+          //FIXME:
+          // .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+          //   IfLetStore(
+          //     store.scope(
+          //       state: \.entitiesSection,
+          //       action: AppCore.Action.entitiesNavigator
+          //     )
+          //   ) {
+          //     Inspector_visionOS($0)
+          //       .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+          //       .interactiveDismissDisabled()
+          //   }
+          // }
 
           case .triple:
             TripleLayoutView(store: store)
-              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-                IfLetStore(
-                  store.scope(
-                    state: \.entitiesSection,
-                    action: AppCore.Action.entitiesNavigator
-                  )
-                ) {
-                  Inspector_visionOS($0)
-                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                    .interactiveDismissDisabled()
-                }
-              }
+        //FIXME:
+        // .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+        //   IfLetStore(
+        //     store.scope(
+        //       state: \.entitiesSection,
+        //       action: AppCore.Action.entitiesNavigator
+        //     )
+        //   ) {
+        //     Inspector_visionOS($0)
+        //       .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+        //       .interactiveDismissDisabled()
+        //   }
+        // }
         }
       }
       .navigationTitle(sessionTitle)
@@ -137,7 +140,8 @@ struct TripleLayoutView: View {
             }
 
             if !viewStore.isConsoleDetached {
-              TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."))
+              //FIXME:  TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."))
+              TextEditor(text: .constant("No dump output received..."))
                 .font(.system(.body, design: .monospaced))
                 .collapsable()
                 .collapsed(

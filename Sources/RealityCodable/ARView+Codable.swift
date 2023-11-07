@@ -10,7 +10,7 @@ public struct CodableARView: Codable, Equatable {
   //MARK: Working with the Scene
   public let scene: RealityPlatform.iOS.Scene
 
-  #if os(iOS)
+  #if os(iOS) || os(macOS)
     //MARK: Debugging the Session
     ///The current debugging options.
     public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue

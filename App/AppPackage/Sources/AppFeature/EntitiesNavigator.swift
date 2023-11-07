@@ -1,23 +1,24 @@
 import ComposableArchitecture
 import Foundation
 
-struct EntitiesNavigator: Reducer {
-  enum Platform: Equatable {
+public struct EntitiesNavigator: Reducer {
+  public enum State: Equatable {
     case iOS(EntitiesNavigator_iOS.State)
     //TODO: case macOS(EntitiesNavigator_macOS.State)
     case visionOS(EntitiesNavigator_visionOS.State)
   }
 
-  struct State: Equatable {
-    var entitiesSection: Platform?
+  public enum Action: Equatable {
+    case iOS(EntitiesNavigator_iOS.Action)
+    case visionOS(EntitiesNavigator_visionOS.Action)
   }
 
-  enum Action: Equatable {
-  }
-
-  var body: some Reducer<State, Action> {
-    Reduce<State, Action> { state, action in
-      return .none
+  public var body: some ReducerOf<Self> {
+    Scope(state: /State.iOS, action: /Action.iOS) {
+      EntitiesNavigator_iOS()
+    }
+    Scope(state: /State.visionOS, action: /Action.visionOS) {
+      EntitiesNavigator_visionOS()
     }
   }
 }
