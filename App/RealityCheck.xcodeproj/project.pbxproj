@@ -20,7 +20,6 @@
 		401215B82A237E5000D98058 /* ARViewSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215B72A237E5000D98058 /* ARViewSectionView.swift */; };
 		4025FC752A0BF68100A8191F /* NavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4025FC742A0BF68100A8191F /* NavigatorView.swift */; };
 		402EA02E29F6E43E00BB522F /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402EA02D29F6E43E00BB522F /* InspectorView.swift */; };
-		4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */; };
 		40874E8F2A289B9D00DD88FD /* ARViewInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */; };
 		40A3D3782AEC3B770044095B /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 40A3D3772AEC3B770044095B /* reality-check */; };
 		40A3D37A2AEC3BA60044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D3792AEC3BA60044095B /* RealityCheckConnect */; };
@@ -49,7 +48,6 @@
 		401215B72A237E5000D98058 /* ARViewSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewSectionView.swift; sourceTree = "<group>"; };
 		4025FC742A0BF68100A8191F /* NavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorView.swift; sourceTree = "<group>"; };
 		402EA02D29F6E43E00BB522F /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
-		404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentPropertiesView.swift; sourceTree = "<group>"; };
 		4086EDAC2A16C326001CFF27 /* AppPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppPackage; sourceTree = "<group>"; };
 		40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewInspectorView.swift; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 			children = (
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40874E8E2A289B9D00DD88FD /* ARViewInspectorView.swift */,
-				404181292A1BE1EF003C198E /* ComponentPropertiesView.swift */,
 				401215A12A210AC100D98058 /* DebugOptionsView.swift */,
 				402EA02D29F6E43E00BB522F /* InspectorView.swift */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
@@ -270,7 +267,6 @@
 				401215B82A237E5000D98058 /* ARViewSectionView.swift in Sources */,
 				401215AB2A23658A00D98058 /* SplitViewModifiers.swift in Sources */,
 				40E7518D29F68F0B0083502A /* MainView.swift in Sources */,
-				4041812A2A1BE1EF003C198E /* ComponentPropertiesView.swift in Sources */,
 				40E7518E29F68F0B0083502A /* RealityCheckApp.swift in Sources */,
 				401215AE2A23658A00D98058 /* Variadic.swift in Sources */,
 				401215B22A23659D00D98058 /* View+isHovering.swift in Sources */,

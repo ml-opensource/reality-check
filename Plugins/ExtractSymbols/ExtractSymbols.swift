@@ -4,10 +4,10 @@ import PackagePlugin
 @main
 struct ExtractSymbols: CommandPlugin {
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
-//    try extractSymbolGraph(from: xcodePath(), context: context)
-//    try processSymbols(context: context)
-//    try generateModels(context: context)
-//    try generateMirrors(context: context)
+    try extractSymbolGraph(from: xcodePath(), context: context)
+    try processSymbols(context: context)
+    try generateModels(context: context)
+    try generateMirrors(context: context)
     try generateCodable(context: context)
   }
 }
@@ -42,7 +42,8 @@ extension ExtractSymbols {
         "symbolgraph-extract",
         "-module-name", "RealityFoundation",
         "-target", platform.target,
-        "-output-dir", "\(context.package.directory.appending(platform.extractedDirectory))",
+        "-output-dir",
+        "\(context.package.directory.appending(platform.extractedDirectory))",
         "-sdk", "\(xcodePath.appending(platform.sdk))",
       ]
       try symbolgraphExtract.run()

@@ -49,7 +49,7 @@ struct InspectorView: View {
 
         Divider()
 
-        List {
+        Form {
           Section("􀕾 Accessibility") {
             LabeledContent(
               "isAccessibilityElement",
@@ -151,15 +151,17 @@ struct InspectorView: View {
           }
 
           Section("􁏮 Components") {
-            VStack(alignment: .leading) {
+            // VStack(alignment: .leading) {
 
-              //TODO: Check if it makes sense to show it.
-              // LabeledContent("count", value: "\(entity.components.count)")
-
-              ForEach(Array(entity.components), id: \.self) { component in
-                GroupBox {
-                  DisclosureGroup(component.description) {
-                    ComponentPropertiesView(component).monospaced()
+            ForEach(Array(entity.components), id: \.self) { component in
+              if let reflectedDescription = component.reflectedDescription {
+                DisclosureGroup(component.description) {
+                  GroupBox {
+                    Text(reflectedDescription)
+                      .monospaced()
+                      .textSelection(.enabled)
+                      .padding(8)
+                      .frame(maxWidth: .infinity, alignment: .leading)
                   }
                 }
                 .help(component.comment ?? "")
@@ -168,7 +170,7 @@ struct InspectorView: View {
           }
         }
       }
-      .textSelection(.enabled)
+      // }
     }
   }
 }
