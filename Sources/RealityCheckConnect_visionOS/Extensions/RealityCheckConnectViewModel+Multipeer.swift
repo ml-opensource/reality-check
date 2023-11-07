@@ -62,10 +62,11 @@ extension RealityCheckConnectViewModel {
       rootEntities.append(await root.encoded)
     }
 
-    let realityViewData = try! defaultEncoder.encode(
+    let sceneData = try! defaultEncoder.encode(
       RealityPlatform.visionOS.Scene(children: rootEntities)
     )
-    multipeerClient.send(realityViewData)
+
+    multipeerClient.send(sceneData)
 
     // TODO: set default selection?
     // if selectedEntityID == nil {

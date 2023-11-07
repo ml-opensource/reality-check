@@ -14,8 +14,11 @@ final public class RealityCheckConnectViewModel {
   var selectedEntityID: UInt64?
 
   @ObservationIgnored
+  private var debouncedUpdateContentTask: Task<Void, Error>?
+
+  @ObservationIgnored
   @Dependency(\.multipeerClient) var multipeerClient
-  
+
   @ObservationIgnored
   @Dependency(\.streamingClient) var streamingClient
 
@@ -35,8 +38,9 @@ final public class RealityCheckConnectViewModel {
     guard let scene = content.root?.scene else { return }
     _scenes.updateValue(content, forKey: scene.id)
 
-    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
-    Task {
+    self.debouncedUpdateContentTask?.cancel()
+    self.debouncedUpdateContentTask = Task {
+      try await Task.sleep(for: .seconds(500))
       await sendMultipeerData()
     }
   }
@@ -45,7 +49,6 @@ final public class RealityCheckConnectViewModel {
     guard let scene = content.root?.scene else { return }
     _scenes.updateValue(content, forKey: scene.id)
 
-    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
     Task {
       await sendMultipeerData()
     }
@@ -55,10 +58,8 @@ final public class RealityCheckConnectViewModel {
     guard let scene = content.root?.scene else { return }
     _scenes.removeValue(forKey: scene.id)
 
-    //FIXME: Implement with cancellation or debounce to avoid excessive roundtrips
     Task {
       await sendMultipeerData()
     }
   }
-
 }
