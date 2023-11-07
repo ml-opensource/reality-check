@@ -3,9 +3,7 @@ import ComposableArchitecture
 import Models
 import SwiftUI
 
-//TODO: rename to `EntitiesInspector_visionOS`
-
-struct InspectorView: View {
+struct Inspector_visionOS: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
   let viewStore: ViewStoreOf<EntitiesNavigator_visionOS>
 
@@ -151,18 +149,11 @@ struct InspectorView: View {
           }
 
           Section("􁏮 Components") {
-            // VStack(alignment: .leading) {
-
             ForEach(Array(entity.components), id: \.self) { component in
               if let reflectedDescription = component.reflectedDescription {
-                DisclosureGroup(component.description) {
-                  GroupBox {
-                    Text(reflectedDescription)
-                      .monospaced()
-                      .textSelection(.enabled)
-                      .padding(8)
-                      .frame(maxWidth: .infinity, alignment: .leading)
-                  }
+                GroupBox {
+                  Text(reflectedDescription)
+                    .padding(8)
                 }
                 .help(component.comment ?? "")
               }
@@ -170,7 +161,7 @@ struct InspectorView: View {
           }
         }
       }
-      // }
+      .textSelection(.enabled)
     }
   }
 }

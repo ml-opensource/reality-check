@@ -3,7 +3,7 @@ import Foundation
 import Models
 import RealityCodable
 
-extension RealityPlatform.visionOS.Entity {
+extension RealityPlatform.iOS.Entity {
   //FIXME: remove and use reality-codable existent properties
   public var computedName: String {
     if let name = self.name, !name.isEmpty {
@@ -14,7 +14,7 @@ extension RealityPlatform.visionOS.Entity {
   }
 }
 
-extension RealityPlatform.visionOS.Entity {
+extension RealityPlatform.iOS.Entity {
   public var systemImage: String {
     switch "\(type(of: self))" {
       case "AnchorEntity":
@@ -33,17 +33,17 @@ extension RealityPlatform.visionOS.Entity {
   }
 }
 
-public struct EntitiesNavigator_visionOS: Reducer {
+public struct EntitiesNavigator_iOS: Reducer {
   public struct State: Equatable {
-    public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
+    public var entities: IdentifiedArrayOf<RealityPlatform.iOS.Entity>
 
     @BindingState public var dumpOutput: String
-    @BindingState public var selection: RealityPlatform.visionOS.Entity.ID?
+    @BindingState public var selection: RealityPlatform.iOS.Entity.ID?
 
-    public var selectedEntity: RealityPlatform.visionOS.Entity? {
+    public var selectedEntity: RealityPlatform.iOS.Entity? {
       guard let selection else { return nil }
       for rootEntity in entities {
-        if let entity = RealityPlatform.visionOS.Scene.findEntity(id: selection, root: rootEntity) {
+        if let entity = RealityPlatform.iOS.Scene.findEntity(id: selection, root: rootEntity) {
           return entity
         }
       }
@@ -51,8 +51,8 @@ public struct EntitiesNavigator_visionOS: Reducer {
     }
 
     public init(
-      _ entities: [RealityPlatform.visionOS.Entity],
-      selection: RealityPlatform.visionOS.Entity.ID? = nil
+      _ entities: [RealityPlatform.iOS.Entity],
+      selection: RealityPlatform.iOS.Entity.ID? = nil
     ) {
       self.entities = .init(uniqueElements: entities)
       self.selection = selection ?? self.entities.first?.id
@@ -64,12 +64,12 @@ public struct EntitiesNavigator_visionOS: Reducer {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
-    case refreshEntities([RealityPlatform.visionOS.Entity])
+    case refreshEntities([RealityPlatform.iOS.Entity])
   }
 
   public enum DelegateAction: Equatable {
     case didToggleSelectSection
-    case didSelectEntity(RealityPlatform.visionOS.Entity.ID)
+    case didSelectEntity(RealityPlatform.iOS.Entity.ID)
   }
 
   public var body: some Reducer<State, Action> {

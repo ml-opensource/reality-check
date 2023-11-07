@@ -39,6 +39,7 @@ struct NavigatorView: View {
           }
         }
       )
+      
     }
   }
 }

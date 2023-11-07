@@ -6,10 +6,8 @@ import RealityCodable
 import RealityDump
 
 //MARK: - Multipeer
-//FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
   func startMultipeerSession() async {
-    @Dependency(\.multipeerClient) var multipeerClient
 
     /// Setup
     for await action in await multipeerClient.start(
@@ -56,9 +54,6 @@ extension RealityCheckConnectViewModel {
   }
 
   func sendMultipeerData() async {
-    @Dependency(\.multipeerClient) var multipeerClient
-
-    print(scenes.map(\.key))
     guard case .connected = connectionState else { return }
     var rootEntities: [RealityPlatform.visionOS.EntityType] = []
 
@@ -79,15 +74,13 @@ extension RealityCheckConnectViewModel {
   }
 
   fileprivate func sendSelectedEntityMultipeerRawData() async {
-    @Dependency(\.multipeerClient) var multipeerClient
-
     guard let selectedEntityID else { return }
 
     for scene in scenes.values {
       guard let root = scene.root else { return }
 
       //FIXME: seems to be a new find by ID method in visionOS
-      if let selectedEntity = findEntity(root: root, targetID: selectedEntityID) {
+      if let selectedEntity = await root.findEntity(id: selectedEntityID) {
         let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
         multipeerClient.send(rawData)
       }

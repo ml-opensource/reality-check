@@ -58,7 +58,7 @@ struct MainView: View {
                     action: AppCore.Action.entitiesNavigator
                   )
                 ) {
-                  InspectorView($0)
+                  Inspector_visionOS($0)
                     .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
                     .interactiveDismissDisabled()
                 }
@@ -73,7 +73,7 @@ struct MainView: View {
                     action: AppCore.Action.entitiesNavigator
                   )
                 ) {
-                  InspectorView($0)
+                  Inspector_visionOS($0)
                     .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
                     .interactiveDismissDisabled()
                 }
@@ -97,7 +97,7 @@ struct TripleLayoutView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationSplitView {
-        NavigatorView(store: store).listStyle(.sidebar)
+        NavigatorView(store: store)
       } detail: {
         SplitViewReader { proxy in
           SplitView(axis: .vertical) {
@@ -125,7 +125,7 @@ struct TripleLayoutView: View {
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
               if !viewStore.isConsoleDetached {
-                StatusBarView(
+                ConsoleStatusBar(
                   proxy: proxy,
                   collapsed: viewStore.binding(
                     get: { !$0.isConsolePresented },

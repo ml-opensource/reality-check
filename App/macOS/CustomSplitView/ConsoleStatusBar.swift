@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct StatusBarView: View {
+struct ConsoleStatusBar: View {
   @Environment(\.controlActiveState) private var controlActive
 
   static let height = 27.0

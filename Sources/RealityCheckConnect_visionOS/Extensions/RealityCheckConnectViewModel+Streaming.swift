@@ -3,12 +3,8 @@ import Foundation
 import StreamingClient
 
 //MARK: - Video streaming
-//FIXME: "Extensions must not contain stored properties" error for @Dependency
 extension RealityCheckConnectViewModel {
   public func startVideoStreaming() async {
-    @Dependency(\.multipeerClient) var multipeerClient
-    @Dependency(\.streamingClient) var streamingClient
-
     await MainActor.run {
       isStreaming = true
     }
@@ -19,8 +15,6 @@ extension RealityCheckConnectViewModel {
   }
 
   func stopVideoStreaming() async {
-    @Dependency(\.streamingClient) var streamingClient
-
     await MainActor.run {
       isStreaming = false
     }

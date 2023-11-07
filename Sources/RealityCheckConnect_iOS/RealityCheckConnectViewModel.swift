@@ -1,18 +1,17 @@
 import Dependencies
 import Models
 import MultipeerClient
-import RealityDumpClient
+import RealityDump
 import RealityKit
 import StreamingClient
 import SwiftUI
 
 final class RealityCheckConnectViewModel: ObservableObject {
-  @Published var connectionState: MultipeerClient.SessionState
-  @Published var hostName: String
-  @Published var isStreaming = false
+  var connectionState: MultipeerClient.SessionState
+  var hostName: String
+  var isStreaming = false
 
   @Dependency(\.multipeerClient) var multipeerClient
-  @Dependency(\.realityDump) var realityDump
   @Dependency(\.streamingClient) var streamingClient
 
   var arView: ARView?
@@ -70,24 +69,25 @@ extension RealityCheckConnectViewModel {
                   )
                 }
               }
-              //MARK: Entity selection
-              else if let entitySelection = try? defaultDecoder.decode(
-                EntitySelection.self,
-                from: data
-              ) {
-                if let entity = await arView?
-                  .findEntityIdentified(targetID: entitySelection.entityID)
-                {
-                  await MainActor.run {
-                    let parentBounds = entity.visualBounds(relativeTo: nil)
-                    selectionEntity.setParent(entity)
-                    // selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
-                    // selectionEntity.position.y = parentBounds.extents.y
-                  }
-                }
-              } else {
-                fatalError()
-              }
+          //MARK: Entity selection
+          //FIXME:
+          // else if let entitySelection = try? defaultDecoder.decode(
+          //   EntitySelection.self,
+          //   from: data
+          // ) {
+          //   if let entity = await arView?
+          //     .findEntityIdentified(targetID: entitySelection.entityID)
+          //   {
+          //     await MainActor.run {
+          //       let parentBounds = entity.visualBounds(relativeTo: nil)
+          //       selectionEntity.setParent(entity)
+          //       // selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
+          //       // selectionEntity.position.y = parentBounds.extents.y
+          //     }
+          //   }
+          // } else {
+          //   fatalError()
+          // }
           }
 
         case .browser(_):

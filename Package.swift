@@ -15,10 +15,6 @@ let package = Package(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
     ),
-    .library(
-      name: "RealitySymbols",
-      targets: ["RealitySymbols"]
-    ),
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
@@ -96,6 +92,8 @@ let package = Package(
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
         // .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
+        "RealityCodable",
+        "RealityDump",
         "Models",
         "MultipeerClient",
         "StreamingClient",

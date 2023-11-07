@@ -1,3 +1,4 @@
+import Dependencies
 import Foundation
 import Models
 import MultipeerClient
@@ -11,6 +12,12 @@ final public class RealityCheckConnectViewModel {
   var hostName: String
   var isStreaming = false
   var selectedEntityID: UInt64?
+
+  @ObservationIgnored
+  @Dependency(\.multipeerClient) var multipeerClient
+  
+  @ObservationIgnored
+  @Dependency(\.streamingClient) var streamingClient
 
   public init(
     connectionState: MultipeerClient.SessionState = .notConnected,
@@ -43,7 +50,7 @@ final public class RealityCheckConnectViewModel {
       await sendMultipeerData()
     }
   }
-  
+
   func removeScene(_ content: RealityViewContent) {
     guard let scene = content.root?.scene else { return }
     _scenes.removeValue(forKey: scene.id)

@@ -152,7 +152,8 @@ extension RealityPlatform.iOS {
         public var comment: String?
         public var reflectedDescription: String
         #if os(iOS)
-        init(rawValue component: RealityKit.AccessibilityComponent) {
+      @available(iOS 17.0, *)
+      init(rawValue component: RealityKit.AccessibilityComponent) {
             //TODO: self.customContent = component.customContent
             //TODO: self.isAccessibilityElement = component.isAccessibilityElement
             //TODO: self.label = component.label
@@ -421,7 +422,8 @@ extension RealityPlatform.iOS {
 }
 #if os(iOS)
 extension RealityPlatform.iOS.ComponentType {
-    func makeCodable(from component: RealityKit.Component) -> RealityPlatform.iOS.Component {
+  @available(iOS 17.0, *)
+  func makeCodable(from component: RealityKit.Component) -> RealityPlatform.iOS.Component {
         switch self {
         case .accessibilityComponent:
           return .accessibilityComponent(.init(rawValue: component as! AccessibilityComponent))
