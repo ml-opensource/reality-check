@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Foundation
 import Models
 import RealityCodable
+import SwiftUI
 
 extension RealityPlatform.visionOS.Entity {
   //FIXME: remove and use reality-codable existent properties
@@ -103,6 +104,52 @@ public struct EntitiesNavigator_visionOS: Reducer {
           state.selection = nil
           return .send(.binding(.set(\.$selection, previousSelection)))
       }
+    }
+  }
+}
+
+//MARK: - View
+
+extension RealityPlatform.visionOS.Entity {
+  public var childrenOptional: [RealityPlatform.visionOS.Entity]? {
+    children.isEmpty ? nil : children.map(\.value)
+  }
+}
+
+public struct EntitiesNavigatorView_visionOS: View {
+  let store: StoreOf<EntitiesNavigator_visionOS>
+  @State private var searchText: String = ""
+
+  public init(store: StoreOf<EntitiesNavigator_visionOS>) {
+    self.store = store
+  }
+
+  public var body: some View {
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      List(selection: viewStore.$selection) {
+        Section(header: Text("Entities")) {
+          OutlineGroup(
+            viewStore.entities.elements,
+            children: \.childrenOptional
+          ) { entity in
+            let isUnnamed = entity.name?.isEmpty ?? true
+
+            Label(
+              entity.computedName,
+              systemImage: entity.parentID == nil
+                ? "uiwindow.split.2x1"
+                : entity.systemImage
+            )
+            .italic(isUnnamed)
+
+            // FIXME: .help(entity.entityType.help)
+            // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+            // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+          }
+        }
+        .collapsible(false)
+      }
+      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }
 }

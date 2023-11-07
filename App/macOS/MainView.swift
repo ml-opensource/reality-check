@@ -58,12 +58,11 @@ struct MainView: View {
                 IfLetStore(
                   self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
                   state: /EntitiesNavigator.State.visionOS,
-                  action: EntitiesNavigator.Action.visionOS
-                ) {
-                  Inspector_visionOS($0)
-                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                    .interactiveDismissDisabled()
-                }
+                  action: EntitiesNavigator.Action.visionOS,
+                  then: Inspector_visionOS.init
+                )
+                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                .interactiveDismissDisabled()
               }
 
           case .triple:
@@ -74,12 +73,11 @@ struct MainView: View {
                 IfLetStore(
                   self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
                   state: /EntitiesNavigator.State.visionOS,
-                  action: EntitiesNavigator.Action.visionOS
-                ) {
-                  Inspector_visionOS($0)
-                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                    .interactiveDismissDisabled()
-                }
+                  action: EntitiesNavigator.Action.visionOS,
+                  then: Inspector_visionOS.init
+                )
+                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                .interactiveDismissDisabled()
               }
         }
       }

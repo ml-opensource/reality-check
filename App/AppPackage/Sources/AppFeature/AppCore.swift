@@ -113,20 +113,18 @@ public struct AppCore: Reducer {
             case .some(.iOS):
               return .send(.entitiesNavigator(.presented(.iOS(.dumpOutput(dump)))))
             case .some(.visionOS):
-              print(">>>>:", dump)
               return .send(.entitiesNavigator(.presented(.visionOS(.dumpOutput(dump)))))
             case .none:
               return .none
           }
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
-          //FIXME:
-          // state.arViewSection = .init(arView: decodedARView)
-          // if state.entitiesSection == nil {
-          //   state.entitiesSection = .init(decodedARView.scene.anchors)
-          // }
-          //return .send(.entitiesNavigator(.presented(.iOS(.refreshEntities(decodedARView.scene.anchors)))))
-          return .none
+          let entities = decodedARView.scene.anchors.map(\.value)
+          if state.entitiesNavigator == nil {
+            state.entitiesNavigator = .iOS(.init(entities))
+          }
+          state.isInspectorDisplayed = true
+          return .send(.entitiesNavigator(.presented(.iOS(.refreshEntities(entities)))))
 
         case .multipeerConnection(.delegate(.receivedDecodedScene(let decodedScene))):
           let entities = decodedScene.children.map(\.value)

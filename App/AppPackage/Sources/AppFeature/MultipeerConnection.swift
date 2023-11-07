@@ -170,7 +170,7 @@ extension MultipeerConnection {
     }
 
     // MARK: RealityViewContent Root
-
+    // TODO: remove. This case should not happen as RealityViewContent should be wrapped on Scenes
     // else if let decodedRealityViewContent = try? defaultDecoder.decode(
     //   RealityPlatform.visionOS.Entity.self,
     //   from: data

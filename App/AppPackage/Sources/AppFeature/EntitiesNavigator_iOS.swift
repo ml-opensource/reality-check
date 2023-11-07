@@ -2,6 +2,8 @@ import ComposableArchitecture
 import Foundation
 import Models
 import RealityCodable
+//MARK: - View
+import SwiftUI
 
 extension RealityPlatform.iOS.Entity {
   //FIXME: remove and use reality-codable existent properties
@@ -103,6 +105,61 @@ public struct EntitiesNavigator_iOS: Reducer {
           state.selection = nil
           return .send(.binding(.set(\.$selection, previousSelection)))
       }
+    }
+  }
+}
+
+extension RealityPlatform.iOS.Entity {
+  public var childrenOptional: [RealityPlatform.iOS.Entity]? {
+    children.isEmpty ? nil : children.map(\.value)
+  }
+}
+
+public struct EntitiesNavigatorView_iOS: View {
+  let store: StoreOf<EntitiesNavigator_iOS>
+  @State private var searchText: String = ""
+
+  public init(store: StoreOf<EntitiesNavigator_iOS>) {
+    self.store = store
+  }
+
+  public var body: some View {
+    //MARK: ARView & Scenes
+
+    //FIXME: restore
+    // IfLetStore(
+    //   self.store.scope(
+    //     state: \.arViewSection,
+    //     action: AppCore.Action.arViewSection
+    //   ),
+    //   then: ARViewSectionView.init(store:)
+    // )
+
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      List(selection: viewStore.$selection) {
+        Section(header: Text("Entities")) {
+          OutlineGroup(
+            viewStore.entities.elements,
+            children: \.childrenOptional
+          ) { entity in
+            let isUnnamed = entity.name?.isEmpty ?? true
+
+            Label(
+              entity.computedName,
+              systemImage: entity.parentID == nil
+                ? "uiwindow.split.2x1"
+                : entity.systemImage
+            )
+            .italic(isUnnamed)
+
+            // FIXME: .help(entity.entityType.help)
+            // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+            // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+          }
+        }
+        .collapsible(false)
+      }
+      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }
 }
