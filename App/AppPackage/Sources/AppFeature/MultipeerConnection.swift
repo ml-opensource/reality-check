@@ -42,10 +42,10 @@ public struct MultipeerConnection: Reducer {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case peersUpdated
     case receivedDecodedARView(CodableARView)
-    case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
+    // case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
     case receivedDecodedScene(RealityPlatform.visionOS.Scene)
     case receivedVideoFrameData(VideoFrameData)
-    case receivedRawData(String)
+    case receivedDump(String)
   }
 
   @Dependency(\.continuousClock) var clock
@@ -147,7 +147,7 @@ extension MultipeerConnection {
       String.self,
       from: data
     ) {
-      await send(.delegate(.receivedRawData(dumpData)))
+      await send(.delegate(.receivedDump(dumpData)))
     }
 
     // MARK: CodableARView
@@ -171,12 +171,12 @@ extension MultipeerConnection {
 
     // MARK: RealityViewContent Root
 
-    else if let decodedRealityViewContent = try? defaultDecoder.decode(
-      RealityPlatform.visionOS.Entity.self,
-      from: data
-    ) {
-      await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
-    }
+    // else if let decodedRealityViewContent = try? defaultDecoder.decode(
+    //   RealityPlatform.visionOS.Entity.self,
+    //   from: data
+    // ) {
+    //   await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
+    // }
 
     // MARK: - Unknown
 

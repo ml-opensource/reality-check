@@ -52,35 +52,35 @@ struct MainView: View {
         switch viewStore.layout {
           case .double:
             NavigatorView(store: store).listStyle(.sidebar)
-          //FIXME:
-          // .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-          //   IfLetStore(
-          //     store.scope(
-          //       state: \.entitiesSection,
-          //       action: AppCore.Action.entitiesNavigator
-          //     )
-          //   ) {
-          //     Inspector_visionOS($0)
-          //       .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-          //       .interactiveDismissDisabled()
-          //   }
-          // }
+              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+                //TODO: iOS inspector
+
+                IfLetStore(
+                  self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
+                  state: /EntitiesNavigator.State.visionOS,
+                  action: EntitiesNavigator.Action.visionOS
+                ) {
+                  Inspector_visionOS($0)
+                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                    .interactiveDismissDisabled()
+                }
+              }
 
           case .triple:
             TripleLayoutView(store: store)
-        //FIXME:
-        // .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-        //   IfLetStore(
-        //     store.scope(
-        //       state: \.entitiesSection,
-        //       action: AppCore.Action.entitiesNavigator
-        //     )
-        //   ) {
-        //     Inspector_visionOS($0)
-        //       .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-        //       .interactiveDismissDisabled()
-        //   }
-        // }
+              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
+                //TODO: iOS inspector
+
+                IfLetStore(
+                  self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
+                  state: /EntitiesNavigator.State.visionOS,
+                  action: EntitiesNavigator.Action.visionOS
+                ) {
+                  Inspector_visionOS($0)
+                    .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
+                    .interactiveDismissDisabled()
+                }
+              }
         }
       }
       .navigationTitle(sessionTitle)
@@ -92,8 +92,7 @@ struct MainView: View {
   }
 }
 
-@available(macOS 14.0, *)
-struct TripleLayoutView: View {
+@available(macOS 14.0, *) struct TripleLayoutView: View {
   @Environment(\.openWindow) var openWindow
   let store: StoreOf<AppCore>
 
@@ -140,17 +139,20 @@ struct TripleLayoutView: View {
             }
 
             if !viewStore.isConsoleDetached {
-              //FIXME:  TextEditor(text: .constant(viewStore.entitiesSection?.dumpOutput ?? "No dump output received..."))
-              TextEditor(text: .constant("No dump output received..."))
-                .font(.system(.body, design: .monospaced))
-                .collapsable()
-                .collapsed(
-                  viewStore.binding(
-                    get: { !$0.isConsolePresented },
-                    send: { .binding(.set(\.$isConsolePresented, !$0)) }
-                  )
+              TextEditor(
+                text: .constant(
+                  viewStore.entitiesNavigator?.dumpOutput ?? "No dump output received..."
                 )
-                .frame(minHeight: 200, maxHeight: .infinity)
+              )
+              .font(.system(.body, design: .monospaced))
+              .collapsable()
+              .collapsed(
+                viewStore.binding(
+                  get: { !$0.isConsolePresented },
+                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+                )
+              )
+              .frame(minHeight: 200, maxHeight: .infinity)
             }
           }
           .onChange(of: viewStore.isConsoleDetached) { oldValue, newValue in

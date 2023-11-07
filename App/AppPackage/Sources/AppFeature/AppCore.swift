@@ -15,7 +15,7 @@ public struct AppCore: Reducer {
   public init() {}
 
   public struct State: Equatable {
-    //FIXME:  public var arViewSection: ARViewSection.State?
+    //FIXME: public var arViewSection: ARViewSection.State?
     @PresentationState public var entitiesNavigator: EntitiesNavigator.State?
     @BindingState public var isConnectionSetupPresented: Bool
     @BindingState public var isConsoleDetached: Bool
@@ -95,9 +95,10 @@ public struct AppCore: Reducer {
         // case .entitiesNavigator(.delegate(.didToggleSelectSection)):
         //   state.isInspectorDisplayed = (state.entitiesSection?.selection != nil)
         //   return .send(.selectSection(.entities))
-        //
-        // case .entitiesNavigator(.delegate(.didSelectEntity(let entityID))):
-        //   return .send(.multipeerConnection(.sendSelection(entityID)))
+
+        case .entitiesNavigator(.presented(.visionOS(.delegate(.didSelectEntity(let entityID))))),
+          .entitiesNavigator(.presented(.iOS(.delegate(.didSelectEntity(let entityID))))):
+          return .send(.multipeerConnection(.sendSelection(entityID)))
 
         case .entitiesNavigator:
           return .none
@@ -107,18 +108,24 @@ public struct AppCore: Reducer {
           streamingClient.prepareForRender(videoFrameData)
           return .none
 
-        case .multipeerConnection(.delegate(.receivedRawData(let rawData))):
-          //FIXME:
-          // return .send(.entitiesNavigator(.dumpOutput(rawData)))
-          return .none
+        case .multipeerConnection(.delegate(.receivedDump(let dump))):
+          switch state.entitiesNavigator {
+            case .some(.iOS):
+              return .send(.entitiesNavigator(.presented(.iOS(.dumpOutput(dump)))))
+            case .some(.visionOS):
+              print(">>>>:", dump)
+              return .send(.entitiesNavigator(.presented(.visionOS(.dumpOutput(dump)))))
+            case .none:
+              return .none
+          }
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
-        //FIXME:
-        // state.arViewSection = .init(arView: decodedARView)
+          //FIXME:
+          // state.arViewSection = .init(arView: decodedARView)
           // if state.entitiesSection == nil {
           //   state.entitiesSection = .init(decodedARView.scene.anchors)
           // }
-        //return .send(.entitiesNavigator(.presented(.iOS(.refreshEntities(decodedARView.scene.anchors)))))
+          //return .send(.entitiesNavigator(.presented(.iOS(.refreshEntities(decodedARView.scene.anchors)))))
           return .none
 
         case .multipeerConnection(.delegate(.receivedDecodedScene(let decodedScene))):
@@ -126,15 +133,8 @@ public struct AppCore: Reducer {
           if state.entitiesNavigator == nil {
             state.entitiesNavigator = .visionOS(.init(entities))
           }
+          state.isInspectorDisplayed = true
           return .send(.entitiesNavigator(.presented(.visionOS(.refreshEntities(entities)))))
-
-        case .multipeerConnection(.delegate(.receivedDecodedEntities(let decodedEntities))):
-          //FIXME:
-          // if state.entitiesSection == nil {
-          //   state.entitiesSection = .init(decodedEntities)
-          // }
-          // return .send(.entitiesNavigator(.refreshEntities(decodedEntities)))
-          return .none
 
         case .multipeerConnection(.delegate(.peersUpdated)):
           /// Display Connection Setup dialog when not connected to any peer but theres at least one available

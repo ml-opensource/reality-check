@@ -22,3 +22,15 @@ public struct EntitiesNavigator: Reducer {
     }
   }
 }
+
+extension EntitiesNavigator.State {
+  public var dumpOutput: String {
+    switch self {
+      case .iOS(let state):
+        return state.dumpOutput
+
+      case .visionOS(let state):
+        return state.dumpOutput
+    }
+  }
+}
