@@ -14,7 +14,7 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    ),
+    )
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.0"),
@@ -22,8 +22,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.1"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
-    // TODO: remove completely
-    // .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
+    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
 
   ],
   targets: [
@@ -91,7 +90,7 @@ let package = Package(
       name: "RealityCheckConnect_iOS",
       dependencies: [
         .product(name: "Dependencies", package: "swift-dependencies"),
-        // .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
+        .product(name: "DeviceKit", package: "DeviceKit", condition: .when(platforms: [.iOS])),
         "RealityCodable",
         "RealityDump",
         "Models",

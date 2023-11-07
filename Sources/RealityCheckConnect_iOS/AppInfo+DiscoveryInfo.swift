@@ -1,4 +1,4 @@
-//import DeviceKit
+import DeviceKit
 import Foundation
 import MultipeerClient
 

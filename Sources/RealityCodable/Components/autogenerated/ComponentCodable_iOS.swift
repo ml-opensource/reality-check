@@ -422,11 +422,14 @@ extension RealityPlatform.iOS {
 }
 #if os(iOS)
 extension RealityPlatform.iOS.ComponentType {
-  @available(iOS 17.0, *)
   func makeCodable(from component: RealityKit.Component) -> RealityPlatform.iOS.Component {
         switch self {
         case .accessibilityComponent:
-          return .accessibilityComponent(.init(rawValue: component as! AccessibilityComponent))
+          if #available(iOS 17.0, *) {
+            return .accessibilityComponent(.init(rawValue: component as! AccessibilityComponent))
+          } else {
+            fatalError()
+          }
         case .anchoringComponent:
           return .anchoringComponent(.init(rawValue: component as! AnchoringComponent))
         case .bodyTrackingComponent:

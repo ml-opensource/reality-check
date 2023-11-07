@@ -1,6 +1,7 @@
 import Dependencies
 import Models
 import MultipeerClient
+import RealityCodable
 import RealityDump
 import RealityKit
 import StreamingClient
@@ -96,11 +97,8 @@ extension RealityCheckConnectViewModel {
         case .advertiser(let advertiserAction):
           switch advertiserAction {
             case .didReceiveInvitationFromPeer(let peer):
-              multipeerClient.acceptInvitation()
-              multipeerClient.stopAdvertisingPeer()
-              await MainActor.run {
-                hostName = peer.displayName
-              }
+              await multipeerClient.acceptInvitation()
+              hostName = peer.displayName
           }
       }
     }
@@ -113,11 +111,11 @@ extension RealityCheckConnectViewModel {
     }
 
     let anchors = await arView.scene.anchors.compactMap { $0 }
-    var identifiableAnchors: [CodableEntity] = []
+    var anchorsEncoded: [RealityPlatform.iOS.EntityType] = []
     var rawDump: [String] = []
     for anchor in anchors {
-      rawDump.append(String(customDumping: anchor))
-      identifiableAnchors.append(await realityDump.identify(anchor))
+     //FIXME: rawDump.append(String(customDumping: anchor))
+      anchorsEncoded.append(await anchor.encoded)
     }
 
     let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
@@ -126,7 +124,7 @@ extension RealityCheckConnectViewModel {
     let arViewData = try! await defaultEncoder.encode(
       CodableARView(
         arView,
-        anchors: identifiableAnchors,
+        anchors: anchorsEncoded,
         contentScaleFactor: arView.contentScaleFactor
       )
     )

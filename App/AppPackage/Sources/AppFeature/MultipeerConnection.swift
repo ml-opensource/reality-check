@@ -41,7 +41,7 @@ public struct MultipeerConnection: Reducer {
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case peersUpdated
-    // case receivedDecodedARView(CodableARView)
+    case receivedDecodedARView(CodableARView)
     case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
     case receivedDecodedScene(RealityPlatform.visionOS.Scene)
     case receivedVideoFrameData(VideoFrameData)
@@ -54,79 +54,79 @@ public struct MultipeerConnection: Reducer {
   public var body: some Reducer<State, Action> {
     Reduce<State, Action> { state, action in
       switch action {
-      case .delegate(_):
-        return .none
+        case .delegate(_):
+          return .none
 
-      case .invite(let peer):
-        return .run { _ in
-          await multipeerClient.invitePeer(peer)
-        }
+        case .invite(let peer):
+          return .run { _ in
+            await multipeerClient.invitePeer(peer)
+          }
 
-      case .sendDebugOptions(let options):
-        do {
-          let data = try JSONEncoder().encode(options)
-          multipeerClient.send(data)
-        } catch {
-          fatalError("Failed to encode debug options while sending them.")
-        }
-        return .none
+        case .sendDebugOptions(let options):
+          do {
+            let data = try JSONEncoder().encode(options)
+            multipeerClient.send(data)
+          } catch {
+            fatalError("Failed to encode debug options while sending them.")
+          }
+          return .none
 
-      case .sendSelection(let entityID):
-        do {
-          let entitySelection = EntitySelection(entityID)
-          let data = try JSONEncoder().encode(entitySelection)
-          multipeerClient.send(data)
-        } catch {
-          fatalError("Failed to encode selection while sending them.")
-        }
-        return .none
+        case .sendSelection(let entityID):
+          do {
+            let entitySelection = EntitySelection(entityID)
+            let data = try JSONEncoder().encode(entitySelection)
+            multipeerClient.send(data)
+          } catch {
+            fatalError("Failed to encode selection while sending them.")
+          }
+          return .none
 
-      case .start:
-        guard state.connectedPeer == nil else { return .none }
-        return .run(priority: .userInitiated) { send in
-          for await action in await multipeerClient.start(
-            serviceName: "reality-check",
-            sessionType: .host
-          ) {
-            switch action {
-            case .session(let sessionAction):
-              switch sessionAction {
-              case .stateDidChange(let sessionState):
-                await send(.updateSessionState(sessionState))
+        case .start:
+          guard state.connectedPeer == nil else { return .none }
+          return .run(priority: .userInitiated) { send in
+            for await action in await multipeerClient.start(
+              serviceName: "reality-check",
+              sessionType: .host
+            ) {
+              switch action {
+                case .session(let sessionAction):
+                  switch sessionAction {
+                    case .stateDidChange(let sessionState):
+                      await send(.updateSessionState(sessionState))
 
-              case .didReceiveData(let data):
-                guard !data.isEmpty else { return }
-                await self.decodeReceivedData(data, send: send)
+                    case .didReceiveData(let data):
+                      guard !data.isEmpty else { return }
+                      await self.decodeReceivedData(data, send: send)
+                  }
+
+                case .browser(let browserAction):
+                  switch browserAction {
+                    case .peersUpdated(let peers):
+                      await send(.updatePeers(peers))
+                      await send(.delegate(.peersUpdated))
+                  }
+
+                case .advertiser(_):
+                  return
               }
-
-            case .browser(let browserAction):
-              switch browserAction {
-              case .peersUpdated(let peers):
-                await send(.updatePeers(peers))
-                await send(.delegate(.peersUpdated))
-              }
-
-            case .advertiser(_):
-              return
             }
           }
-        }
 
-      case .updatePeers(let peers):
-        state.peers = peers
-        return .none
+        case .updatePeers(let peers):
+          state.peers = peers
+          return .none
 
-      case .updateSessionState(let sessionState):
-        state.sessionState = sessionState
-        switch sessionState {
-        case .notConnected:
-          state.connectedPeer = nil
-        case .connecting(_):
-          break
-        case .connected(let peer):
-          state.connectedPeer = .init(peer: peer, discoveryInfo: state.peers[peer])
-        }
-        return .send(.delegate(.didUpdateSessionState(sessionState)))
+        case .updateSessionState(let sessionState):
+          state.sessionState = sessionState
+          switch sessionState {
+            case .notConnected:
+              state.connectedPeer = nil
+            case .connecting(_):
+              break
+            case .connected(let peer):
+              state.connectedPeer = .init(peer: peer, discoveryInfo: state.peers[peer])
+          }
+          return .send(.delegate(.didUpdateSessionState(sessionState)))
       }
     }
   }
@@ -152,12 +152,12 @@ extension MultipeerConnection {
 
     // MARK: CodableARView
 
-    // else if let decodedARView = try? defaultDecoder.decode(
-    //   CodableARView.self,
-    //   from: data
-    // ) {
-    //   await send(.delegate(.receivedDecodedARView(decodedARView)))
-    // }
+    else if let decodedARView = try? defaultDecoder.decode(
+      CodableARView.self,
+      from: data
+    ) {
+      await send(.delegate(.receivedDecodedARView(decodedARView)))
+    }
 
     // MARK: RealityViewContent Scene
 

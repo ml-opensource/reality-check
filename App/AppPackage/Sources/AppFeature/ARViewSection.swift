@@ -5,7 +5,6 @@ import RealityCodable
 import RealityKit
 import SwiftUI
 
-/* FIXME:
 public struct ARViewSection: Reducer {
   public struct State: Equatable {
     public var arView: CodableARView
@@ -70,7 +69,6 @@ public struct ARViewSection: Reducer {
     }
   }
 }
- */
 
 public struct DebugOptions: Reducer {
   public struct State: Equatable {
