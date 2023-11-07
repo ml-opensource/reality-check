@@ -10,24 +10,28 @@ public struct CodableARView: Codable, Equatable {
   //MARK: Working with the Scene
   public let scene: RealityPlatform.iOS.Scene
 
-  //MARK: Debugging the Session
-  ///The current debugging options.
-  public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
+  #if os(iOS)
+    //MARK: Debugging the Session
+    ///The current debugging options.
+    public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
+  #endif
 
   /// #Managing the View
 
   // The scale factor of the content in the view.
   public let contentScaleFactor: CGFloat
 
-  public init(
-    _ arView: RealityKit.ARView,
-    anchors: [RealityPlatform.iOS.EntityType],
-    contentScaleFactor: CGFloat
-  ) {
-    self.scene = .init(anchors: anchors)
-    self.debugOptionsRawValue = arView.debugOptions.rawValue
-    self.contentScaleFactor = contentScaleFactor
-  }
+  #if os(iOS)
+    public init(
+      _ arView: RealityKit.ARView,
+      anchors: [RealityPlatform.iOS.EntityType],
+      contentScaleFactor: CGFloat
+    ) {
+      self.scene = .init(anchors: anchors)
+      self.debugOptionsRawValue = arView.debugOptions.rawValue
+      self.contentScaleFactor = contentScaleFactor
+    }
+  #endif
 }
 
 /*

@@ -97,8 +97,8 @@ struct PeerConnectView: View {
             .fontWeight(.thin)
             .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
 
-          VStack {
-            HStack {
+          VStack(alignment: .leading) {
+            HStack(alignment: .bottom) {
               if let appName = discoveryInfo?.appName {
                 Text(appName)
                   .font(.headline)
@@ -112,7 +112,7 @@ struct PeerConnectView: View {
             }
 
             GroupBox {
-              HStack {
+              HStack(alignment: .bottom) {
                 if let device = discoveryInfo?.device {
                   Label.init(
                     device,

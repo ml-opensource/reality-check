@@ -19,10 +19,7 @@ extension RealityCheckConnectViewModel {
         case .session(let sessionAction):
           switch sessionAction {
             case .stateDidChange(let state):
-              //TODO: Evaluate the impact of not running explicitly on the `MainActor`
-              await MainActor.run {
-                connectionState = state
-              }
+              connectionState = state
 
               if case .connected = state {
                 /// Send Hierarchy on connect

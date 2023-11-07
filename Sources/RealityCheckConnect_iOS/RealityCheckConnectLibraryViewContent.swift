@@ -5,7 +5,7 @@ import SwiftUI
 ///
 /// The `RealityCheckConnectLibraryViewContent` struct is used to register the `RealityCheckConnectView` as a library item, allowing developers to easily access and use it from the Xcode library panel. It provides a convenient way to add the `RealityCheckConnectView` to their SwiftUI projects via drag and drop .
 ///
-#if os(iOS) && !os(xrOS)
+#if os(iOS)
   public struct RealityCheckConnectLibraryViewContent: LibraryContentProvider {
 
     @LibraryContentBuilder
