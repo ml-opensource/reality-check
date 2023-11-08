@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4012159E2A1EC6DE00D98058 /* robot_walk_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4012159D2A1EC6DE00D98058 /* robot_walk_idle.usdz */; };
 		401215A02A1ED0F400D98058 /* toy_car.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 4012159F2A1ED0F400D98058 /* toy_car.usdz */; };
+		40380AC12AFC03E60052C7CF /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40380AC02AFC03E60052C7CF /* RealityCheckConnect */; };
 		409B76602A177129001B28E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B765F2A177129001B28E1 /* AppDelegate.swift */; };
 		409B76622A177129001B28E1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409B76612A177129001B28E1 /* ContentView.swift */; };
 		409B76642A177129001B28E1 /* Experience.rcproject in Sources */ = {isa = PBXBuildFile; fileRef = 409B76632A177129001B28E1 /* Experience.rcproject */; };
@@ -37,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40380AC12AFC03E60052C7CF /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +120,7 @@
 			);
 			name = Testbed;
 			packageProductDependencies = (
+				40380AC02AFC03E60052C7CF /* RealityCheckConnect */,
 			);
 			productName = Testbed;
 			productReference = 409B765C2A177129001B28E1 /* Testbed.app */;
@@ -387,6 +390,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40380AC02AFC03E60052C7CF /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 409B76542A177129001B28E1 /* Project object */;
 }

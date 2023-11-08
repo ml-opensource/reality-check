@@ -6,32 +6,34 @@ import RealityKit
   extension RealityKit.ARView.DebugOptions: Codable {}
 #endif
 
-public struct CodableARView: Codable, Equatable {
-  //MARK: Working with the Scene
-  public let scene: RealityPlatform.iOS.Scene
+extension RealityPlatform.iOS {
+  public struct ARView: Codable, Equatable {
+    //MARK: Working with the Scene
+    public let scene: RealityPlatform.iOS.Scene
 
-  #if os(iOS) || os(macOS)
-    //MARK: Debugging the Session
-    ///The current debugging options.
-    public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
-  #endif
+    #if os(iOS) || os(macOS)
+      //MARK: Debugging the Session
+      ///The current debugging options.
+      public let debugOptionsRawValue: RealityKit.ARView.DebugOptions.RawValue
+    #endif
 
-  /// #Managing the View
+    /// #Managing the View
 
-  // The scale factor of the content in the view.
-  public let contentScaleFactor: CGFloat
+    // The scale factor of the content in the view.
+    public let contentScaleFactor: CGFloat
 
-  #if os(iOS)
-    public init(
-      _ arView: RealityKit.ARView,
-      anchors: [RealityPlatform.iOS.EntityType],
-      contentScaleFactor: CGFloat
-    ) {
-      self.scene = .init(anchors: anchors)
-      self.debugOptionsRawValue = arView.debugOptions.rawValue
-      self.contentScaleFactor = contentScaleFactor
-    }
-  #endif
+    #if os(iOS)
+      public init(
+        _ arView: RealityKit.ARView,
+        anchors: [RealityPlatform.iOS.EntityType],
+        contentScaleFactor: CGFloat
+      ) {
+        self.scene = .init(anchors: anchors)
+        self.debugOptionsRawValue = arView.debugOptions.rawValue
+        self.contentScaleFactor = contentScaleFactor
+      }
+    #endif
+  }
 }
 
 /*

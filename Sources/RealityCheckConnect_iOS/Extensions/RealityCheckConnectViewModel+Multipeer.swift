@@ -87,7 +87,7 @@ extension RealityCheckConnectViewModel {
     multipeerClient.send(rawData)
 
     let arViewData = try! await defaultEncoder.encode(
-      CodableARView(
+      RealityPlatform.iOS.ARView(
         arView,
         anchors: anchorsEncoded,
         contentScaleFactor: arView.contentScaleFactor

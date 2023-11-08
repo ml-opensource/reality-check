@@ -32,14 +32,6 @@ struct Inspector_visionOS: View {
               "id:",
               value: entity.id.description
             )
-
-            //FIXME:
-            // if let anchorIdentifier = entity.anchorIdentifier {
-            //   LabeledContent(
-            //     "anchorIdentifier",
-            //     value: anchorIdentifier.uuidString
-            //   )
-            // }
           }
         }
         .padding()

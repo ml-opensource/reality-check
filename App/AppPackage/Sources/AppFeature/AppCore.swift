@@ -35,7 +35,7 @@ public struct AppCore: Reducer {
       isConsolePresented: Bool = false,
       isInspectorDisplayed: Bool = false,
       isStreaming: Bool = false,
-      layout: Layout = .triple,
+      layout: Layout = .double,
       multipeerConnection: MultipeerConnection.State = .init(),
       selectedSection: Section = .entities,
       viewPortSize: CGSize = .zero

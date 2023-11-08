@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40380ABD2AFC03C20052C7CF /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40380ABC2AFC03C20052C7CF /* RealityCheckConnect */; };
 		409C79E22A41A95300A1B710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409C79E12A41A95300A1B710 /* AppDelegate.swift */; };
 		409C79E42A41A95300A1B710 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409C79E32A41A95300A1B710 /* ContentView.swift */; };
 		409C79E62A41A95300A1B710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 409C79E52A41A95300A1B710 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40C117342A41C8D8009338B5 /* MyLibrary in Frameworks */,
+				40380ABD2AFC03C20052C7CF /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +109,7 @@
 			name = IntricateSetup;
 			packageProductDependencies = (
 				40C117332A41C8D8009338B5 /* MyLibrary */,
+				40380ABC2AFC03C20052C7CF /* RealityCheckConnect */,
 			);
 			productName = IntricateSetup;
 			productReference = 409C79DE2A41A95300A1B710 /* IntricateSetup.app */;
@@ -377,6 +380,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		40380ABC2AFC03C20052C7CF /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
 		40C117332A41C8D8009338B5 /* MyLibrary */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MyLibrary;

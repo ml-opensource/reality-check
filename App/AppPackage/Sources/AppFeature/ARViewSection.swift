@@ -7,13 +7,13 @@ import SwiftUI
 
 public struct ARViewSection: Reducer {
   public struct State: Equatable {
-    public var arView: CodableARView
+    public var arView: RealityPlatform.iOS.ARView
     public var debugOptions: DebugOptions.State
     @BindingState public var isDebugOptionsDisplayed: Bool
     public var isSelected: Bool = false
 
     public init(
-      arView: CodableARView,
+      arView: RealityPlatform.iOS.ARView,
       isDebugOptionsDisplayed: Bool = false,
       isSelected: Bool = false
     ) {
@@ -49,9 +49,9 @@ public struct ARViewSection: Reducer {
 
         case .debugOptions(.binding(_)):
           return .send(.delegate(.didUpdateDebugOptions(state.debugOptions.options)))
-        //          return .task { [state] in
-        //            .delegate(.didUpdateDebugOptions(state.debugOptions.options))
-        //          }
+        // return .task { [state] in
+        //   .delegate(.didUpdateDebugOptions(state.debugOptions.options))
+        // }
 
         case .debugOptions(_):
           return .none
@@ -62,9 +62,9 @@ public struct ARViewSection: Reducer {
         case .toggleSelection:
           state.isSelected.toggle()
           return .send(.delegate(.didToggleSelectSection))
-      //          return .task {
-      //            .delegate(.didToggleSelectSection)
-      //          }
+      // return .task {
+      //   .delegate(.didToggleSelectSection)
+      // }
       }
     }
   }

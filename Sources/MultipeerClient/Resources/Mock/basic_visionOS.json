@@ -3,30 +3,67 @@
     {
       "caseKey" : "Entity",
       "value" : {
-        "isEnabled" : true,
-        "isAnchored" : false,
-        "id" : 396104860461971679,
         "isAccessibilityElement" : false,
+        "components" : [
+          {
+            "synchronizationComponent" : {
+              "_0" : {
+                "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                "reflectedDescription" : "SynchronizationComponent(\n  identifier: 8819672326178519251,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+              }
+            }
+          },
+          {
+            "transform" : {
+              "_0" : {
+                "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)",
+                "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+              }
+            }
+          }
+        ],
+        "name" : "Window Context Entity, <UIWindow: 0x106813890>",
         "isEnabledInHierarchy" : true,
-        "isOwner" : true,
-        "name" : "Window Context Entity, <UIWindow: 0x107319970>",
+        "id" : 625455943878976601,
+        "isAnchored" : false,
         "children" : [
           {
-            "caseKey" : "Entity",
             "value" : {
-              "name" : "<UIWindow: 0x107319970>",
-              "parentID" : 396104860461971679,
-              "isAnchored" : false,
-              "isEnabled" : true,
+              "id" : 2652688449833407553,
               "isOwner" : true,
+              "isActive" : true,
+              "isAnchored" : false,
+              "components" : [
+                {
+                  "synchronizationComponent" : {
+                    "_0" : {
+                      "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                      "reflectedDescription" : "SynchronizationComponent(\n  identifier: 415179722941234113,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                    }
+                  }
+                },
+                {
+                  "transform" : {
+                    "_0" : {
+                      "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)",
+                      "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+                    }
+                  }
+                }
+              ],
+              "isEnabled" : true,
+              "isEnabledInHierarchy" : true,
+              "parentID" : 625455943878976601,
+              "isAccessibilityElement" : false,
               "children" : [
                 {
                   "value" : {
-                    "isOwner" : true,
+                    "name" : "CALayerEntity (unnamed)",
                     "components" : [
                       {
                         "synchronizationComponent" : {
                           "_0" : {
+                            "reflectedDescription" : "SynchronizationComponent(\n  identifier: 11177640951691317992,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
                             "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
                           }
                         }
@@ -34,167 +71,73 @@
                       {
                         "transform" : {
                           "_0" : {
-                            "translation" : [
-                              0,
-                              0,
-                              7.3529413e-06
-                            ],
-                            "hashValue" : 4710632673839073089,
-                            "scale" : [
-                              1,
-                              1,
-                              1
-                            ],
-                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                            "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 7.3529413e-06)\n)"
                           }
                         }
                       }
                     ],
-                    "id" : 6424204810622121815,
-                    "isAccessibilityElement" : false,
+                    "isEnabled" : true,
+                    "isEnabledInHierarchy" : true,
+                    "isAnchored" : false,
                     "children" : [
                       {
                         "value" : {
-                          "isOwner" : true,
                           "isActive" : true,
-                          "parentID" : 6424204810622121815,
-                          "id" : 14953871637022862566,
-                          "components" : [
-                            {
-                              "synchronizationComponent" : {
-                                "_0" : {
-                                  "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                }
-                              }
-                            },
-                            {
-                              "transform" : {
-                                "_0" : {
-                                  "scale" : [
-                                    1,
-                                    1,
-                                    1
-                                  ],
-                                  "translation" : [
-                                    0,
-                                    0,
-                                    0
-                                  ],
-                                  "hashValue" : 5942132917495803144,
-                                  "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
-                                }
-                              }
-                            }
-                          ],
+                          "id" : 5877514756608320991,
+                          "parentID" : 7443510986583495516,
+                          "isAnchored" : false,
+                          "isEnabled" : true,
+                          "isAccessibilityElement" : false,
                           "isEnabledInHierarchy" : true,
+                          "isOwner" : true,
                           "children" : [
                             {
+                              "caseKey" : "Entity",
                               "value" : {
-                                "id" : 12474133757461416537,
-                                "isAccessibilityElement" : false,
-                                "isAnchored" : false,
-                                "isOwner" : true,
-                                "isActive" : true,
-                                "isEnabledInHierarchy" : true,
                                 "name" : "CALayerEntity (unnamed)",
-                                "parentID" : 14953871637022862566,
                                 "isEnabled" : true,
+                                "id" : 10459600952766675065,
+                                "isAccessibilityElement" : false,
+                                "isOwner" : true,
+                                "isAnchored" : false,
+                                "isEnabledInHierarchy" : true,
                                 "components" : [
                                   {
                                     "synchronizationComponent" : {
                                       "_0" : {
-                                        "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
+                                        "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                        "reflectedDescription" : "SynchronizationComponent(\n  identifier: 14491615132901862338,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
                                       }
                                     }
                                   },
                                   {
                                     "transform" : {
                                       "_0" : {
-                                        "scale" : [
-                                          1,
-                                          1,
-                                          1
-                                        ],
-                                        "translation" : [
-                                          0,
-                                          0.048529413,
-                                          0
-                                        ],
-                                        "hashValue" : 5142664254885314616,
-                                        "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+                                        "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                        "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.048529413, 0.0)\n)"
                                       }
                                     }
                                   }
                                 ],
+                                "isActive" : true,
+                                "parentID" : 5877514756608320991,
                                 "children" : [
                                   {
-                                    "caseKey" : "Entity",
                                     "value" : {
+                                      "parentID" : 10459600952766675065,
+                                      "isEnabledInHierarchy" : true,
                                       "children" : [
                                         {
                                           "caseKey" : "Entity",
                                           "value" : {
-                                            "isAnchored" : false,
-                                            "isOwner" : true,
-                                            "name" : "",
-                                            "id" : 7319696262938252663,
-                                            "children" : [
-                                              {
-                                                "caseKey" : "Entity",
-                                                "value" : {
-                                                  "name" : "__realityCheck",
-                                                  "components" : [
-                                                    {
-                                                      "accessibilityComponent" : {
-                                                        "_0" : {
-
-                                                        }
-                                                      }
-                                                    },
-                                                    {
-                                                      "synchronizationComponent" : {
-                                                        "_0" : {
-                                                          "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                                        }
-                                                      }
-                                                    },
-                                                    {
-                                                      "transform" : {
-                                                        "_0" : {
-                                                          "scale" : [
-                                                            1,
-                                                            1,
-                                                            1
-                                                          ],
-                                                          "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                                          "translation" : [
-                                                            0,
-                                                            0,
-                                                            0
-                                                          ],
-                                                          "hashValue" : 5942132917495803144
-                                                        }
-                                                      }
-                                                    }
-                                                  ],
-                                                  "isActive" : false,
-                                                  "isAnchored" : false,
-                                                  "isEnabled" : false,
-                                                  "children" : [
-
-                                                  ],
-                                                  "parentID" : 7319696262938252663,
-                                                  "isEnabledInHierarchy" : false,
-                                                  "isAccessibilityElement" : false,
-                                                  "isOwner" : true,
-                                                  "id" : 8847307562842457037
-                                                }
-                                              }
-                                            ],
+                                            "id" : 3697062762248217325,
+                                            "isAccessibilityElement" : false,
                                             "components" : [
                                               {
                                                 "synchronizationComponent" : {
                                                   "_0" : {
+                                                    "reflectedDescription" : "SynchronizationComponent(\n  identifier: 1866226527791022553,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
                                                     "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
                                                   }
                                                 }
@@ -203,252 +146,206 @@
                                                 "transform" : {
                                                   "_0" : {
                                                     "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                                    "translation" : [
-                                                      0,
-                                                      0,
-                                                      0
-                                                    ],
-                                                    "scale" : [
-                                                      1,
-                                                      1,
-                                                      1
-                                                    ],
-                                                    "hashValue" : 5942132917495803144
+                                                    "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)"
                                                   }
                                                 }
                                               }
                                             ],
-                                            "isActive" : true,
-                                            "parentID" : 2724904844623760044,
-                                            "isEnabledInHierarchy" : true,
-                                            "isAccessibilityElement" : false,
-                                            "isEnabled" : true
-                                          }
-                                        }
-                                      ],
-                                      "isOwner" : true,
-                                      "parentID" : 12474133757461416537,
-                                      "isEnabled" : true,
-                                      "id" : 2724904844623760044,
-                                      "isAccessibilityElement" : false,
-                                      "isActive" : true,
-                                      "name" : "",
-                                      "isEnabledInHierarchy" : true,
-                                      "isAnchored" : false,
-                                      "components" : [
-                                        {
-                                          "synchronizationComponent" : {
-                                            "_0" : {
-                                              "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "transform" : {
-                                            "_0" : {
-                                              "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                              "translation" : [
-                                                0,
-                                                -0,
-                                                0
-                                              ],
-                                              "scale" : [
-                                                1,
-                                                1,
-                                                1
-                                              ],
-                                              "hashValue" : 5942132917495803144
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  }
-                                ]
-                              },
-                              "caseKey" : "Entity"
-                            },
-                            {
-                              "value" : {
-                                "isEnabled" : true,
-                                "children" : [
-                                  {
-                                    "caseKey" : "Entity",
-                                    "value" : {
-                                      "isActive" : true,
-                                      "isAnchored" : false,
-                                      "isAccessibilityElement" : false,
-                                      "isEnabled" : true,
-                                      "isEnabledInHierarchy" : true,
-                                      "components" : [
-                                        {
-                                          "synchronizationComponent" : {
-                                            "_0" : {
-                                              "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "transform" : {
-                                            "_0" : {
-                                              "scale" : [
-                                                1,
-                                                1,
-                                                1
-                                              ],
-                                              "hashValue" : -3150618110193198390,
-                                              "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                              "translation" : [
-                                                0,
-                                                -0,
-                                                0.05
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ],
-                                      "parentID" : 15123837302686923054,
-                                      "children" : [
-                                        {
-                                          "caseKey" : "Entity",
-                                          "value" : {
+                                            "isAnchored" : false,
+                                            "isEnabled" : true,
                                             "name" : "",
-                                            "isAccessibilityElement" : false,
-                                            "isEnabledInHierarchy" : true,
                                             "children" : [
                                               {
                                                 "caseKey" : "Entity",
                                                 "value" : {
+                                                  "isEnabled" : true,
+                                                  "isAnchored" : false,
+                                                  "isEnabledInHierarchy" : true,
+                                                  "parentID" : 3697062762248217325,
+                                                  "isActive" : true,
+                                                  "isOwner" : true,
+                                                  "id" : 7376662698508402451,
+                                                  "isAccessibilityElement" : false,
+                                                  "name" : "__realityCheck",
+                                                  "children" : [
+
+                                                  ],
+                                                  "components" : [
+                                                    {
+                                                      "synchronizationComponent" : {
+                                                        "_0" : {
+                                                          "reflectedDescription" : "SynchronizationComponent(\n  identifier: 8903260569145984848,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
+                                                          "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "transform" : {
+                                                        "_0" : {
+                                                          "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                                          "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)"
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            ],
+                                            "isEnabledInHierarchy" : true,
+                                            "isOwner" : true,
+                                            "isActive" : true,
+                                            "parentID" : 5397997896767545727
+                                          }
+                                        }
+                                      ],
+                                      "isOwner" : true,
+                                      "isEnabled" : true,
+                                      "id" : 5397997896767545727,
+                                      "isAccessibilityElement" : false,
+                                      "isActive" : true,
+                                      "components" : [
+                                        {
+                                          "synchronizationComponent" : {
+                                            "_0" : {
+                                              "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                              "reflectedDescription" : "SynchronizationComponent(\n  identifier: 11712099037457400875,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "transform" : {
+                                            "_0" : {
+                                              "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                              "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, -0.0, 0.0)\n)"
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "isAnchored" : false,
+                                      "name" : ""
+                                    },
+                                    "caseKey" : "Entity"
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "value" : {
+                                "id" : 5669226836718970455,
+                                "components" : [
+                                  {
+                                    "synchronizationComponent" : {
+                                      "_0" : {
+                                        "reflectedDescription" : "SynchronizationComponent(\n  identifier: 10320312322656499696,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
+                                        "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "transform" : {
+                                      "_0" : {
+                                        "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                        "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.066911764, 0.0)\n)"
+                                      }
+                                    }
+                                  }
+                                ],
+                                "isAnchored" : false,
+                                "children" : [
+                                  {
+                                    "caseKey" : "Entity",
+                                    "value" : {
+                                      "isAnchored" : false,
+                                      "isOwner" : true,
+                                      "name" : "",
+                                      "components" : [
+                                        {
+                                          "synchronizationComponent" : {
+                                            "_0" : {
+                                              "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                              "reflectedDescription" : "SynchronizationComponent(\n  identifier: 74212153570668201,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "transform" : {
+                                            "_0" : {
+                                              "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                              "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, -0.0, 0.05)\n)"
+                                            }
+                                          }
+                                        }
+                                      ],
+                                      "isEnabledInHierarchy" : true,
+                                      "isActive" : true,
+                                      "children" : [
+                                        {
+                                          "caseKey" : "Entity",
+                                          "value" : {
+                                            "parentID" : 15935698965729555273,
+                                            "isActive" : true,
+                                            "isAccessibilityElement" : false,
+                                            "isAnchored" : false,
+                                            "id" : 9006045031688735122,
+                                            "children" : [
+                                              {
+                                                "caseKey" : "Entity",
+                                                "value" : {
+                                                  "parentID" : 9006045031688735122,
+                                                  "isAnchored" : false,
+                                                  "isActive" : true,
                                                   "children" : [
                                                     {
+                                                      "caseKey" : "Entity",
                                                       "value" : {
+                                                        "id" : 13108939239287443542,
+                                                        "isAccessibilityElement" : false,
+                                                        "name" : "Root",
+                                                        "isActive" : true,
+                                                        "isEnabled" : true,
+                                                        "isOwner" : true,
+                                                        "parentID" : 3098856466011869264,
+                                                        "components" : [
+                                                          {
+                                                            "inputTargetComponent" : {
+                                                              "_0" : {
+                                                                "comment" : "A component that gives an entity the ability to receive system input.  This component should be added to an entity to inform the system that it should be treated as a target for input handling. It can be customized to require only specific forms of input like direct or indirect interactions. By default the component is configured to handle all forms of input on the system.  The hit testing shape that defines the entity's interactive entity is defined by the `CollisionComponent`. To configure an entity for input but avoid any sort of physics-related processing, add an `InputTargetComponent` and `CollisionComponent`, but disable the `CollisionComponent` for collision detection, for example:  ``` \/\/ Enable the entity for input. myEntity.components.set(InputTargetComponent())  \/\/ Create a collision component with an empty group and mask. var collision = CollisionComponent(shapes: [.generateSphere(radius: 0.1)]) collision.filter = CollisionFilter(group: [], mask: []) myEntity.components.set(collision) ```  `InputTargetComponent` behaves hierarchically, so if it is added to an entity that has descendants with `CollisionComponent`s, those shapes will be used for input handling. The `isEnabled` flag can be used to override this behavior by adding the `InputTargetComponent` to a descendant and setting `isEnabled` to false.  `InputTargetComponent`'s `allowedInputTypes` property allows the entity to only receive the provided types of input. This property also propagates down the hierarchy, but if a descendant also has an `InputTargetComponent` defined, its `allowedInputTypes` property overrides the value provided by the ancestor.",
+                                                                "reflectedDescription" : "InputTargetComponent(\n  isEnabled: true,\n  allowedInputTypes: InputTargetComponent.InputType(rawValue: 3)\n)"
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "synchronizationComponent" : {
+                                                              "_0" : {
+                                                                "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                                                "reflectedDescription" : "SynchronizationComponent(\n  identifier: 1760741789007141482,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "transform" : {
+                                                              "_0" : {
+                                                                "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                                                "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)"
+                                                              }
+                                                            }
+                                                          }
+                                                        ],
+                                                        "isEnabledInHierarchy" : true,
+                                                        "isAnchored" : false,
                                                         "children" : [
                                                           {
                                                             "caseKey" : "Entity",
                                                             "value" : {
-                                                              "name" : "Root",
-                                                              "parentID" : 9492344410533206903,
-                                                              "id" : 11609813330267572758,
-                                                              "isAnchored" : false,
-                                                              "isActive" : true,
-                                                              "children" : [
-                                                                {
-                                                                  "caseKey" : "Entity",
-                                                                  "value" : {
-                                                                    "parentID" : 11609813330267572758,
-                                                                    "children" : [
-
-                                                                    ],
-                                                                    "id" : 8501310251507954859,
-                                                                    "isEnabled" : true,
-                                                                    "isOwner" : true,
-                                                                    "name" : "GridMaterial",
-                                                                    "isAccessibilityElement" : false,
-                                                                    "isActive" : true,
-                                                                    "components" : [
-                                                                      {
-                                                                        "synchronizationComponent" : {
-                                                                          "_0" : {
-                                                                            "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "transform" : {
-                                                                          "_0" : {
-                                                                            "translation" : [
-                                                                              0,
-                                                                              0,
-                                                                              0
-                                                                            ],
-                                                                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                                                            "scale" : [
-                                                                              1,
-                                                                              1,
-                                                                              1
-                                                                            ],
-                                                                            "hashValue" : 5942132917495803144
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    ],
-                                                                    "isEnabledInHierarchy" : true,
-                                                                    "isAnchored" : false
-                                                                  }
-                                                                },
-                                                                {
-                                                                  "value" : {
-                                                                    "isOwner" : true,
-                                                                    "parentID" : 11609813330267572758,
-                                                                    "isEnabledInHierarchy" : true,
-                                                                    "id" : 11383555323284483350,
-                                                                    "isAnchored" : false,
-                                                                    "isActive" : true,
-                                                                    "components" : [
-                                                                      {
-                                                                        "collisionComponent" : {
-                                                                          "_0" : {
-                                                                            "comment" : "A component that gives an entity the ability to collide with other entities that also have collision components.  This component holds the entity's data related to participating in the scene's physics simulation. It is also used to calculate collision queries, raycasts, and convex shape casts. Entities can participate in the scene simulation in two different modes: as a *rigid body* or as a *trigger*.  A rigid body fully participates in the collision simulation. It affects the velocity and direction of entities it collides. If configured with a rigid body ``RealityKit\/PhysicsBodyComponent\/mode`` of ``RealityKit\/PhysicsBodyMode\/dynamic``, it's own velocity and direction can be affected by other rigid body entities. A trigger entity doesn't have any impact on the rigid bodies in the scene, but can trigger code or Reality Composer behaviors when a rigid body enity overlaps it.  Note the following when considering applying a non-uniform scale to an entity: - Non-uniform scaling is applicable only to box, convex mesh and triangle mesh collision shapes. - Non-uniform scaling is not supported for all other types of collision shapes. In this case the scale.x value is duplicated to the scale's y and z components as well to force scale uniformity based on the x component. - If the entity has a non-uniform scale assigned to its transform then that entity should not have any descendants assigned that contain rotations in their transforms. A good rule of thumb is to assign the non-uniform scale to the entity that has the collision shape, and avoid adding children below that entity.  Turn an entity into a trigger by adding a ``RealityKit\/CollisionComponent`` to it and setting its ``RealityKit\/CollisionComponent\/mode-swift.property`` to ``RealityKit\/CollisionComponent\/Mode-swift.enum\/trigger``.  Turn an entity into a _rigd body_ by adding a  ``RealityKit\/PhysicsBodyComponent`` to the entity in addition to a ``RealityKit\/CollisionComponent``.  The ``PhysicsBodyComponent`` defines the physical properties of the entity, such as its mass and collision shape.  The `filter` property defines the entity's collision filter, which determines which other objects the entity collides with. For more information, see <doc:controlling-entity-collisions-in-realitykit>.  - Note: If an entity has a ``RealityKit\/PhysicsBodyComponent``, the  collision component's mode is ignored. An entity can be a rigid body, or a trigger, but not both at the same time."
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "inputTargetComponent" : {
-                                                                          "_0" : {
-                                                                            "comment" : "A component that gives an entity the ability to receive system input.  This component should be added to an entity to inform the system that it should be treated as a target for input handling. It can be customized to require only specific forms of input like direct or indirect interactions. By default the component is configured to handle all forms of input on the system.  The hit testing shape that defines the entity's interactive entity is defined by the `CollisionComponent`. To configure an entity for input but avoid any sort of physics-related processing, add an `InputTargetComponent` and `CollisionComponent`, but disable the `CollisionComponent` for collision detection, for example:  ``` \/\/ Enable the entity for input. myEntity.components.set(InputTargetComponent())  \/\/ Create a collision component with an empty group and mask. var collision = CollisionComponent(shapes: [.generateSphere(radius: 0.1)]) collision.filter = CollisionFilter(group: [], mask: []) myEntity.components.set(collision) ```  `InputTargetComponent` behaves hierarchically, so if it is added to an entity that has descendants with `CollisionComponent`s, those shapes will be used for input handling. The `isEnabled` flag can be used to override this behavior by adding the `InputTargetComponent` to a descendant and setting `isEnabled` to false.  `InputTargetComponent`'s `allowedInputTypes` property allows the entity to only receive the provided types of input. This property also propagates down the hierarchy, but if a descendant also has an `InputTargetComponent` defined, its `allowedInputTypes` property overrides the value provided by the ancestor."
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "modelComponent" : {
-                                                                          "_0" : {
-                                                                            "comment" : "A collection of resources that create the visual appearance of an entity."
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "synchronizationComponent" : {
-                                                                          "_0" : {
-                                                                            "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                                                          }
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "transform" : {
-                                                                          "_0" : {
-                                                                            "hashValue" : 5960501409592390247,
-                                                                            "translation" : [
-                                                                              0,
-                                                                              0,
-                                                                              0.0004
-                                                                            ],
-                                                                            "scale" : [
-                                                                              1,
-                                                                              1,
-                                                                              1
-                                                                            ],
-                                                                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    ],
-                                                                    "name" : "Sphere",
-                                                                    "children" : [
-
-                                                                    ],
-                                                                    "isAccessibilityElement" : false,
-                                                                    "isEnabled" : true
-                                                                  },
-                                                                  "caseKey" : "ModelEntity"
-                                                                }
-                                                              ],
-                                                              "isEnabledInHierarchy" : true,
+                                                              "isOwner" : true,
                                                               "isAccessibilityElement" : false,
-                                                              "isEnabled" : true,
+                                                              "isAnchored" : false,
+                                                              "id" : 5069672794652497962,
                                                               "components" : [
                                                                 {
                                                                   "synchronizationComponent" : {
                                                                     "_0" : {
+                                                                      "reflectedDescription" : "SynchronizationComponent(\n  identifier: 8622775127451110055,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
                                                                       "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
                                                                     }
                                                                   }
@@ -456,81 +353,125 @@
                                                                 {
                                                                   "transform" : {
                                                                     "_0" : {
-                                                                      "scale" : [
-                                                                        1,
-                                                                        1,
-                                                                        1
-                                                                      ],
-                                                                      "translation" : [
-                                                                        0,
-                                                                        0,
-                                                                        0
-                                                                      ],
-                                                                      "hashValue" : 5942132917495803144,
+                                                                      "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)",
                                                                       "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
                                                                     }
                                                                   }
                                                                 }
                                                               ],
-                                                              "isOwner" : true
+                                                              "isEnabled" : true,
+                                                              "isEnabledInHierarchy" : true,
+                                                              "isActive" : true,
+                                                              "children" : [
+                                                                {
+                                                                  "caseKey" : "Entity",
+                                                                  "value" : {
+                                                                    "isAccessibilityElement" : false,
+                                                                    "isOwner" : true,
+                                                                    "children" : [
+
+                                                                    ],
+                                                                    "id" : 2667003448219909665,
+                                                                    "isAnchored" : false,
+                                                                    "isActive" : true,
+                                                                    "isEnabled" : true,
+                                                                    "name" : "GridMaterial",
+                                                                    "parentID" : 5069672794652497962,
+                                                                    "components" : [
+                                                                      {
+                                                                        "synchronizationComponent" : {
+                                                                          "_0" : {
+                                                                            "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                                                            "reflectedDescription" : "SynchronizationComponent(\n  identifier: 5513465569490383067,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "transform" : {
+                                                                          "_0" : {
+                                                                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
+                                                                            "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ],
+                                                                    "isEnabledInHierarchy" : true
+                                                                  }
+                                                                },
+                                                                {
+                                                                  "value" : {
+                                                                    "isOwner" : true,
+                                                                    "parentID" : 5069672794652497962,
+                                                                    "isActive" : true,
+                                                                    "components" : [
+                                                                      {
+                                                                        "collisionComponent" : {
+                                                                          "_0" : {
+                                                                            "comment" : "A component that gives an entity the ability to collide with other entities that also have collision components.  This component holds the entity's data related to participating in the scene's physics simulation. It is also used to calculate collision queries, raycasts, and convex shape casts. Entities can participate in the scene simulation in two different modes: as a *rigid body* or as a *trigger*.  A rigid body fully participates in the collision simulation. It affects the velocity and direction of entities it collides. If configured with a rigid body ``RealityKit\/PhysicsBodyComponent\/mode`` of ``RealityKit\/PhysicsBodyMode\/dynamic``, it's own velocity and direction can be affected by other rigid body entities. A trigger entity doesn't have any impact on the rigid bodies in the scene, but can trigger code or Reality Composer behaviors when a rigid body enity overlaps it.  Note the following when considering applying a non-uniform scale to an entity: - Non-uniform scaling is applicable only to box, convex mesh and triangle mesh collision shapes. - Non-uniform scaling is not supported for all other types of collision shapes. In this case the scale.x value is duplicated to the scale's y and z components as well to force scale uniformity based on the x component. - If the entity has a non-uniform scale assigned to its transform then that entity should not have any descendants assigned that contain rotations in their transforms. A good rule of thumb is to assign the non-uniform scale to the entity that has the collision shape, and avoid adding children below that entity.  Turn an entity into a trigger by adding a ``RealityKit\/CollisionComponent`` to it and setting its ``RealityKit\/CollisionComponent\/mode-swift.property`` to ``RealityKit\/CollisionComponent\/Mode-swift.enum\/trigger``.  Turn an entity into a _rigd body_ by adding a  ``RealityKit\/PhysicsBodyComponent`` to the entity in addition to a ``RealityKit\/CollisionComponent``.  The ``PhysicsBodyComponent`` defines the physical properties of the entity, such as its mass and collision shape.  The `filter` property defines the entity's collision filter, which determines which other objects the entity collides with. For more information, see <doc:controlling-entity-collisions-in-realitykit>.  - Note: If an entity has a ``RealityKit\/PhysicsBodyComponent``, the  collision component's mode is ignored. An entity can be a rigid body, or a trigger, but not both at the same time.",
+                                                                            "reflectedDescription" : "CollisionComponent(\n  shapes: [\n    [0]: ShapeResource(\n      coreAssetInternal: OpaquePointer(_rawValue: (Opaque Value)),\n      pose: REPoseF(\n        position: SIMD3<Float>(0.0, 0.0, 0.0),\n        orientation: simd_quatf(\n          vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n        )\n      )\n    )\n  ],\n  mode: .default,\n  interactionType: CollisionComponent.InteractionType(rawValue: 0),\n  filter: CollisionFilter(\n    group: CollisionGroup(rawValue: 1),\n    mask: CollisionGroup(rawValue: 4294967295)\n  )\n)"
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "inputTargetComponent" : {
+                                                                          "_0" : {
+                                                                            "comment" : "A component that gives an entity the ability to receive system input.  This component should be added to an entity to inform the system that it should be treated as a target for input handling. It can be customized to require only specific forms of input like direct or indirect interactions. By default the component is configured to handle all forms of input on the system.  The hit testing shape that defines the entity's interactive entity is defined by the `CollisionComponent`. To configure an entity for input but avoid any sort of physics-related processing, add an `InputTargetComponent` and `CollisionComponent`, but disable the `CollisionComponent` for collision detection, for example:  ``` \/\/ Enable the entity for input. myEntity.components.set(InputTargetComponent())  \/\/ Create a collision component with an empty group and mask. var collision = CollisionComponent(shapes: [.generateSphere(radius: 0.1)]) collision.filter = CollisionFilter(group: [], mask: []) myEntity.components.set(collision) ```  `InputTargetComponent` behaves hierarchically, so if it is added to an entity that has descendants with `CollisionComponent`s, those shapes will be used for input handling. The `isEnabled` flag can be used to override this behavior by adding the `InputTargetComponent` to a descendant and setting `isEnabled` to false.  `InputTargetComponent`'s `allowedInputTypes` property allows the entity to only receive the provided types of input. This property also propagates down the hierarchy, but if a descendant also has an `InputTargetComponent` defined, its `allowedInputTypes` property overrides the value provided by the ancestor.",
+                                                                            "reflectedDescription" : "InputTargetComponent(\n  isEnabled: true,\n  allowedInputTypes: InputTargetComponent.InputType(rawValue: 3)\n)"
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "modelComponent" : {
+                                                                          "_0" : {
+                                                                            "comment" : "A collection of resources that create the visual appearance of an entity.",
+                                                                            "reflectedDescription" : "ModelComponent(\n  mesh: MeshResource(\n    coreAssetInternal: OpaquePointer(_rawValue: (Opaque Value))\n  ),\n  materials: [\n    [0]: ShaderGraphMaterial(\n      __resource: __MaterialResource(\n        coreAsset: OpaquePointer(_rawValue: (Opaque Value))\n      ),\n      __parameterBlock: __RKMaterialParameterBlock(\n        transparentPassTechniqueMapping: [],\n        transparentPassesProvidedOnInit: false,\n        savedTransparentPassesFromCore: nil,\n        coreParameterBlockValue: ArcObject()\n      ),\n      keys: [],\n      coreFaceCulling: .MTLCullMode,\n      __triangleFillMode: .MTLTriangleFillMode\n    )\n  ],\n  _boundsMargin: 0.0\n)"
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "synchronizationComponent" : {
+                                                                          "_0" : {
+                                                                            "reflectedDescription" : "SynchronizationComponent(\n  identifier: 16908694098822586679,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
+                                                                            "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "transform" : {
+                                                                          "_0" : {
+                                                                            "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0004)\n)",
+                                                                            "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    ],
+                                                                    "id" : 15124937313423253830,
+                                                                    "isAnchored" : false,
+                                                                    "name" : "Sphere",
+                                                                    "isAccessibilityElement" : false,
+                                                                    "children" : [
+
+                                                                    ],
+                                                                    "isEnabled" : true,
+                                                                    "isEnabledInHierarchy" : true
+                                                                  },
+                                                                  "caseKey" : "ModelEntity"
+                                                                }
+                                                              ],
+                                                              "name" : "Root",
+                                                              "parentID" : 13108939239287443542
                                                             }
                                                           }
-                                                        ],
-                                                        "isEnabled" : true,
-                                                        "isOwner" : true,
-                                                        "name" : "Root",
-                                                        "components" : [
-                                                          {
-                                                            "inputTargetComponent" : {
-                                                              "_0" : {
-                                                                "comment" : "A component that gives an entity the ability to receive system input.  This component should be added to an entity to inform the system that it should be treated as a target for input handling. It can be customized to require only specific forms of input like direct or indirect interactions. By default the component is configured to handle all forms of input on the system.  The hit testing shape that defines the entity's interactive entity is defined by the `CollisionComponent`. To configure an entity for input but avoid any sort of physics-related processing, add an `InputTargetComponent` and `CollisionComponent`, but disable the `CollisionComponent` for collision detection, for example:  ``` \/\/ Enable the entity for input. myEntity.components.set(InputTargetComponent())  \/\/ Create a collision component with an empty group and mask. var collision = CollisionComponent(shapes: [.generateSphere(radius: 0.1)]) collision.filter = CollisionFilter(group: [], mask: []) myEntity.components.set(collision) ```  `InputTargetComponent` behaves hierarchically, so if it is added to an entity that has descendants with `CollisionComponent`s, those shapes will be used for input handling. The `isEnabled` flag can be used to override this behavior by adding the `InputTargetComponent` to a descendant and setting `isEnabled` to false.  `InputTargetComponent`'s `allowedInputTypes` property allows the entity to only receive the provided types of input. This property also propagates down the hierarchy, but if a descendant also has an `InputTargetComponent` defined, its `allowedInputTypes` property overrides the value provided by the ancestor."
-                                                              }
-                                                            }
-                                                          },
-                                                          {
-                                                            "synchronizationComponent" : {
-                                                              "_0" : {
-                                                                "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                                              }
-                                                            }
-                                                          },
-                                                          {
-                                                            "transform" : {
-                                                              "_0" : {
-                                                                "hashValue" : 5942132917495803144,
-                                                                "scale" : [
-                                                                  1,
-                                                                  1,
-                                                                  1
-                                                                ],
-                                                                "translation" : [
-                                                                  0,
-                                                                  0,
-                                                                  0
-                                                                ],
-                                                                "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
-                                                              }
-                                                            }
-                                                          }
-                                                        ],
-                                                        "id" : 9492344410533206903,
-                                                        "isActive" : true,
-                                                        "isEnabledInHierarchy" : true,
-                                                        "parentID" : 14343877811740082519,
-                                                        "isAccessibilityElement" : false,
-                                                        "isAnchored" : false
-                                                      },
-                                                      "caseKey" : "Entity"
+                                                        ]
+                                                      }
                                                     }
                                                   ],
-                                                  "isEnabled" : true,
-                                                  "isAnchored" : false,
-                                                  "isOwner" : true,
-                                                  "isAccessibilityElement" : false,
+                                                  "id" : 3098856466011869264,
                                                   "components" : [
                                                     {
                                                       "synchronizationComponent" : {
                                                         "_0" : {
+                                                          "reflectedDescription" : "SynchronizationComponent(\n  identifier: 5102877117472087794,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
                                                           "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
                                                         }
                                                       }
@@ -538,40 +479,25 @@
                                                     {
                                                       "transform" : {
                                                         "_0" : {
-                                                          "hashValue" : 8875984907481589369,
-                                                          "scale" : [
-                                                            1,
-                                                            1,
-                                                            1
-                                                          ],
-                                                          "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                                          "translation" : [
-                                                            0,
-                                                            0,
-                                                            -0.00039999932
-                                                          ]
+                                                          "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, -0.00039999932)\n)",
+                                                          "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
                                                         }
                                                       }
                                                     }
                                                   ],
-                                                  "name" : "",
-                                                  "parentID" : 11356160411884338724,
                                                   "isEnabledInHierarchy" : true,
-                                                  "isActive" : true,
-                                                  "id" : 14343877811740082519
+                                                  "isAccessibilityElement" : false,
+                                                  "isOwner" : true,
+                                                  "isEnabled" : true,
+                                                  "name" : ""
                                                 }
                                               }
                                             ],
-                                            "isActive" : true,
-                                            "id" : 11356160411884338724,
-                                            "isAnchored" : false,
-                                            "isEnabled" : true,
-                                            "isOwner" : true,
-                                            "parentID" : 10900203791315292631,
                                             "components" : [
                                               {
                                                 "synchronizationComponent" : {
                                                   "_0" : {
+                                                    "reflectedDescription" : "SynchronizationComponent(\n  identifier: 13894236409226169950,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)",
                                                     "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
                                                   }
                                                 }
@@ -579,150 +505,77 @@
                                               {
                                                 "transform" : {
                                                   "_0" : {
-                                                    "hashValue" : 5942132917495803144,
-                                                    "scale" : [
-                                                      1,
-                                                      1,
-                                                      1
-                                                    ],
                                                     "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                                    "translation" : [
-                                                      0,
-                                                      0,
-                                                      0
-                                                    ]
+                                                    "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)"
                                                   }
                                                 }
                                               }
-                                            ]
+                                            ],
+                                            "isEnabledInHierarchy" : true,
+                                            "isOwner" : true,
+                                            "isEnabled" : true,
+                                            "name" : ""
                                           }
                                         }
                                       ],
-                                      "id" : 10900203791315292631,
-                                      "name" : "",
-                                      "isOwner" : true
+                                      "parentID" : 5669226836718970455,
+                                      "id" : 15935698965729555273,
+                                      "isEnabled" : true,
+                                      "isAccessibilityElement" : false
                                     }
                                   }
                                 ],
-                                "parentID" : 14953871637022862566,
-                                "isAccessibilityElement" : false,
-                                "id" : 15123837302686923054,
-                                "isAnchored" : false,
-                                "name" : "CALayerEntity (unnamed)",
-                                "isActive" : true,
-                                "components" : [
-                                  {
-                                    "synchronizationComponent" : {
-                                      "_0" : {
-                                        "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "transform" : {
-                                      "_0" : {
-                                        "scale" : [
-                                          1,
-                                          1,
-                                          1
-                                        ],
-                                        "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.",
-                                        "hashValue" : -5029836580678685183,
-                                        "translation" : [
-                                          0,
-                                          0.066911764,
-                                          0
-                                        ]
-                                      }
-                                    }
-                                  }
-                                ],
+                                "isOwner" : true,
                                 "isEnabledInHierarchy" : true,
-                                "isOwner" : true
+                                "isAccessibilityElement" : false,
+                                "parentID" : 5877514756608320991,
+                                "isEnabled" : true,
+                                "name" : "CALayerEntity (unnamed)",
+                                "isActive" : true
                               },
                               "caseKey" : "Entity"
                             }
                           ],
-                          "name" : "CALayerEntity (unnamed)",
-                          "isAccessibilityElement" : false,
-                          "isAnchored" : false,
-                          "isEnabled" : true
+                          "components" : [
+                            {
+                              "synchronizationComponent" : {
+                                "_0" : {
+                                  "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.",
+                                  "reflectedDescription" : "SynchronizationComponent(\n  identifier: 2851223121494287511,\n  isOwner: true,\n  ownershipTransferMode: .autoAccept,\n  ownershipCompletion: nil\n)"
+                                }
+                              }
+                            },
+                            {
+                              "transform" : {
+                                "_0" : {
+                                  "reflectedDescription" : "Transform(\n  scale: SIMD3<Float>(1.0, 1.0, 1.0),\n  rotation: simd_quatf(\n    vector: SIMD4<Float>(0.0, 0.0, 0.0, 1.0)\n  ),\n  translation: SIMD3<Float>(0.0, 0.0, 0.0)\n)",
+                                  "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
+                                }
+                              }
+                            }
+                          ],
+                          "name" : "CALayerEntity (unnamed)"
                         },
                         "caseKey" : "Entity"
                       }
                     ],
-                    "isAnchored" : false,
-                    "isEnabled" : true,
-                    "name" : "CALayerEntity (unnamed)",
+                    "isOwner" : true,
                     "isActive" : true,
-                    "parentID" : 3351726281360570130,
-                    "isEnabledInHierarchy" : true
+                    "parentID" : 2652688449833407553,
+                    "id" : 7443510986583495516,
+                    "isAccessibilityElement" : false
                   },
                   "caseKey" : "Entity"
                 }
               ],
-              "isActive" : true,
-              "components" : [
-                {
-                  "synchronizationComponent" : {
-                    "_0" : {
-                      "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-                    }
-                  }
-                },
-                {
-                  "transform" : {
-                    "_0" : {
-                      "translation" : [
-                        0,
-                        0,
-                        0
-                      ],
-                      "hashValue" : 5942132917495803144,
-                      "scale" : [
-                        1,
-                        1,
-                        1
-                      ],
-                      "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
-                    }
-                  }
-                }
-              ],
-              "id" : 3351726281360570130,
-              "isEnabledInHierarchy" : true,
-              "isAccessibilityElement" : false
-            }
+              "name" : "<UIWindow: 0x106813890>"
+            },
+            "caseKey" : "Entity"
           }
         ],
+        "isEnabled" : true,
         "isActive" : true,
-        "components" : [
-          {
-            "synchronizationComponent" : {
-              "_0" : {
-                "comment" : "A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol."
-              }
-            }
-          },
-          {
-            "transform" : {
-              "_0" : {
-                "hashValue" : 5942132917495803144,
-                "translation" : [
-                  0,
-                  0,
-                  0
-                ],
-                "scale" : [
-                  1,
-                  1,
-                  1
-                ],
-                "comment" : "A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol."
-              }
-            }
-          }
-        ]
+        "isOwner" : true
       }
     }
   ]

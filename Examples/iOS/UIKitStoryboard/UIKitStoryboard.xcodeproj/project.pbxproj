@@ -14,6 +14,7 @@
 		40111A992A2DE46100C2B5D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40111A982A2DE46100C2B5D2 /* Assets.xcassets */; };
 		40111A9C2A2DE46100C2B5D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40111A9A2A2DE46100C2B5D2 /* LaunchScreen.storyboard */; };
 		40111AA42A2DE4C500C2B5D2 /* RealityCheck in Resources */ = {isa = PBXBuildFile; fileRef = 40111AA32A2DE4C500C2B5D2 /* RealityCheck */; };
+		40380ABF2AFC03DD0052C7CF /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40380ABE2AFC03DD0052C7CF /* RealityCheckConnect */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40380ABF2AFC03DD0052C7CF /* RealityCheckConnect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +105,7 @@
 			);
 			name = UIKitStoryboard;
 			packageProductDependencies = (
+				40380ABE2AFC03DD0052C7CF /* RealityCheckConnect */,
 			);
 			productName = UIKitStoryboard;
 			productReference = 40111A8C2A2DE46000C2B5D2 /* UIKitStoryboard.app */;
@@ -386,6 +389,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		40380ABE2AFC03DD0052C7CF /* RealityCheckConnect */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RealityCheckConnect;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 40111A842A2DE46000C2B5D2 /* Project object */;
 }
