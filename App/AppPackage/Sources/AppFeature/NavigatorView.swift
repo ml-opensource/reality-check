@@ -1,11 +1,14 @@
-import AppFeature
 import ComposableArchitecture
 import SwiftUI
 
-struct NavigatorView: View {
+public struct NavigatorView: View {
   let store: StoreOf<AppCore>
 
-  var body: some View {
+  public init(store: StoreOf<AppCore>) {
+    self.store = store
+  }
+
+  public var body: some View {
     IfLetStore(self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) })) {
       store in
       SwitchStore(store) { state in

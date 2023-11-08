@@ -6,8 +6,6 @@ import MultipeerClient
 import StreamingClient
 import SwiftUI
 
-//FIXME: Relax the requirements, this is only required because the .inspector
-@available(macOS 14.0, *)
 struct MainView: View {
   let store: StoreOf<AppCore>
 
@@ -52,33 +50,11 @@ struct MainView: View {
         switch viewStore.layout {
           case .double:
             NavigatorView(store: store).listStyle(.sidebar)
-              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-                //TODO: iOS inspector
-
-                IfLetStore(
-                  self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
-                  state: /EntitiesNavigator.State.visionOS,
-                  action: EntitiesNavigator.Action.visionOS,
-                  then: Inspector_visionOS.init
-                )
-                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                .interactiveDismissDisabled()
-              }
+              .modifier(Inspector(store: store))
 
           case .triple:
             TripleLayoutView(store: store)
-              .inspector(isPresented: viewStore.$isInspectorDisplayed) {
-                //TODO: iOS inspector
-
-                IfLetStore(
-                  self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) }),
-                  state: /EntitiesNavigator.State.visionOS,
-                  action: EntitiesNavigator.Action.visionOS,
-                  then: Inspector_visionOS.init
-                )
-                .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
-                .interactiveDismissDisabled()
-              }
+              .modifier(Inspector(store: store))
         }
       }
       .navigationTitle(sessionTitle)
@@ -90,7 +66,7 @@ struct MainView: View {
   }
 }
 
-@available(macOS 14.0, *) struct TripleLayoutView: View {
+struct TripleLayoutView: View {
   @Environment(\.openWindow) var openWindow
   let store: StoreOf<AppCore>
 
@@ -153,10 +129,8 @@ struct MainView: View {
               .frame(minHeight: 200, maxHeight: .infinity)
             }
           }
-          .onChange(of: viewStore.isConsoleDetached) { oldValue, newValue in
-            if newValue == true {
-              openWindow(id: WindowID.console.rawValue)
-            }
+          .customOnChange(of: viewStore.isConsoleDetached) {
+            openWindow(id: WindowID.console.rawValue)
           }
           .edgesIgnoringSafeArea(.top)
           .frame(maxWidth: .infinity, maxHeight: .infinity)

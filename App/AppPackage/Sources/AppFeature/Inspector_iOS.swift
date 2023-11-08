@@ -1,18 +1,17 @@
-import AppFeature
 import ComposableArchitecture
 import Models
 import SwiftUI
 
-struct Inspector_visionOS: View {
-  let store: StoreOf<EntitiesNavigator_visionOS>
-  let viewStore: ViewStoreOf<EntitiesNavigator_visionOS>
+struct Inspector_iOS: View {
+  let store: StoreOf<EntitiesNavigator_iOS>
+  let viewStore: ViewStoreOf<EntitiesNavigator_iOS>
 
-  var entity: RealityPlatform.visionOS.Entity? {
+  var entity: RealityPlatform.iOS.Entity? {
     viewStore.selectedEntity
   }
 
   init(
-    _ store: StoreOf<EntitiesNavigator_visionOS>
+    _ store: StoreOf<EntitiesNavigator_iOS>
   ) {
     self.store = store
     self.viewStore = .init(store, observe: { $0 })
