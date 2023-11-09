@@ -5,7 +5,6 @@ import MultipeerClient
 import RealityCodable
 import RealityDump
 
-//MARK: - Multipeer
 extension RealityCheckConnectViewModel {
   func startMultipeerSession() async {
 
@@ -34,6 +33,8 @@ extension RealityCheckConnectViewModel {
               ) {
                 selectedEntityID = entitySelection.entityID
                 await sendSelectedEntityMultipeerRawData()
+              } else {
+                fatalError("Unknown data was received.")
               }
           }
 
@@ -77,7 +78,7 @@ extension RealityCheckConnectViewModel {
     for scene in scenes.values {
       guard let root = scene.root else { return }
 
-      //FIXME: seems to be a new find by ID method in visionOS
+      //TODO: It appears that visionOS has a new "locate by ID" API. Have a look at it.
       if let selectedEntity = await root.findEntity(id: selectedEntityID) {
         let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
         multipeerClient.send(rawData)
