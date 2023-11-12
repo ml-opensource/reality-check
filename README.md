@@ -23,7 +23,7 @@ To use RealityCheck in your AR project, you'll need to import the RealityCheck l
 
 ## Thanks
 
-[Yasuhito Nagatomo](https://www.atarayosd.com) is an inspiration with the highly useful [RealityDump.swift](https://github.com/ynagatomo/ARPlasticOcean/blob/366c025c7c3bbdd7cdfd03a4fa43595503c00713/arplasticocean/Utilities/RealityDump.swift) helper and his many contributions to the field.
+[Yasuhito Nagatomo](https://www.atarayosd.com) is an inspiration with the highly useful [RealityDump.swift](https://gist.github.com/ynagatomo/86d8e88cebeb36be5c2164ddc3f427c8) helper and his many contributions to the field.
 
 [Max Cobb](https://maxxfrazer.medium.com/) thanks for all your articles and repositories. Many roadblocks have been cleared up because of this.
 
