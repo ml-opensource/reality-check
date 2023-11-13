@@ -25,15 +25,11 @@ public struct NavigatorView: View {
         }
       }
     } else: {
-      if #available(macOS 14.0, *) {
-        ContentUnavailableView(
-          "No Entities",
-          systemImage: "move.3d",
-          description: Text("Connect to an inspectable app to examine its hierarchy")
-        )
-      } else {
-        Text("No Entities").foregroundStyle(.secondary)
-      }
+      ContentUnavailableView(
+        "No Entities",
+        systemImage: "move.3d",
+        description: Text("Connect to an inspectable app to examine its hierarchy")
+      )
     }
   }
 }

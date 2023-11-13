@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
   name: "AppPackage",
   platforms: [
-    .macOS(.v13)
+    .macOS(.v14)
   ],
   products: [
     .library(
@@ -17,7 +17,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      from: "1.3.0"
+      branch: "case-key-paths"
     ),
     .package(
       url: "https://github.com/monstar-lab-oss/reality-check",

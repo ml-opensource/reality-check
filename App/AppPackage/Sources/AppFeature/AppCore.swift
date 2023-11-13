@@ -11,7 +11,7 @@ public enum Layout {
   case triple
 }
 
-public struct AppCore: Reducer {
+@Reducer public struct AppCore {
   public init() {}
 
   public struct State: Equatable {
@@ -73,7 +73,7 @@ public struct AppCore: Reducer {
   public var body: some ReducerOf<Self> {
     BindingReducer()
 
-    Scope(state: \.multipeerConnection, action: /Action.multipeerConnection) {
+    Scope(state: \.multipeerConnection, action: \.multipeerConnection) {
       MultipeerConnection()
     }
 
@@ -168,7 +168,7 @@ public struct AppCore: Reducer {
     // .ifLet(\.arViewSection, action: /Action.arViewSection) {
     //   ARViewSection()
     // }
-    .ifLet(\.$entitiesNavigator, action: /Action.entitiesNavigator) {
+    .ifLet(\.$entitiesNavigator, action: \.entitiesNavigator) {
       EntitiesNavigator()
     }
   }
