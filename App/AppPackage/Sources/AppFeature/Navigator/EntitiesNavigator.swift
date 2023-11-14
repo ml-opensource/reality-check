@@ -80,7 +80,7 @@ public struct NavigatorView: View {
   }
 
   public var body: some View {
-    IfLetStore(self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) })) {
+    IfLetStore(self.store.scope(state: \.entitiesNavigator, action: { .entitiesNavigator($0) })) {
       store in
       SwitchStore(store) { state in
         switch state {

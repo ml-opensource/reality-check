@@ -15,7 +15,7 @@ public struct Inspector: ViewModifier {
         content
           .inspector(isPresented: viewStore.$isInspectorDisplayed) {
             IfLetStore(
-              self.store.scope(state: \.$entitiesNavigator, action: { .entitiesNavigator($0) })
+              self.store.scope(state: \.entitiesNavigator, action: { .entitiesNavigator($0) })
             ) {
               store in
               SwitchStore(store) { state in

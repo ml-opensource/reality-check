@@ -82,13 +82,6 @@ extension RealityPlatform.iOS.Entity {
 
     Reduce<State, Action> { state, action in
       switch action {
-        // FIXME:
-        // case .arViewSection(.delegate(.didToggleSelectSection)):
-        //   return .send(.selectSection(state.selectedSection == .arView ? nil : .arView))
-        //
-        // case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
-        //   return .send(.multipeerConnection(.sendDebugOptions(options)))
-
         case .arViewSection(_):
           return .none
 

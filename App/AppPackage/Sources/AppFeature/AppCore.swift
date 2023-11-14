@@ -11,11 +11,12 @@ public enum Layout {
   case triple
 }
 
-@Reducer public struct AppCore {
+@Reducer
+public struct AppCore {
   public init() {}
 
   public struct State: Equatable {
-    @PresentationState public var entitiesNavigator: EntitiesNavigator.State?
+    public var entitiesNavigator: EntitiesNavigator.State?
     @BindingState public var isConnectionSetupPresented: Bool
     @BindingState public var isConsoleDetached: Bool
     @BindingState public var isConsolePresented: Bool
@@ -53,7 +54,7 @@ public enum Layout {
 
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
-    case entitiesNavigator(PresentationAction<EntitiesNavigator.Action>)
+    case entitiesNavigator(EntitiesNavigator.Action)
     case multipeerConnection(MultipeerConnection.Action)
     case updateViewportSize(CGSize)
   }
@@ -77,8 +78,13 @@ public enum Layout {
         case .binding(_):
           return .none
 
-        case .entitiesNavigator(.presented(.visionOS(.delegate(.didSelectEntity(let entityID))))),
-          .entitiesNavigator(.presented(.iOS(.delegate(.didSelectEntity(let entityID))))):
+        case .entitiesNavigator(
+          .iOS(.arViewSection(.delegate(.didUpdateDebugOptions(let options))))
+        ):
+          return .send(.multipeerConnection(.sendDebugOptions(options)))
+
+        case .entitiesNavigator(.iOS(.delegate(.didSelectEntity(let entityID)))),
+          .entitiesNavigator(.visionOS(.delegate(.didSelectEntity(let entityID)))):
           return .send(.multipeerConnection(.sendSelection(entityID)))
 
         case .entitiesNavigator:
@@ -92,9 +98,9 @@ public enum Layout {
         case .multipeerConnection(.delegate(.receivedDump(let dump))):
           switch state.entitiesNavigator {
             case .some(.iOS):
-              return .send(.entitiesNavigator(.presented(.iOS(.dumpOutput(dump)))))
+              return .send(.entitiesNavigator(.iOS(.dumpOutput(dump))))
             case .some(.visionOS):
-              return .send(.entitiesNavigator(.presented(.visionOS(.dumpOutput(dump)))))
+              return .send(.entitiesNavigator(.visionOS(.dumpOutput(dump))))
             case .none:
               return .none
           }
@@ -102,10 +108,13 @@ public enum Layout {
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
           let entities = decodedARView.scene.anchors.map(\.value)
           if state.entitiesNavigator == nil {
-            state.entitiesNavigator = .iOS(.init(entities))
+            state.entitiesNavigator = .iOS(
+              //FIXME: This now looks very complicated. Simplify.
+              .init(entities, arViewSection: .init(arView: decodedARView))
+            )
           }
           state.isInspectorDisplayed = true
-          return .send(.entitiesNavigator(.presented(.iOS(.refreshEntities(entities)))))
+          return .send(.entitiesNavigator(.iOS(.refreshEntities(entities))))
 
         case .multipeerConnection(.delegate(.receivedDecodedScene(let decodedScene))):
           let entities = decodedScene.children.map(\.value)
@@ -113,7 +122,7 @@ public enum Layout {
             state.entitiesNavigator = .visionOS(.init(entities))
           }
           state.isInspectorDisplayed = true
-          return .send(.entitiesNavigator(.presented(.visionOS(.refreshEntities(entities)))))
+          return .send(.entitiesNavigator(.visionOS(.refreshEntities(entities))))
 
         case .multipeerConnection(.delegate(.peersUpdated)):
           /// Display "Connection Setup" dialog when not connected to any peer but theres at least one available
@@ -132,7 +141,7 @@ public enum Layout {
           return .none
       }
     }
-    .ifLet(\.$entitiesNavigator, action: \.entitiesNavigator) {
+    .ifLet(\.entitiesNavigator, action: \.entitiesNavigator) {
       EntitiesNavigator()
     }
   }

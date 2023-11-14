@@ -5,7 +5,7 @@ import RealityCodable
 import RealityKit
 import SwiftUI
 
-public struct ARViewSection: Reducer {
+@Reducer public struct ARViewSection {
   public struct State: Equatable {
     public var arView: RealityPlatform.iOS.ARView
     public var debugOptions: DebugOptions.State
@@ -38,7 +38,7 @@ public struct ARViewSection: Reducer {
   public var body: some Reducer<State, Action> {
     BindingReducer()
 
-    Scope(state: \.debugOptions, action: /Action.debugOptions) {
+    Scope(state: \.debugOptions, action: \.debugOptions) {
       DebugOptions()
     }
 
@@ -49,9 +49,6 @@ public struct ARViewSection: Reducer {
 
         case .debugOptions(.binding(_)):
           return .send(.delegate(.didUpdateDebugOptions(state.debugOptions.options)))
-        // return .task { [state] in
-        //   .delegate(.didUpdateDebugOptions(state.debugOptions.options))
-        // }
 
         case .debugOptions(_):
           return .none
@@ -62,15 +59,12 @@ public struct ARViewSection: Reducer {
         case .toggleSelection:
           state.isSelected.toggle()
           return .send(.delegate(.didToggleSelectSection))
-      // return .task {
-      //   .delegate(.didToggleSelectSection)
-      // }
       }
     }
   }
 }
 
-public struct DebugOptions: Reducer {
+@Reducer public struct DebugOptions {
   public struct State: Equatable {
     @BindingState public var showAnchorGeometry: Bool
     @BindingState public var showAnchorOrigins: Bool
