@@ -54,7 +54,7 @@ public enum Layout {
     }
   }
 
-  public enum Action: Equatable, BindableAction {
+  public enum Action: BindableAction {
     case binding(BindingAction<State>)
     //FIXME: case arViewSection(ARViewSection.Action)
     case entitiesNavigator(PresentationAction<EntitiesNavigator.Action>)

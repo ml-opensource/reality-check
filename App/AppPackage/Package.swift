@@ -17,7 +17,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/pointfreeco/swift-composable-architecture",
-      branch: "case-key-paths"
+      from: "1.4.0"
     ),
     .package(
       url: "https://github.com/monstar-lab-oss/reality-check",
