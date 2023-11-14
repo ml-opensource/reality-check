@@ -6,12 +6,11 @@ struct ARViewSectionView: View {
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
+      //FIXME: improve display
       GroupBox {
         VStack {
           Button(
-            action: {
-              viewStore.send(.toggleSelection)
-            },
+            action: {},
             label: {
               HStack {
                 Label.init("ARView", systemImage: "cube.transparent")
@@ -76,6 +75,6 @@ struct ARViewSectionView: View {
         .padding(8)
       }
     }
-    .padding([.horizontal], 6)
+    .padding(.horizontal, 6)
   }
 }

@@ -53,4 +53,17 @@ public struct DiscoveryInfo: Equatable {
   public var colorHash: String {
     "\(appName ?? "")\(appVersion ?? "")\(device)\(system ?? "")"
   }
+
+  public var systemIcon: String? {
+    guard let system else { return nil }
+    if system.contains("iOS") {
+      return "􀟜"
+    } else if system.contains("macOS") {
+      return "􁟬"
+    } else if system.contains("visionOS") {
+      return "􁎖"
+    } else {
+      return "􀃬"
+    }
+  }
 }

@@ -27,11 +27,9 @@ import SwiftUI
     case binding(BindingAction<State>)
     case debugOptions(DebugOptions.Action)
     case delegate(DelegateAction)
-    case toggleSelection
   }
 
   public enum DelegateAction: Equatable {
-    case didToggleSelectSection
     case didUpdateDebugOptions(_DebugOptions)
   }
 
@@ -55,10 +53,6 @@ import SwiftUI
 
         case .delegate(_):
           return .none
-
-        case .toggleSelection:
-          state.isSelected.toggle()
-          return .send(.delegate(.didToggleSelectSection))
       }
     }
   }

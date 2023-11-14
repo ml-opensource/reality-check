@@ -8,9 +8,9 @@ import SwiftUI
 
 struct MainView: View {
   let store: StoreOf<AppCore>
+  let viewStore: ViewStore<MultipeerConnection.State, AppCore.Action>
 
   var sessionTitle: String {
-    let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
       case .notConnected, .connecting:
         return "RealityCheck"
@@ -27,21 +27,25 @@ struct MainView: View {
   }
 
   var sessionSubtitle: String {
-    let viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
     switch viewStore.sessionState {
       case .notConnected, .connecting:
         return ""
 
       case .connected:
-        if let connectedPeer = viewStore.connectedPeer,
-          let appVersion = connectedPeer.discoveryInfo?.appVersion
+      if let discoveryInfo = viewStore.connectedPeer?.discoveryInfo,
+          let appVersion = discoveryInfo.appVersion,
+           let systemIcon = discoveryInfo.systemIcon
         {
-          //FIXME: dont harcode this!
-          return "􁎖 " + " \(appVersion)"
+          return systemIcon + " \(appVersion)"
         } else {
           return ""
         }
     }
+  }
+
+  init(store: StoreOf<AppCore>) {
+    self.store = store
+    self.viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
   }
 
   var body: some View {
