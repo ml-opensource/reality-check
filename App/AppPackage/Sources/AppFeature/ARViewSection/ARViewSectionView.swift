@@ -9,6 +9,10 @@ struct ARViewSectionView: View {
       //FIXME: improve display
       GroupBox {
         VStack {
+          Button.init("ARView", systemImage: "cube.transparent") {
+            viewStore.send(.binding(.set(\.$isDebugOptionsDisplayed, true)))
+          }
+          
           Button(
             action: {},
             label: {

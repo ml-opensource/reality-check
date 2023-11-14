@@ -41,10 +41,6 @@ public struct DebugOptionsView: View {
               .help(
                 "Display a coordinate axis indicating the position and orientation of the AR world coordinate system."
               )
-          },
-          header: {
-            Text("ARView Debug Options")
-              .font(.headline)
           }
         )
       }

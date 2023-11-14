@@ -95,6 +95,7 @@ public struct NavigatorView: View {
             }
         }
       }
+
     } else: {
       ContentUnavailableView(
         "No Entities",

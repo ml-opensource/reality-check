@@ -145,6 +145,7 @@ public struct EntitiesNavigatorView_visionOS: View {
         }
         .collapsible(false)
       }
+      .listStyle(.sidebar)
       .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }

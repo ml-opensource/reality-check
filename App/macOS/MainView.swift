@@ -32,9 +32,9 @@ struct MainView: View {
         return ""
 
       case .connected:
-      if let discoveryInfo = viewStore.connectedPeer?.discoveryInfo,
+        if let discoveryInfo = viewStore.connectedPeer?.discoveryInfo,
           let appVersion = discoveryInfo.appVersion,
-           let systemIcon = discoveryInfo.systemIcon
+          let systemIcon = discoveryInfo.systemIcon
         {
           return systemIcon + " \(appVersion)"
         } else {
@@ -53,7 +53,7 @@ struct MainView: View {
       NavigationStack {
         switch viewStore.layout {
           case .double:
-            NavigatorView(store: store).listStyle(.sidebar)
+            NavigatorView(store: store)
               .modifier(Inspector(store: store))
 
           case .triple:

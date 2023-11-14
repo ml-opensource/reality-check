@@ -130,41 +130,51 @@ public struct EntitiesNavigatorView_iOS: View {
   }
 
   public var body: some View {
-    VStack {
-      IfLetStore(
-        self.store.scope(
-          state: \.arViewSection,
-          action: { .arViewSection($0) }
-        ),
-        then: ARViewSectionView.init(store:)
-      )
-
-      WithViewStore(store, observe: { $0 }) { viewStore in
-        List(selection: viewStore.$selection) {
-          Section(header: Text("Entities")) {
-            OutlineGroup(
-              viewStore.entities.elements,
-              children: \.childrenOptional
-            ) { entity in
-              let isUnnamed = entity.name?.isEmpty ?? true
-
-              Label(
-                entity.computedName,
-                systemImage: entity.parentID == nil
-                  ? "uiwindow.split.2x1"
-                  : entity.systemImage
+    WithViewStore(store, observe: { $0 }) { viewStore in
+      List(selection: viewStore.$selection) {
+        //"cube.transparent"
+        Section("ARView Debug Options") {
+          IfLetStore(
+            self.store.scope(
+              state: \.arViewSection,
+              action: { .arViewSection($0) }
+            )
+          ) { store in
+            WithViewStore(store, observe: { $0 }) { viewStore in
+              DebugOptionsView(
+                store: store.scope(
+                  state: \.debugOptions,
+                  action: { .debugOptions($0) }
+                )
               )
-              .italic(isUnnamed)
-
-              // FIXME: .help(entity.entityType.help)
-              // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-              // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
             }
           }
-          .collapsible(false)
         }
-        .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
+        
+        Section("Entities") {
+          OutlineGroup(
+            viewStore.entities.elements,
+            children: \.childrenOptional
+          ) { entity in
+            let isUnnamed = entity.name?.isEmpty ?? true
+
+            Label(
+              entity.computedName,
+              systemImage: entity.parentID == nil
+                ? "uiwindow.split.2x1"
+                : entity.systemImage
+            )
+            .italic(isUnnamed)
+
+            // FIXME: .help(entity.entityType.help)
+            // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+            // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+          }
+        }
+        .collapsible(false)
       }
+      .listStyle(.sidebar)
+      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }
 }
