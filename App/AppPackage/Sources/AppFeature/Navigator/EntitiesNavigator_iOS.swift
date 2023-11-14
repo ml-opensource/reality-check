@@ -35,8 +35,9 @@ extension RealityPlatform.iOS.Entity {
   }
 }
 
-public struct EntitiesNavigator_iOS: Reducer {
+@Reducer public struct EntitiesNavigator_iOS {
   public struct State: Equatable {
+    public var arViewSection: ARViewSection.State?
     public var entities: IdentifiedArrayOf<RealityPlatform.iOS.Entity>
 
     @BindingState public var dumpOutput: String
@@ -54,15 +55,18 @@ public struct EntitiesNavigator_iOS: Reducer {
 
     public init(
       _ entities: [RealityPlatform.iOS.Entity],
+      arViewSection: ARViewSection.State? = nil,
       selection: RealityPlatform.iOS.Entity.ID? = nil
     ) {
       self.entities = .init(uniqueElements: entities)
+      self.arViewSection = arViewSection
       self.selection = selection ?? self.entities.first?.id
-      self.dumpOutput = "⚠️ This can only be seen if the dump output is not received properly."
+      self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }
 
   public enum Action: BindableAction, Equatable {
+    case arViewSection(ARViewSection.Action)
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
@@ -70,7 +74,6 @@ public struct EntitiesNavigator_iOS: Reducer {
   }
 
   public enum DelegateAction: Equatable {
-    case didToggleSelectSection
     case didSelectEntity(RealityPlatform.iOS.Entity.ID)
   }
 
@@ -79,14 +82,21 @@ public struct EntitiesNavigator_iOS: Reducer {
 
     Reduce<State, Action> { state, action in
       switch action {
+        // FIXME:
+        // case .arViewSection(.delegate(.didToggleSelectSection)):
+        //   return .send(.selectSection(state.selectedSection == .arView ? nil : .arView))
+        //
+        // case .arViewSection(.delegate(.didUpdateDebugOptions(let options))):
+        //   return .send(.multipeerConnection(.sendDebugOptions(options)))
+
+        case .arViewSection(_):
+          return .none
+
         case .binding(\.$selection):
           if let entity = state.selectedEntity {
-            return .merge(
-              .send(.delegate(.didToggleSelectSection)),
-              .send(.delegate(.didSelectEntity(entity.id)))
-            )
+            return .send(.delegate(.didSelectEntity(entity.id)))
           } else {
-            return .send(.delegate(.didToggleSelectSection))
+            return .none
           }
 
         case .binding:
@@ -106,6 +116,9 @@ public struct EntitiesNavigator_iOS: Reducer {
           return .send(.binding(.set(\.$selection, previousSelection)))
       }
     }
+    .ifLet(\.arViewSection, action: \.arViewSection) {
+      ARViewSection()
+    }
   }
 }
 
@@ -124,42 +137,41 @@ public struct EntitiesNavigatorView_iOS: View {
   }
 
   public var body: some View {
-    //MARK: ARView & Scenes
+    VStack {
+      IfLetStore(
+        self.store.scope(
+          state: \.arViewSection,
+          action: { .arViewSection($0) }
+        ),
+        then: ARViewSectionView.init(store:)
+      )
 
-    //FIXME: restore
-    // IfLetStore(
-    //   self.store.scope(
-    //     state: \.arViewSection,
-    //     action: AppCore.Action.arViewSection
-    //   ),
-    //   then: ARViewSectionView.init(store:)
-    // )
+      WithViewStore(store, observe: { $0 }) { viewStore in
+        List(selection: viewStore.$selection) {
+          Section(header: Text("Entities")) {
+            OutlineGroup(
+              viewStore.entities.elements,
+              children: \.childrenOptional
+            ) { entity in
+              let isUnnamed = entity.name?.isEmpty ?? true
 
-    WithViewStore(store, observe: { $0 }) { viewStore in
-      List(selection: viewStore.$selection) {
-        Section(header: Text("Entities")) {
-          OutlineGroup(
-            viewStore.entities.elements,
-            children: \.childrenOptional
-          ) { entity in
-            let isUnnamed = entity.name?.isEmpty ?? true
+              Label(
+                entity.computedName,
+                systemImage: entity.parentID == nil
+                  ? "uiwindow.split.2x1"
+                  : entity.systemImage
+              )
+              .italic(isUnnamed)
 
-            Label(
-              entity.computedName,
-              systemImage: entity.parentID == nil
-                ? "uiwindow.split.2x1"
-                : entity.systemImage
-            )
-            .italic(isUnnamed)
-
-            // FIXME: .help(entity.entityType.help)
-            // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-            // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+              // FIXME: .help(entity.entityType.help)
+              // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+              // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
+            }
           }
+          .collapsible(false)
         }
-        .collapsible(false)
+        .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
       }
-      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
     }
   }
 }

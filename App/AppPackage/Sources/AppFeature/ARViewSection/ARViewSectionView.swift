@@ -1,6 +1,6 @@
 import ComposableArchitecture
 import SwiftUI
-/*
+
 struct ARViewSectionView: View {
   let store: StoreOf<ARViewSection>
 
@@ -79,4 +79,3 @@ struct ARViewSectionView: View {
     .padding([.horizontal], 6)
   }
 }
-*/

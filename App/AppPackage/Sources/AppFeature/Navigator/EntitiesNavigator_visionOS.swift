@@ -34,7 +34,7 @@ extension RealityPlatform.visionOS.Entity {
   }
 }
 
-public struct EntitiesNavigator_visionOS: Reducer {
+@Reducer public struct EntitiesNavigator_visionOS {
   public struct State: Equatable {
     public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
 
@@ -57,7 +57,7 @@ public struct EntitiesNavigator_visionOS: Reducer {
     ) {
       self.entities = .init(uniqueElements: entities)
       self.selection = selection ?? self.entities.first?.id
-      self.dumpOutput = "⚠️ This can only be seen if the dump output is not received properly."
+      self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }
 
@@ -69,7 +69,6 @@ public struct EntitiesNavigator_visionOS: Reducer {
   }
 
   public enum DelegateAction: Equatable {
-    case didToggleSelectSection
     case didSelectEntity(RealityPlatform.visionOS.Entity.ID)
   }
 
@@ -80,12 +79,9 @@ public struct EntitiesNavigator_visionOS: Reducer {
       switch action {
         case .binding(\.$selection):
           if let entity = state.selectedEntity {
-            return .merge(
-              .send(.delegate(.didToggleSelectSection)),
-              .send(.delegate(.didSelectEntity(entity.id)))
-            )
+            return .send(.delegate(.didSelectEntity(entity.id)))
           } else {
-            return .send(.delegate(.didToggleSelectSection))
+            return .none
           }
 
         case .binding:
