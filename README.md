@@ -2,8 +2,10 @@
 
 ![Icon](./Assets/Icon.png)
 
-> **Note**
-> RealityCheck is still in the early stages of development, and many of the planned features have not yet been implemented. We welcome contributions from the AR development community to help us improve and expand the app. Please keep this in mind when using RealityCheck in your projects, and feel free to submit issues or feature requests to our issue tracker.
+> **Important**
+> If you are looking to use RealityCheck with visionOS, take a look to the [feature/visionOS](https://github.com/monstar-lab-oss/reality-check/tree/feature/visionOS) branch. It is nearing completion and will soon be merged 🥽
+> 
+> [![Sneak Peek](https://img.youtube.com/vi/89iYsoWBrME/hqdefault.jpg)](https://www.youtube.com/embed/89iYsoWBrME)
 
 **RealityCheck** is an open-source Mac app designed to help AR development teams streamline their workflows and improve the quality of their projects. It provides a debugger for RealityKit, a powerful framework for building AR experiences, that allows developers to inspect the [Entity Component System (ECS)](https://developer.apple.com/documentation/realitykit/implementing-systems-for-entities-in-a-scene) structure and properties, and make changes in real-time for preview/debug purposes.
 
@@ -23,7 +25,7 @@ To use RealityCheck in your AR project, you'll need to import the RealityCheck l
 
 ## Thanks
 
-[Yasuhito Nagatomo](https://www.atarayosd.com) is an inspiration with the highly useful [RealityDump.swift](https://github.com/ynagatomo/ARPlasticOcean/blob/366c025c7c3bbdd7cdfd03a4fa43595503c00713/arplasticocean/Utilities/RealityDump.swift) helper and his many contributions to the field.
+[Yasuhito Nagatomo](https://www.atarayosd.com) is an inspiration with the highly useful [RealityDump.swift](https://gist.github.com/ynagatomo/86d8e88cebeb36be5c2164ddc3f427c8) helper and his many contributions to the field.
 
 [Max Cobb](https://maxxfrazer.medium.com/) thanks for all your articles and repositories. Many roadblocks have been cleared up because of this.
 
