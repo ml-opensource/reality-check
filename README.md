@@ -4,6 +4,8 @@
 
 > **Important**
 > If you are looking to use RealityCheck with visionOS, take a look to the [feature/visionOS](https://github.com/monstar-lab-oss/reality-check/tree/feature/visionOS) branch. It is nearing completion and will soon be merged 🥽
+> [![Sneak Peek](https://img.youtube.com/vi/89iYsoWBrME/hqdefault.jpg)](https://www.youtube.com/embed/89iYsoWBrME)
+> 
 
 **RealityCheck** is an open-source Mac app designed to help AR development teams streamline their workflows and improve the quality of their projects. It provides a debugger for RealityKit, a powerful framework for building AR experiences, that allows developers to inspect the [Entity Component System (ECS)](https://developer.apple.com/documentation/realitykit/implementing-systems-for-entities-in-a-scene) structure and properties, and make changes in real-time for preview/debug purposes.
 
