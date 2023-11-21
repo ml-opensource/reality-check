@@ -32,7 +32,7 @@ final class RealityCheckConnectViewModel: ObservableObject {
     self.hostName = hostName
     self.arView = arView
     Task {
-      await startMultipeerSession()
+      try await startMultipeerSession()
     }
   }
 }

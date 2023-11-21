@@ -17,39 +17,24 @@ struct ConnectionSetupView: View {
       NavigationStack {
         if viewStore.peers.isEmpty {
           ZStack {
-            if #available(macOS 14.0, *) {
-              ContentUnavailableView(
-                "No Inspectable Apps",
-                systemImage: "app.dashed",
-                description: Text("Make your app inspectable by integrating RealityCheckConnect")
-              )
-            } else {
-              Text("Inspectable apps will appear here").foregroundStyle(.secondary)
-            }
+            ContentUnavailableView(
+              "No Inspectable Apps",
+              systemImage: "app.dashed",
+              description: Text("Make your app inspectable by integrating RealityCheckConnect")
+            )
 
             VStack {
               Spacer()
               HStack {
                 Spacer()
-                if #available(macOS 14.0, *) {
-                  HelpLink(destination: helpURL)
-                } else {
-                  Button(
-                    action: { openURL(helpURL) },
-                    label: {
-                      Label("Getting Started", systemImage: "questionmark.circle")
-                    }
-                  )
-                  .controlSize(.large)
-                }
+                HelpLink(destination: helpURL)
               }
             }
           }
           .padding()
-
         } else {
           List(Array(viewStore.peers.keys)) { peer in
-            PeerConnectView(peer: peer, viewStore: viewStore)
+            PeerConnectionView(peer: peer, viewStore: viewStore)
           }
           .navigationTitle("Inspectable apps")
         }
@@ -63,7 +48,7 @@ struct ConnectionSetupView: View {
   }
 }
 
-struct PeerConnectView: View {
+struct PeerConnectionView: View {
 
   @Environment(\.openWindow) var openWindow
   let peer: Peer
@@ -71,6 +56,7 @@ struct PeerConnectView: View {
   @ObservedObject
   var viewStore: ViewStoreOf<MultipeerConnection>
 
+  //FIXME: refactor this to default platform extension info
   var appIconName: String {
     guard let device = viewStore.peers[peer]?.device else { return "app" }
     if device.lowercased().contains("vision") {
@@ -133,6 +119,10 @@ struct PeerConnectView: View {
           Spacer()
 
           Divider()
+          
+          Button("disconnect") {
+            viewStore.send(.disconnectCurrentPeer)
+          }
 
           Toggle(
             "isConnected",

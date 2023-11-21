@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-dependencies",
         "state": {
           "branch": null,
-          "revision": "4e1eb6e28afe723286d8cc60611237ffbddba7c5",
-          "version": "1.0.0"
+          "revision": "63301f4a181ed9aefb46dccef2dfb66466798341",
+          "version": "1.1.1"
         }
       },
       {
@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/apple/swift-docc-symbolkit",
         "state": {
           "branch": "main",
-          "revision": "1d5aba8186fc648e17b30631b34043110ca8dd19",
+          "revision": "31ee554ce4bed5fa05eea36bc30296f7d4149097",
           "version": null
         }
       },

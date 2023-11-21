@@ -21,7 +21,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-docc-symbolkit", branch: "main"),
     .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.1"),
-    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.0.0"),
+    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.1"),
     .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
 
   ],
@@ -59,7 +59,8 @@ let package = Package(
     .target(
       name: "MultipeerClient",
       dependencies: [
-        .product(name: "Dependencies", package: "swift-dependencies")
+        .product(name: "Dependencies", package: "swift-dependencies"),
+        .product(name: "DependenciesMacros", package: "swift-dependencies"),
       ],
       resources: [
         .copy("Resources/Mock")

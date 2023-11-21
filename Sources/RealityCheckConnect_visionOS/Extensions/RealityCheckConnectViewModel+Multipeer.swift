@@ -6,10 +6,10 @@ import RealityCodable
 import RealityDump
 
 extension RealityCheckConnectViewModel {
-  func startMultipeerSession() async {
+  func startMultipeerSession() async throws {
 
     /// Setup
-    for await action in await multipeerClient.start(
+    for await action in try await multipeerClient.start(
       serviceName: "reality-check",
       sessionType: .peer,
       discoveryInfo: AppInfo.discoveryInfo
@@ -26,19 +26,20 @@ extension RealityCheckConnectViewModel {
               }
 
             case .didReceiveData(let data):
-              /// Entity selection
-              if let entitySelection = try? defaultDecoder.decode(
-                EntitySelection.self,
-                from: data
-              ) {
-                selectedEntityID = entitySelection.entityID
-                await sendSelectedEntityMultipeerRawData()
-              } else {
+              guard let sessionEvent = SessionEvent(data: data) else {
                 fatalError("Unknown data was received.")
+              }
+
+              switch sessionEvent {
+                case .entitySelected(let entityID):
+                  selectedEntityID = entityID
+                  await sendSelectedEntityMultipeerRawData()
+                case .disconnectionRequested:
+                  await multipeerClient.disconnect()
               }
           }
 
-        case .browser(_):
+        case .browser:
           return
 
         case .advertiser(let advertiserAction):
@@ -64,12 +65,7 @@ extension RealityCheckConnectViewModel {
       RealityPlatform.visionOS.Scene(children: rootEntities)
     )
 
-    multipeerClient.send(sceneData)
-
-    // TODO: set default selection?
-    // if selectedEntityID == nil {
-    //   await sendSelectedEntityMultipeerRawData()
-    // }
+    await multipeerClient.send(sceneData)
   }
 
   fileprivate func sendSelectedEntityMultipeerRawData() async {
@@ -81,7 +77,7 @@ extension RealityCheckConnectViewModel {
       //TODO: It appears that visionOS has a new "locate by ID" API. Have a look at it.
       if let selectedEntity = await root.findEntity(id: selectedEntityID) {
         let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
-        multipeerClient.send(rawData)
+        await multipeerClient.send(rawData)
       }
     }
   }

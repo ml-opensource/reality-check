@@ -1,8 +1,9 @@
 import Dependencies
+import DependenciesMacros
 import Foundation
 import MultipeerConnectivity
 
-/// A client for MultipeerConnectivity that can be used as a dependency in a `@Dependency`.
+@DependencyClient
 public struct MultipeerClient {
 
   /// The session type for the Multipeer session.
@@ -38,12 +39,6 @@ public struct MultipeerClient {
     }
   }
 
-  /// The internal closure that sets up the Multipeer session.
-  public var start:
-    (String, SessionType, String?, DiscoveryInfo?, MCEncryptionPreference) async -> AsyncStream<
-      Action
-    >
-
   /**
     Sets up the Multipeer session.
 
@@ -58,15 +53,9 @@ public struct MultipeerClient {
 
     This function sets up the Multipeer session with the specified parameters.
     */
-  public func start(
-    serviceName: String,
-    sessionType: SessionType = .both,
-    peerName: String? = nil,
-    discoveryInfo: DiscoveryInfo? = nil,
-    encryptionPreference: MCEncryptionPreference = .required
-  ) async -> AsyncStream<Action> {
-    await self.start(serviceName, sessionType, peerName, discoveryInfo, encryptionPreference)
-  }
+  public var start:
+    (_ serviceName: String, _ sessionType: SessionType, _ discoveryInfo: DiscoveryInfo?)
+      async throws -> AsyncStream<Action>
 
   /**
   Returns an `AsyncStream` that emits `Peer` objects when a remote peer sends an invitation to connect.
@@ -130,9 +119,6 @@ public struct MultipeerClient {
   */
   public var rejectInvitation: () async -> Void
 
-  /// The internal closure that sends data to a list of peers.
-  var send: (Data, [Peer], MCSessionSendDataMode) -> Void
-
   /**
   Sends data to a list of peers using a specific send mode.
 
@@ -143,13 +129,10 @@ public struct MultipeerClient {
 
   Use this method to send data to a list of peers. The `data` parameter contains the data to send, while the `peers` parameter is an array of `Peer` objects representing the destination peers. The `mode` parameter specifies the send mode to use.
   */
-  public func send(
-    _ data: Data,
-    toPeers peers: [Peer] = [],
-    with mode: MCSessionSendDataMode = .reliable
-  ) {
-    self.send(data, peers, mode)
-  }
+  public var send: (Data) async -> Void
+
+  /// Disconnects the local peer from the session.
+  public var disconnect: () async -> Void
 }
 
 /// An extension of `DependencyValues` that adds a `multipeerClient` property.

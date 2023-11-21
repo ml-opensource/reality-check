@@ -30,7 +30,9 @@ final public class RealityCheckConnectViewModel {
     self.hostName = hostName
 
     Task(priority: .userInitiated) {
-      await startMultipeerSession()
+      do {
+        try await startMultipeerSession()
+      }
     }
   }
 
@@ -40,7 +42,7 @@ final public class RealityCheckConnectViewModel {
 
     self.debouncedUpdateContentTask?.cancel()
     self.debouncedUpdateContentTask = Task {
-      try await Task.sleep(for: .seconds(500))
+      try await Task.sleep(for: .milliseconds(500))
       await sendMultipeerData()
     }
   }

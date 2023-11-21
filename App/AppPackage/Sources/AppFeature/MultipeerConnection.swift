@@ -30,6 +30,7 @@ public struct MultipeerConnection: Reducer {
 
   public enum Action: Equatable {
     case delegate(DelegateAction)
+    case disconnectCurrentPeer
     case invite(Peer)
     case sendDebugOptions(_DebugOptions)
     case sendSelection(RealityPlatform.visionOS.Entity.ID)
@@ -42,7 +43,6 @@ public struct MultipeerConnection: Reducer {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case peersUpdated
     case receivedDecodedARView(RealityPlatform.iOS.ARView)
-    // case receivedDecodedEntities([RealityPlatform.visionOS.Entity])
     case receivedDecodedScene(RealityPlatform.visionOS.Scene)
     case receivedVideoFrameData(VideoFrameData)
     case receivedDump(String)
@@ -57,36 +57,49 @@ public struct MultipeerConnection: Reducer {
         case .delegate(_):
           return .none
 
+        case .disconnectCurrentPeer:
+          return .run { _ in
+            do {
+              let data = try defaultEncoder.encode(Disconnection())
+              await multipeerClient.send(data)
+            } catch {
+              fatalError("Failed to encode selection while sending them.")
+            }
+          }
+
         case .invite(let peer):
           return .run { _ in
             await multipeerClient.invitePeer(peer)
           }
 
         case .sendDebugOptions(let options):
-          do {
-            let data = try JSONEncoder().encode(options)
-            multipeerClient.send(data)
-          } catch {
-            fatalError("Failed to encode debug options while sending them.")
+          return .run { _ in
+            do {
+              let data = try defaultEncoder.encode(options)
+              await multipeerClient.send(data)
+            } catch {
+              fatalError("Failed to encode debug options while sending them.")
+            }
           }
-          return .none
 
         case .sendSelection(let entityID):
-          do {
-            let entitySelection = EntitySelection(entityID)
-            let data = try JSONEncoder().encode(entitySelection)
-            multipeerClient.send(data)
-          } catch {
-            fatalError("Failed to encode selection while sending them.")
+          return .run { _ in
+            do {
+              let entitySelection = EntitySelection(entityID)
+              let data = try defaultEncoder.encode(entitySelection)
+              await multipeerClient.send(data)
+            } catch {
+              fatalError("Failed to encode selection while sending them.")
+            }
           }
-          return .none
 
         case .start:
           guard state.connectedPeer == nil else { return .none }
           return .run(priority: .userInitiated) { send in
-            for await action in await multipeerClient.start(
+            for await action in try await multipeerClient.start(
               serviceName: "reality-check",
-              sessionType: .host
+              sessionType: .host,
+              discoveryInfo: nil
             ) {
               switch action {
                 case .session(let sessionAction):
@@ -103,10 +116,9 @@ public struct MultipeerConnection: Reducer {
                   switch browserAction {
                     case .peersUpdated(let peers):
                       await send(.updatePeers(peers))
-                      await send(.delegate(.peersUpdated))
                   }
 
-                case .advertiser(_):
+                case .advertiser:
                   return
               }
             }
@@ -114,7 +126,7 @@ public struct MultipeerConnection: Reducer {
 
         case .updatePeers(let peers):
           state.peers = peers
-          return .none
+          return .send(.delegate(.peersUpdated))
 
         case .updateSessionState(let sessionState):
           state.sessionState = sessionState
@@ -168,15 +180,6 @@ extension MultipeerConnection {
       // print(String(data: data, encoding: .utf8)!)
       await send(.delegate(.receivedDecodedScene(decodedRealityViewContentScene)))
     }
-
-    // MARK: RealityViewContent Root
-    // TODO: remove. This case should not happen as RealityViewContent should be wrapped on Scenes
-    // else if let decodedRealityViewContent = try? defaultDecoder.decode(
-    //   RealityPlatform.visionOS.Entity.self,
-    //   from: data
-    // ) {
-    //   await send(.delegate(.receivedDecodedEntities([decodedRealityViewContent])))
-    // }
 
     // MARK: - Unknown
 

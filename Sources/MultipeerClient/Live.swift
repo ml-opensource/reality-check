@@ -4,24 +4,21 @@ import MultipeerConnectivity
 
 extension MultipeerClient: DependencyKey {
   static public var liveValue: Self = .init(
-    start: { (serviceName, sessionType, peerName, discoveryInfo, encryptionPreference) in
+    start: { (serviceName, sessionType, discoveryInfo) in
       let name: String
-      if let peerName {
-        name = peerName
-      } else {
-        #if os(iOS) || os(tvOS) || os(visionOS)
-          name = await UIDevice.current.name
-        #elseif os(macOS)
-          name = Host.current().name ?? UUID().uuidString
-        #endif
-      }
+
+      #if os(iOS) || os(tvOS) || os(visionOS)
+        name = await UIDevice.current.name
+      #elseif os(macOS)
+        name = Host.current().name ?? UUID().uuidString
+      #endif
 
       return await MultipeerActor.shared.start(
         serviceName: serviceName,
         sessionType: sessionType,
         peerName: name,
         discoveryInfo: discoveryInfo?.rawValue,
-        encryptionPreference: encryptionPreference
+        encryptionPreference: .required
       )
     },
     startAdvertisingPeer: {
@@ -45,14 +42,11 @@ extension MultipeerClient: DependencyKey {
     rejectInvitation: {
       await MultipeerActor.shared.rejectInvitation()
     },
-    send: { (data, peers, mode) in
-      Task {
-        await MultipeerActor.shared.send(
-          data,
-          toPeers: peers.map(\.rawValue),
-          with: mode
-        )
-      }
+    send: { data in
+      await MultipeerActor.shared.send(data)
+    },
+    disconnect: {
+      await MultipeerActor.shared.disconnect()
     }
   )
 }
@@ -82,16 +76,18 @@ extension MultipeerClient {
         setupSession()
 
         switch sessionType {
-        case .host:
-          setupServiceBrowser()
+          case .host:
+            setupServiceBrowser()
 
-        case .peer:
-          setupServiceAdvertiser()
+          case .peer:
+            setupServiceAdvertiser()
 
-        case .both:
-          setupServiceBrowser()
-          setupServiceAdvertiser()
+          case .both:
+            setupServiceBrowser()
+            setupServiceAdvertiser()
         }
+
+        //MARK: Session
 
         func setupSession() {
           session = MCSession(
@@ -103,6 +99,8 @@ extension MultipeerClient {
           sessionDelegate.continuation = continuation
         }
 
+        //MARK: Browser
+
         func setupServiceBrowser() {
           serviceBrowser = MCNearbyServiceBrowser(
             peer: myPeerID,
@@ -113,6 +111,8 @@ extension MultipeerClient {
           serviceBrowser?.delegate = serviceBrowserDelegate
           serviceBrowser?.startBrowsingForPeers()
         }
+
+        //MARK: Advertiser
 
         func setupServiceAdvertiser() {
           serviceAdvertiser = MCNearbyServiceAdvertiser(
@@ -127,62 +127,75 @@ extension MultipeerClient {
         }
       }
     }
+  }
+}
 
-    func startBrowsingForPeers() {
-      serviceBrowser?.startBrowsingForPeers()
-    }
+//MARK: Actions
+extension MultipeerClient.MultipeerActor {
 
-    func stopBrowsingForPeers() {
-      serviceBrowser?.stopBrowsingForPeers()
-    }
+  //MARK: Browsing
 
-    func startAdvertisingPeer() {
-      serviceAdvertiser?.startAdvertisingPeer()
-    }
+  func startBrowsingForPeers() {
+    serviceBrowser?.startBrowsingForPeers()
+  }
 
-    func stopAdvertisingPeer() {
-      serviceAdvertiser?.stopAdvertisingPeer()
-    }
+  func stopBrowsingForPeers() {
+    serviceBrowser?.stopBrowsingForPeers()
+  }
 
-    func invitePeer(_ peerID: MCPeerID) {
-      serviceBrowser?
-        .invitePeer(
-          peerID,
-          to: session,
-          withContext: nil,
-          timeout: 120
+  //MARK: Advertising
+
+  func startAdvertisingPeer() {
+    serviceAdvertiser?.startAdvertisingPeer()
+  }
+
+  func stopAdvertisingPeer() {
+    serviceAdvertiser?.stopAdvertisingPeer()
+  }
+
+  //MARK: Invite
+
+  func invitePeer(_ peerID: MCPeerID) {
+    serviceBrowser?
+      .invitePeer(
+        peerID,
+        to: session,
+        withContext: nil,
+        timeout: 120
+      )
+  }
+
+  func acceptInvitation() {
+    serviceAdvertiserDelegate?.acceptInvitation(session)
+  }
+
+  func rejectInvitation() {
+    serviceAdvertiserDelegate?.rejectInvitation(session)
+  }
+
+  //MARK: Connection
+
+  func disconnect() {
+    session.disconnect()
+  }
+
+  //MARK: Data transmission
+
+  func send(
+    _ data: Data,
+    with mode: MCSessionSendDataMode = .reliable
+  ) {
+    do {
+      guard let connectedPeers = session?.connectedPeers else {
+        fatalError(
+          "There are no connected peers and no specified peers to send to."
         )
-    }
-
-    func acceptInvitation() {
-      serviceAdvertiserDelegate?.acceptInvitation(session)
-    }
-
-    func rejectInvitation() {
-      serviceAdvertiserDelegate?.rejectInvitation(session)
-    }
-
-    func send(
-      _ data: Data,
-      toPeers peers: [MCPeerID],
-      with mode: MCSessionSendDataMode
-    ) {
-      do {
-        if peers.isEmpty {
-          guard let connectedPeers = session?.connectedPeers else {
-            fatalError(
-              "There are no connected peers and no specified peers to send to."
-            )
-          }
-          try session?.send(data, toPeers: connectedPeers, with: mode)
-        } else {
-          try session?.send(data, toPeers: peers, with: mode)
-        }
-      } catch {
-        //TODO: handle errors
-        //fatalError("Failed to send data.")
-        print("Failed to send data.")
       }
+      try session?.send(data, toPeers: connectedPeers, with: mode)
+    } catch {
+      //TODO: handle errors
+      //fatalError("Failed to send data.")
+      print("Failed to send data.")
     }
   }
 }
@@ -201,15 +214,15 @@ extension MultipeerClient.MultipeerActor {
       let sessionState: MultipeerClient.SessionState
 
       switch state {
-      case .notConnected:
-        sessionState = .notConnected
-      case .connecting:
-        sessionState = .connecting(Peer.init(rawValue: peerID))
-      case .connected:
-        sessionState = .connected(Peer.init(rawValue: peerID))
+        case .notConnected:
+          sessionState = .notConnected
+        case .connecting:
+          sessionState = .connecting(Peer.init(rawValue: peerID))
+        case .connected:
+          sessionState = .connected(Peer.init(rawValue: peerID))
 
-      @unknown default:
-        fatalError("MCSessionState: @unknown")
+        @unknown default:
+          fatalError("MCSessionState: @unknown")
       }
       continuation?.yield(.session(.stateDidChange(sessionState)))
     }

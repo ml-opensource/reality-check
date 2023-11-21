@@ -8,7 +8,7 @@ extension RealityCheckConnectViewModel {
     }
 
     for await frameData in await streamingClient.startScreenCapture() {
-      multipeerClient.send(frameData)
+      await multipeerClient.send(frameData)
     }
   }
 

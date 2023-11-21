@@ -2,7 +2,7 @@ import Foundation
 
 extension MultipeerClient {
   static public var previewValue: Self = .init(
-    start: { (_, _, _, _, _) in
+    start: { (_, _, _) in
       AsyncStream { continuation in
         continuation.finish()
       }
@@ -14,6 +14,7 @@ extension MultipeerClient {
     invitePeer: { _ in },
     acceptInvitation: {},
     rejectInvitation: {},
-    send: { (_, _, _) in }
+    send: { _ in },
+    disconnect: {}
   )
 }

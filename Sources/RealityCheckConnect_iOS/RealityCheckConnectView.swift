@@ -193,7 +193,7 @@ struct ContentView_Previews: PreviewProvider {
     Group {
       RealityCheckConnectView(
         viewModel: withDependencies {
-          $0.multipeerClient.start = { (_, _, _, _, _) in
+          $0.multipeerClient.start = { (_, _, _) in
             AsyncStream.finished
           }
         } operation: {

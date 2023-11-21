@@ -5,10 +5,10 @@ import RealityDump
 import RealityKit  //FIXME: avoid depending directly
 
 extension RealityCheckConnectViewModel {
-  func startMultipeerSession() async {
+  func startMultipeerSession() async throws {
 
     /// Setup
-    for await action in await multipeerClient.start(
+    for await action in try await multipeerClient.start(
       serviceName: "reality-check",
       sessionType: .peer,
       discoveryInfo: AppInfo.discoveryInfo
@@ -93,7 +93,7 @@ extension RealityCheckConnectViewModel {
         contentScaleFactor: arView.contentScaleFactor
       )
     )
-    multipeerClient.send(arViewData)
+    await multipeerClient.send(arViewData)
   }
 
   fileprivate func sendSelectedEntityMultipeerRawData() async {

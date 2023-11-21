@@ -3,7 +3,7 @@ import Foundation
 
 extension MultipeerClient {
   static public var testValue: Self = .init(
-    start: { (_, _, _, _, _) in
+    start: { (_, _, _) in
       AsyncStream { continuation in
         let mocky = Peer(displayName: "MOCKY")
         let mockyDiscoveryInfo = DiscoveryInfo(
@@ -20,7 +20,7 @@ extension MultipeerClient {
           withExtension: "json",
           subdirectory: "Mock"
         )!
-        
+
         let data = try! Data(contentsOf: url)
         continuation.yield(.session(.didReceiveData(data)))
       }
@@ -32,6 +32,7 @@ extension MultipeerClient {
     invitePeer: { _ in unimplemented("invitePeer") },
     acceptInvitation: { unimplemented("acceptInvitation") },
     rejectInvitation: { unimplemented("rejectInvitation") },
-    send: { (_, _, _) in unimplemented("send") }
+    send: { _ in unimplemented("send") },
+    disconnect: { unimplemented("disconnect") }
   )
 }
