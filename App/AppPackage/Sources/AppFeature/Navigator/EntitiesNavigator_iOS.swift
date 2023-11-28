@@ -136,18 +136,11 @@ public struct EntitiesNavigatorView_iOS: View {
   public var body: some View {
     List(selection: $store.selection) {
       Section("ARView Debug Options") {
-        IfLetStore(
-          self.store.scope(
-            state: \.arViewSection,
-            action: { .arViewSection($0) }
-          )
-        ) { store in
-          DebugOptionsView(
-            store: store.scope(
-              state: \.debugOptions,
-              action: { .debugOptions($0) }
-            )
-          )
+        if let childStore = store.scope(
+          state: \.arViewSection?.debugOptions,
+          action: \.arViewSection.debugOptions
+        ) {
+          DebugOptionsView(store: childStore)
         }
       }
 

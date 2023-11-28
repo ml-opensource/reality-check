@@ -12,23 +12,15 @@ public struct Inspector: ViewModifier {
   public func body(content: Content) -> some View {
     content
       .inspector(isPresented: $store.isInspectorDisplayed) {
-        IfLetStore(
-          self.store.scope(state: \.entitiesNavigator, action: { .entitiesNavigator($0) })
-        ) {
-          store in
-          SwitchStore(store) { state in
-            switch state {
+        Group {
+          if let childStore = store.scope(state: \.entitiesNavigator, action: \.entitiesNavigator) {
+            switch childStore.state {
               case .iOS:
-                CaseLet(/EntitiesNavigator.State.iOS, action: EntitiesNavigator.Action.iOS) {
-                  store in
+                if let store = childStore.scope(state: \.iOS, action: \.iOS) {
                   Inspector_iOS(store: store)
                 }
               case .visionOS:
-                CaseLet(
-                  /EntitiesNavigator.State.visionOS,
-                  action: EntitiesNavigator.Action.visionOS
-                ) {
-                  store in
+                if let store = childStore.scope(state: \.visionOS, action: \.visionOS) {
                   Inspector_visionOS(store: store)
                 }
             }

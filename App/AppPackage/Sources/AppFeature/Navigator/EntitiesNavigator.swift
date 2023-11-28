@@ -2,7 +2,10 @@ import ComposableArchitecture
 import Foundation
 import SwiftUI
 
-@Reducer public struct EntitiesNavigator {
+@Reducer
+public struct EntitiesNavigator {
+
+  @ObservableState
   public enum State: Equatable {
     case iOS(EntitiesNavigator_iOS.State)
     //TODO: case macOS(EntitiesNavigator_macOS.State)
@@ -80,23 +83,19 @@ public struct NavigatorView: View {
   }
 
   public var body: some View {
-    IfLetStore(self.store.scope(state: \.entitiesNavigator, action: { .entitiesNavigator($0) })) {
-      store in
-      SwitchStore(store) { state in
-        switch state {
-          case .iOS:
-            CaseLet(\EntitiesNavigator.State.iOS, action: EntitiesNavigator.Action.iOS) { store in
-              EntitiesNavigatorView_iOS(store: store)
-            }
-          case .visionOS:
-            CaseLet(/EntitiesNavigator.State.visionOS, action: EntitiesNavigator.Action.visionOS) {
-              store in
-              EntitiesNavigatorView_visionOS(store: store)
-            }
-        }
-      }
+    if let childStore = store.scope(state: \.entitiesNavigator, action: \.entitiesNavigator) {
+      switch childStore.state {
+        case .iOS:
+          if let store = childStore.scope(state: \.iOS, action: \.iOS) {
+            EntitiesNavigatorView_iOS(store: store)
+          }
 
-    } else: {
+        case .visionOS:
+          if let store = childStore.scope(state: \.visionOS, action: \.visionOS) {
+            EntitiesNavigatorView_visionOS(store: store)
+          }
+      }
+    } else {
       ContentUnavailableView(
         "No Entities",
         systemImage: "move.3d",
