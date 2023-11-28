@@ -3,7 +3,7 @@ import MultipeerClient
 import SwiftUI
 
 public struct MainToolbar: CustomizableToolbarContent {
-  let store: StoreOf<AppCore>
+  @State var store: StoreOf<AppCore>
   @ObservedObject var viewStore: ViewStoreOf<AppCore>
 
   public init(store: StoreOf<AppCore>) {
@@ -23,14 +23,14 @@ public struct MainToolbar: CustomizableToolbarContent {
 
     ToolbarItem(id: "ConnectionSetup") {
       Toggle(
-        isOn: viewStore.$isConnectionSetupPresented,
+        isOn: $store.isConnectionSetupPresented,
         label: { Label("Connection Setup", systemImage: "bonjour") }
       )
       .symbolRenderingMode(.multicolor)
       .help("Connection Setup")
       .keyboardShortcut("S", modifiers: [.command, .option])
       .popover(
-        isPresented: viewStore.$isConnectionSetupPresented,
+        isPresented: $store.isConnectionSetupPresented,
         content: {
           ConnectionSetupView(
             store: store.scope(
@@ -43,15 +43,15 @@ public struct MainToolbar: CustomizableToolbarContent {
     }
 
     ToolbarItem(id: "Layout") {
-      Picker("Layout", selection: viewStore.$layout) {
+      Picker("Layout", selection: $store.layout) {
         Button("Double", systemImage: "rectangle.split.2x1") {
-          viewStore.send(.binding(.set(\.$layout, .double)))
+          store.send(.binding(.set(\.layout, .double)))
         }
         .tag(Layout.double)
         .help("Two Columns")
 
         Button("Triple", systemImage: "rectangle.split.3x1") {
-          viewStore.send(.binding(.set(\.$layout, .triple)))
+          store.send(.binding(.set(\.layout, .triple)))
         }
         .tag(Layout.triple)
         .help("Three Columns")
@@ -62,10 +62,10 @@ public struct MainToolbar: CustomizableToolbarContent {
 
     ToolbarItem(id: "Console") {
       Toggle(
-        isOn: viewStore.$isConsolePresented,
+        isOn: $store.isConsolePresented,
         label: { Label("Console", systemImage: "doc.plaintext") }
       )
-      .help(viewStore.isConsolePresented ? "Hide Console" : "Show Console")
+      .help(store.isConsolePresented ? "Hide Console" : "Show Console")
       .keyboardShortcut("C", modifiers: [.command, .option])
     }
   }

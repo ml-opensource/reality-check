@@ -6,14 +6,16 @@ import OSLog
 import RealityCodable
 import StreamingClient
 
-public struct MultipeerConnection: Reducer {
+@Reducer
+public struct MultipeerConnection {
   let logger = Logger(subsystem: "AppCore", category: "MultipeerConnection")
 
   public struct ConnectedPeer: Equatable {
     public let peer: Peer
     public let discoveryInfo: DiscoveryInfo?
   }
-
+  
+  @ObservableState
   public struct State: Equatable {
     public var sessionState: MultipeerClient.SessionState
     public var peers: [Peer: DiscoveryInfo]
@@ -28,6 +30,7 @@ public struct MultipeerConnection: Reducer {
     }
   }
 
+  @CasePathable
   public enum Action: Equatable {
     case delegate(DelegateAction)
     case disconnectCurrentPeer
@@ -39,6 +42,7 @@ public struct MultipeerConnection: Reducer {
     case updateSessionState(MultipeerClient.SessionState)
   }
 
+  @CasePathable
   public enum DelegateAction: Equatable {
     case didUpdateSessionState(MultipeerClient.SessionState)
     case peersUpdated

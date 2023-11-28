@@ -34,13 +34,14 @@ extension RealityPlatform.visionOS.Entity {
   }
 }
 
-@Reducer public struct EntitiesNavigator_visionOS {
+@Reducer
+public struct EntitiesNavigator_visionOS {
+
+  @ObservableState
   public struct State: Equatable {
     public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
-
-    @BindingState public var dumpOutput: String
-    @BindingState public var selection: RealityPlatform.visionOS.Entity.ID?
-
+    public var dumpOutput: String
+    public var selection: RealityPlatform.visionOS.Entity.ID?
     public var selectedEntity: RealityPlatform.visionOS.Entity? {
       guard let selection else { return nil }
       for rootEntity in entities {
@@ -55,8 +56,9 @@ extension RealityPlatform.visionOS.Entity {
       _ entities: [RealityPlatform.visionOS.Entity],
       selection: RealityPlatform.visionOS.Entity.ID? = nil
     ) {
-      self.entities = .init(uniqueElements: entities)
-      self.selection = selection ?? self.entities.first?.id
+      let _entities = IdentifiedArrayOf<RealityPlatform.visionOS.Entity>(uniqueElements: entities)
+      self.entities = _entities
+      self.selection = selection ?? _entities.first?.id
       self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }
@@ -77,7 +79,7 @@ extension RealityPlatform.visionOS.Entity {
 
     Reduce<State, Action> { state, action in
       switch action {
-        case .binding(\.$selection):
+        case .binding(\.selection):
           if let entity = state.selectedEntity {
             return .send(.delegate(.didSelectEntity(entity.id)))
           } else {
@@ -98,7 +100,7 @@ extension RealityPlatform.visionOS.Entity {
           state.entities = .init(uniqueElements: entities)
           guard let previousSelection = state.selection else { return .none }
           state.selection = nil
-          return .send(.binding(.set(\.$selection, previousSelection)))
+          return .send(.binding(.set(\.selection, previousSelection)))
       }
     }
   }
@@ -113,7 +115,7 @@ extension RealityPlatform.visionOS.Entity {
 }
 
 public struct EntitiesNavigatorView_visionOS: View {
-  let store: StoreOf<EntitiesNavigator_visionOS>
+  @State var store: StoreOf<EntitiesNavigator_visionOS>
   @State private var searchText: String = ""
 
   public init(store: StoreOf<EntitiesNavigator_visionOS>) {
@@ -121,32 +123,30 @@ public struct EntitiesNavigatorView_visionOS: View {
   }
 
   public var body: some View {
-    WithViewStore(store, observe: { $0 }) { viewStore in
-      List(selection: viewStore.$selection) {
-        Section(header: Text("Entities")) {
-          OutlineGroup(
-            viewStore.entities.elements,
-            children: \.childrenOptional
-          ) { entity in
-            let isUnnamed = entity.name?.isEmpty ?? true
+    List(selection: $store.selection) {
+      Section(header: Text("Entities")) {
+        OutlineGroup(
+          store.entities.elements,
+          children: \.childrenOptional
+        ) { entity in
+          let isUnnamed = entity.name?.isEmpty ?? true
 
-            Label(
-              entity.computedName,
-              systemImage: entity.parentID == nil
-                ? "uiwindow.split.2x1"
-                : entity.systemImage
-            )
-            .italic(isUnnamed)
+          Label(
+            entity.computedName,
+            systemImage: entity.parentID == nil
+              ? "uiwindow.split.2x1"
+              : entity.systemImage
+          )
+          .italic(isUnnamed)
 
-            // FIXME: .help(entity.entityType.help)
-            // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-            // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
-          }
+          // FIXME: .help(entity.entityType.help)
+          // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
+          // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
         }
-        .collapsible(false)
       }
-      .listStyle(.sidebar)
-      .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
+      .collapsible(false)
     }
+    .listStyle(.sidebar)
+    .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
   }
 }

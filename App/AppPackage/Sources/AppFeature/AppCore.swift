@@ -15,17 +15,18 @@ public enum Layout {
 public struct AppCore {
   public init() {}
 
+  @ObservableState
   public struct State: Equatable {
     public var entitiesNavigator: EntitiesNavigator.State?
-    @BindingState public var isConnectionSetupPresented: Bool
-    @BindingState public var isConsoleDetached: Bool
-    @BindingState public var isConsolePresented: Bool
-    @BindingState public var isInspectorDisplayed: Bool
+    public var isConnectionSetupPresented: Bool
+    public var isConsoleDetached: Bool
+    public var isConsolePresented: Bool
+    public var isInspectorDisplayed: Bool
     public var isStreaming: Bool
-    @BindingState public var layout: Layout
+    public var layout: Layout
     public var multipeerConnection: MultipeerConnection.State
     public var selectedSection: Section
-    @BindingState public var viewPortSize: CGSize
+    public var viewPortSize: CGSize
 
     public init(
       entitiesNavigator: EntitiesNavigator.State? = nil,
@@ -52,6 +53,7 @@ public struct AppCore {
     }
   }
 
+  @CasePathable
   public enum Action: BindableAction {
     case binding(BindingAction<State>)
     case entitiesNavigator(EntitiesNavigator.Action)

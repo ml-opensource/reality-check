@@ -13,39 +13,38 @@ struct ConnectionSetupView: View {
 
   var body: some View {
     //TODO: scope the viewStore to only observe "Peers"
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
-      NavigationStack {
-        if viewStore.peers.isEmpty {
-          ZStack {
-            ContentUnavailableView(
-              "No Inspectable Apps",
-              systemImage: "app.dashed",
-              description: Text("Make your app inspectable by integrating RealityCheckConnect")
-            )
+    NavigationStack {
+      if store.peers.isEmpty {
+        ZStack {
+          ContentUnavailableView(
+            "No Inspectable Apps",
+            systemImage: "app.dashed",
+            description: Text("Make your app inspectable by integrating RealityCheckConnect")
+          )
 
-            VStack {
+          VStack {
+            Spacer()
+            HStack {
               Spacer()
-              HStack {
-                Spacer()
-                HelpLink(destination: helpURL)
-              }
+              HelpLink(destination: helpURL)
             }
           }
-          .padding()
-        } else {
-          //TODO: add selection
-          List(Array(viewStore.peers.keys)) { peer in
-            PeerConnectionView(peer: peer, viewStore: viewStore)
-              .listRowSeparator(.hidden)
-          }
-          .navigationTitle("Inspectable apps")
         }
-      }
-      .animation(.easeInOut, value: viewStore.peers)
-      .task {
-        viewStore.send(.start)
+        .padding()
+      } else {
+        //TODO: add selection
+        List(Array(store.peers.keys)) { peer in
+          PeerConnectionView(peer: peer, store: store)
+            .listRowSeparator(.hidden)
+        }
+        .navigationTitle("Inspectable apps")
       }
     }
+    .animation(.easeInOut, value: store.peers)
+    .task {
+      store.send(.start)
+    }
+
     .frame(width: 521 / 1.25, height: 521 / 2)
   }
 }
@@ -55,12 +54,12 @@ struct PeerConnectionView: View {
   @Environment(\.openWindow) var openWindow
   let peer: Peer
 
-  @ObservedObject
-  var viewStore: ViewStoreOf<MultipeerConnection>
+  @State
+  var store: StoreOf<MultipeerConnection>
 
   //FIXME: refactor this to default platform extension info
   var appIconSystemName: String {
-    guard let device = viewStore.peers[peer]?.device else { return "app" }
+    guard let device = store.peers[peer]?.device else { return "app" }
     if device.lowercased().contains("vision") {
       return "circle.fill"
     } else {
@@ -69,8 +68,8 @@ struct PeerConnectionView: View {
   }
 
   var body: some View {
-    let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
-    let isConnected: Bool = viewStore.connectedPeer?.peer == peer
+    let discoveryInfo: DiscoveryInfo? = store.peers[peer]
+    let isConnected: Bool = store.connectedPeer?.peer == peer
 
     GroupBox {
       HStack {
@@ -123,9 +122,9 @@ struct PeerConnectionView: View {
           systemImage: isConnected ? "stop.fill" : "play.fill"
         ) {
           if isConnected {
-            viewStore.send(.disconnectCurrentPeer)
+            store.send(.disconnectCurrentPeer)
           } else {
-            viewStore.send(.invite(peer))
+            store.send(.invite(peer))
           }
         }
         .controlSize(.extraLarge)
@@ -140,23 +139,22 @@ struct PeerConnectionView: View {
         if let appName = discoveryInfo?.appName {
           Text(appName)
         }
-        
+
         if let device = discoveryInfo?.device {
-          Text("running on ") +
-          Text(device)
+          Text("running on ") + Text(device)
           if let system = discoveryInfo?.system {
             Text(system)
           }
         }
       }
       .accessibilityElement(children: .combine)
-// .accessibilityAction {
-//   if isConnected {
-//     viewStore.send(.disconnectCurrentPeer)
-//   } else {
-//     viewStore.send(.invite(peer))
-//   }
-// }
+      // .accessibilityAction {
+      //   if isConnected {
+      //     viewStore.send(.disconnectCurrentPeer)
+      //   } else {
+      //     viewStore.send(.invite(peer))
+      //   }
+      // }
     }
   }
 }

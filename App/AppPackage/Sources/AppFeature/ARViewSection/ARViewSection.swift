@@ -5,11 +5,14 @@ import RealityCodable
 import RealityKit
 import SwiftUI
 
-@Reducer public struct ARViewSection {
+@Reducer
+public struct ARViewSection {
+
+  @ObservableState
   public struct State: Equatable {
     public var arView: RealityPlatform.iOS.ARView
     public var debugOptions: DebugOptions.State
-    @BindingState public var isDebugOptionsDisplayed: Bool
+    public var isDebugOptionsDisplayed: Bool
     public var isSelected: Bool = false
 
     public init(
@@ -58,28 +61,32 @@ import SwiftUI
   }
 }
 
-@Reducer public struct DebugOptions {
+@Reducer
+public struct DebugOptions {
+
+  @ObservableState
   public struct State: Equatable {
-    @BindingState public var showAnchorGeometry: Bool
-    @BindingState public var showAnchorOrigins: Bool
-    @BindingState public var showFeaturePoints: Bool
-    @BindingState public var showPhysics: Bool
-    @BindingState public var showSceneUnderstanding: Bool
-    @BindingState public var showStatistics: Bool
-    @BindingState public var showWorldOrigin: Bool
+    public var showAnchorGeometry: Bool
+    public var showAnchorOrigins: Bool
+    public var showFeaturePoints: Bool
+    public var showPhysics: Bool
+    public var showSceneUnderstanding: Bool
+    public var showStatistics: Bool
+    public var showWorldOrigin: Bool
     var options: _DebugOptions = .none
 
     public init(
       _ rawValue: Int
     ) {
-      options = _DebugOptions(rawValue: rawValue)
-      showAnchorGeometry = options.contains(.showAnchorGeometry)
-      showAnchorOrigins = options.contains(.showAnchorOrigins)
-      showFeaturePoints = options.contains(.showFeaturePoints)
-      showPhysics = options.contains(.showPhysics)
-      showSceneUnderstanding = options.contains(.showSceneUnderstanding)
-      showStatistics = options.contains(.showStatistics)
-      showWorldOrigin = options.contains(.showWorldOrigin)
+      let _debugOptions = _DebugOptions(rawValue: rawValue)
+      options = _debugOptions
+      showAnchorGeometry = _debugOptions.contains(_DebugOptions.showAnchorGeometry)
+      showAnchorOrigins = _debugOptions.contains(_DebugOptions.showAnchorOrigins)
+      showFeaturePoints = _debugOptions.contains(.showFeaturePoints)
+      showPhysics = _debugOptions.contains(.showPhysics)
+      showSceneUnderstanding = _debugOptions.contains(.showSceneUnderstanding)
+      showStatistics = _debugOptions.contains(.showStatistics)
+      showWorldOrigin = _debugOptions.contains(.showWorldOrigin)
     }
   }
 
@@ -92,7 +99,7 @@ import SwiftUI
 
     Reduce<State, Action> { state, action in
       switch action {
-        case .binding(\.$showAnchorGeometry):
+        case .binding(\.showAnchorGeometry):
           if state.showAnchorGeometry {
             state.options.insert(.showAnchorGeometry)
           } else {
@@ -100,7 +107,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showAnchorOrigins):
+        case .binding(\.showAnchorOrigins):
           if state.showAnchorOrigins {
             state.options.insert(.showAnchorOrigins)
           } else {
@@ -108,7 +115,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showFeaturePoints):
+        case .binding(\.showFeaturePoints):
           if state.showFeaturePoints {
             state.options.insert(.showFeaturePoints)
           } else {
@@ -116,7 +123,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showPhysics):
+        case .binding(\.showPhysics):
           if state.showPhysics {
             state.options.insert(.showPhysics)
           } else {
@@ -124,7 +131,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showSceneUnderstanding):
+        case .binding(\.showSceneUnderstanding):
           if state.showSceneUnderstanding {
             state.options.insert(.showSceneUnderstanding)
           } else {
@@ -132,7 +139,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showStatistics):
+        case .binding(\.showStatistics):
           if state.showStatistics {
             state.options.insert(.showStatistics)
           } else {
@@ -140,7 +147,7 @@ import SwiftUI
           }
           return .none
 
-        case .binding(\.$showWorldOrigin):
+        case .binding(\.showWorldOrigin):
           if state.showWorldOrigin {
             state.options.insert(.showWorldOrigin)
           } else {

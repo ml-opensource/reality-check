@@ -7,7 +7,7 @@ import StreamingClient
 import SwiftUI
 
 struct MainView: View {
-  let store: StoreOf<AppCore>
+  @State var store: StoreOf<AppCore>
   let viewStore: ViewStore<MultipeerConnection.State, AppCore.Action>
 
   var sessionTitle: String {
@@ -49,100 +49,98 @@ struct MainView: View {
   }
 
   var body: some View {
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
-      NavigationStack {
-        switch viewStore.layout {
-          case .double:
-            NavigatorView(store: store)
-              .modifier(Inspector(store: store))
+    NavigationStack {
+      switch store.layout {
+        case .double:
+          NavigatorView(store: store)
+            .modifier(Inspector(store: store))
 
-          case .triple:
-            TripleLayoutView(store: store)
-              .modifier(Inspector(store: store))
-        }
+        case .triple:
+          TripleLayoutView(store: store)
+            .modifier(Inspector(store: store))
       }
-      .navigationTitle(sessionTitle)
-      .navigationSubtitle(sessionSubtitle)
-      .toolbar(id: "Main") {
-        MainToolbar(store: store)
-      }
+    }
+    .navigationTitle(sessionTitle)
+    .navigationSubtitle(sessionSubtitle)
+    .toolbar(id: "Main") {
+      MainToolbar(store: store)
     }
   }
 }
 
 struct TripleLayoutView: View {
   @Environment(\.openWindow) var openWindow
-  let store: StoreOf<AppCore>
+  @State var store: StoreOf<AppCore>
 
   var body: some View {
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
-      NavigationSplitView {
-        NavigatorView(store: store)
-      } detail: {
-        SplitViewReader { proxy in
-          SplitView(axis: .vertical) {
-            ZStack {
-              Color.clear
-                .background(
-                  Image(.stripes)
-                    .resizable(resizingMode: .tile)
-                    .opacity(viewStore.isStreaming ? 0 : 1)
-                )
-
-              if viewStore.isStreaming {
-                MetalViewRepresentable(viewportSize: viewStore.$viewPortSize)
-                  .frame(
-                    maxWidth: viewStore.viewPortSize.width,
-                    maxHeight: viewStore.viewPortSize.height
-                  )
-                  .aspectRatio(
-                    viewStore.viewPortSize.width / viewStore.viewPortSize.height,
-                    contentMode: .fit
-                  )
-              } else {
-                VideoPreviewPaused().padding()
-              }
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-              if !viewStore.isConsoleDetached {
-                ConsoleStatusBar(
-                  proxy: proxy,
-                  collapsed: viewStore.binding(
-                    get: { !$0.isConsolePresented },
-                    send: { .binding(.set(\.$isConsolePresented, !$0)) }
-                  ),
-                  detached: viewStore.$isConsoleDetached
-                )
-              }
-            }
-
-            if !viewStore.isConsoleDetached {
-              TextEditor(
-                text: .constant(
-                  viewStore.entitiesNavigator?.dumpOutput ?? "No dump output received..."
-                )
+    NavigationSplitView {
+      NavigatorView(store: store)
+    } detail: {
+      SplitViewReader { proxy in
+        SplitView(axis: .vertical) {
+          ZStack {
+            Color.clear
+              .background(
+                Image(.stripes)
+                  .resizable(resizingMode: .tile)
+                  .opacity(store.isStreaming ? 0 : 1)
               )
-              .font(.system(.body, design: .monospaced))
-              .collapsable()
-              .collapsed(
-                viewStore.binding(
-                  get: { !$0.isConsolePresented },
-                  send: { .binding(.set(\.$isConsolePresented, !$0)) }
+
+            if store.isStreaming {
+              MetalViewRepresentable(viewportSize: $store.viewPortSize)
+                .frame(
+                  maxWidth: store.viewPortSize.width,
+                  maxHeight: store.viewPortSize.height
                 )
-              )
-              .frame(minHeight: 200, maxHeight: .infinity)
+                .aspectRatio(
+                  store.viewPortSize.width / store.viewPortSize.height,
+                  contentMode: .fit
+                )
+            } else {
+              VideoPreviewPaused().padding()
             }
           }
-          .customOnChange(of: viewStore.isConsoleDetached) {
-            openWindow(id: WindowID.console.rawValue)
+          .safeAreaInset(edge: .bottom, spacing: 0) {
+            if !store.isConsoleDetached {
+              ConsoleStatusBar(
+                proxy: proxy,
+                collapsed: Binding(
+                  get: { store.isConsolePresented },
+                  set: { store.send(.binding(.set(\.isConsolePresented, !$0))) }
+                ),
+                detached: $store.isConsoleDetached
+              )
+
+            }
           }
-          .edgesIgnoringSafeArea(.top)
-          .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+          if !store.isConsoleDetached {
+            TextEditor(
+              text: .constant(
+                store.entitiesNavigator?.dumpOutput ?? "No dump output received..."
+              )
+            )
+            .font(.system(.body, design: .monospaced))
+            .collapsable()
+            .collapsed(
+              Binding(
+                get: { store.isConsolePresented },
+                set: { store.send(.binding(.set(\.isConsolePresented, !$0))) }
+              )
+            )
+            .frame(minHeight: 200, maxHeight: .infinity)
+          }
         }
-        .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
+        .customOnChange(of: store.isConsoleDetached) {
+          openWindow(id: WindowID.console.rawValue)
+        }
+        .edgesIgnoringSafeArea(.top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
-      .navigationSplitViewStyle(.balanced)
+      .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
     }
+    .navigationSplitViewStyle(.balanced)
+
   }
 }
 

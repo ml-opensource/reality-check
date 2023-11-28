@@ -3,18 +3,10 @@ import Models
 import SwiftUI
 
 struct Inspector_iOS: View {
-  let store: StoreOf<EntitiesNavigator_iOS>
-  let viewStore: ViewStoreOf<EntitiesNavigator_iOS>
+  @State var store: StoreOf<EntitiesNavigator_iOS>
 
   var entity: RealityPlatform.iOS.Entity? {
-    viewStore.selectedEntity
-  }
-
-  init(
-    _ store: StoreOf<EntitiesNavigator_iOS>
-  ) {
-    self.store = store
-    self.viewStore = .init(store, observe: { $0 })
+    store.selectedEntity
   }
 
   var body: some View {
@@ -125,7 +117,7 @@ struct Inspector_iOS: View {
                   Button(
                     parentID.description,
                     systemImage: "arrow.up.backward",
-                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+                    action: { store.send(.binding(.set(\.selection, parentID))) }
                   )
                   .symbolVariant(.square.fill)
                   .help(

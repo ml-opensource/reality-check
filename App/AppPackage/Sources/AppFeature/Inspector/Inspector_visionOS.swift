@@ -4,17 +4,9 @@ import SwiftUI
 
 struct Inspector_visionOS: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
-  let viewStore: ViewStoreOf<EntitiesNavigator_visionOS>
 
   var entity: RealityPlatform.visionOS.Entity? {
-    viewStore.selectedEntity
-  }
-
-  init(
-    _ store: StoreOf<EntitiesNavigator_visionOS>
-  ) {
-    self.store = store
-    self.viewStore = .init(store, observe: { $0 })
+    store.selectedEntity
   }
 
   var body: some View {
@@ -117,7 +109,7 @@ struct Inspector_visionOS: View {
                   Button(
                     parentID.description,
                     systemImage: "arrow.up.backward",
-                    action: { viewStore.send(.binding(.set(\.$selection, parentID))) }
+                    action: { store.send(.binding(.set(\.selection, parentID))) }
                   )
                   .symbolVariant(.square.fill)
                   .help(
