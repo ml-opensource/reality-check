@@ -89,7 +89,6 @@ public struct NavigatorView: View {
           if let store = childStore.scope(state: \.iOS, action: \.iOS) {
             EntitiesNavigatorView_iOS(store: store)
           }
-
         case .visionOS:
           if let store = childStore.scope(state: \.visionOS, action: \.visionOS) {
             EntitiesNavigatorView_visionOS(store: store)
