@@ -33,8 +33,10 @@ struct ConnectionSetupView: View {
           }
           .padding()
         } else {
+          //TODO: add selection
           List(Array(viewStore.peers.keys)) { peer in
             PeerConnectionView(peer: peer, viewStore: viewStore)
+              .listRowSeparator(.hidden)
           }
           .navigationTitle("Inspectable apps")
         }
@@ -57,7 +59,7 @@ struct PeerConnectionView: View {
   var viewStore: ViewStoreOf<MultipeerConnection>
 
   //FIXME: refactor this to default platform extension info
-  var appIconName: String {
+  var appIconSystemName: String {
     guard let device = viewStore.peers[peer]?.device else { return "app" }
     if device.lowercased().contains("vision") {
       return "circle.fill"
@@ -70,71 +72,92 @@ struct PeerConnectionView: View {
     let discoveryInfo: DiscoveryInfo? = viewStore.peers[peer]
     let isConnected: Bool = viewStore.connectedPeer?.peer == peer
 
-    Button(
-      action: {
-        //TODO: allow disconnection
-        viewStore.send(.invite(peer))
-      },
-      label: {
-        HStack {
-          Image(systemName: appIconName)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .fontWeight(.thin)
-            .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
-
-          VStack(alignment: .leading) {
-            HStack(alignment: .bottom) {
-              if let appName = discoveryInfo?.appName {
-                Text(appName)
-                  .font(.headline)
+    GroupBox {
+      HStack {
+        Image(systemName: appIconSystemName)
+          .resizable()
+          .aspectRatio(1, contentMode: .fit)
+          .frame(minWidth: 30, maxWidth: 60)
+          .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
+          .overlay {
+            VStack(spacing: 2) {
+              if let device = discoveryInfo?.device {
+                Image(
+                  systemName: device.lowercased().contains("vision")
+                    ? "visionpro"
+                    : "iphone"
+                )
               }
 
               if let appVersion = discoveryInfo?.appVersion {
                 Text(appVersion)
-                  .font(.caption2)
-                  .foregroundColor(.secondary)
+                  .font(.caption)
               }
             }
+          }
 
-            GroupBox {
-              HStack(alignment: .bottom) {
-                if let device = discoveryInfo?.device {
-                  Label.init(
-                    device,
-                    systemImage: device.lowercased().contains("vision")
-                      ? "visionpro"
-                      : "iphone"
-                  )
-                }
+        VStack(alignment: .leading) {
+          if let appName = discoveryInfo?.appName {
+            Text(appName)
+              .font(.title2)
+          }
 
-                if let system = discoveryInfo?.system {
-                  Text(system).font(.caption2)
-                }
-              }
+          HStack(alignment: .bottom) {
+            if let device = discoveryInfo?.device {
+              Text(device)
+                .foregroundStyle(.secondary)
             }
-            .foregroundColor(.primary)
+
+            if let system = discoveryInfo?.system {
+              Text(system)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            }
           }
-
-          Spacer()
-
-          Divider()
-          
-          Button("disconnect") {
-            viewStore.send(.disconnectCurrentPeer)
-          }
-
-          Toggle(
-            "isConnected",
-            isOn: .constant(isConnected)
-          )
-          .toggleStyle(.switch)
-          .labelsHidden()
         }
-        .padding(.vertical, 8)
+
+        Spacer()
+
+        Button(
+          isConnected ? "Disconnect" : "Connect",
+          systemImage: isConnected ? "stop.fill" : "play.fill"
+        ) {
+          if isConnected {
+            viewStore.send(.disconnectCurrentPeer)
+          } else {
+            viewStore.send(.invite(peer))
+          }
+        }
+        .controlSize(.extraLarge)
       }
-    )
-    //FIXME: .help("Insert coin to continue")
+      .padding(2)
+      //FIXME: .help("Insert coin to continue")
+    }
+    .accessibilityElement()
+    .accessibilityLabel("TEst")
+    .accessibilityRepresentation {
+      ZStack {
+        if let appName = discoveryInfo?.appName {
+          Text(appName)
+        }
+        
+        if let device = discoveryInfo?.device {
+          Text("running on ") +
+          Text(device)
+          if let system = discoveryInfo?.system {
+            Text(system)
+          }
+        }
+      }
+      .accessibilityElement(children: .combine)
+// .accessibilityAction {
+//   if isConnected {
+//     viewStore.send(.disconnectCurrentPeer)
+//   } else {
+//     viewStore.send(.invite(peer))
+//   }
+// }
+    }
   }
 }
 
