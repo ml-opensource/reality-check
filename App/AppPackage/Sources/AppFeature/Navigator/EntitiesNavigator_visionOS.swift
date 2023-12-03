@@ -4,36 +4,6 @@ import Models
 import RealityCodable
 import SwiftUI
 
-extension RealityPlatform.visionOS.Entity {
-  //FIXME: remove and use reality-codable existent properties
-  public var computedName: String {
-    if let name = self.name, !name.isEmpty {
-      return name
-    } else {
-      return "\(type(of: self))"
-    }
-  }
-}
-
-extension RealityPlatform.visionOS.Entity {
-  public var systemImage: String {
-    switch "\(type(of: self))" {
-      case "AnchorEntity":
-        return "arrow.down.to.line"
-      case "Entity":
-        return "move.3d"
-      case "ModelEntity":
-        return "cube"
-      case "PerspectiveCamera":
-        return "camera"
-      case "TriggerVolume":
-        return "cube.transparent"
-      default:
-        return "move.3d"
-    }
-  }
-}
-
 @Reducer
 public struct EntitiesNavigator_visionOS {
 
