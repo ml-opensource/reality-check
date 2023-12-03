@@ -111,7 +111,7 @@ public struct AppCore {
           let entities = decodedARView.scene.anchors.map(\.value)
           if state.entitiesNavigator == nil {
             state.entitiesNavigator = .iOS(
-              //FIXME: This now looks very complicated. Simplify.
+              //FIXME: This now looks strane (i.e.: entities could be extracted from the arView). Simplify.
               .init(entities, arViewSection: .init(arView: decodedARView))
             )
           }

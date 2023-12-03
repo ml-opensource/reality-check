@@ -9,7 +9,7 @@ import CoreMedia
 import Metal
 import MetalKit
 
-#if !os(xrOS)
+#if !os(visionOS)
   ///- Tag: Renderer
   class Renderer: NSObject {
 

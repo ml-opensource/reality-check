@@ -50,7 +50,7 @@ struct RealityCheckApp: App {
               "Attach Console",
               systemImage: "square.bottomthird.inset.filled",
               action: {
-                store.send(.binding(.set(\.isConsoleDetached, false)))
+                store.isConsoleDetached = false
                 dismissWindow(id: WindowID.console.rawValue)
               }
             )

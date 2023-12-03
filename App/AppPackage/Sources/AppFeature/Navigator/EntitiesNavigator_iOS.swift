@@ -30,10 +30,9 @@ public struct EntitiesNavigator_iOS {
       arViewSection: ARViewSection.State? = nil,
       selection: RealityPlatform.iOS.Entity.ID? = nil
     ) {
-      let _entities = IdentifiedArrayOf<RealityPlatform.iOS.Entity>(uniqueElements: entities)
-      self.entities = _entities
+      self.entities = .init(uniqueElements: entities)
       self.arViewSection = arViewSection
-      self.selection = selection ?? _entities.first?.id
+      self.selection = selection ?? entities.first?.id
       self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }

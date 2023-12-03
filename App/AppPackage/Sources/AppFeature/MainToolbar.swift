@@ -4,7 +4,7 @@ import SwiftUI
 
 public struct MainToolbar: CustomizableToolbarContent {
   @Bindable var store: StoreOf<AppCore>
-  
+
   public init(store: StoreOf<AppCore>) {
     self.store = store
   }
@@ -43,13 +43,13 @@ public struct MainToolbar: CustomizableToolbarContent {
     ToolbarItem(id: "Layout") {
       Picker("Layout", selection: $store.layout) {
         Button("Double", systemImage: "rectangle.split.2x1") {
-          store.send(.binding(.set(\.layout, .double)))
+          store.layout = .double
         }
         .tag(Layout.double)
         .help("Two Columns")
 
         Button("Triple", systemImage: "rectangle.split.3x1") {
-          store.send(.binding(.set(\.layout, .triple)))
+          store.layout = .triple
         }
         .tag(Layout.triple)
         .help("Three Columns")

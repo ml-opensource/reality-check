@@ -9,7 +9,7 @@ struct ARViewSectionView: View {
     GroupBox {
       VStack {
         Button.init("ARView", systemImage: "cube.transparent") {
-          store.send(.binding(.set(\.isDebugOptionsDisplayed, true)))
+          store.isDebugOptionsDisplayed = true
         }
 
         Button(
@@ -40,7 +40,7 @@ struct ARViewSectionView: View {
         .overlay(alignment: .trailing) {
           Button(
             action: {
-              store.send(.binding(.set(\.isDebugOptionsDisplayed, true)))
+              store.isDebugOptionsDisplayed = true
             },
             label: {
               Label("Debug Options", systemImage: "ladybug")

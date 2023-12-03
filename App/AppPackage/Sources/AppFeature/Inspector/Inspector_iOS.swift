@@ -117,7 +117,7 @@ struct Inspector_iOS: View {
                   Button(
                     parentID.description,
                     systemImage: "arrow.up.backward",
-                    action: { store.send(.binding(.set(\.selection, parentID))) }
+                    action: { store.selection = parentID }
                   )
                   .symbolVariant(.square.fill)
                   .help(

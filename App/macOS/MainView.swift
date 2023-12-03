@@ -100,7 +100,7 @@ struct TripleLayoutView: View {
                 proxy: proxy,
                 collapsed: Binding(
                   get: { store.isConsolePresented },
-                  set: { store.send(.binding(.set(\.isConsolePresented, !$0))) }
+                  set: { store.isConsolePresented = !$0 }
                 ),
                 detached: $store.isConsoleDetached
               )
@@ -119,7 +119,7 @@ struct TripleLayoutView: View {
             .collapsed(
               Binding(
                 get: { store.isConsolePresented },
-                set: { store.send(.binding(.set(\.isConsolePresented, !$0))) }
+                set: { store.isConsolePresented = !$0 }
               )
             )
             .frame(minHeight: 200, maxHeight: .infinity)
