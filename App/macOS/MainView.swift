@@ -8,15 +8,14 @@ import SwiftUI
 
 struct MainView: View {
   @State var store: StoreOf<AppCore>
-  let viewStore: ViewStore<MultipeerConnection.State, AppCore.Action>
 
   var sessionTitle: String {
-    switch viewStore.sessionState {
+    switch store.multipeerConnection.sessionState {
       case .notConnected, .connecting:
         return "RealityCheck"
 
       case .connected:
-        if let connectedPeer = viewStore.connectedPeer,
+        if let connectedPeer = store.multipeerConnection.connectedPeer,
           let appName = connectedPeer.discoveryInfo?.appName
         {
           return appName
@@ -27,12 +26,12 @@ struct MainView: View {
   }
 
   var sessionSubtitle: String {
-    switch viewStore.sessionState {
+    switch store.multipeerConnection.sessionState {
       case .notConnected, .connecting:
         return ""
 
       case .connected:
-        if let discoveryInfo = viewStore.connectedPeer?.discoveryInfo,
+        if let discoveryInfo = store.multipeerConnection.connectedPeer?.discoveryInfo,
           let appVersion = discoveryInfo.appVersion,
           let systemIcon = discoveryInfo.systemIcon
         {
@@ -41,11 +40,6 @@ struct MainView: View {
           return ""
         }
     }
-  }
-
-  init(store: StoreOf<AppCore>) {
-    self.store = store
-    self.viewStore = ViewStore(store, observe: \.multipeerConnection, removeDuplicates: ==)
   }
 
   var body: some View {

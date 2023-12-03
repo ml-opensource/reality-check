@@ -3,17 +3,15 @@ import MultipeerClient
 import SwiftUI
 
 public struct MainToolbar: CustomizableToolbarContent {
-  @State var store: StoreOf<AppCore>
-  @ObservedObject var viewStore: ViewStoreOf<AppCore>
-
+  @Bindable var store: StoreOf<AppCore>
+  
   public init(store: StoreOf<AppCore>) {
     self.store = store
-    self.viewStore = ViewStore(store, observe: { $0 })
   }
 
   public var body: some CustomizableToolbarContent {
     ToolbarItem(id: "SessionState", placement: .status) {
-      SessionStateView(viewStore.multipeerConnection.sessionState)
+      SessionStateView(store.multipeerConnection.sessionState)
         .labelStyle(.titleAndIcon)
     }
 
