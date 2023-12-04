@@ -20,4 +20,9 @@ extension RealityPlatform.visionOS.Entity {
       return "\(type(of: self))"
     }
   }
+  
+  //FIXME: figure out localized resource issue for `RealityCodable` accessibilityLabel
+  public var _accessibilityLabel: String {
+    "\(type(of: self)): \(name ?? "")"
+  }
 }

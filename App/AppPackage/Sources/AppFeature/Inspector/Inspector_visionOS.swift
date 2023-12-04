@@ -54,6 +54,7 @@ struct Inspector_visionOS: View {
               )
             }
           }
+          .accessibilityLabel("Accessibility")
 
           //FIXME:
           // if !entity.availableAnimations.isEmpty {

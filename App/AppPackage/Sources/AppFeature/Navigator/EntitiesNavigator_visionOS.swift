@@ -98,19 +98,15 @@ public struct EntitiesNavigatorView_visionOS: View {
           store.entities.elements,
           children: \.childrenOptional
         ) { entity in
-          let isUnnamed = entity.name?.isEmpty ?? true
-
           Label(
             entity.computedName,
             systemImage: entity.parentID == nil
               ? "uiwindow.split.2x1"
               : entity.systemImage
           )
-          .italic(isUnnamed)
-
+          .accessibilityLabel(entity._accessibilityLabel)
+          
           // FIXME: .help(entity.entityType.help)
-          // .accessibilityLabel(Text(entity.accessibilityLabel ?? ""))
-          // .accessibilityValue(Text(entity.accessibilityDescription ?? ""))
         }
       }
       .collapsible(false)
