@@ -76,22 +76,6 @@ struct PeerConnectionView: View {
           .aspectRatio(1, contentMode: .fit)
           .frame(minWidth: 30, maxWidth: 60)
           .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
-          .overlay {
-            VStack(spacing: 2) {
-              if let device = discoveryInfo?.device {
-                Image(
-                  systemName: device.lowercased().contains("vision")
-                    ? "visionpro"
-                    : "iphone"
-                )
-              }
-
-              if let appVersion = discoveryInfo?.appVersion {
-                Text(appVersion)
-                  .font(.caption)
-              }
-            }
-          }
 
         VStack(alignment: .leading) {
           if let appName = discoveryInfo?.appName {
@@ -99,14 +83,17 @@ struct PeerConnectionView: View {
               .font(.title2)
           }
 
-          HStack(alignment: .bottom) {
+          HStack(alignment: .bottom, spacing: 0) {
             if let device = discoveryInfo?.device {
-              Text(device)
-                .foregroundStyle(.secondary)
+              Label(
+                device,
+                systemImage: device.lowercased().contains("vision") ? "visionpro" : "iphone"
+              )
+              .foregroundStyle(.secondary)
             }
 
             if let system = discoveryInfo?.system {
-              Text(system)
+              Text(", \(system)")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             }

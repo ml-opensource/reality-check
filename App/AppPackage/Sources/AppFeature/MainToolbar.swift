@@ -19,28 +19,6 @@ public struct MainToolbar: CustomizableToolbarContent {
       Spacer()
     }
 
-    ToolbarItem(id: "ConnectionSetup") {
-      Toggle(
-        isOn: $store.isConnectionSetupPresented,
-        label: { Label("Connection Setup", systemImage: "bonjour") }
-      )
-      .symbolRenderingMode(.multicolor)
-      .help("Connection Setup")
-      .accessibilityLabel("Connection Setup")
-      .keyboardShortcut("S", modifiers: [.command, .option])
-      .popover(
-        isPresented: $store.isConnectionSetupPresented,
-        content: {
-          ConnectionSetupView(
-            store: store.scope(
-              state: \.multipeerConnection,
-              action: \.multipeerConnection
-            )
-          )
-        }
-      )
-    }
-
     ToolbarItem(id: "Layout") {
       Picker("Layout", selection: $store.layout) {
         Button("Double", systemImage: "rectangle.split.2x1") {
@@ -62,14 +40,38 @@ public struct MainToolbar: CustomizableToolbarContent {
       .accessibilityHint("Choose from different kinds of layouts")
     }
 
-    ToolbarItem(id: "Console") {
+    if store.layout == .triple {
+      ToolbarItem(id: "Console") {
+        Toggle(
+          isOn: $store.isConsolePresented,
+          label: { Label("Console", systemImage: "doc.plaintext") }
+        )
+        .help(store.isConsolePresented ? "Hide Console" : "Show Console")
+        .accessibilityLabel(store.isConsolePresented ? "Hide Console" : "Show Console")
+        .keyboardShortcut("C", modifiers: [.command, .option])
+      }
+    }
+    
+    ToolbarItem(id: "ConnectionSetup") {
       Toggle(
-        isOn: $store.isConsolePresented,
-        label: { Label("Console", systemImage: "doc.plaintext") }
+        isOn: $store.isConnectionSetupPresented,
+        label: { Label("Connection Setup", systemImage: "bonjour") }
       )
-      .help(store.isConsolePresented ? "Hide Console" : "Show Console")
-      .accessibilityLabel(store.isConsolePresented ? "Hide Console" : "Show Console")
-      .keyboardShortcut("C", modifiers: [.command, .option])
+      .symbolRenderingMode(.multicolor)
+      .help("Connection Setup")
+      .accessibilityLabel("Connection Setup")
+      .keyboardShortcut("S", modifiers: [.command, .option])
+      .popover(
+        isPresented: $store.isConnectionSetupPresented,
+        content: {
+          ConnectionSetupView(
+            store: store.scope(
+              state: \.multipeerConnection,
+              action: \.multipeerConnection
+            )
+          )
+        }
+      )
     }
   }
 }
@@ -121,4 +123,8 @@ struct SessionStateView: View {
     Label(contextualLabel, systemImage: contextualImage)
       .foregroundStyle(contextualColor)
   }
+}
+
+#Preview {
+  SessionStateView(.connected(.init(displayName: "MOCKY")))
 }
