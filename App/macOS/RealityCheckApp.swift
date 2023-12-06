@@ -39,7 +39,7 @@ struct RealityCheckApp: App {
     }
 
     Window("Console", id: WindowID.console.rawValue) {
-      @Environment(\.dismissWindow) var dismissWindow
+      // @Environment(\.dismissWindow) var dismissWindow
 
       let output = store.entitiesNavigator?.dumpOutput ?? "No dump output received..."
       TextEditor(text: .constant(output))
@@ -51,7 +51,8 @@ struct RealityCheckApp: App {
               systemImage: "square.bottomthird.inset.filled",
               action: {
                 store.isConsoleDetached = false
-                dismissWindow(id: WindowID.console.rawValue)
+                //FIXME: Accessing Environment<DismissWindowAction>'s value outside of being installed on a View. This will always read the default value and will not update.
+                // dismissWindow(id: WindowID.console.rawValue)
               }
             )
             .help("Attach the console to the main window")
