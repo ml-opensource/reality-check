@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
           "branch": null,
-          "revision": "ed7facdd4a361514b46e3bbc6238cd41c84be4ec",
-          "version": "1.1.1"
+          "revision": "a5521dde99570789d8cb7c43e51418d7cd1a87ca",
+          "version": "1.1.2"
         }
       },
       {
@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
         "state": {
           "branch": "observation-beta",
-          "revision": "935a87520cac4b35c5a10c2b1fa089757659b09a",
+          "revision": "b2dc36241005a5c62c68db6550a5218253f8cea7",
           "version": null
         }
       },

@@ -99,12 +99,11 @@ struct TripleLayoutView: View {
               ConsoleStatusBar(
                 proxy: proxy,
                 collapsed: Binding(
-                  get: { store.isConsolePresented },
+                  get: { !store.isConsolePresented },
                   set: { store.isConsolePresented = !$0 }
                 ),
                 detached: $store.isConsoleDetached
               )
-
             }
           }
 
@@ -118,7 +117,7 @@ struct TripleLayoutView: View {
             .collapsable()
             .collapsed(
               Binding(
-                get: { store.isConsolePresented },
+                get: { !store.isConsolePresented },
                 set: { store.isConsolePresented = !$0 }
               )
             )
