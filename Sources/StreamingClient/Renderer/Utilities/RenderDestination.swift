@@ -15,6 +15,6 @@ protocol RenderDestination {
   var depthStencilPixelFormat: MTLPixelFormat { get set }
 }
 
-#if !os(xrOS)
+#if !os(visionOS)
   extension MTKView: RenderDestination {}
 #endif

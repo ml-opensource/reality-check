@@ -166,7 +166,7 @@ struct PeerConnectionView: View {
     )
     .scope(
       state: \.multipeerConnection,
-      action: AppCore.Action.multipeerConnection
+      action: \.multipeerConnection
     )
   )
 }
@@ -190,7 +190,7 @@ struct PeerConnectionView: View {
     )
     .scope(
       state: \.multipeerConnection,
-      action: AppCore.Action.multipeerConnection
+      action: \.multipeerConnection
     )
   )
 }
@@ -238,7 +238,7 @@ struct PeerConnectionView: View {
     )
     .scope(
       state: \.multipeerConnection,
-      action: AppCore.Action.multipeerConnection
+      action: \.multipeerConnection
     )
   )
 }

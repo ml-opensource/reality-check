@@ -60,7 +60,7 @@ struct ARViewSectionView: View {
             DebugOptionsView(
               store: store.scope(
                 state: \.debugOptions,
-                action: ARViewSection.Action.debugOptions
+                action: \.debugOptions
               )
             )
             .padding()

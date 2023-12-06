@@ -33,7 +33,7 @@ public struct MainToolbar: CustomizableToolbarContent {
           ConnectionSetupView(
             store: store.scope(
               state: \.multipeerConnection,
-              action: AppCore.Action.multipeerConnection
+              action: \.multipeerConnection
             )
           )
         }
