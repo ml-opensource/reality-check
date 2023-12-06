@@ -26,6 +26,7 @@ public struct MainToolbar: CustomizableToolbarContent {
       )
       .symbolRenderingMode(.multicolor)
       .help("Connection Setup")
+      .accessibilityLabel("Connection Setup")
       .keyboardShortcut("S", modifiers: [.command, .option])
       .popover(
         isPresented: $store.isConnectionSetupPresented,
@@ -47,15 +48,18 @@ public struct MainToolbar: CustomizableToolbarContent {
         }
         .tag(Layout.double)
         .help("Two Columns")
+        .accessibilityLabel("Two Columns layout")
 
         Button("Triple", systemImage: "rectangle.split.3x1") {
           store.layout = .triple
         }
         .tag(Layout.triple)
         .help("Three Columns")
+        .accessibilityLabel("Three Columns layout")
       }
       .pickerStyle(.segmented)
       .help("Panel Layout")
+      .accessibilityHint("Choose from different kinds of layouts")
     }
 
     ToolbarItem(id: "Console") {
@@ -64,6 +68,7 @@ public struct MainToolbar: CustomizableToolbarContent {
         label: { Label("Console", systemImage: "doc.plaintext") }
       )
       .help(store.isConsolePresented ? "Hide Console" : "Show Console")
+      .accessibilityLabel(store.isConsolePresented ? "Hide Console" : "Show Console")
       .keyboardShortcut("C", modifiers: [.command, .option])
     }
   }
