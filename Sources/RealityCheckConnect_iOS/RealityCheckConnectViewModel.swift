@@ -7,8 +7,8 @@ import RealityKit
 import StreamingClient
 import SwiftUI
 
+@MainActor
 final class RealityCheckConnectViewModel: ObservableObject {
-  //FIXME: Publishing changes from background threads is not allowed; make sure to publish values from the main thread (via operators like receive(on:)) on model updates.
   @Published var connectionState: MultipeerClient.SessionState
   @Published var hostName: String
   @Published var isStreaming = false

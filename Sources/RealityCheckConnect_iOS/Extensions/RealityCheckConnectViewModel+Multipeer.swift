@@ -17,8 +17,7 @@ extension RealityCheckConnectViewModel {
         case .session(let sessionAction):
           switch sessionAction {
             case .stateDidChange(let state):
-              connectionState = state
-
+              self.connectionState = state
               if case .connected = state {
                 /// Send Hierarchy on connect
                 await sendMultipeerData()
@@ -99,8 +98,8 @@ extension RealityCheckConnectViewModel {
     for anchor in anchors {
       if let selectedEntity = await anchor.findEntity(id: selectedEntityID) {
         //FIXME: find missing Mirror
-        // let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
-        // multipeerClient.send(rawData)
+         // let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
+        // await multipeerClient.send(rawData)
       }
     }
   }

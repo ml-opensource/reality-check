@@ -35,11 +35,9 @@ struct ConnectionSetupView: View {
         //TODO: add selection
         List(Array(store.peers.keys), selection: $selection) { peer in
           PeerConnectionView(peer: peer, store: store)
-            .listRowSeparator(.hidden)
             .tag(peer)
         }
         .navigationTitle("Inspectable apps")
-        .listStyle(.plain)
       }
     }
     .animation(.easeInOut, value: store.peers)
