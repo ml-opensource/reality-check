@@ -26,7 +26,7 @@ extension RealityCheckConnectViewModel {
               }
 
             case .didReceiveData(let data):
-              guard let sessionEvent = SessionEvent(data: data) else {
+              guard let sessionEvent = RealityPlatform.visionOS.SessionEvent(data: data) else {
                 fatalError("Unknown data was received.")
               }
 
@@ -34,6 +34,7 @@ extension RealityCheckConnectViewModel {
                 case .entitySelected(let entityID):
                   selectedEntityID = entityID
                   await sendSelectedEntityMultipeerRawData()
+                
                 case .disconnectionRequested:
                   await multipeerClient.disconnect()
               }

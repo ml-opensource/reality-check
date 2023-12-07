@@ -121,9 +121,7 @@ public struct EntitiesNavigatorView_iOS: View {
 
           Label(
             entity.computedName,
-            systemImage: entity.parentID == nil
-              ? "uiwindow.split.2x1"
-              : entity.systemImage
+            systemImage: entity.systemImage
           )
           .italic(isUnnamed)
 

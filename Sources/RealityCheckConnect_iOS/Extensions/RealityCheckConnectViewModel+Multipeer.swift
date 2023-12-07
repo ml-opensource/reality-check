@@ -25,38 +25,23 @@ extension RealityCheckConnectViewModel {
               }
 
             case .didReceiveData(let data):
-              /// ARView Debug Options
-              if let debugOptions = try? JSONDecoder()
-                .decode(
-                  _DebugOptions.self,
-                  from: data
-                )
-              {
-                await MainActor.run {
-                  arView?.debugOptions = ARView.DebugOptions(
-                    rawValue: debugOptions.rawValue
-                  )
-                }
-              }/// Entity selection
-              else if let entitySelection = try? defaultDecoder.decode(
-                EntitySelection.self,
-                from: data
-              ) {
-                selectedEntityID = entitySelection.entityID
-                await sendSelectedEntityMultipeerRawData()
-                // TODO: display selection
-                // if let entity = await arView?
-                //   .findEntityIdentified(targetID: entitySelection.entityID)
-                // {
-                //   await MainActor.run {
-                //     let parentBounds = entity.visualBounds(relativeTo: nil)
-                //     selectionEntity.setParent(entity)
-                //     // selectionEntity.setPosition(parentBounds.center, relativeTo: nil)
-                //     // selectionEntity.position.y = parentBounds.extents.y
-                //   }
-                // }
-              } else {
+              guard let sessionEvent = RealityPlatform.iOS.SessionEvent(data: data) else {
                 fatalError("Unknown data was received.")
+              }
+
+              switch sessionEvent {
+                case .entitySelected(let entityID):
+                  selectedEntityID = entityID
+                  await sendSelectedEntityMultipeerRawData()
+
+                case .debugOptionsUpdated(let options):
+                  await MainActor.run {
+                    arView?.debugOptions = ARView.DebugOptions(
+                      rawValue: options.rawValue
+                    )
+                  }
+                case .disconnectionRequested:
+                  await multipeerClient.disconnect()
               }
           }
 

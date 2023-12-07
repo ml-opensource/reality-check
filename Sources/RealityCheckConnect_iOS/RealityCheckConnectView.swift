@@ -188,54 +188,43 @@ extension RealityCheckConnectView {
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      RealityCheckConnectView(
-        viewModel: withDependencies {
-          $0.multipeerClient.start = { (_, _, _) in
-            AsyncStream.finished
-          }
-        } operation: {
-          RealityCheckConnectViewModel(
-            hostName: "MOCKY",
-            arView: .init(frame: .null)
-          )
-        }
+#Preview {
+  RealityCheckConnectView(
+    viewModel: withDependencies {
+      $0.multipeerClient.start = { (_, _, _) in
+        AsyncStream.finished
+      }
+    } operation: {
+      RealityCheckConnectViewModel(
+        hostName: "MOCKY",
+        arView: .init(frame: .null)
       )
-      .previewDisplayName(".notConnected")
-
-      RealityCheckConnectView(
-        viewModel: withDependencies {
-          $0.multipeerClient.start = { (_, _, _, _, _) in
-            AsyncStream {
-              $0.yield(.session(.stateDidChange(.connecting(Peer(displayName: "MOCKYPEER")))))
-            }
-          }
-        } operation: {
-          RealityCheckConnectViewModel(
-            hostName: "MOCKY",
-            arView: .init(frame: .null)
-          )
-        }
-      )
-      .previewDisplayName(".connecting")
-
-      RealityCheckConnectView(
-        viewModel: .init(
-          hostName: "MOCKY",
-          arView: .init(frame: .null)
-        )
-      )
-      .previewDisplayName(".connected")
     }
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background {
-      Image("background_preview", bundle: .module)
-        .resizable()
-        .aspectRatio(contentMode: .fill)
-        .ignoresSafeArea()
+  )
+}
+
+#Preview {
+  RealityCheckConnectView(
+    viewModel: withDependencies {
+      $0.multipeerClient.start = { (_, _, _) in
+        AsyncStream {
+          $0.yield(.session(.stateDidChange(.connecting(Peer(displayName: "MOCKYPEER")))))
+        }
+      }
+    } operation: {
+      RealityCheckConnectViewModel(
+        hostName: "MOCKY",
+        arView: .init(frame: .null)
+      )
     }
-    .preferredColorScheme(.light)
-  }
+  )
+}
+
+#Preview {
+  RealityCheckConnectView(
+    viewModel: .init(
+      hostName: "MOCKY",
+      arView: .init(frame: .null)
+    )
+  )
 }

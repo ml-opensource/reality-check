@@ -86,18 +86,12 @@ struct PeerConnectionView: View {
         }
 
         HStack(alignment: .bottom, spacing: 0) {
-          if let device = discoveryInfo?.device {
+          if let device = discoveryInfo?.device, let system = discoveryInfo?.system {
             Label(
-              device,
+              "\(device), \(system)",
               systemImage: device.lowercased().contains("vision") ? "visionpro" : "iphone"
             )
             .foregroundStyle(.secondary)
-          }
-
-          if let system = discoveryInfo?.system {
-            Text(", \(system)")
-              .font(.caption)
-              .foregroundStyle(.secondary)
           }
         }
       }
