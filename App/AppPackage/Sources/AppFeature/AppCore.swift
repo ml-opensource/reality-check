@@ -80,21 +80,32 @@ public struct AppCore {
         case .binding(_):
           return .none
 
+        case .entitiesNavigator(.iOS(.delegate(.didSelectEntity(let entityID)))),
+          .entitiesNavigator(.visionOS(.delegate(.didSelectEntity(let entityID)))):
+          return .send(.multipeerConnection(.sendSelection(entityID)))
+
         case .entitiesNavigator(
           .iOS(.arViewSection(.delegate(.didUpdateDebugOptions(let options))))
         ):
           return .send(.multipeerConnection(.sendDebugOptions(options)))
 
-        case .entitiesNavigator(.iOS(.delegate(.didSelectEntity(let entityID)))),
-          .entitiesNavigator(.visionOS(.delegate(.didSelectEntity(let entityID)))):
-          return .send(.multipeerConnection(.sendSelection(entityID)))
-
         case .entitiesNavigator:
           return .none
 
-        case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
-          state.isStreaming = true
-          streamingClient.prepareForRender(videoFrameData)
+        case .multipeerConnection(.delegate(.didUpdateSessionState(.notConnected))):
+          if state.multipeerConnection.isManuallyDisconnected {
+            state.entitiesNavigator = nil
+            state.isInspectorDisplayed = false
+          }
+          return .none
+
+        case .multipeerConnection(.delegate(.peersUpdated)):
+          /// Display "Connection Setup" dialog when not connected to any peer but theres at least one available
+          if !state.multipeerConnection.peers.isEmpty,
+            state.multipeerConnection.sessionState == .notConnected
+          {
+            state.isConnectionSetupPresented = true
+          }
           return .none
 
         case .multipeerConnection(.delegate(.receivedDump(let dump))):
@@ -126,13 +137,9 @@ public struct AppCore {
           state.isInspectorDisplayed = true
           return .send(.entitiesNavigator(.visionOS(.refreshEntities(entities))))
 
-        case .multipeerConnection(.delegate(.peersUpdated)):
-          /// Display "Connection Setup" dialog when not connected to any peer but theres at least one available
-          if !state.multipeerConnection.peers.isEmpty,
-            state.multipeerConnection.sessionState == .notConnected
-          {
-            state.isConnectionSetupPresented = true
-          }
+        case .multipeerConnection(.delegate(.receivedVideoFrameData(let videoFrameData))):
+          state.isStreaming = true
+          streamingClient.prepareForRender(videoFrameData)
           return .none
 
         case .multipeerConnection(_):

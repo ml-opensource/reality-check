@@ -4,6 +4,8 @@ import SwiftUI
 
 struct ConnectionSetupView: View {
   @Environment(\.openURL) private var openURL
+  @State private var selection: Set<Peer> = []
+
   let store: StoreOf<MultipeerConnection>
   let helpURL = URL(
     string:
@@ -31,11 +33,13 @@ struct ConnectionSetupView: View {
         .padding()
       } else {
         //TODO: add selection
-        List(Array(store.peers.keys)) { peer in
+        List(Array(store.peers.keys), selection: $selection) { peer in
           PeerConnectionView(peer: peer, store: store)
             .listRowSeparator(.hidden)
+            .tag(peer)
         }
         .navigationTitle("Inspectable apps")
+        .listStyle(.plain)
       }
     }
     .animation(.easeInOut, value: store.peers)
@@ -48,7 +52,6 @@ struct ConnectionSetupView: View {
 }
 
 struct PeerConnectionView: View {
-
   @Environment(\.openWindow) var openWindow
   let peer: Peer
 
@@ -69,57 +72,55 @@ struct PeerConnectionView: View {
     let discoveryInfo: DiscoveryInfo? = store.peers[peer]
     let isConnected: Bool = store.connectedPeer?.peer == peer
 
-    GroupBox {
-      HStack {
-        Image(systemName: appIconSystemName)
-          .resizable()
-          .aspectRatio(1, contentMode: .fit)
-          .frame(minWidth: 30, maxWidth: 60)
-          .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
+    HStack {
+      Image(systemName: appIconSystemName)
+        .resizable()
+        .aspectRatio(1, contentMode: .fit)
+        .frame(minWidth: 30, maxWidth: 60)
+        .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
 
-        VStack(alignment: .leading) {
-          if let appName = discoveryInfo?.appName {
-            Text(appName)
-              .font(.title2)
+      VStack(alignment: .leading) {
+        if let appName = discoveryInfo?.appName {
+          Text(appName)
+            .font(.title2)
+        }
+
+        HStack(alignment: .bottom, spacing: 0) {
+          if let device = discoveryInfo?.device {
+            Label(
+              device,
+              systemImage: device.lowercased().contains("vision") ? "visionpro" : "iphone"
+            )
+            .foregroundStyle(.secondary)
           }
 
-          HStack(alignment: .bottom, spacing: 0) {
-            if let device = discoveryInfo?.device {
-              Label(
-                device,
-                systemImage: device.lowercased().contains("vision") ? "visionpro" : "iphone"
-              )
+          if let system = discoveryInfo?.system {
+            Text(", \(system)")
+              .font(.caption)
               .foregroundStyle(.secondary)
-            }
-
-            if let system = discoveryInfo?.system {
-              Text(", \(system)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            }
           }
         }
-
-        Spacer()
-
-        Button(
-          isConnected ? "Disconnect" : "Connect",
-          systemImage: isConnected ? "stop.fill" : "play.fill"
-        ) {
-          if isConnected {
-            store.send(.disconnectCurrentPeer)
-          } else {
-            store.send(.invite(peer))
-          }
-        }
-        .controlSize(.extraLarge)
       }
-      .padding(2)
-      //FIXME: .help("Insert coin to continue")
+
+      Spacer()
+
+      Button(
+        isConnected ? "Disconnect" : "Connect",
+        systemImage: isConnected ? "stop.fill" : "play.fill"
+      ) {
+        if isConnected {
+          store.send(.disconnectCurrentPeer)
+        } else {
+          store.send(.invite(peer))
+        }
+      }
+      .controlSize(.extraLarge)
     }
+    //FIXME: .help("Insert coin to continue")
+    .padding(8)
     .accessibilityElement()
     .accessibilityRepresentation {
-      ZStack {
+      Group {
         if let appName = discoveryInfo?.appName {
           Text(appName)
         }

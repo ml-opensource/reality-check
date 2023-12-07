@@ -17,6 +17,8 @@
 		401215B32A23659D00D98058 /* ConsoleStatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401215B12A23659D00D98058 /* ConsoleStatusBar.swift */; };
 		40A3D3782AEC3B770044095B /* reality-check in Resources */ = {isa = PBXBuildFile; fileRef = 40A3D3772AEC3B770044095B /* reality-check */; };
 		40A3D37A2AEC3BA60044095B /* RealityCheckConnect in Frameworks */ = {isa = PBXBuildFile; productRef = 40A3D3792AEC3BA60044095B /* RealityCheckConnect */; };
+		40AA88932B21D68900A6C274 /* TripleLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA88922B21D68900A6C274 /* TripleLayoutView.swift */; };
+		40AA88952B21D6DC00A6C274 /* DoubleLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AA88942B21D6DC00A6C274 /* DoubleLayoutView.swift */; };
 		40E7518B29F68F0B0083502A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517D29F68F0B0083502A /* Assets.xcassets */; };
 		40E7518C29F68F0B0083502A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40E7517F29F68F0B0083502A /* Preview Assets.xcassets */; };
 		40E7518D29F68F0B0083502A /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E7518129F68F0B0083502A /* MainView.swift */; };
@@ -36,6 +38,8 @@
 		4086EDAC2A16C326001CFF27 /* AppPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AppPackage; sourceTree = "<group>"; };
 		408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RealityCheck.entitlements; sourceTree = "<group>"; };
 		40A3D3772AEC3B770044095B /* reality-check */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "reality-check"; path = ..; sourceTree = "<group>"; };
+		40AA88922B21D68900A6C274 /* TripleLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripleLayoutView.swift; sourceTree = "<group>"; };
+		40AA88942B21D6DC00A6C274 /* DoubleLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleLayoutView.swift; sourceTree = "<group>"; };
 		40E7517D29F68F0B0083502A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40E7517F29F68F0B0083502A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		40E7518129F68F0B0083502A /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -87,9 +91,19 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		40AA88912B21D67B00A6C274 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				40AA88922B21D68900A6C274 /* TripleLayoutView.swift */,
+				40AA88942B21D6DC00A6C274 /* DoubleLayoutView.swift */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
 		40E7517C29F68F0B0083502A /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				40AA88912B21D67B00A6C274 /* Layouts */,
 				408A519C29F68FD6001E7D9B /* RealityCheck.entitlements */,
 				40E7518129F68F0B0083502A /* MainView.swift */,
 				40E7518229F68F0B0083502A /* RealityCheckApp.swift */,
@@ -210,11 +224,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				401215AD2A23658A00D98058 /* SplitView.swift in Sources */,
+				40AA88952B21D6DC00A6C274 /* DoubleLayoutView.swift in Sources */,
 				401215AA2A23658A00D98058 /* SplitViewItem.swift in Sources */,
 				401215B32A23659D00D98058 /* ConsoleStatusBar.swift in Sources */,
 				401215AF2A23658A00D98058 /* SplitViewReader.swift in Sources */,
 				401215AB2A23658A00D98058 /* SplitViewModifiers.swift in Sources */,
 				40E7518D29F68F0B0083502A /* MainView.swift in Sources */,
+				40AA88932B21D68900A6C274 /* TripleLayoutView.swift in Sources */,
 				40E7518E29F68F0B0083502A /* RealityCheckApp.swift in Sources */,
 				401215AE2A23658A00D98058 /* Variadic.swift in Sources */,
 				401215B22A23659D00D98058 /* View+isHovering.swift in Sources */,

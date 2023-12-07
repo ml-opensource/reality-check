@@ -14,12 +14,13 @@ public struct MultipeerConnection {
     public let peer: Peer
     public let discoveryInfo: DiscoveryInfo?
   }
-  
+
   @ObservableState
   public struct State: Equatable {
     public var sessionState: MultipeerClient.SessionState
     public var peers: [Peer: DiscoveryInfo]
     public var connectedPeer: ConnectedPeer?
+    public var isManuallyDisconnected = false
 
     public init(
       sessionState: MultipeerClient.SessionState = .notConnected,
@@ -62,6 +63,7 @@ public struct MultipeerConnection {
           return .none
 
         case .disconnectCurrentPeer:
+          state.isManuallyDisconnected = true
           return .run { _ in
             do {
               let data = try defaultEncoder.encode(Disconnection())
@@ -72,6 +74,7 @@ public struct MultipeerConnection {
           }
 
         case .invite(let peer):
+          state.isManuallyDisconnected = false
           return .run { _ in
             await multipeerClient.invitePeer(peer)
           }

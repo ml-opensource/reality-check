@@ -28,7 +28,7 @@ public struct Inspector: ViewModifier {
         }
         .inspectorColumnWidth(min: 277, ideal: 569, max: 811)
         .interactiveDismissDisabled()
-        .accessibilityLabel("inspector group")
+        .accessibilityLabel("Inspector group")
       }
   }
 }

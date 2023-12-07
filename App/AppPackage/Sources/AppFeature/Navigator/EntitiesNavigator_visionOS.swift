@@ -105,7 +105,7 @@ public struct EntitiesNavigatorView_visionOS: View {
               : entity.systemImage
           )
           .accessibilityLabel(entity._accessibilityLabel)
-          
+
           // FIXME: .help(entity.entityType.help)
         }
       }
