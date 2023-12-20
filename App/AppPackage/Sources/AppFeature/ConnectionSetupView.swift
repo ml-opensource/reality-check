@@ -32,7 +32,6 @@ struct ConnectionSetupView: View {
         }
         .padding()
       } else {
-        //TODO: add selection
         List(Array(store.peers.keys), selection: $selection) { peer in
           PeerConnectionView(peer: peer, store: store)
             .tag(peer)
@@ -44,7 +43,6 @@ struct ConnectionSetupView: View {
     .task {
       store.send(.start)
     }
-
     .frame(width: 521 / 1.25, height: 521 / 2)
   }
 }
@@ -76,6 +74,7 @@ struct PeerConnectionView: View {
         .aspectRatio(1, contentMode: .fit)
         .frame(minWidth: 30, maxWidth: 60)
         .foregroundColor(colorFromHash(discoveryInfo?.colorHash ?? peer.displayName))
+        .shadow(color: .secondary, radius: 1)
 
       VStack(alignment: .leading) {
         if let appName = discoveryInfo?.appName {

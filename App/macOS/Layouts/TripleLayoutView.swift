@@ -72,8 +72,7 @@ struct TripleLayoutView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
       .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
-      .navigationSplitViewStyle(.balanced)
     }
-    .modifier(Inspector(store: store))
+    .navigationSplitViewStyle(.balanced)
   }
 }

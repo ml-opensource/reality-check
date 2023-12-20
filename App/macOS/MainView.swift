@@ -46,10 +46,11 @@ struct MainView: View {
     NavigationStack {
       switch store.layout {
         case .double:
-        DoubleLayoutView(store: store)
+          DoubleLayoutView(store: store)
 
         case .triple:
           TripleLayoutView(store: store)
+            .modifier(Inspector(store: store))
       }
     }
     .navigationTitle(sessionTitle)
