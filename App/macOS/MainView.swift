@@ -50,9 +50,9 @@ struct MainView: View {
 
         case .triple:
           TripleLayoutView(store: store)
-            .modifier(Inspector(store: store))
       }
     }
+    .modifier(Inspector(store: store))
     .navigationTitle(sessionTitle)
     .navigationSubtitle(sessionSubtitle)
     .toolbar(id: "Main") {

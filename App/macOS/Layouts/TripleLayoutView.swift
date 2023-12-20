@@ -8,11 +8,11 @@ struct TripleLayoutView: View {
   @State var store: StoreOf<AppCore>
 
   var body: some View {
-    NavigationSplitView {
-      NavigatorView(store: store)
-    } detail: {
-      SplitViewReader { proxy in
-        SplitView(axis: .vertical) {
+    SplitViewReader { proxy in
+      SplitView(axis: .vertical) {
+        NavigationSplitView {
+          NavigatorView(store: store)
+        } detail: {
           ZStack {
             Color.clear
               .background(
@@ -35,44 +35,44 @@ struct TripleLayoutView: View {
               VideoPreviewPaused().padding()
             }
           }
-          .safeAreaInset(edge: .bottom, spacing: 0) {
-            if !store.isConsoleDetached {
-              ConsoleStatusBar(
-                proxy: proxy,
-                collapsed: Binding(
-                  get: { !store.isConsolePresented },
-                  set: { store.isConsolePresented = !$0 }
-                ),
-                detached: $store.isConsoleDetached
-              )
-            }
-          }
-
+          .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
+        }
+        .navigationSplitViewStyle(.balanced)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
           if !store.isConsoleDetached {
-            TextEditor(
-              text: .constant(
-                store.entitiesNavigator?.dumpOutput ?? "No dump output received..."
-              )
-            )
-            .font(.system(.body, design: .monospaced))
-            .collapsable()
-            .collapsed(
-              Binding(
+            ConsoleStatusBar(
+              proxy: proxy,
+              collapsed: Binding(
                 get: { !store.isConsolePresented },
                 set: { store.isConsolePresented = !$0 }
-              )
+              ),
+              detached: $store.isConsoleDetached
             )
-            .frame(minHeight: 200, maxHeight: .infinity)
           }
         }
-        .customOnChange(of: store.isConsoleDetached) {
-          openWindow(id: WindowID.console.rawValue)
+
+        if !store.isConsoleDetached {
+          TextEditor(
+            text: .constant(
+              store.entitiesNavigator?.dumpOutput ?? "No dump output received..."
+            )
+          )
+          .font(.system(.body, design: .monospaced))
+          .collapsable()
+          .collapsed(
+            Binding(
+              get: { !store.isConsolePresented },
+              set: { store.isConsolePresented = !$0 }
+            )
+          )
+          .frame(minHeight: 200, maxHeight: .infinity)
         }
-        .edgesIgnoringSafeArea(.top)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
       }
-      .navigationSplitViewColumnWidth(min: 367, ideal: 569, max: .infinity)
+      .customOnChange(of: store.isConsoleDetached) {
+        openWindow(id: WindowID.console.rawValue)
+      }
+      .edgesIgnoringSafeArea(.top)
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-    .navigationSplitViewStyle(.balanced)
   }
 }

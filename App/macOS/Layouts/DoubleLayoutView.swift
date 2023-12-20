@@ -10,7 +10,7 @@ struct DoubleLayoutView: View {
     SplitViewReader { proxy in
       SplitView(axis: .vertical) {
         NavigatorView(store: store)
-          .modifier(Inspector(store: store))
+          .frame(maxHeight: .infinity)
           .safeAreaInset(edge: .bottom, spacing: 0) {
             if !store.isConsoleDetached {
               ConsoleStatusBar(
