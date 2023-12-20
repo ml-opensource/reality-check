@@ -33,7 +33,7 @@ extension RealityKit.Entity: CustomDumpReflectable {
         //TODO: "anchor": self.anchor,
 
         ///Animations
-         "availableAnimations": self.availableAnimations,
+        "availableAnimations": self.availableAnimations,
 
         ///Animating an Entity
         //TODO: "defaultAnimationClock": self.defaultAnimationClock,

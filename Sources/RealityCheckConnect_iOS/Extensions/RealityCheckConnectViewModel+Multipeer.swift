@@ -98,8 +98,8 @@ extension RealityCheckConnectViewModel {
     for anchor in anchors {
       if let selectedEntity = await anchor.findEntity(id: selectedEntityID) {
         //FIXME: find missing Mirror
-         // let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
-        // await multipeerClient.send(rawData)
+        let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
+        await multipeerClient.send(rawData)
       }
     }
   }

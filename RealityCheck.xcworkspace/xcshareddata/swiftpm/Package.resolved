@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "8f4d2753f0e4778c76d5f05ad16c74f707390531",
-          "version": "1.2.3"
+          "revision": "c8ed701b513cf5177118a175d85fbbbcd707ab41",
+          "version": "1.3.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
           "branch": null,
-          "revision": "a5521dde99570789d8cb7c43e51418d7cd1a87ca",
-          "version": "1.1.2"
+          "revision": "bba1111185863c9288c5f047770f421c3b7793a4",
+          "version": "1.1.3"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-clocks",
         "state": {
           "branch": null,
-          "revision": "d1fd837326aa719bee979bdde1f53cd5797443eb",
-          "version": "1.0.0"
+          "revision": "a8421d68068d8f45fbceb418fbf22c5dad4afd33",
+          "version": "1.0.2"
         }
       },
       {
@@ -60,7 +60,7 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-composable-architecture",
         "state": {
           "branch": "observation-beta",
-          "revision": "b2dc36241005a5c62c68db6550a5218253f8cea7",
+          "revision": "acfbab4290adda4e47026d059db36361958d495c",
           "version": null
         }
       },
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/pointfreeco/swift-dependencies",
         "state": {
           "branch": null,
-          "revision": "9783b58167f7618cb86011156e741cbc6f4cc864",
-          "version": "1.1.2"
+          "revision": "c31b1445c4fae49e6fdb75496b895a3653f6aefc",
+          "version": "1.1.5"
         }
       },
       {
@@ -96,7 +96,7 @@
         "repositoryURL": "https://github.com/apple/swift-docc-symbolkit",
         "state": {
           "branch": "main",
-          "revision": "31ee554ce4bed5fa05eea36bc30296f7d4149097",
+          "revision": "3889b9673fcf1f1e9651b9143289b6ede462c958",
           "version": null
         }
       },
