@@ -44,4 +44,22 @@ final public class RealityCheckConnectViewModel {
       await sendMultipeerData()
     }
   }
+
+  func addScene(_ content: RealityViewContent) {
+    guard let scene = content.root?.scene else { return }
+    _scenes.updateValue(content, forKey: scene.id)
+
+    Task {
+      await sendMultipeerData()
+    }
+  }
+
+  func removeScene(_ content: RealityViewContent) {
+    guard let scene = content.root?.scene else { return }
+    _scenes.removeValue(forKey: scene.id)
+
+    Task {
+      await sendMultipeerData()
+    }
+  }
 }
