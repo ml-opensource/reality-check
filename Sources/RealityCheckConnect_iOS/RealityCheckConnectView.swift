@@ -102,7 +102,7 @@ public struct RealityCheckConnectView: View {
           Spacer()
 
           GeometryReader { geometry in
-            HStack(spacing: 24) {
+            HStack(spacing: 16) {
               Button(
                 action: {
                   Task {
@@ -130,20 +130,9 @@ public struct RealityCheckConnectView: View {
               .frame(width: 44, height: 44)
               .buttonStyle(.plain)
 
-              Button(
-                action: {
-                  Task {
-                    await viewModel.sendMultipeerData()
-                  }
-                },
-                label: {
-                  Image(systemName: "arrow.triangle.2.circlepath")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                }
-              )
-              .frame(width: 33, height: 33)
-              .buttonStyle(.plain)
+              Image(systemName: "line.3.horizontal")
+                .accessibilityHidden(true)
+                .foregroundColor(.secondary)
             }
             .padding(10)
             .background(

@@ -6,7 +6,7 @@ import RealityKit  //FIXME: avoid depending directly
 
 extension RealityCheckConnectViewModel {
   func startMultipeerSession() async throws {
-
+    
     /// Setup
     for await action in try await multipeerClient.start(
       serviceName: "reality-check",
@@ -14,49 +14,49 @@ extension RealityCheckConnectViewModel {
       discoveryInfo: AppInfo.discoveryInfo
     ) {
       switch action {
-        case .session(let sessionAction):
-          switch sessionAction {
-            case .stateDidChange(let state):
-              self.connectionState = state
-              if case .connected = state {
-                /// Send Hierarchy on connect
-                await sendMultipeerData()
-              }
-
-            case .didReceiveData(let data):
-              guard let sessionEvent = RealityPlatform.iOS.SessionEvent(data: data) else {
-                fatalError("Unknown data was received.")
-              }
-
-              switch sessionEvent {
-                case .entitySelected(let entityID):
-                  selectedEntityID = entityID
-                  await sendSelectedEntityMultipeerRawData()
-
-                case .debugOptionsUpdated(let options):
-                  await MainActor.run {
-                    arView?.debugOptions = ARView.DebugOptions(
-                      rawValue: options.rawValue
-                    )
-                  }
-                case .disconnectionRequested:
-                  await multipeerClient.disconnect()
-              }
+      case .session(let sessionAction):
+        switch sessionAction {
+        case .stateDidChange(let state):
+          self.connectionState = state
+          if case .connected = state {
+            /// Send Hierarchy on connect
+            await sendMultipeerData()
           }
-
-        case .browser(_):
-          return
-
-        case .advertiser(let advertiserAction):
-          switch advertiserAction {
-            case .didReceiveInvitationFromPeer(let peer):
-              await multipeerClient.acceptInvitation()
-              hostName = peer.displayName
+          
+        case .didReceiveData(let data):
+          guard let sessionEvent = RealityPlatform.iOS.SessionEvent(data: data) else {
+            fatalError("Unknown data was received.")
           }
+          
+          switch sessionEvent {
+          case .entitySelected(let entityID):
+            selectedEntityID = entityID
+            await sendSelectedEntityMultipeerRawData()
+            
+          case .debugOptionsUpdated(let options):
+            await MainActor.run {
+              arView?.debugOptions = ARView.DebugOptions(
+                rawValue: options.rawValue
+              )
+            }
+          case .disconnectionRequested:
+            await multipeerClient.disconnect()
+          }
+        }
+        
+      case .browser(_):
+        return
+        
+      case .advertiser(let advertiserAction):
+        switch advertiserAction {
+        case .didReceiveInvitationFromPeer(let peer):
+          await multipeerClient.acceptInvitation()
+          hostName = peer.displayName
+        }
       }
     }
   }
-
+  
   func sendMultipeerData() async {
     guard case .connected = connectionState else { return }
     guard let arView else {
@@ -64,13 +64,13 @@ extension RealityCheckConnectViewModel {
       fatalError("You need an ARView to send its hierarchy.")
     }
     var rootEntities: [RealityPlatform.iOS.EntityType] = []
-
-    let anchors = await arView.scene.anchors.map({ $0 })
+    
+    let anchors = arView.scene.anchors.map({ $0 })
     for anchor in anchors {
-      rootEntities.append(await anchor.encoded)
+      rootEntities.append(anchor.encoded)
     }
-
-    let arViewData = try! await defaultEncoder.encode(
+    
+    let arViewData = try! defaultEncoder.encode(
       RealityPlatform.iOS.ARView(
         arView,
         anchors: rootEntities,
@@ -79,25 +79,13 @@ extension RealityCheckConnectViewModel {
     )
     await multipeerClient.send(arViewData)
   }
-
+  
   fileprivate func sendSelectedEntityMultipeerRawData() async {
-    guard
-      let arView,
-      let selectedEntityID
-    else { return }
-
-    //    var rawDump: [String] = []
-    //
-    //      //FIXME: rawDump.append(String(customDumping: anchor))
-    //
-    //    let rawData = try! defaultEncoder.encode(rawDump.reduce("", +))
-    //    multipeerClient.send(rawData)
-
-    let anchors = await arView.scene.anchors.map({ $0 })
-
+    guard let arView, let selectedEntityID else { return }
+    
+    let anchors = arView.scene.anchors.map({ $0 })
     for anchor in anchors {
-      if let selectedEntity = await anchor.findEntity(id: selectedEntityID) {
-        //FIXME: find missing Mirror
+      if let selectedEntity = anchor.findEntity(id: selectedEntityID) {
         let rawData = try! defaultEncoder.encode(String(customDumping: selectedEntity))
         await multipeerClient.send(rawData)
       }
