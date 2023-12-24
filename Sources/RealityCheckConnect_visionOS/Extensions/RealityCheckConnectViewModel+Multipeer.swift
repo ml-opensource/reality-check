@@ -65,8 +65,12 @@ extension RealityCheckConnectViewModel {
     let sceneData = try! defaultEncoder.encode(
       RealityPlatform.visionOS.Scene(children: rootEntities)
     )
-
-    await multipeerClient.send(sceneData)
+    
+    self.debouncedUpdateContentTask?.cancel()
+    self.debouncedUpdateContentTask = Task {
+      try await Task.sleep(for: .milliseconds(300))
+      await multipeerClient.send(sceneData)
+    }
   }
 
   fileprivate func sendSelectedEntityMultipeerRawData() async {

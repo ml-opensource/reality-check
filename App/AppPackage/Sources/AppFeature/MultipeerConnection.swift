@@ -102,7 +102,7 @@ public struct MultipeerConnection {
 
         case .start:
           guard state.connectedPeer == nil else { return .none }
-          return .run(priority: .userInitiated) { send in
+          return .run { send in
             for await action in try await multipeerClient.start(
               serviceName: "reality-check",
               sessionType: .host,
