@@ -10,7 +10,16 @@ public struct MainToolbar: CustomizableToolbarContent {
   }
 
   public var body: some CustomizableToolbarContent {
-    ToolbarItem(id: "ConnectionSetup", placement: .principal) {
+    ToolbarItem(id: "SessionState", placement: .status) {
+      SessionStateView(store.multipeerConnection.sessionState)
+        .labelStyle(.titleAndIcon)
+    }
+
+    ToolbarItem(id: "Spacer") {
+      Spacer()
+    }
+    
+    ToolbarItem(id: "ConnectionSetup") {
       Toggle(
         isOn: $store.isConnectionSetupPresented,
         label: { Label("Connection Setup", systemImage: "bonjour") }
@@ -30,15 +39,6 @@ public struct MainToolbar: CustomizableToolbarContent {
           )
         }
       )
-    }
-
-    ToolbarItem(id: "SessionState", placement: .status) {
-      SessionStateView(store.multipeerConnection.sessionState)
-        .labelStyle(.titleAndIcon)
-    }
-
-    ToolbarItem(id: "Spacer") {
-      Spacer()
     }
 
     ToolbarItem(id: "Layout") {
@@ -61,15 +61,15 @@ public struct MainToolbar: CustomizableToolbarContent {
       .help("Panel Layout")
       .accessibilityHint("Choose from different kinds of layouts")
     }
-
-    ToolbarItem(id: "Console") {
+    
+    ToolbarItem(id: "Inspector") {
       Toggle(
-        isOn: $store.isConsolePresented,
-        label: { Label("Console", systemImage: "doc.plaintext") }
+        isOn: $store.isInspectorDisplayed,
+        label: { Label("Inspector", systemImage: "sidebar.trailing") }
       )
-      .help(store.isConsolePresented ? "Hide Console" : "Show Console")
-      .accessibilityLabel(store.isConsolePresented ? "Hide Console" : "Show Console")
-      .keyboardShortcut("C", modifiers: [.command, .option])
+      .help(store.isInspectorDisplayed ? "Hide Inspector" : "Show Inspector")
+      .accessibilityLabel(store.isConsolePresented ? "Hide Inspector" : "Show Inspector")
+      .keyboardShortcut("I", modifiers: [.command, .option])
     }
   }
 }

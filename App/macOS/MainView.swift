@@ -47,12 +47,13 @@ struct MainView: View {
       switch store.layout {
         case .double:
           DoubleLayoutView(store: store)
+          .modifier(Inspector(store: store))
 
         case .triple:
           TripleLayoutView(store: store)
+          .modifier(Inspector(store: store))
       }
     }
-    .modifier(Inspector(store: store))
     .navigationTitle(sessionTitle)
     .navigationSubtitle(sessionSubtitle)
     .toolbar(id: "Main") {

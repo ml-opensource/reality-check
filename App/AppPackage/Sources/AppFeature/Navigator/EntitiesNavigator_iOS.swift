@@ -133,6 +133,6 @@ public struct EntitiesNavigatorView_iOS: View {
       .collapsible(false)
     }
     .listStyle(.sidebar)
-    .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
+    //FIXME: restore when related crash is resolved: .searchable(text: $searchText, placement: .sidebar, prompt: "Search Entities")
   }
 }
