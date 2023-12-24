@@ -119,15 +119,13 @@ public struct AppCore {
           }
 
         case .multipeerConnection(.delegate(.receivedDecodedARView(let decodedARView))):
-          let entities = decodedARView.scene.anchors.map(\.value)
           if state.entitiesNavigator == nil {
             state.entitiesNavigator = .iOS(
-              //FIXME: This now looks strane (i.e.: entities could be extracted from the arView). Simplify.
-              .init(entities, arViewSection: .init(arView: decodedARView))
+              .init(arViewSection: .init(arView: decodedARView))
             )
           }
           state.isInspectorDisplayed = true
-          return .send(.entitiesNavigator(.iOS(.refreshEntities(entities))))
+          return .send(.entitiesNavigator(.iOS(.refreshEntities)))
 
         case .multipeerConnection(.delegate(.receivedDecodedScene(let decodedScene))):
           let entities = decodedScene.children.map(\.value)

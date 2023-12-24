@@ -10,7 +10,12 @@ public struct EntitiesNavigator_iOS {
   @ObservableState
   public struct State: Equatable {
     public var arViewSection: ARViewSection.State?
-    public var entities: IdentifiedArrayOf<RealityPlatform.iOS.Entity>
+    public var entities: IdentifiedArrayOf<RealityPlatform.iOS.Entity> {
+      if let entities = arViewSection?.arView.scene.anchors.map(\.value) {
+        return .init(uniqueElements: entities)
+      } else { return [] }
+    }
+
 
     public var dumpOutput: String
     public var selection: RealityPlatform.iOS.Entity.ID?
@@ -26,13 +31,13 @@ public struct EntitiesNavigator_iOS {
     }
 
     public init(
-      _ entities: [RealityPlatform.iOS.Entity],
+      //_ entities: [RealityPlatform.iOS.Entity],
       arViewSection: ARViewSection.State? = nil,
       selection: RealityPlatform.iOS.Entity.ID? = nil
     ) {
-      self.entities = .init(uniqueElements: entities)
+      //self.entities = .init(uniqueElements: entities)
       self.arViewSection = arViewSection
-      self.selection = selection ?? entities.first?.id
+     //FIXME: self.selection = selection ?? entities.first?.id
       self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }
@@ -42,7 +47,7 @@ public struct EntitiesNavigator_iOS {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
-    case refreshEntities([RealityPlatform.iOS.Entity])
+    case refreshEntities
   }
 
   public enum DelegateAction: Equatable {
@@ -74,8 +79,7 @@ public struct EntitiesNavigator_iOS {
           state.dumpOutput = output
           return .none
 
-        case .refreshEntities(let entities):
-          state.entities = .init(uniqueElements: entities)
+        case .refreshEntities:
           guard let previousSelection = state.selection else { return .none }
           state.selection = nil
           return .send(.binding(.set(\.selection, previousSelection)))
