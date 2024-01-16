@@ -22,7 +22,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.2"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
-    .package(url: "https://github.com/devicekit/DeviceKit.git", from: "5.1.0"),
+    .package(url: "https://github.com/devicekit/DeviceKit.git", exact: "5.1.0"),
   ],
   targets: [
     .plugin(
