@@ -2,9 +2,7 @@
 
 import CustomDump
 import RealityKit
-
 #if os(iOS)
-@available(iOS 17.0, *)
 extension AccessibilityComponent: CustomDumpReflectable {
     public var customDumpMirror: Mirror {.init(reflecting: self)
     }

@@ -3,10 +3,10 @@
     "name" : "AccessibilityComponent",
     "properties" : [
       {
-        "comment" : "A succinct label that identifies the entity, in a localized string key.",
-        "complete" : "var label: LocalizedStringResource?",
-        "name" : "label",
-        "type" : "LocalizedStringResource"
+        "comment" : "The Custom Content API is useful for delivering accessibility information from complex data sets to your users in measured portions. Using this API allows you to leverage assistive technologies to present only the accessible content your app’s users need, when they need it.",
+        "complete" : "var customContent: [AccessibilityComponent.CustomContent]",
+        "name" : "customContent",
+        "type" : "[AccessibilityComponent.CustomContent]"
       },
       {
         "comment" : "An array of custom actions supported by the entity, identified by their localized string key.",
@@ -15,10 +15,16 @@
         "type" : "[LocalizedStringResource]"
       },
       {
-        "comment" : "A Boolean value indicating whether the receiver is an accessibility entity that an assistive application can access.",
-        "complete" : "var isAccessibilityElement: Bool",
-        "name" : "isAccessibilityElement",
-        "type" : "Bool"
+        "comment" : "A succinct label that identifies the entity, in a localized string key.",
+        "complete" : "var label: LocalizedStringResource?",
+        "name" : "label",
+        "type" : "LocalizedStringResource"
+      },
+      {
+        "comment" : "The set of supported accessibility actions.",
+        "complete" : "var systemActions: AccessibilityComponent.SupportedActions",
+        "name" : "systemActions",
+        "type" : "AccessibilityComponent.SupportedActions"
       },
       {
         "comment" : "A localized string key that represents the current value of the entity.",
@@ -27,16 +33,10 @@
         "type" : "LocalizedStringResource"
       },
       {
-        "comment" : "The Custom Content API is useful for delivering accessibility information from complex data sets to your users in measured portions. Using this API allows you to leverage assistive technologies to present only the accessible content your app’s users need, when they need it.",
-        "complete" : "var customContent: [AccessibilityComponent.CustomContent]",
-        "name" : "customContent",
-        "type" : "[AccessibilityComponent.CustomContent]"
-      },
-      {
-        "comment" : "The set of supported accessibility actions.",
-        "complete" : "var systemActions: AccessibilityComponent.SupportedActions",
-        "name" : "systemActions",
-        "type" : "AccessibilityComponent.SupportedActions"
+        "comment" : "A Boolean value indicating whether the receiver is an accessibility entity that an assistive application can access.",
+        "complete" : "var isAccessibilityElement: Bool",
+        "name" : "isAccessibilityElement",
+        "type" : "Bool"
       }
     ]
   },
@@ -57,9 +57,21 @@
     "name" : "CharacterControllerComponent",
     "properties" : [
       {
-        "comment" : "The capsule height.  The capsule height includes radii and should be specified the entity's coordinate system.",
-        "complete" : "var height: Float",
-        "name" : "height",
+        "comment" : "The maximum obstacle height that the controller can move over.  Specify this value relative to the entity's coordinate system.",
+        "complete" : "var stepLimit: Float",
+        "name" : "stepLimit",
+        "type" : "Float"
+      },
+      {
+        "comment" : "The capsule radius.  Specify this value in the entity's coordinate system.",
+        "complete" : "var radius: Float",
+        "name" : "radius",
+        "type" : "Float"
+      },
+      {
+        "comment" : "The slope limit expressed as a limit angle in radians.  This value represents the maximum slope that the character can move over. RealityKit applies this value to characters that are walking on static objects, but not when walking on kinematic or dynamic objects.",
+        "complete" : "var slopeLimit: Float",
+        "name" : "slopeLimit",
         "type" : "Float"
       },
       {
@@ -69,9 +81,9 @@
         "type" : "CollisionFilter"
       },
       {
-        "comment" : "The capsule radius.  Specify this value in the entity's coordinate system.",
-        "complete" : "var radius: Float",
-        "name" : "radius",
+        "comment" : "The capsule height.  The capsule height includes radii and should be specified the entity's coordinate system.",
+        "complete" : "var height: Float",
+        "name" : "height",
         "type" : "Float"
       },
       {
@@ -79,18 +91,6 @@
         "complete" : "var upVector: SIMD3<Float>",
         "name" : "upVector",
         "type" : "SIMD3<Float>"
-      },
-      {
-        "comment" : "The maximum obstacle height that the controller can move over.  Specify this value relative to the entity's coordinate system.",
-        "complete" : "var stepLimit: Float",
-        "name" : "stepLimit",
-        "type" : "Float"
-      },
-      {
-        "comment" : "The slope limit expressed as a limit angle in radians.  This value represents the maximum slope that the character can move over. RealityKit applies this value to characters that are walking on static objects, but not when walking on kinematic or dynamic objects.",
-        "complete" : "var slopeLimit: Float",
-        "name" : "slopeLimit",
-        "type" : "Float"
       },
       {
         "comment" : "An added tolerance around the character capsule.  A small skin, known as the *contact offset*, is maintained around the controller's volume to avoid rounding and precision issues with collision detection. Specify this value relative to the entity's coordinate system.",
@@ -105,16 +105,16 @@
     "name" : "CharacterControllerStateComponent",
     "properties" : [
       {
-        "comment" : "True if character controller is grounded, otherwise false.",
-        "complete" : "let isOnGround: Bool",
-        "name" : "isOnGround",
-        "type" : "Bool"
-      },
-      {
         "comment" : "The linear speed relative to the phyics origin. In physics space.",
         "complete" : "let velocity: SIMD3<Float>",
         "name" : "velocity",
         "type" : "SIMD3<Float>"
+      },
+      {
+        "comment" : "True if character controller is grounded, otherwise false.",
+        "complete" : "let isOnGround: Bool",
+        "name" : "isOnGround",
+        "type" : "Bool"
       }
     ]
   },
@@ -129,16 +129,16 @@
         "type" : "CollisionFilter"
       },
       {
-        "comment" : "The collision mode.",
-        "complete" : "var mode: CollisionComponent.Mode",
-        "name" : "mode",
-        "type" : "CollisionComponent.Mode"
-      },
-      {
         "comment" : "A collection of shape resources that collectively represent the outer dimensions of an entity for the purposes of collision detection.",
         "complete" : "var shapes: [ShapeResource]",
         "name" : "shapes",
         "type" : "[ShapeResource]"
+      },
+      {
+        "comment" : "The collision mode.",
+        "complete" : "var mode: CollisionComponent.Mode",
+        "name" : "mode",
+        "type" : "CollisionComponent.Mode"
       }
     ]
   },
@@ -147,16 +147,16 @@
     "name" : "DirectionalLightComponent",
     "properties" : [
       {
-        "comment" : "The intensity of the directional light, measured in lumen per square meter.",
-        "complete" : "var intensity: Float",
-        "name" : "intensity",
-        "type" : "Float"
-      },
-      {
         "comment" : "A Boolean that you use to control whether the directional light operates as a proxy for a real-world light.  Set the value to `true` when you want the light to cast shadows on virtual content without illuminating anything in the scene. You can use this to create shadows on occlusion materials that accept dynamic lighting.",
         "complete" : "var isRealWorldProxy: Bool",
         "name" : "isRealWorldProxy",
         "type" : "Bool"
+      },
+      {
+        "comment" : "The intensity of the directional light, measured in lumen per square meter.",
+        "complete" : "var intensity: Float",
+        "name" : "intensity",
+        "type" : "Float"
       }
     ]
   },
@@ -207,15 +207,15 @@
         "type" : "Float"
       },
       {
-        "comment" : "The maximum distance in meters from the camera that the camera can see.  The value defaults to infinity. Always use a value greater than the value of ``PerspectiveCameraComponent\/near``. The renderer clips any surface beyond the ``PerspectiveCameraComponent\/far`` point.",
-        "complete" : "var far: Float",
-        "name" : "far",
-        "type" : "Float"
-      },
-      {
         "comment" : "The camera’s total vertical field of view in degrees.  This property contains the entire vertifical field of view for the camera in degrees. The system automatically calculates the horizontal field of view from this value to fit the aspect ratio of the device’s screen.  This property defaults to `60` degrees.",
         "complete" : "var fieldOfViewInDegrees: Float",
         "name" : "fieldOfViewInDegrees",
+        "type" : "Float"
+      },
+      {
+        "comment" : "The maximum distance in meters from the camera that the camera can see.  The value defaults to infinity. Always use a value greater than the value of ``PerspectiveCameraComponent\/near``. The renderer clips any surface beyond the ``PerspectiveCameraComponent\/far`` point.",
+        "complete" : "var far: Float",
+        "name" : "far",
         "type" : "Float"
       }
     ]
@@ -225,22 +225,16 @@
     "name" : "PhysicsBodyComponent",
     "properties" : [
       {
-        "comment" : "A Boolean that controls whether the physics simulation performs continuous collision detection.  Set the value to `true` to perform continuous collision detection. The value is `false` by default, indicating the simulation should apply discrete collision detection.  Discrete collision detection considers only the position of a body once per rendered frame, or about every 16 milliseconds at 60 frames per second. Continuous collision detection considers the position of the body throughout the frame interval. The latter is more computationally expensive, but can help to avoid missing a collision for a quickly moving object, like a projectile.",
-        "complete" : "var isContinuousCollisionDetectionEnabled: Bool",
-        "name" : "isContinuousCollisionDetectionEnabled",
-        "type" : "Bool"
-      },
-      {
         "comment" : "The physics body’s mode, indicating how or if it moves.  By default, this value is set to ``PhysicsBodyMode\/dynamic``, meaning the body responds to forces.",
         "complete" : "var mode: PhysicsBodyMode",
         "name" : "mode",
         "type" : "PhysicsBodyMode"
       },
       {
-        "comment" : "The physics body’s mass properties, like inertia and center of mass.  By default, the mass properties value is ``PhysicsMassProperties\/default``, which matches the properties of a unit sphere with mass of 1 kilogram.",
-        "complete" : "var massProperties: PhysicsMassProperties",
-        "name" : "massProperties",
-        "type" : "PhysicsMassProperties"
+        "comment" : "A Boolean that controls whether the physics simulation performs continuous collision detection.  Set the value to `true` to perform continuous collision detection. The value is `false` by default, indicating the simulation should apply discrete collision detection.  Discrete collision detection considers only the position of a body once per rendered frame, or about every 16 milliseconds at 60 frames per second. Continuous collision detection considers the position of the body throughout the frame interval. The latter is more computationally expensive, but can help to avoid missing a collision for a quickly moving object, like a projectile.",
+        "complete" : "var isContinuousCollisionDetectionEnabled: Bool",
+        "name" : "isContinuousCollisionDetectionEnabled",
+        "type" : "Bool"
       },
       {
         "comment" : "A tuple of Boolean values that you use to lock the position of the physics body along any of the three axes.  You can restrict movement of the body along one or more axes by setting the corresponding item in the tuple to `true`. For example, if you set the `x` and the `z` items in the tuple to `true`, then the body can move only along the y-axis. By default, movement isn’t restricted.",
@@ -249,16 +243,22 @@
         "type" : "(x: Bool, y: Bool, z: Bool)"
       },
       {
+        "comment" : "The physics body’s material properties, like friction.  By default, the body’s material resource is set to ``PhysicsMaterialResource\/default``, which provides a modest amount of friction and restitution (bounciness).",
+        "complete" : "var material: PhysicsMaterialResource",
+        "name" : "material",
+        "type" : "PhysicsMaterialResource"
+      },
+      {
         "comment" : "A tuple of Boolean values that you use to lock rotation of the physics body around any of the three axes.  For any one of the three Booleans in the tuple that you set to `true`, rotation is restricted on the axis represented by that item. For example, if you set the `x` item to true, then the body can’t rotate around the x-axis. By default, rotation isn’t restricted.",
         "complete" : "var isRotationLocked: (x: Bool, y: Bool, z: Bool)",
         "name" : "isRotationLocked",
         "type" : "(x: Bool, y: Bool, z: Bool)"
       },
       {
-        "comment" : "The physics body’s material properties, like friction.  By default, the body’s material resource is set to ``PhysicsMaterialResource\/default``, which provides a modest amount of friction and restitution (bounciness).",
-        "complete" : "var material: PhysicsMaterialResource",
-        "name" : "material",
-        "type" : "PhysicsMaterialResource"
+        "comment" : "The physics body’s mass properties, like inertia and center of mass.  By default, the mass properties value is ``PhysicsMassProperties\/default``, which matches the properties of a unit sphere with mass of 1 kilogram.",
+        "complete" : "var massProperties: PhysicsMassProperties",
+        "name" : "massProperties",
+        "type" : "PhysicsMassProperties"
       }
     ]
   },
@@ -285,15 +285,15 @@
     "name" : "PointLightComponent",
     "properties" : [
       {
-        "comment" : "The intensity of the point light, measured in lumen.",
-        "complete" : "var intensity: Float",
-        "name" : "intensity",
-        "type" : "Float"
-      },
-      {
         "comment" : "The point light attenuation radius in meters.  At any distance greater from the light that's greater than this value, the light's intensity is zero.",
         "complete" : "var attenuationRadius: Float",
         "name" : "attenuationRadius",
+        "type" : "Float"
+      },
+      {
+        "comment" : "The intensity of the point light, measured in lumen.",
+        "complete" : "var intensity: Float",
+        "name" : "intensity",
         "type" : "Float"
       }
     ]
@@ -302,6 +302,18 @@
     "comment" : "A component that defines a spotlight source.  A spot light illuminates a cone-shaped volume in the entity's forward direction (0, 0, -1) . To orient a spot light, use `HasTransform.look(at:from:upVector:)`.  To enable shadows, create a ``RealityKit\/DirectionalLightComponent\/Shadow`` and assign it to `HasDirectionalLight.shadow`. To disable shadows set `HasDirectionalLight.shadow` to `nil`.",
     "name" : "SpotLightComponent",
     "properties" : [
+      {
+        "comment" : "The inner angle of the spotlight in degrees.  A spot light's `innerAngle` and `outerAngle` reflect the size of the light's cone, which shines relative to the entity's forward direction (0, 0, -1). The light is at full  intensity between 0° and `innerAngle`. RealityKit attenuates the  light's intensity between `innerAngle` and `outerAngle`.  Beyond `outerAngle`, the light intensity is `0.0`.",
+        "complete" : "var innerAngleInDegrees: Float",
+        "name" : "innerAngleInDegrees",
+        "type" : "Float"
+      },
+      {
+        "comment" : "The attenuation radius in meters, after which the intensity of the spotlight is zero.",
+        "complete" : "var attenuationRadius: Float",
+        "name" : "attenuationRadius",
+        "type" : "Float"
+      },
       {
         "comment" : "The outer angle of the spotlight in degrees.  A spot light's `innerAngle` and `outerAngle` reflect the size of the light's cone, which shines relative to the entity's forward direction (0, 0, -1). The light is at full  intensity between 0° and `innerAngle`. RealityKit attenuates the  light's intensity between `innerAngle` and `outerAngle`.  Beyond `outerAngle`, the light intensity is `0.0`.",
         "complete" : "var outerAngleInDegrees: Float",
@@ -312,18 +324,6 @@
         "comment" : "The intensity of the spotlight measured in lumen.",
         "complete" : "var intensity: Float",
         "name" : "intensity",
-        "type" : "Float"
-      },
-      {
-        "comment" : "The attenuation radius in meters, after which the intensity of the spotlight is zero.",
-        "complete" : "var attenuationRadius: Float",
-        "name" : "attenuationRadius",
-        "type" : "Float"
-      },
-      {
-        "comment" : "The inner angle of the spotlight in degrees.  A spot light's `innerAngle` and `outerAngle` reflect the size of the light's cone, which shines relative to the entity's forward direction (0, 0, -1). The light is at full  intensity between 0° and `innerAngle`. RealityKit attenuates the  light's intensity between `innerAngle` and `outerAngle`.  Beyond `outerAngle`, the light intensity is `0.0`.",
-        "complete" : "var innerAngleInDegrees: Float",
-        "name" : "innerAngleInDegrees",
         "type" : "Float"
       }
     ]
@@ -339,16 +339,16 @@
         "type" : "SynchronizationComponent.OwnershipTransferMode"
       },
       {
-        "comment" : "A unique identifier of an entity within a network session.",
-        "complete" : "var identifier: UInt64 { get }",
-        "name" : "identifier",
-        "type" : "UInt64"
-      },
-      {
         "comment" : "A Boolean that indicates whether the calling process owns the entity.",
         "complete" : "var isOwner: Bool { get }",
         "name" : "isOwner",
         "type" : "Bool"
+      },
+      {
+        "comment" : "A unique identifier of an entity within a network session.",
+        "complete" : "var identifier: UInt64 { get }",
+        "name" : "identifier",
+        "type" : "UInt64"
       }
     ]
   },
@@ -357,16 +357,10 @@
     "name" : "Transform",
     "properties" : [
       {
-        "comment" : "The transform represented as a 4x4 matrix.  The ``Transform`` component can’t represent all transforms that a general 4x4 matrix can represent. Using a 4x4 matrix to set the transform is therefore a lossy event that might result in certain transformations, like shear, being dropped.",
-        "complete" : "var matrix: float4x4 { get set }",
-        "name" : "matrix",
-        "type" : "float4x4"
-      },
-      {
-        "comment" : "The position of the entity along the x, y, and z axes.",
-        "complete" : "var translation: SIMD3<Float>",
-        "name" : "translation",
-        "type" : "SIMD3<Float>"
+        "comment" : "The hash value.  Hash values are not guaranteed to be equal across different executions of your program. Do not save hash values to use during a future execution.  - Important: `hashValue` is deprecated as a `Hashable` requirement. To   conform to `Hashable`, implement the `hash(into:)` requirement instead.   The compiler provides an implementation for `hashValue` for you.",
+        "complete" : "var hashValue: Int { get }",
+        "name" : "hashValue",
+        "type" : "Int"
       },
       {
         "comment" : "The scaling factor applied to the entity.",
@@ -375,16 +369,22 @@
         "type" : "SIMD3<Float>"
       },
       {
-        "comment" : "The hash value.  Hash values are not guaranteed to be equal across different executions of your program. Do not save hash values to use during a future execution.  - Important: `hashValue` is deprecated as a `Hashable` requirement. To   conform to `Hashable`, implement the `hash(into:)` requirement instead.   The compiler provides an implementation for `hashValue` for you.",
-        "complete" : "var hashValue: Int { get }",
-        "name" : "hashValue",
-        "type" : "Int"
+        "comment" : "The position of the entity along the x, y, and z axes.",
+        "complete" : "var translation: SIMD3<Float>",
+        "name" : "translation",
+        "type" : "SIMD3<Float>"
       },
       {
         "comment" : "The rotation of the entity specified as a unit quaternion.",
         "complete" : "var rotation: simd_quatf",
         "name" : "rotation",
         "type" : "simd_quatf"
+      },
+      {
+        "comment" : "The transform represented as a 4x4 matrix.  The ``Transform`` component can’t represent all transforms that a general 4x4 matrix can represent. Using a 4x4 matrix to set the transform is therefore a lossy event that might result in certain transformations, like shear, being dropped.",
+        "complete" : "var matrix: float4x4 { get set }",
+        "name" : "matrix",
+        "type" : "float4x4"
       }
     ]
   }

@@ -2,7 +2,6 @@
 
 import CustomDump
 import RealityKit
-
 #if os(macOS)
 @available(macOS 14.0, *)
 extension AccessibilityComponent: CustomDumpReflectable {

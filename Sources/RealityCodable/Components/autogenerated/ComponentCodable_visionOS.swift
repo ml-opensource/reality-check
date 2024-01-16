@@ -251,12 +251,12 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.AccessibilityComponent) {
-            //TODO: self.value = component.value
-            //TODO: self.isAccessibilityElement = component.isAccessibilityElement
             //TODO: self.label = component.label
-            //TODO: self.customActions = component.customActions
-            //TODO: self.customContent = component.customContent
             //TODO: self.systemActions = component.systemActions
+            //TODO: self.isAccessibilityElement = component.isAccessibilityElement
+            //TODO: self.value = component.value
+            //TODO: self.customContent = component.customContent
+            //TODO: self.customActions = component.customActions
             self.reflectedDescription = String(customDumping: component)
         }
         #endif
@@ -280,8 +280,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.AmbientAudioComponent) {
-            //TODO: self.gain = component.gain
             //TODO: self.hashValue = component.hashValue
+            //TODO: self.gain = component.gain
             self.comment =
   """
   Configure ambient rendering of sounds from an entity.  Ambient audio sources emit each channel of an audio resource from an angle projected from the entity, without reverberation. Ambient audio sources take into account the relative orientation of the source and the listener. Position is not taken into account; the channels do not get louder as the user moves toward them.  The audio resource's front channels (e.g., mono, center) are projected into the entity's -Z direction, with the rear channels projected into +Z. The left channels are laid out in -X and the right channels are laid out in +X.  ```swift let entity = Entity() let resource = try AudioFileResource.load(named: "MyAudioFile") entity.ambientAudio = AmbientAudioComponent() entity.playAudio(resource) ```  The `AmbientAudioComponent` allows you to set the overall level of all sounds played from the entity with the `gain` property, in relative Decibels, in the range `-.infinity ... .zero` where `-infinity` is silent and `.zero` is nominal.  ```swift entity.ambientAudio?.gain = -10 ```  Ambient audio sources are well suited to play back multichannel content which captures the acoustics of its originating environment in the recording process (e.g., multichannel field recordings of outdoor environments).
@@ -295,8 +295,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.AnchoringComponent) {
-            //TODO: self.target = component.target
             //TODO: self.trackingMode = component.trackingMode
+            //TODO: self.target = component.target
             self.comment =
   """
   A description of how virtual content can be anchored to the real world.
@@ -335,12 +335,12 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.CharacterControllerComponent) {
+            //TODO: self.radius = component.radius
             //TODO: self.stepLimit = component.stepLimit
             //TODO: self.height = component.height
             //TODO: self.collisionFilter = component.collisionFilter
-            //TODO: self.slopeLimit = component.slopeLimit
-            //TODO: self.radius = component.radius
             //TODO: self.upVector = component.upVector
+            //TODO: self.slopeLimit = component.slopeLimit
             //TODO: self.skinWidth = component.skinWidth
             self.comment =
   """
@@ -355,8 +355,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.CharacterControllerStateComponent) {
-            //TODO: self.isOnGround = component.isOnGround
             //TODO: self.velocity = component.velocity
+            //TODO: self.isOnGround = component.isOnGround
             self.comment =
   """
   An object that maintains state for a character controller.  Add this component to an entity, this along with ``CharacterControllerComponent``, to use the entity as a character that moves and animates.
@@ -370,11 +370,11 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.CollisionComponent) {
-            //TODO: self.mode = component.mode
             //TODO: self.shapes = component.shapes
-            //TODO: self.collisionOptions = component.collisionOptions
-            //TODO: self.isStatic = component.isStatic
             //TODO: self.filter = component.filter
+            //TODO: self.mode = component.mode
+            //TODO: self.isStatic = component.isStatic
+            //TODO: self.collisionOptions = component.collisionOptions
             self.comment =
   """
   A component that gives an entity the ability to collide with other entities that also have collision components.  This component holds the entity's data related to participating in the scene's physics simulation. It is also used to calculate collision queries, raycasts, and convex shape casts. Entities can participate in the scene simulation in two different modes: as a *rigid body* or as a *trigger*.  A rigid body fully participates in the collision simulation. It affects the velocity and direction of entities it collides. If configured with a rigid body ``RealityKit/PhysicsBodyComponent/mode`` of ``RealityKit/PhysicsBodyMode/dynamic``, it's own velocity and direction can be affected by other rigid body entities. A trigger entity doesn't have any impact on the rigid bodies in the scene, but can trigger code or Reality Composer behaviors when a rigid body enity overlaps it.  Note the following when considering applying a non-uniform scale to an entity: - Non-uniform scaling is applicable only to box, convex mesh and triangle mesh collision shapes. - Non-uniform scaling is not supported for all other types of collision shapes. In this case the scale.x value is duplicated to the scale's y and z components as well to force scale uniformity based on the x component. - If the entity has a non-uniform scale assigned to its transform then that entity should not have any descendants assigned that contain rotations in their transforms. A good rule of thumb is to assign the non-uniform scale to the entity that has the collision shape, and avoid adding children below that entity.  Turn an entity into a trigger by adding a ``RealityKit/CollisionComponent`` to it and setting its ``RealityKit/CollisionComponent/mode-swift.property`` to ``RealityKit/CollisionComponent/Mode-swift.enum/trigger``.  Turn an entity into a _rigd body_ by adding a  ``RealityKit/PhysicsBodyComponent`` to the entity in addition to a ``RealityKit/CollisionComponent``.  The ``PhysicsBodyComponent`` defines the physical properties of the entity, such as its mass and collision shape.  The `filter` property defines the entity's collision filter, which determines which other objects the entity collides with. For more information, see <doc:controlling-entity-collisions-in-realitykit>.  - Note: If an entity has a ``RealityKit/PhysicsBodyComponent``, the  collision component's mode is ignored. An entity can be a rigid body, or a trigger, but not both at the same time.
@@ -433,8 +433,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.InputTargetComponent) {
-            //TODO: self.allowedInputTypes = component.allowedInputTypes
             //TODO: self.isEnabled = component.isEnabled
+            //TODO: self.allowedInputTypes = component.allowedInputTypes
             self.comment =
   """
   A component that gives an entity the ability to receive system input.  This component should be added to an entity to inform the system that it should be treated as a target for input handling. It can be customized to require only specific forms of input like direct or indirect interactions. By default the component is configured to handle all forms of input on the system.  The hit testing shape that defines the entity's interactive entity is defined by the `CollisionComponent`. To configure an entity for input but avoid any sort of physics-related processing, add an `InputTargetComponent` and `CollisionComponent`, but disable the `CollisionComponent` for collision detection, for example:  ``` // Enable the entity for input. myEntity.components.set(InputTargetComponent())  // Create a collision component with an empty group and mask. var collision = CollisionComponent(shapes: [.generateSphere(radius: 0.1)]) collision.filter = CollisionFilter(group: [], mask: []) myEntity.components.set(collision) ```  `InputTargetComponent` behaves hierarchically, so if it is added to an entity that has descendants with `CollisionComponent`s, those shapes will be used for input handling. The `isEnabled` flag can be used to override this behavior by adding the `InputTargetComponent` to a descendant and setting `isEnabled` to false.  `InputTargetComponent`'s `allowedInputTypes` property allows the entity to only receive the provided types of input. This property also propagates down the hierarchy, but if a descendant also has an `InputTargetComponent` defined, its `allowedInputTypes` property overrides the value provided by the ancestor.
@@ -448,8 +448,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.ModelComponent) {
-            //TODO: self.mesh = component.mesh
             //TODO: self.materials = component.materials
+            //TODO: self.mesh = component.mesh
             //TODO: self.boundsMargin = component.boundsMargin
             self.comment =
   """
@@ -478,8 +478,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.ModelSortGroupComponent) {
-            //TODO: self.order = component.order
             //TODO: self.group = component.group
+            //TODO: self.order = component.order
             self.comment =
   """
   A component that allows an entity's models to be rendered in an explicit order relative to the models of other entities in the same sort group. If this component is on an entity, then it must belong to a sort group.
@@ -503,28 +503,28 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.ParticleEmitterComponent) {
-            //TODO: self.spawnedEmitter = component.spawnedEmitter
-            //TODO: self.spawnSpreadFactor = component.spawnSpreadFactor
-            //TODO: self.fieldSimulationSpace = component.fieldSimulationSpace
-            //TODO: self.isEmitting = component.isEmitting
-            //TODO: self.torusInnerRadius = component.torusInnerRadius
-            //TODO: self.speedVariation = component.speedVariation
-            //TODO: self.burstCountVariation = component.burstCountVariation
-            //TODO: self.emitterShapeSize = component.emitterShapeSize
-            //TODO: self.birthDirection = component.birthDirection
             //TODO: self.particlesInheritTransform = component.particlesInheritTransform
-            //TODO: self.spawnVelocityFactor = component.spawnVelocityFactor
-            //TODO: self.radialAmount = component.radialAmount
+            //TODO: self.spawnInheritsParentColor = component.spawnInheritsParentColor
             //TODO: self.emitterShape = component.emitterShape
-            //TODO: self.mainEmitter = component.mainEmitter
+            //TODO: self.spawnSpreadFactor = component.spawnSpreadFactor
+            //TODO: self.emissionDirection = component.emissionDirection
+            //TODO: self.isEmitting = component.isEmitting
             //TODO: self.spawnSpreadFactorVariation = component.spawnSpreadFactorVariation
-            //TODO: self.burstCount = component.burstCount
+            //TODO: self.spawnedEmitter = component.spawnedEmitter
+            //TODO: self.speedVariation = component.speedVariation
+            //TODO: self.mainEmitter = component.mainEmitter
+            //TODO: self.radialAmount = component.radialAmount
+            //TODO: self.simulationState = component.simulationState
+            //TODO: self.fieldSimulationSpace = component.fieldSimulationSpace
+            //TODO: self.birthDirection = component.birthDirection
+            //TODO: self.speed = component.speed
+            //TODO: self.torusInnerRadius = component.torusInnerRadius
             //TODO: self.spawnOccasion = component.spawnOccasion
             //TODO: self.birthLocation = component.birthLocation
-            //TODO: self.emissionDirection = component.emissionDirection
-            //TODO: self.simulationState = component.simulationState
-            //TODO: self.speed = component.speed
-            //TODO: self.spawnInheritsParentColor = component.spawnInheritsParentColor
+            //TODO: self.burstCountVariation = component.burstCountVariation
+            //TODO: self.burstCount = component.burstCount
+            //TODO: self.emitterShapeSize = component.emitterShapeSize
+            //TODO: self.spawnVelocityFactor = component.spawnVelocityFactor
             self.reflectedDescription = String(customDumping: component)
         }
         #endif
@@ -534,9 +534,9 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.PerspectiveCameraComponent) {
-            //TODO: self.fieldOfViewInDegrees = component.fieldOfViewInDegrees
-            //TODO: self.far = component.far
             //TODO: self.near = component.near
+            //TODO: self.far = component.far
+            //TODO: self.fieldOfViewInDegrees = component.fieldOfViewInDegrees
             self.comment =
   """
    In AR applications, the camera is automatically provided by the system. In non-AR scenarios, the camera needs to be set by the app. (If no camera is provided by the app, the system will use default camera.)
@@ -550,15 +550,15 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.PhysicsBodyComponent) {
+            //TODO: self.isAffectedByGravity = component.isAffectedByGravity
             //TODO: self.isRotationLocked = component.isRotationLocked
             //TODO: self.isContinuousCollisionDetectionEnabled = component.isContinuousCollisionDetectionEnabled
             //TODO: self.linearDamping = component.linearDamping
-            //TODO: self.material = component.material
-            //TODO: self.isTranslationLocked = component.isTranslationLocked
             //TODO: self.mode = component.mode
-            //TODO: self.isAffectedByGravity = component.isAffectedByGravity
+            //TODO: self.isTranslationLocked = component.isTranslationLocked
             //TODO: self.massProperties = component.massProperties
             //TODO: self.angularDamping = component.angularDamping
+            //TODO: self.material = component.material
             self.comment =
   """
   A component that defines an entity’s behavior in physics body simulations.  To participate in a scene's physics simulation, an entity must have a ``RealityKit/PhysicsBodyComponent`` and a ``RealityKit/CollisionComponent``. If you need to move an entity that participates in the physics system, it also needs a ``RealityKit/PhysicsMotionComponent``.  Add a physics body component to an entity by adopting the ``HasPhysicsBody`` protocol, which allows RealityKit’s physics simulation to compute behavior in response to forces acting upon the body, following basic rules of Newtonian mechanics.  Note the following when considering applying a non-uniform scale to an entity: - Non-uniform scaling is applicable only to box, convex mesh and triangle mesh collision shapes. - Non-uniform scaling is not supported for all other types of collision shapes. In this case the scale.x value is duplicated to the scale's y and z components as well to force scale uniformity based on the x component. - If the entity has a non-uniform scale assigned to its transform then that entity should not have any descendants assigned that contain rotations in their transforms. A good rule of thumb is to assign the non-uniform scale to the entity that has the collision shape, and avoid adding children below that entity.  - Note: Model entities have a physics body component by default.
@@ -587,9 +587,9 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.PhysicsSimulationComponent) {
+            //TODO: self.clock = component.clock
             //TODO: self.gravity = component.gravity
             //TODO: self.collisionOptions = component.collisionOptions
-            //TODO: self.clock = component.clock
             self.comment =
   """
   A component that controls localized physics simulations.  To use a localized physics simulation add a ``PhysicsSimulationComponent`` to the desired root entity. Use the component to set custom physics simulation properties such as ``gravity`` and ``collisionOptions`` specific to the physics simulation.
@@ -603,8 +603,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.PortalComponent) {
-            //TODO: self.targetEntity = component.targetEntity
             //TODO: self.clippingPlane = component.clippingPlane
+            //TODO: self.targetEntity = component.targetEntity
             self.reflectedDescription = String(customDumping: component)
         }
         #endif
@@ -614,8 +614,8 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.SceneUnderstandingComponent) {
-            //TODO: self.entityType = component.entityType
             //TODO: self.origin = component.origin
+            //TODO: self.entityType = component.entityType
             self.comment =
   """
   A component that maps features of the physical environment.  Example features include faces and the shape of arbitrary regions.
@@ -629,11 +629,11 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.SpatialAudioComponent) {
-            //TODO: self.directLevel = component.directLevel
-            //TODO: self.directivity = component.directivity
             //TODO: self.reverbLevel = component.reverbLevel
+            //TODO: self.directivity = component.directivity
             //TODO: self.gain = component.gain
             //TODO: self.hashValue = component.hashValue
+            //TODO: self.directLevel = component.directLevel
             self.comment =
   """
   Configure how sounds are emitted from an entity into the user's environment.  The position and orientation of spatial audio sources are updated continuously and automatically by the audio system, so sounds always come from an entity wherever it goes and wherever it is pointing. Spatial audio sources have the user environment's acoustics applied to them so that they blend in naturally with it, and they are distance attenuated so they become quieter the further away they are from the user.  - Note: Spatial audio sources emit only a single channel (i.e., mono). If the format of the audio resource played on the entity is stereo or multichannel, all of its channels will be mixed down to a single channel before spatialization. To minimize any unwanted mixdown artifacts, use mono source material where possible.  RealityKit audio playback is spatial by default, so no additional configuration is necessary to opt into sophisticated spatial rendering.  ```swift let entity = Entity() let resource = try AudioFileResource.load(named: "MyAudioFile") entity.playAudio(resource) // Audio file is played spatially from entity ```  The `SpatialAudioComponent` allows you to further customize the playback characteristics of spatial audio sources. The `gain`, `directLevel`, and `reverbLevel` properties are in relative Decibels, in the range `-.infinity ... .zero`, where `-.infinity` is silent and `.zero` is nominal.  For example, you can adjust the overall level of all sounds played from the entity with the `gain` property.  ```swift entity.spatialAudio = SpatialAudioComponent(gain: -10) ```  You can reduce the amount of reverb applied to all sounds played from the entity with the `reverbLevel` property. Reducing this value will make the sounds less reverberant and more intimate. Setting `reverbLevel` to `-.infinity` will cause the sounds to collapse into the head of the listener.  ```swift entity.spatialAudio?.reverbLevel = -6 ```  The `gain`, `directLevel`, and `reverbLevel` properties can be updated dynamically, for example based on your app's state, or in the context of a Custom RealityKit System.  The `directivity` property allows you to configure the radiation pattern for sound emitted from the entity.  ```swift entity.spatialAudio?.directivity = .beam(focus: 0.5) ```  Spatial audio sources project sounds along their -Z axis. If a spatial audio source is co-located and co-oriented with visual content authored with a +Z-forward coordinate convention, you will want to rotate your spatial audio source 180º about the Y-axis.  ```swift let parent = Entity()  // Add model entity let model = try ModelEntity.load(named: "PositiveZForward") parent.addChild(model)  // Add audio source entity let audioSource = Entity() parent.addChild(audioSource)  // Orient audio source towards +Z audioSource.orientation = .init(angle: .pi, axis: [0, 1, 0]) ```  This is only a consideration if you have explicitly set a `directivity` other than the default `.beam(focus: .zero)`, which projects sound evenly for all frequencies in all directions.
@@ -647,9 +647,9 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.SynchronizationComponent) {
-            //TODO: self.ownershipTransferMode = component.ownershipTransferMode
-            //TODO: self.isOwner = component.isOwner
             //TODO: self.identifier = component.identifier
+            //TODO: self.isOwner = component.isOwner
+            //TODO: self.ownershipTransferMode = component.ownershipTransferMode
             self.comment =
   """
   A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.
@@ -663,10 +663,10 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.TextComponent) {
-            //TODO: self.size = component.size
-            //TODO: self.cornerRadius = component.cornerRadius
-            //TODO: self.text = component.text
             //TODO: self.backgroundColor = component.backgroundColor
+            //TODO: self.text = component.text
+            //TODO: self.cornerRadius = component.cornerRadius
+            //TODO: self.size = component.size
             self.reflectedDescription = String(customDumping: component)
         }
         #endif
@@ -676,11 +676,11 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.Transform) {
+            //TODO: self.matrix = component.matrix
+            //TODO: self.scale = component.scale
+            //TODO: self.rotation = component.rotation
             //TODO: self.hashValue = component.hashValue
             //TODO: self.translation = component.translation
-            //TODO: self.scale = component.scale
-            //TODO: self.matrix = component.matrix
-            //TODO: self.rotation = component.rotation
             self.comment =
   """
   A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.
@@ -694,12 +694,12 @@ extension RealityPlatform.visionOS {
         public var reflectedDescription: String
         #if os(visionOS)
         init(rawValue component: RealityKit.VideoPlayerComponent) {
-            //TODO: self.screenVideoDimension = component.screenVideoDimension
+            //TODO: self.desiredViewingMode = component.desiredViewingMode
             //TODO: self.avPlayer = component.avPlayer
+            //TODO: self.screenVideoDimension = component.screenVideoDimension
             //TODO: self.currentScreenVideoDimension = component.currentScreenVideoDimension
             //TODO: self.isPassthroughTintingEnabled = component.isPassthroughTintingEnabled
             //TODO: self.playerScreenSize = component.playerScreenSize
-            //TODO: self.desiredViewingMode = component.desiredViewingMode
             //TODO: self.viewingMode = component.viewingMode
             self.reflectedDescription = String(customDumping: component)
         }

@@ -140,12 +140,12 @@ extension RealityPlatform.macOS {
         #if os(macOS)
       @available(macOS 14.0, *)
       init(rawValue component: RealityKit.AccessibilityComponent) {
-            //TODO: self.label = component.label
-            //TODO: self.customActions = component.customActions
-            //TODO: self.isAccessibilityElement = component.isAccessibilityElement
-            //TODO: self.value = component.value
             //TODO: self.customContent = component.customContent
+            //TODO: self.customActions = component.customActions
+            //TODO: self.label = component.label
             //TODO: self.systemActions = component.systemActions
+            //TODO: self.value = component.value
+            //TODO: self.isAccessibilityElement = component.isAccessibilityElement
             self.reflectedDescription = String(customDumping: component)
         }
         #endif
@@ -169,12 +169,12 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.CharacterControllerComponent) {
-            //TODO: self.height = component.height
-            //TODO: self.collisionFilter = component.collisionFilter
-            //TODO: self.radius = component.radius
-            //TODO: self.upVector = component.upVector
             //TODO: self.stepLimit = component.stepLimit
+            //TODO: self.radius = component.radius
             //TODO: self.slopeLimit = component.slopeLimit
+            //TODO: self.collisionFilter = component.collisionFilter
+            //TODO: self.height = component.height
+            //TODO: self.upVector = component.upVector
             //TODO: self.skinWidth = component.skinWidth
             self.comment =
   """
@@ -189,8 +189,8 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.CharacterControllerStateComponent) {
-            //TODO: self.isOnGround = component.isOnGround
             //TODO: self.velocity = component.velocity
+            //TODO: self.isOnGround = component.isOnGround
             self.comment =
   """
   An object that maintains state for a character controller.  Add this component to an entity, this along with ``CharacterControllerComponent``, to use the entity as a character that moves and animates.
@@ -205,8 +205,8 @@ extension RealityPlatform.macOS {
         #if os(macOS)
         init(rawValue component: RealityKit.CollisionComponent) {
             //TODO: self.filter = component.filter
-            //TODO: self.mode = component.mode
             //TODO: self.shapes = component.shapes
+            //TODO: self.mode = component.mode
             self.comment =
   """
   A component that gives an entity the ability to collide with other entities that also have collision components.  This component holds the entity's data related to participating in the scene's physics simulation. It is also used to calculate collision queries, raycasts, and convex shape casts. Entities can participate in the scene simulation in two different modes: as a *rigid body* or as a *trigger*.  A rigid body fully participates in the collision simulation. It affects the velocity and direction of entities it collides. If configured with a rigid body ``RealityKit/PhysicsBodyComponent/mode`` of ``RealityKit/PhysicsBodyMode/dynamic``, it's own velocity and direction can be affected by other rigid body entities. A trigger entity doesn't have any impact on the rigid bodies in the scene, but can trigger code or Reality Composer behaviors when a rigid body enity overlaps it.  Turn an entity into a trigger by adding a ``RealityKit/CollisionComponent`` to it and setting its ``RealityKit/CollisionComponent/mode-swift.property`` to ``RealityKit/CollisionComponent/Mode-swift.enum/trigger``.  Turn an entity into a _rigd body_ by adding a  ``RealityKit/PhysicsBodyComponent`` to the entity in addition to a ``RealityKit/CollisionComponent``.  The ``PhysicsBodyComponent`` defines the physical properties of the entity, such as its mass and collision shape.  The `filter` property defines the entity's collision filter, which determines which other objects the entity collides with. For more information, see <doc:controlling-entity-collisions-in-realitykit>.  - Note: If an entity has a ``RealityKit/PhysicsBodyComponent``, the  collision component's mode is ignored. An entity can be a rigid body, or a trigger, but not both at the same time.
@@ -220,8 +220,8 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.DirectionalLightComponent) {
-            //TODO: self.intensity = component.intensity
             //TODO: self.isRealWorldProxy = component.isRealWorldProxy
+            //TODO: self.intensity = component.intensity
             self.comment =
   """
   A component that defines a directional light source.  A directional light shines in the entithy's forward direction (0, 0, -1). To orient a directional light, use `HasTransform.look(at:from:upVector:)`.  A directional light source can cast shadows. To enable shadows, create a ``RealityKit/DirectionalLightComponent/Shadow`` and assign it to `HasDirectionalLight.shadow`. To disable shadows set `HasDirectionalLight.shadow` to `nil`.
@@ -266,8 +266,8 @@ extension RealityPlatform.macOS {
         #if os(macOS)
         init(rawValue component: RealityKit.PerspectiveCameraComponent) {
             //TODO: self.near = component.near
-            //TODO: self.far = component.far
             //TODO: self.fieldOfViewInDegrees = component.fieldOfViewInDegrees
+            //TODO: self.far = component.far
             self.comment =
   """
    In AR applications, the camera is automatically provided by the system. In non-AR scenarios, the camera needs to be set by the app. (If no camera is provided by the app, the system will use default camera.)
@@ -281,12 +281,12 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.PhysicsBodyComponent) {
-            //TODO: self.isContinuousCollisionDetectionEnabled = component.isContinuousCollisionDetectionEnabled
             //TODO: self.mode = component.mode
-            //TODO: self.massProperties = component.massProperties
+            //TODO: self.isContinuousCollisionDetectionEnabled = component.isContinuousCollisionDetectionEnabled
             //TODO: self.isTranslationLocked = component.isTranslationLocked
-            //TODO: self.isRotationLocked = component.isRotationLocked
             //TODO: self.material = component.material
+            //TODO: self.isRotationLocked = component.isRotationLocked
+            //TODO: self.massProperties = component.massProperties
             self.comment =
   """
   A component that defines an entity’s behavior in physics body simulations.  To participate in a scene's physics simulation, an entity must have a ``RealityKit/PhysicsBodyComponent`` and a ``RealityKit/CollisionComponent``. If you need to move an entity that participates in the physics system, it also needs a ``RealityKit/PhysicsMotionComponent``.  Add a physics body component to an entity by adopting the ``HasPhysicsBody`` protocol, which allows RealityKit’s physics simulation to compute behavior in response to forces acting upon the body, following basic rules of Newtonian mechanics.  - Note: Model entities have a physics body component by default.
@@ -315,8 +315,8 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.PointLightComponent) {
-            //TODO: self.intensity = component.intensity
             //TODO: self.attenuationRadius = component.attenuationRadius
+            //TODO: self.intensity = component.intensity
             self.comment =
   """
   A component that defines a point light source.
@@ -330,10 +330,10 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.SpotLightComponent) {
+            //TODO: self.innerAngleInDegrees = component.innerAngleInDegrees
+            //TODO: self.attenuationRadius = component.attenuationRadius
             //TODO: self.outerAngleInDegrees = component.outerAngleInDegrees
             //TODO: self.intensity = component.intensity
-            //TODO: self.attenuationRadius = component.attenuationRadius
-            //TODO: self.innerAngleInDegrees = component.innerAngleInDegrees
             self.comment =
   """
   A component that defines a spotlight source.  A spot light illuminates a cone-shaped volume in the entity's forward direction (0, 0, -1) . To orient a spot light, use `HasTransform.look(at:from:upVector:)`.  To enable shadows, create a ``RealityKit/DirectionalLightComponent/Shadow`` and assign it to `HasDirectionalLight.shadow`. To disable shadows set `HasDirectionalLight.shadow` to `nil`.
@@ -348,8 +348,8 @@ extension RealityPlatform.macOS {
         #if os(macOS)
         init(rawValue component: RealityKit.SynchronizationComponent) {
             //TODO: self.ownershipTransferMode = component.ownershipTransferMode
-            //TODO: self.identifier = component.identifier
             //TODO: self.isOwner = component.isOwner
+            //TODO: self.identifier = component.identifier
             self.comment =
   """
   A component that synchronizes an entity between processes and networked applications.  An entity acquires a ``SynchronizationComponent`` instance by adopting the ``HasSynchronization`` protocol. All entities have this component because the ``Entity`` base class adopts the protocol.
@@ -363,11 +363,11 @@ extension RealityPlatform.macOS {
         public var reflectedDescription: String
         #if os(macOS)
         init(rawValue component: RealityKit.Transform) {
-            //TODO: self.matrix = component.matrix
-            //TODO: self.translation = component.translation
-            //TODO: self.scale = component.scale
             //TODO: self.hashValue = component.hashValue
+            //TODO: self.scale = component.scale
+            //TODO: self.translation = component.translation
             //TODO: self.rotation = component.rotation
+            //TODO: self.matrix = component.matrix
             self.comment =
   """
   A component that defines the scale, rotation, and translation of an entity.  An entity acquires a ``Transform`` component, as well as a set of methods for manipulating the transform, by adopting the ``HasTransform`` protocol. This is true for all entities, because the ``Entity`` base class adopts the protocol.
@@ -385,6 +385,7 @@ extension RealityPlatform.macOS.ComponentType {
           if #available(macOS 14.0, *) {
             return .accessibilityComponent(.init(rawValue: component as! AccessibilityComponent))
           } else {
+            // Fallback on earlier versions
             fatalError()
           }
         case .anchoringComponent:
