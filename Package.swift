@@ -14,12 +14,17 @@ let package = Package(
     .library(
       name: "RealityCheckConnect",
       targets: ["RealityCheckConnect"]
-    )
+    ),
+    .library(
+      name: "EntitiesNavigator_visionOS",
+      targets: ["EntitiesNavigator_visionOS"]
+    ),
   ],
   dependencies: [
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.3.0"),
     .package(url: "https://github.com/apple/swift-docc-symbolkit", branch: "main"),
-    .package(url: "https://github.com/apple/swift-syntax", "508.0.0"..<"510.0.0"),
+    .package(url: "https://github.com/apple/swift-syntax", "509.0.0"..<"511.0.0"),
+    .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "1.9.2"),
     .package(url: "https://github.com/pointfreeco/swift-custom-dump", from: "1.1.2"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.1.5"),
     .package(url: "https://github.com/devicekit/DeviceKit.git", exact: "5.1.0"),
@@ -42,6 +47,14 @@ let package = Package(
       dependencies: [
         "GenerateModelsExecutable",
         "ProcessSymbolsExecutable",
+      ]
+    ),
+    .target(
+      name: "EntitiesNavigator_visionOS",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        "Models",
+        "RealityCodable",
       ]
     ),
     .executableTarget(
