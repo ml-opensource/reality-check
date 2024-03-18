@@ -2,14 +2,18 @@ import ComposableArchitecture
 import Models
 import SwiftUI
 
-struct Inspector_visionOS: View {
+public struct Inspector_visionOS: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
 
   var entity: RealityPlatform.visionOS.Entity? {
     store.selectedEntity
   }
 
-  var body: some View {
+  public init(store: StoreOf<EntitiesNavigator_visionOS>) {
+    self.store = store
+  }
+
+  public var body: some View {
     if let entity {
       VStack(alignment: .leading, spacing: 0) {
         VStack(alignment: .leading) {

@@ -24,8 +24,7 @@ struct ContentView: View {
   var body: some View {
     HStack {
       EntitiesNavigatorView_visionOS(store: store)
-
-      Divider()
+      Inspector_visionOS(store: store)
 
       VStack {
         RealityView { content in
@@ -34,9 +33,25 @@ struct ContentView: View {
             content.add(scene)
 
             guard let root = content.root else { return }
-            let scene = RealityPlatform.visionOS.Scene(children: [root.encoded])
-            let entities = scene.children.map(\.value)
-            store.send(.refreshEntities(entities))
+            let scene = RealityPlatform.visionOS.Scene(
+              id: root.scene?.id ?? root.id,
+              children: [root.encoded]
+            )
+            store.send(.addScene(scene))
+          }
+        }
+        
+        RealityView { content in
+          // Add the initial RealityKit content
+          if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
+            content.add(scene)
+
+            guard let root = content.root else { return }
+            let scene = RealityPlatform.visionOS.Scene(
+              id: root.scene?.id ?? root.id,
+              children: [root.encoded]
+            )
+            store.send(.addScene(scene))
           }
         }
 

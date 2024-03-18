@@ -97,12 +97,15 @@ extension RealityPlatform.visionOS {
    └─────────┘    └─────────┘
    ```
   */
-  public struct Scene: Codable, Equatable {
+  public struct Scene: Codable, Equatable, Identifiable {
+    public let id: UInt64
     public let children: [RealityPlatform.visionOS.EntityType]
 
     public init(
+      id: UInt64,
       children: [RealityPlatform.visionOS.EntityType]
     ) {
+      self.id = id
       self.children = children
     }
   }

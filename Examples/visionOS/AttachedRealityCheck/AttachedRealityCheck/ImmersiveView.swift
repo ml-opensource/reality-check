@@ -22,9 +22,11 @@ struct ImmersiveView: View {
         content.add(scene)
 
         guard let root = content.root else { return }
-        let scene = RealityPlatform.visionOS.Scene(children: [root.encoded])
-        let entities = scene.children.map(\.value)
-        store.send(.refreshEntities(entities))
+        let scene = RealityPlatform.visionOS.Scene(
+          id: root.scene?.id ?? root.id,
+          children: [root.encoded]
+        )
+        store.send(.addScene(scene))
       }
     }
   }

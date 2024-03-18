@@ -54,7 +54,7 @@
 		<key>EntitiesNavigator_visionOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>7</integer>
 		</dict>
 		<key>ExtractSymbols.xcscheme_^#shared#^_</key>
 		<dict>
@@ -74,7 +74,7 @@
 		<key>GenerateModelsExecutable.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>8</integer>
+			<integer>5</integer>
 		</dict>
 		<key>Inspector_visionOS.xcscheme_^#shared#^_</key>
 		<dict>
@@ -94,7 +94,7 @@
 		<key>ProcessSymbolsExecutable.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>6</integer>
 		</dict>
 		<key>RealityCheck-Package.xcscheme_^#shared#^_</key>
 		<dict>
@@ -114,7 +114,7 @@
 		<key>RealityCheckConnect.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>9</integer>
 		</dict>
 		<key>RealityCheckConnect_visionOS.xcscheme_^#shared#^_</key>
 		<dict>
@@ -134,7 +134,7 @@
 		<key>RealityCodableTests.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>9</integer>
+			<integer>8</integer>
 		</dict>
 		<key>RealityDumpClient.xcscheme_^#shared#^_</key>
 		<dict>

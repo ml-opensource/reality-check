@@ -7,9 +7,18 @@ import SwiftUI
 @Reducer
 public struct EntitiesNavigator_visionOS {
   public init() {}
+
   @ObservableState
   public struct State: Equatable {
-    public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
+    public var entities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity> {
+      var entities: [RealityPlatform.visionOS.Entity] = []
+      for scene in scenes {
+        let children = scene.children.map(\.value)
+        entities.append(contentsOf: children)
+      }
+      return .init(uniqueElements: entities)
+    }
+    public var scenes: IdentifiedArrayOf<RealityPlatform.visionOS.Scene> = []
     // public var filteredEntities: IdentifiedArrayOf<RealityPlatform.visionOS.Entity>
     public var dumpOutput: String
     // var searchQuery = ""
@@ -29,7 +38,7 @@ public struct EntitiesNavigator_visionOS {
       _ entities: [RealityPlatform.visionOS.Entity],
       selection: RealityPlatform.visionOS.Entity.ID? = nil
     ) {
-      self.entities = .init(uniqueElements: entities)
+      //self.entities = .init(uniqueElements: entities)
       // self.filteredEntities = .init(uniqueElements: entities)
       self.selection = selection ?? entities.first?.id
       self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
@@ -37,6 +46,7 @@ public struct EntitiesNavigator_visionOS {
   }
 
   public enum Action: BindableAction, Equatable {
+    case addScene(RealityPlatform.visionOS.Scene)
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
@@ -60,6 +70,10 @@ public struct EntitiesNavigator_visionOS {
         //   }
         //   return .none
 
+        case let .addScene(scene):
+          state.scenes.append(scene)
+          return .none
+
         case .binding(\.selection):
           if let entity = state.selectedEntity {
             return .send(.delegate(.didSelectEntity(entity.id)))
@@ -78,10 +92,11 @@ public struct EntitiesNavigator_visionOS {
           return .none
 
         case .refreshEntities(let entities):
-          state.entities = .init(uniqueElements: entities)
+          //state.entities = .init(uniqueElements: entities)
           guard let previousSelection = state.selection else { return .none }
           state.selection = nil
           return .send(.binding(.set(\.selection, previousSelection)))
+
       //FIXME: crash
       // case .searchQueryChangeDebounced:
       //   guard !state.searchQuery.isEmpty, state.searchQuery.count > 1 else {
@@ -132,7 +147,7 @@ public struct EntitiesNavigatorView_visionOS: View {
       }
       //FIXME: not available on visionOS // .collapsible(false)
     }
-    .listStyle(.sidebar)
+//    .listStyle(.sidebar)
     //FIXME: Search binding crashes: *** -[NSBigMutableString substringWithRange:]: Range {0, 1} out of bounds; string length 0
     // .searchable(text: $store.searchQuery, placement: .sidebar, prompt: "Search Entities")
     // .task(id: store.searchQuery) {
