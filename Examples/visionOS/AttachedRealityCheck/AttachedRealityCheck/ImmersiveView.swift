@@ -20,13 +20,7 @@ struct ImmersiveView: View {
       // Add the initial RealityKit content
       if let scene = try? await Entity(named: "Immersive", in: realityKitContentBundle) {
         content.add(scene)
-
-        guard let root = content.root else { return }
-        let scene = RealityPlatform.visionOS.Scene(
-          id: root.scene?.id ?? root.id,
-          children: [root.encoded]
-        )
-        store.send(.addScene(scene))
+        content._realityCheck(store: store)
       }
     }
   }

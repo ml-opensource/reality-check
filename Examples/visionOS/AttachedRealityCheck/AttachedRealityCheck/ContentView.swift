@@ -12,6 +12,17 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
+extension RealityViewContent {
+  func _realityCheck(store: StoreOf<EntitiesNavigator_visionOS>) {
+    guard let root = self.root else { return }
+    let scene = RealityPlatform.visionOS.Scene(
+      id: root.scene?.id ?? root.id,
+      children: [root.encoded]
+    )
+    store.send(.addScene(scene))
+  }
+}
+
 struct ContentView: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
 
@@ -31,27 +42,7 @@ struct ContentView: View {
           // Add the initial RealityKit content
           if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
             content.add(scene)
-
-            guard let root = content.root else { return }
-            let scene = RealityPlatform.visionOS.Scene(
-              id: root.scene?.id ?? root.id,
-              children: [root.encoded]
-            )
-            store.send(.addScene(scene))
-          }
-        }
-        
-        RealityView { content in
-          // Add the initial RealityKit content
-          if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
-            content.add(scene)
-
-            guard let root = content.root else { return }
-            let scene = RealityPlatform.visionOS.Scene(
-              id: root.scene?.id ?? root.id,
-              children: [root.encoded]
-            )
-            store.send(.addScene(scene))
+            content._realityCheck(store: store)
           }
         }
 

@@ -35,12 +35,13 @@ public struct EntitiesNavigator_visionOS {
     }
 
     public init(
-      _ entities: [RealityPlatform.visionOS.Entity],
+      // _ entities: [RealityPlatform.visionOS.Entity],
       selection: RealityPlatform.visionOS.Entity.ID? = nil
     ) {
-      //self.entities = .init(uniqueElements: entities)
+      // self.entities = .init(uniqueElements: entities)
       // self.filteredEntities = .init(uniqueElements: entities)
-      self.selection = selection ?? entities.first?.id
+      // self.selection = selection ?? entities.first?.id
+      self.selection = selection
       self.dumpOutput = "⚠️ Dump output not received. Check the connection state."
     }
   }
@@ -50,7 +51,7 @@ public struct EntitiesNavigator_visionOS {
     case binding(BindingAction<State>)
     case delegate(DelegateAction)
     case dumpOutput(String)
-    case refreshEntities([RealityPlatform.visionOS.Entity])
+    // case refreshEntities([RealityPlatform.visionOS.Entity])
     // case searchQueryChangeDebounced
   }
 
@@ -91,11 +92,11 @@ public struct EntitiesNavigator_visionOS {
           state.dumpOutput = output
           return .none
 
-        case .refreshEntities(let entities):
-          //state.entities = .init(uniqueElements: entities)
-          guard let previousSelection = state.selection else { return .none }
-          state.selection = nil
-          return .send(.binding(.set(\.selection, previousSelection)))
+      // case .refreshEntities(let entities):
+      //   //state.entities = .init(uniqueElements: entities)
+      //   guard let previousSelection = state.selection else { return .none }
+      //   state.selection = nil
+      //   return .send(.binding(.set(\.selection, previousSelection)))
 
       //FIXME: crash
       // case .searchQueryChangeDebounced:
@@ -145,9 +146,10 @@ public struct EntitiesNavigatorView_visionOS: View {
           // FIXME: .help(entity.entityType.help)
         }
       }
+
       //FIXME: not available on visionOS // .collapsible(false)
     }
-//    .listStyle(.sidebar)
+    // .listStyle(.sidebar)
     //FIXME: Search binding crashes: *** -[NSBigMutableString substringWithRange:]: Range {0, 1} out of bounds; string length 0
     // .searchable(text: $store.searchQuery, placement: .sidebar, prompt: "Search Entities")
     // .task(id: store.searchQuery) {

@@ -11,7 +11,7 @@ import SwiftUI
 
 @main
 struct AttachedRealityCheckApp: App {
-  let store = Store(initialState: EntitiesNavigator_visionOS.State([])) {
+  let store = Store(initialState: EntitiesNavigator_visionOS.State()) {
     EntitiesNavigator_visionOS()
   }
 
