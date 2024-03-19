@@ -12,17 +12,6 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
-extension RealityViewContent {
-  func _realityCheck(store: StoreOf<EntitiesNavigator_visionOS>) {
-    guard let root = self.root else { return }
-    let scene = RealityPlatform.visionOS.Scene(
-      id: root.scene?.id ?? root.id,
-      children: [root.encoded]
-    )
-    store.send(.addScene(scene))
-  }
-}
-
 struct ImmersiveView: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
 
@@ -35,21 +24,14 @@ struct ImmersiveView: View {
       }
 
       if let realityCheckEntity = attachments.entity(for: "RealityCheck") {
-        realityCheckEntity.position.y = 1.5
-        realityCheckEntity.position.z = -1
+        realityCheckEntity.position.y = 1
+        realityCheckEntity.position.z = -1.5
         content.add(realityCheckEntity)
       }
     } attachments: {
       Attachment(id: "RealityCheck") {
-        NavigationSplitView {
-          EntitiesNavigatorView_visionOS(store: store)
-            .navigationTitle("RealityCheck")
-        } detail: {
-          Inspector_visionOS(store: store)
-        }
-        .frame(maxWidth: 800, maxHeight: 600)
-        .background(Color.purple.opacity(0.1).clipShape(.rect(cornerRadius: 46)))
-        .tint(.purple)
+        InlineRealityCheckView(store: store)
+          .frame(maxWidth: 1000, maxHeight: 600)
       }
     }
   }
