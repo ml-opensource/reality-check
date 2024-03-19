@@ -19,6 +19,8 @@ struct AttachedRealityCheckApp: App {
     WindowGroup {
       ContentView()
     }
+    
+    RealityCheckWindow(store: store)
 
     ImmersiveSpace(id: "ImmersiveSpace") {
       ImmersiveView(store: store)

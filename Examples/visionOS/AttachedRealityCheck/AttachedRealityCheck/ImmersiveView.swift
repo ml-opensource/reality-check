@@ -14,6 +14,7 @@ import SwiftUI
 
 struct ImmersiveView: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
+  // @Environment(\.openWindow) var openWindow
 
   var body: some View {
     RealityView { content, attachments in
@@ -34,5 +35,8 @@ struct ImmersiveView: View {
           .frame(maxWidth: 1000, maxHeight: 600)
       }
     }
+    // .task {
+    //   openWindow(id: "RealityCheckWindow")
+    // }
   }
 }
