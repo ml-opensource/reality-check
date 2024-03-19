@@ -15,141 +15,107 @@ public struct Inspector_visionOS: View {
 
   public var body: some View {
     if let entity {
-      VStack(alignment: .leading, spacing: 0) {
-        VStack(alignment: .leading) {
-          Label(
-            entity.computedName,
-            systemImage: entity.systemImage
+      Form {
+        LabeledContent(
+          "ID",
+          value: entity.id.description
+        )
+
+        Section {
+          LabeledContent(
+            "isAccessibilityElement",
+            value: entity.isAccessibilityElement ? "YES" : "NO"
           )
-          .font(.headline)
 
-          Section {
+          if let accessibilityLabel = entity.accessibilityLabel {
             LabeledContent(
-              "id:",
-              value: entity.id.description
+              "accessibilityLabel",
+              value: accessibilityLabel
             )
           }
+          if let accessibilityDescription = entity.accessibilityDescription {
+            LabeledContent(
+              "accessibilityDescription",
+              value: accessibilityDescription
+            )
+          }
+        } header: {
+          Label("Accessibility", systemImage: "accessibility")
         }
-        .padding()
+        .accessibilityLabel("Accessibility")
 
-        Divider()
+        //FIXME:
+        // if !entity.availableAnimations.isEmpty {
+        //   Section("Animation") {
+        //     DisclosureGroup("availableAnimations") {
+        //       Text(String(customDumping: entity.availableAnimations)) //FIXME: move custom dumping from this level
+        //         .monospaced()
+        //         .textSelection(.enabled)
+        //     }
+        //   }
+        // }
 
-        Form {
-          Section("􀕾 Accessibility") {
-            LabeledContent(
-              "isAccessibilityElement",
-              content: {
-                Toggle("isAccessibilityElement", isOn: .constant(entity.isAccessibilityElement))
-                  .labelsHidden()
-                  .disabled(true)
-              }
-            )
+        Section {
+          LabeledContent("isActive", value: entity.isActive ? "YES" : "NO")
+          LabeledContent("isAnchored", value: entity.isAnchored ? "YES" : "NO")
+          LabeledContent("isEnabled", value: entity.isEnabled ? "YES" : "NO")
+          LabeledContent("isEnabledInHierarchy", value: entity.isEnabledInHierarchy ? "YES" : "NO")
+          LabeledContent("isOwner", value: entity.isOwner ? "YES" : "NO")
+        } header: {
+          Label(
+            "State",
+            systemImage: "slider.horizontal.2.rectangle.and.arrow.triangle.2.circlepath"
+          )
+        }
 
-            if let accessibilityLabel = entity.accessibilityLabel {
-              LabeledContent(
-                "accessibilityLabel",
-                value: accessibilityLabel
-              )
-            }
-            if let accessibilityDescription = entity.accessibilityDescription {
-              LabeledContent(
-                "accessibilityDescription",
-                value: accessibilityDescription
-              )
-            }
-          }
-          .accessibilityLabel("Accessibility")
-
-          //FIXME:
-          // if !entity.availableAnimations.isEmpty {
-          //   Section("Animation") {
-          //     DisclosureGroup("availableAnimations") {
-          //       Text(String(customDumping: entity.availableAnimations)) //FIXME: move custom dumping from this level
-          //         .monospaced()
-          //         .textSelection(.enabled)
-          //     }
-          //   }
-          // }
-
-          Section("􀊞 State") {
+        Section {
+          if let parentID = entity.parentID {
             LabeledContent(
-              "isActive",
+              "parent",
               content: {
-                Toggle("isActive", isOn: .constant(entity.isAnchored)).labelsHidden().disabled(true)
-              }
-            )
-            LabeledContent(
-              "isAnchored",
-              content: {
-                Toggle("isAnchored", isOn: .constant(entity.isAnchored)).labelsHidden()
-                  .disabled(true)
-              }
-            )
-            LabeledContent(
-              "isEnabled",
-              content: {
-                Toggle("isEnabled", isOn: .constant(entity.isEnabled)).labelsHidden().disabled(true)
-              }
-            )
-            LabeledContent(
-              "isEnabledInHierarchy",
-              content: {
-                Toggle("isEnabledInHierarchy", isOn: .constant(entity.isEnabledInHierarchy))
-                  .labelsHidden().disabled(true)
-              }
-            )
-            LabeledContent(
-              "isOwner",
-              content: {
-                Toggle("isOwner", isOn: .constant(entity.isOwner)).labelsHidden().disabled(true)
+                Button(
+                  parentID.description,
+                  systemImage: "arrow.up.backward",
+                  action: { store.selection = parentID }
+                )
+                .symbolVariant(.square.fill)
+                .help(
+                  """
+                  Click to select the parent.
+                  ID: \(parentID.description)
+                  """
+                )
+                .padding(1)
               }
             )
           }
 
-          Section("􁀘 Hierarhy") {
-            if let parentID = entity.parentID {
-              LabeledContent(
-                "parent",
-                content: {
-                  Button(
-                    parentID.description,
-                    systemImage: "arrow.up.backward",
-                    action: { store.selection = parentID }
-                  )
-                  .symbolVariant(.square.fill)
-                  .help(
-                    """
-                    Click to select the parent.
-                    ID: \(parentID.description)
-                    """
-                  )
-                  .padding(1)
-                }
-              )
-            }
-
-            if let children = entity.childrenOptional {
-              LabeledContent(
-                "children count",
-                value: "\(children.count)"
-              )
-            }
+          if let children = entity.childrenOptional {
+            LabeledContent(
+              "children count",
+              value: "\(children.count)"
+            )
           }
+        } header: {
+          Label("Hierarhy", systemImage: "app.connected.to.app.below.fill")
+        }
 
-          Section("􁏮 Components") {
-            ForEach(Array(entity.components), id: \.self) { component in
-              if let reflectedDescription = component.reflectedDescription {
-                GroupBox {
-                  Text(reflectedDescription)
-                    .padding(8)
-                }
+        Section {
+          ForEach(Array(entity.components), id: \.self) { component in
+            if let reflectedDescription = component.reflectedDescription {
+              Text(reflectedDescription)
+                .monospaced()
+                .padding(8)
                 .help(component.comment ?? "")
-              }
             }
           }
+        } header: {
+          Label("Components", systemImage: "switch.programmable")
         }
       }
       .textSelection(.enabled)
+      .navigationTitle(entity.computedName)
+      .listStyle(.plain)
     }
   }
 }

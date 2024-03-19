@@ -5,73 +5,53 @@
 //  Created by Cristian Díaz Peredo on 18.03.24.
 //
 
-import ComposableArchitecture
-import EntitiesNavigator_visionOS
-import Models
+import SwiftUI
 import RealityKit
 import RealityKitContent
-import SwiftUI
-
-extension RealityViewContent {
-  func _realityCheck(store: StoreOf<EntitiesNavigator_visionOS>) {
-    guard let root = self.root else { return }
-    let scene = RealityPlatform.visionOS.Scene(
-      id: root.scene?.id ?? root.id,
-      children: [root.encoded]
-    )
-    store.send(.addScene(scene))
-  }
-}
 
 struct ContentView: View {
-  let store: StoreOf<EntitiesNavigator_visionOS>
 
-  @State private var showImmersiveSpace = false
-  @State private var immersiveSpaceIsShown = false
+    @State private var showImmersiveSpace = false
+    @State private var immersiveSpaceIsShown = false
 
-  @Environment(\.openImmersiveSpace) var openImmersiveSpace
-  @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
+    @Environment(\.openImmersiveSpace) var openImmersiveSpace
+    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
 
-  var body: some View {
-    HStack {
-      EntitiesNavigatorView_visionOS(store: store)
-      Inspector_visionOS(store: store)
+    var body: some View {
+        VStack {
+            Model3D(named: "Scene", bundle: realityKitContentBundle)
+                .padding(.bottom, 50)
 
-      VStack {
-        RealityView { content in
-          // Add the initial RealityKit content
-          if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
-            content.add(scene)
-            content._realityCheck(store: store)
-          }
+            Text("Hello, world!")
+
+            Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
+                .font(.title)
+                .frame(width: 360)
+                .padding(24)
+                .glassBackgroundEffect()
         }
-
-        Toggle("Show ImmersiveSpace", isOn: $showImmersiveSpace)
-          .font(.title)
-          .frame(width: 360)
-          .padding(24)
-          .glassBackgroundEffect()
-      }
-      .padding(.bottom, 50)
-    }
-    .padding()
-    .onChange(of: showImmersiveSpace) { _, newValue in
-      Task {
-        if newValue {
-          switch await openImmersiveSpace(id: "ImmersiveSpace") {
-            case .opened:
-              immersiveSpaceIsShown = true
-            case .error, .userCancelled:
-              fallthrough
-            @unknown default:
-              immersiveSpaceIsShown = false
-              showImmersiveSpace = false
-          }
-        } else if immersiveSpaceIsShown {
-          await dismissImmersiveSpace()
-          immersiveSpaceIsShown = false
+        .padding()
+        .onChange(of: showImmersiveSpace) { _, newValue in
+            Task {
+                if newValue {
+                    switch await openImmersiveSpace(id: "ImmersiveSpace") {
+                    case .opened:
+                        immersiveSpaceIsShown = true
+                    case .error, .userCancelled:
+                        fallthrough
+                    @unknown default:
+                        immersiveSpaceIsShown = false
+                        showImmersiveSpace = false
+                    }
+                } else if immersiveSpaceIsShown {
+                    await dismissImmersiveSpace()
+                    immersiveSpaceIsShown = false
+                }
+            }
         }
-      }
     }
-  }
+}
+
+#Preview(windowStyle: .automatic) {
+    ContentView()
 }

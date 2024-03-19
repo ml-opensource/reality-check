@@ -138,9 +138,10 @@ public struct EntitiesNavigatorView_visionOS: View {
         ) { entity in
           Label(
             entity.computedName,
-            systemImage: entity.parentID == nil
-              ? "uiwindow.split.2x1"
-              : entity.systemImage
+            systemImage: entity.systemImage
+              // systemImage: entity.parentID == nil
+              //   ? "uiwindow.split.2x1"
+              //   : entity.systemImage
           )
           .accessibilityLabel(entity._accessibilityLabel)
           // FIXME: .help(entity.entityType.help)
@@ -149,6 +150,7 @@ public struct EntitiesNavigatorView_visionOS: View {
 
       //FIXME: not available on visionOS // .collapsible(false)
     }
+
     // .listStyle(.sidebar)
     //FIXME: Search binding crashes: *** -[NSBigMutableString substringWithRange:]: Range {0, 1} out of bounds; string length 0
     // .searchable(text: $store.searchQuery, placement: .sidebar, prompt: "Search Entities")

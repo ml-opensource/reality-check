@@ -17,7 +17,7 @@ struct AttachedRealityCheckApp: App {
 
   var body: some Scene {
     WindowGroup {
-      ContentView(store: store)
+      ContentView()
     }
 
     ImmersiveSpace(id: "ImmersiveSpace") {
