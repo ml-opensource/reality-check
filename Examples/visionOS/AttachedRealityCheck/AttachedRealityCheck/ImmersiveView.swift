@@ -14,7 +14,7 @@ import SwiftUI
 
 struct ImmersiveView: View {
   let store: StoreOf<EntitiesNavigator_visionOS>
-  // @Environment(\.openWindow) var openWindow
+   @Environment(\.openWindow) var openWindow
 
   var body: some View {
     RealityView { content, attachments in
@@ -24,19 +24,19 @@ struct ImmersiveView: View {
         content._realityCheck(store: store)
       }
 
-      if let realityCheckEntity = attachments.entity(for: "RealityCheck") {
-        realityCheckEntity.position.y = 1
-        realityCheckEntity.position.z = -1.5
-        content.add(realityCheckEntity)
-      }
+//      if let realityCheckEntity = attachments.entity(for: "RealityCheck") {
+//        realityCheckEntity.position.y = 1
+//        realityCheckEntity.position.z = -1.5
+//        content.add(realityCheckEntity)
+//      }
     } attachments: {
       Attachment(id: "RealityCheck") {
         InlineRealityCheckView(store: store)
           .frame(maxWidth: 1000, maxHeight: 600)
       }
     }
-    // .task {
-    //   openWindow(id: "RealityCheckWindow")
-    // }
+     .task {
+       openWindow(id: "RealityCheckWindow")
+     }
   }
 }

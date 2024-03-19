@@ -14,7 +14,7 @@ public struct InlineRealityCheckView: View {
   public init(store: StoreOf<EntitiesNavigator_visionOS>) {
     self.store = store
   }
-  
+
   public var body: some View {
     NavigationSplitView {
       EntitiesNavigatorView_visionOS(store: store)

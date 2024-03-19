@@ -19,5 +19,6 @@ public struct RealityCheckWindow: Scene {
     WindowGroup(id: "RealityCheckWindow") {
       InlineRealityCheckView(store: store)
     }
+    .defaultSize(width: 1000, height: 600)
   }
 }
